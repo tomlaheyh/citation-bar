@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PubMed Summary Report</title>
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/pubmed-summary/pubmed-summary.html">
+<meta name="description" content="How PubMed, PubMed Central and MEDLINE overlap, year by year: article totals, MEDLINE share, preprints, retractions, corrections, free full text and ORCID coverage. Free, with CSV export.">
+<meta name="author" content="PubMed Citation Bar">
+<meta name="theme-color" content="#005a8c">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="PubMed Citation Bar">
+<meta property="og:title" content="PubMed Summary Report">
+<meta property="og:description" content="How PubMed, PubMed Central and MEDLINE overlap, year by year: article totals, MEDLINE share, preprints, retractions, corrections, free full text and ORCID coverage. Free, with CSV export.">
+<meta property="og:url" content="https://tomlaheyh.github.io/citation-bar/pubmed-summary/pubmed-summary.html">
+<link rel="icon" href="../assets/icon128.png" type="image/png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #d0d5dd;
+    --text: #1a1a2e;
+    --text-muted: #64748b;
+    --accent: #1e40af;
+    --accent-light: #dbeafe;
+    --section-bg: #f1f5f9;
+    --green: #16a34a;
+    --red: #dc2626;
+    --medline: #4472C4;
+    --inprocess: #ED7D31;
+    --publisher: #A5A5A5;
+    --pubmednotmedline: #FFC000;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px 20px;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 20px 0;
+    margin-bottom: 24px;
+  }
+
+  header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    display: inline-block;
+  }
+
+  .status-dot.updating { background: var(--accent); animation: pulse 1.2s infinite; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .btn {
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn:hover { background: var(--accent-light); border-color: var(--accent); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .note-bar {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .progress-bar-container {
+    width: 100%;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: none;
+  }
+
+  .progress-bar-container.active { display: block; }
+
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s;
+    width: 0%;
+  }
+
+  /* Table */
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow-x: auto;
+    margin-bottom: 24px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    min-width: 700px;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 12px;
+    text-align: right;
+    white-space: nowrap;
+    z-index: 2;
+  }
+
+  thead th:first-child {
+    text-align: left;
+    min-width: 260px;
+  }
+
+  thead th:last-child {
+    background: #163380;
+  }
+
+  tbody td {
+    padding: 7px 12px;
+    text-align: right;
+    border-bottom: 1px solid #eef0f4;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+  }
+
+  tbody td:first-child {
+    text-align: left;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  tbody tr:hover { background: #f7f9fc; }
+
+  tr.section-header td {
+    background: var(--section-bg);
+    font-weight: 700;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.82rem;
+    color: var(--accent);
+    border-bottom: 2px solid var(--border);
+    padding: 10px 12px;
+  }
+
+  tr.pct-row td {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  tr.total-row td {
+    font-weight: 700;
+    background: #fafbfd;
+    border-bottom: 2px solid var(--border);
+  }
+
+  td.loading-cell {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  tbody td:first-child a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--text-muted);
+  }
+
+  tbody td:first-child a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    border-bottom-style: solid;
+  }
+
+  /* Chart */
+  .chart-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .chart-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+
+  .chart-area {
+    position: relative;
+    width: 100%;
+    height: 340px;
+  }
+
+  .chart-area canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .chart-legend {
+    display: flex;
+    gap: 20px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+  }
+
+  .legend-swatch {
+    width: 14px; height: 14px;
+    border-radius: 3px;
+  }
+
+  .footnote {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+    line-height: 1.6;
+  }
+
+  .venn-area {
+    position: relative;
+    width: 100%;
+    height: 480px;
+  }
+
+  .venn-area canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+</style>
+</head>
+<body>
+<script src="../siteNav.js"></script>
+
+<div class="container" style="padding-top:12px">
+  <div style="display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap">
+    <span class="status-dot" id="statusDot"></span>
+    <span style="font-size:0.82rem;color:var(--text-muted)" id="statusText">Loading...</span>
+    <span style="font-size:0.82rem;color:var(--text-muted)" id="reportPeriod"></span>
+    <button class="btn" id="refreshBtn" onclick="forceRefresh()" disabled>Force Refresh</button>
+    <button class="btn" id="exportBtn" onclick="exportCSV()" disabled>Export CSV</button>
+  </div>
+  <div class="note-bar" id="noteBar" style="margin-bottom:12px"></div>
+  <div class="progress-bar-container" id="progressContainer">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr id="tableHead"></tr></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="chart-container">
+    <div class="chart-title" id="chartTitle">PubMed Summary</div>
+    <div class="chart-area"><canvas id="chartCanvas"></canvas></div>
+    <div class="chart-legend" id="chartLegend"></div>
+  </div>
+
+  <div class="chart-container">
+    <div class="chart-title" id="vennTitle">PubMed / PMC / Medline Overlap</div>
+    <div class="venn-area" id="vennArea">
+      <canvas id="vennCanvas"></canvas>
+    </div>
+  </div>
+
+  <div class="footnote" id="footnote"></div>
+</div>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────────────────
+let CONFIG = null;
+const CACHE_KEY = 'pubmed_report_cache';
+const EUTILS_BASE = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi';
+
+// ─── FRAME MODEL ──────────────────────────────────────────────────
+// A "frame" is the single source of truth for which columns/timeframe
+// are shown. It is built EITHER from the data file (server CSV) OR from
+// the clock (a live Force Refresh) — never a mix — so a column's label
+// can never drift away from the data sitting under it.
+//   frame = {
+//     years:    [Number]    // year keys used to look up counts
+//     labels:   [String]    // parallel display labels (last may be "May YTD")
+//     ytdYear:  Number|null // which year is the YTD column (null = none)
+//     ytdRange: String|null // PubMed date range for the YTD term/link
+//   }
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+// PubMed date range "YYYY/01/01:YYYY/MM/DD" ending at the last day of
+// monthIdx (0-based) in `year`.
+function ytdRangeFor(year, monthIdx) {
+  const lastDay = new Date(year, monthIdx + 1, 0).getDate();
+  const mm = String(monthIdx + 1).padStart(2, '0');
+  const dd = String(lastDay).padStart(2, '0');
+  return `${year}/01/01:${year}/${mm}/${dd}`;
+}
+
+// "Apr YTD" → 3 (0-based month index); -1 if unparseable.
+function ytdMonthIdx(label) {
+  const t = String(label).trim().slice(0, 3).toLowerCase();
+  return MONTHS.findIndex(mo => mo.toLowerCase() === t);
+}
+
+// Clock frame — used ONLY for a live fetch / Force Refresh.
+// Always 6 full years. A current-year YTD column is added ONLY when at
+// least one month of the current year is complete; in January there is
+// no complete month yet, so no current-year column appears at all. The
+// YTD range always ends at the last fully complete month.
+function buildClockFrame() {
+  const now = new Date();
+  const cy = now.getFullYear();
+  const m = now.getMonth(); // 0-11 = current (incomplete) month
+  const years = [], labels = [];
+  for (let y = cy - 6; y <= cy - 1; y++) { years.push(y); labels.push(String(y)); }
+  let ytdYear = null, ytdRange = null;
+  if (m >= 1) {
+    const lastCompleteIdx = m - 1; // last fully complete month, 0-based
+    ytdYear = cy;
+    ytdRange = ytdRangeFor(cy, lastCompleteIdx);
+    years.push(cy);
+    labels.push(`${MONTHS[lastCompleteIdx]} YTD`);
+  }
+  return { years, labels, ytdYear, ytdRange };
+}
+
+// Substitute {year} in a query term. For the YTD column we use the
+// frame's explicit date range so the live query — and the row link —
+// match the label exactly. All other columns use the plain year.
+function buildTerm(template, year, frame) {
+  if (frame && frame.ytdYear === year && frame.ytdRange) {
+    return template.replace('{year}', frame.ytdRange);
+  }
+  return template.replace('{year}', String(year));
+}
+
+// Human-readable period for the header, derived from the active frame.
+function describeFrame(frame) {
+  const first = frame.years[0];
+  if (!frame.ytdYear) return `${first}–${frame.years[frame.years.length - 1]}`;
+  const last = frame.labels[frame.labels.length - 1].replace(' YTD', '');
+  return `${first}–${frame.ytdYear} (through ${last} ${frame.ytdYear})`;
+}
+
+// ─── CACHE ────────────────────────────────────────────────────────
+function getCache() {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+function setCache(data) {
+  data.timestamp = new Date().toISOString();
+  localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+}
+
+function shouldRefresh(cache) {
+  if (!cache || !cache.timestamp) return true;
+  const now = new Date();
+  const cached = new Date(cache.timestamp);
+  const refreshDay = CONFIG ? CONFIG.refreshDayOfMonth : 10;
+
+  // Different month than cache
+  if (now.getMonth() !== cached.getMonth() || now.getFullYear() !== cached.getFullYear()) {
+    // Past the refresh day of the new month
+    if (now.getDate() >= refreshDay) return true;
+  }
+
+  // Cache is from a different year range than the clock would now produce
+  const currentFirst = buildClockFrame().years[0];
+  const cacheFirst = cache.frame ? cache.frame.years[0] : null;
+  if (cacheFirst !== null && cacheFirst !== currentFirst) return true;
+
+  return false;
+}
+
+// ─── NCBI FETCH ───────────────────────────────────────────────────
+async function fetchCount(db, term) {
+  const url = `${EUTILS_BASE}?db=${db}&rettype=count&term=${encodeURIComponent(term)}`;
+
+  for (let attempt = 1; attempt <= 5; attempt++) {
+    try {
+      const resp = await fetch(url);
+      const text = await resp.text();
+      const match = text.match(/<Count>(\d+)<\/Count>/);
+      if (match) return parseInt(match[1]);
+    } catch (e) { /* retry */ }
+    await sleep(3000 * attempt);
+  }
+  return null; // failed after 5 retries
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function fetchAllData(counts, frame, onProgress) {
+  const years = frame.years;
+  const rows = CONFIG.rows.filter(r => r.type === 'count');
+  const totalQueries = rows.length * years.length;
+  let completed = 0;
+
+  for (const row of rows) {
+    counts[row.id] = counts[row.id] || {};
+    for (const year of years) {
+      const term = buildTerm(row.term, year, frame);
+      const count = await fetchCount(row.db, term);
+      counts[row.id][year] = count;
+      completed++;
+      if (onProgress) onProgress(completed, totalQueries);
+      await sleep(800);
+    }
+  }
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────
+function formatNumber(n) {
+  if (n === null || n === undefined) return '—';
+  return n.toLocaleString('en-US');
+}
+
+function formatPercent(n) {
+  if (n === null || n === undefined) return '—';
+  return n.toFixed(1) + '%';
+}
+
+function getComputedValue(row, year, counts) {
+  if (row.type === 'count') return counts[row.id] ? counts[row.id][year] : null;
+  if (row.type === 'percent') {
+    const num = counts[row.numerator] ? counts[row.numerator][year] : null;
+    const den = counts[row.denominator] ? counts[row.denominator][year] : null;
+    if (num === null || den === null || den === 0) return null;
+    return (num / den) * 100;
+  }
+  return null;
+}
+
+function renderTable(frame, counts) {
+  const head = document.getElementById('tableHead');
+  const body = document.getElementById('tableBody');
+  const years = frame.years;
+
+  // Header — labels come straight from the frame (data-owned)
+  head.innerHTML = '<th></th>';
+  frame.labels.forEach(label => {
+    const th = document.createElement('th');
+    th.textContent = label;
+    head.appendChild(th);
+  });
+
+  body.innerHTML = '';
+
+  const sectionLabels = {
+    core: '',
+    pmc: 'PubMed Central',
+    topics: 'Topics & Subjects',
+    filters: 'Clinical Filters',
+    topic_pcts: 'Topic Percentages (of total)',
+    filter_pcts: 'Filter Percentages (of total)'
+  };
+
+  let lastSection = '';
+
+  for (const row of CONFIG.rows) {
+    // Section header
+    if (row.section !== lastSection && sectionLabels[row.section]) {
+      const sectionTr = document.createElement('tr');
+      sectionTr.className = 'section-header';
+      sectionTr.innerHTML = `<td colspan="${years.length + 1}">${sectionLabels[row.section]}</td>`;
+      body.appendChild(sectionTr);
+      lastSection = row.section;
+    }
+    if (row.section !== lastSection) lastSection = row.section;
+
+    const tr = document.createElement('tr');
+    if (row.type === 'percent') tr.className = 'pct-row';
+    if (row.id === 'total') tr.className = 'total-row';
+
+    const labelTd = document.createElement('td');
+    if (row.type === 'count' && row.term) {
+      // Link opens the LAST column's results in PubMed. buildTerm uses the
+      // frame's YTD range when that column is the YTD year, so the link
+      // matches the displayed label (and falls back to a plain year
+      // otherwise, e.g. in January when there is no YTD column).
+      const lastYear = years[years.length - 1];
+      const term = buildTerm(row.term, lastYear, frame);
+      const pubmedUrl = 'https://pubmed.ncbi.nlm.nih.gov/?term=' + encodeURIComponent(term);
+      const link = document.createElement('a');
+      link.href = pubmedUrl;
+      link.target = '_blank';
+      link.title = 'Click to open latest-column results in PubMed';
+      link.textContent = row.label;
+      labelTd.appendChild(link);
+    } else {
+      labelTd.textContent = row.label;
+    }
+    tr.appendChild(labelTd);
+
+    years.forEach(y => {
+      const td = document.createElement('td');
+      const val = getComputedValue(row, y, counts);
+      td.textContent = row.type === 'percent' ? formatPercent(val) : formatNumber(val);
+      if (val === null) td.className = 'loading-cell';
+      tr.appendChild(td);
+    });
+
+    body.appendChild(tr);
+  }
+}
+
+function renderChart(frame, counts) {
+  const canvas = document.getElementById('chartCanvas');
+  const ctx = canvas.getContext('2d');
+  const legend = document.getElementById('chartLegend');
+  const series = CONFIG.chart.series;
+  const years = frame.years;
+
+  // Dimensions
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+  const W = rect.width;
+  const H = rect.height;
+
+  const pad = { top: 20, right: 20, bottom: 40, left: 80 };
+  const plotW = W - pad.left - pad.right;
+  const plotH = H - pad.top - pad.bottom;
+
+  // Compute stacked totals for scale
+  let maxStack = 0;
+  years.forEach(y => {
+    let stack = 0;
+    series.forEach(s => { stack += (counts[s.id] && counts[s.id][y]) || 0; });
+    if (stack > maxStack) maxStack = stack;
+  });
+
+  maxStack = Math.ceil(maxStack / 200000) * 200000;
+  if (maxStack === 0) maxStack = 1000000;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Grid lines
+  const gridLines = 5;
+  ctx.strokeStyle = '#e5e7eb';
+  ctx.lineWidth = 1;
+  ctx.font = '11px Source Sans 3, sans-serif';
+  ctx.fillStyle = '#64748b';
+  ctx.textAlign = 'right';
+
+  for (let i = 0; i <= gridLines; i++) {
+    const val = (maxStack / gridLines) * i;
+    const y = pad.top + plotH - (plotH * (val / maxStack));
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(W - pad.right, y);
+    ctx.stroke();
+    ctx.fillText(formatNumber(Math.round(val)), pad.left - 8, y + 4);
+  }
+
+  // Bars
+  const barGroupW = plotW / years.length;
+  const barW = barGroupW * 0.6;
+  const barGap = (barGroupW - barW) / 2;
+
+  years.forEach((yr, yi) => {
+    let stackY = 0;
+    series.forEach(s => {
+      const val = (counts[s.id] && counts[s.id][yr]) || 0;
+      const barH = (val / maxStack) * plotH;
+      const x = pad.left + yi * barGroupW + barGap;
+      const y = pad.top + plotH - stackY - barH;
+
+      ctx.fillStyle = s.color;
+      ctx.fillRect(x, y, barW, barH);
+      stackY += barH;
+    });
+
+    // X label — from the frame, so it matches the data
+    ctx.fillStyle = '#64748b';
+    ctx.textAlign = 'center';
+    ctx.font = '12px Source Sans 3, sans-serif';
+    const label = frame.labels[yi];
+    ctx.fillText(label, pad.left + yi * barGroupW + barGroupW / 2, H - pad.bottom + 20);
+  });
+
+  // Legend
+  legend.innerHTML = '';
+  series.forEach(s => {
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `<span class="legend-swatch" style="background:${s.color}"></span>${s.label}`;
+    legend.appendChild(item);
+  });
+}
+
+// ─── VENN DIAGRAM ─────────────────────────────────────────────────
+function renderVenn(frame, counts) {
+  const canvas = document.getElementById('vennCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const years = frame.years;
+
+  // Use last full year (second to last in array)
+  const lastFullYear = years[years.length - 2];
+  const currentYear = years[years.length - 1];
+
+  // Get values — try last full year first, fall back to current
+  const year = (counts.total && counts.total[lastFullYear]) ? lastFullYear : currentYear;
+
+  const pubmedTotal = (counts.total && counts.total[year]) || 0;
+  const pmcTotal = (counts.pmc_total && counts.pmc_total[year]) || 0;
+  const medlineTotal = (counts.medline && counts.medline[year]) || 0;
+  const pmcInPubmed = (counts.pmc_in_pubmed && counts.pmc_in_pubmed[year]) || 0;
+  const pmcMedline = (counts.pmc_medline && counts.pmc_medline[year]) || 0;
+
+  if (pubmedTotal === 0 && pmcTotal === 0) return;
+
+  // Update title
+  document.getElementById('vennTitle').textContent =
+    `PubMed / PMC / Medline Overlap (${year})`;
+
+  // Segment values
+  const medlineOnly = medlineTotal - pmcMedline;
+  const pmcPubmedNotMedline = pmcInPubmed - pmcMedline;
+  const allThree = pmcMedline;
+  const pmcOnly = pmcTotal - pmcInPubmed;
+  const pubmedOther = pubmedTotal - medlineTotal - pmcInPubmed + pmcMedline;
+
+  // Canvas setup
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+  const W = rect.width;
+  const H = rect.height;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Scale circles proportionally by area
+  // PubMed is the largest, scale relative to it
+  const maxRadius = Math.min(W, H) * 0.32;
+  const pubmedArea = pubmedTotal;
+  const pmcArea = pmcTotal;
+  const medlineArea = medlineTotal;
+
+  const pubmedR = maxRadius;
+  const pmcR = maxRadius * Math.sqrt(pmcArea / pubmedArea);
+  const medlineR = maxRadius * Math.sqrt(medlineArea / pubmedArea);
+
+  // Position circles
+  // PubMed large circle on the left, PMC on the right, Medline inside PubMed
+  const centerY = H * 0.45;
+
+  // Calculate overlap distance for PubMed-PMC based on pmcInPubmed
+  // Use a simplified approach: overlap fraction determines circle separation
+  const overlapFraction = pmcInPubmed / Math.min(pubmedTotal, pmcTotal);
+  // Distance between centers: when overlap is 0, circles don't touch
+  // when overlap is 1, one is inside the other
+  const pubmedPmcDist = pubmedR + pmcR - (overlapFraction * 2 * Math.min(pubmedR, pmcR));
+
+  const pubmedCx = W * 0.42;
+  const pmcCx = pubmedCx + pubmedPmcDist;
+
+  // Medline sits inside PubMed, shifted left of PubMed center
+  const medlineFraction = medlineTotal / pubmedTotal;
+  const medlineCx = pubmedCx - (pubmedR - medlineR) * 0.3;
+  const medlineCy = centerY;
+
+  // Draw PubMed circle
+  ctx.globalAlpha = 0.2;
+  ctx.fillStyle = '#5C3A1E';
+  ctx.beginPath();
+  ctx.arc(pubmedCx, centerY, pubmedR, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.strokeStyle = '#5C3A1E';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // Draw PMC circle
+  ctx.globalAlpha = 0.25;
+  ctx.fillStyle = '#4472C4';
+  ctx.beginPath();
+  ctx.arc(pmcCx, centerY, pmcR, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.strokeStyle = '#4472C4';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // Draw Medline circle
+  ctx.globalAlpha = 0.15;
+  ctx.fillStyle = '#16a34a';
+  ctx.beginPath();
+  ctx.arc(medlineCx, medlineCy, medlineR, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.strokeStyle = '#16a34a';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // ─── LABELS ───────────────────────────────────────────────────
+  ctx.textAlign = 'center';
+
+  // Circle titles (outside)
+  ctx.font = 'bold 14px Source Sans 3, sans-serif';
+  ctx.fillStyle = '#5C3A1E';
+  ctx.fillText('PubMed', pubmedCx, centerY - pubmedR - 14);
+
+  ctx.font = 'bold 14px Source Sans 3, sans-serif';
+  ctx.fillStyle = '#4472C4';
+  ctx.fillText('PMC', pmcCx + pmcR * 0.4, centerY + pmcR * 0.3);
+
+  ctx.font = 'bold 13px Source Sans 3, sans-serif';
+  ctx.fillStyle = '#16a34a';
+  ctx.fillText('Medline', medlineCx - medlineR * 0.35, medlineCy + 5);
+
+  // Summary line at bottom
+  ctx.font = '12px Source Sans 3, sans-serif';
+  ctx.fillStyle = '#64748b';
+  ctx.textAlign = 'center';
+  ctx.fillText(
+    `${formatNumber(pmcInPubmed)} PMC articles in PubMed (${((pmcInPubmed/pmcTotal)*100).toFixed(1)}% of PMC)  •  ` +
+    `${formatNumber(medlineTotal)} Medline (${((medlineTotal/pubmedTotal)*100).toFixed(1)}% of PubMed)`,
+    W / 2, H - 16
+  );
+}
+
+// ─── STATUS ───────────────────────────────────────────────────────
+function setStatus(state, text) {
+  const dot = document.getElementById('statusDot');
+  const txt = document.getElementById('statusText');
+  dot.className = 'status-dot' + (state === 'updating' ? ' updating' : '');
+  txt.textContent = text;
+}
+
+function showProgress(pct) {
+  const container = document.getElementById('progressContainer');
+  const bar = document.getElementById('progressBar');
+  container.className = 'progress-bar-container active';
+  bar.style.width = pct + '%';
+}
+
+function hideProgress() {
+  document.getElementById('progressContainer').className = 'progress-bar-container';
+}
+
+// ─── MAIN ─────────────────────────────────────────────────────────
+async function loadConfig() {
+  try {
+    const resp = await fetch('config.json');
+    CONFIG = await resp.json();
+  } catch (e) {
+    // Fallback: embed config inline if fetch fails
+    console.error('Failed to load config.json', e);
+    return false;
+  }
+  return true;
+}
+
+async function init() {
+  const ok = await loadConfig();
+  if (!ok) {
+    setStatus('error', 'Failed to load config');
+    return;
+  }
+
+  document.getElementById('noteBar').textContent = CONFIG.note;
+  document.getElementById('footnote').textContent = CONFIG.footnote;
+  document.getElementById('chartTitle').textContent = CONFIG.chart.title;
+
+  // 1. Try server-side data file first. The file owns its own timeframe,
+  //    so we render the frame parsed from its header — the label can never
+  //    outrun the data, no matter when the page is opened.
+  const serverData = await loadServerData();
+  if (serverData && serverData.frame && Object.keys(serverData.counts).length > 0) {
+    const frame = serverData.frame;
+    document.getElementById('reportPeriod').textContent = describeFrame(frame);
+    setCache({ frame, counts: serverData.counts });
+    renderTable(frame, serverData.counts);
+    renderChart(frame, serverData.counts);
+    renderVenn(frame, serverData.counts);
+    const d = new Date(serverData.timestamp);
+    const stale = shouldRefresh({ timestamp: serverData.timestamp, frame });
+    const ageMsg = stale
+      ? `Server data from ${d.toLocaleDateString()} (may be outdated — click Force Refresh for live data)`
+      : `Server data from ${d.toLocaleDateString()}`;
+    setStatus('cached', ageMsg);
+    document.getElementById('refreshBtn').disabled = false;
+    document.getElementById('exportBtn').disabled = false;
+    // Note: do NOT auto-refresh on stale server data — the live fetch takes
+    // several minutes and blocks the page. Users can click Force Refresh.
+    return;
+  }
+
+  // No server file → fall back to clock-driven columns
+  const clockFrame = buildClockFrame();
+  document.getElementById('reportPeriod').textContent = describeFrame(clockFrame);
+
+  // 2. Try localStorage cache
+  const cache = getCache();
+  if (cache && cache.counts && cache.frame && !shouldRefresh(cache)) {
+    renderTable(cache.frame, cache.counts);
+    renderChart(cache.frame, cache.counts);
+    renderVenn(cache.frame, cache.counts);
+    const d = new Date(cache.timestamp);
+    setStatus('cached', `Cached ${d.toLocaleDateString()}`);
+    document.getElementById('refreshBtn').disabled = false;
+    document.getElementById('exportBtn').disabled = false;
+    return;
+  }
+
+  // 3. Show stale cache while fetching live
+  if (cache && cache.counts && cache.frame) {
+    renderTable(cache.frame, cache.counts);
+    renderChart(cache.frame, cache.counts);
+    renderVenn(cache.frame, cache.counts);
+  } else {
+    renderTable(clockFrame, {});
+    renderChart(clockFrame, {});
+    renderVenn(clockFrame, {});
+  }
+
+  await runFetch(clockFrame);
+}
+
+async function runFetch(frame) {
+  setStatus('updating', 'Fetching data from NCBI...');
+  document.getElementById('refreshBtn').disabled = true;
+  showProgress(0);
+
+  const counts = {};
+
+  await fetchAllData(counts, frame, (done, total) => {
+    const pct = Math.round((done / total) * 100);
+    showProgress(pct);
+    setStatus('updating', `Fetching... ${done}/${total}`);
+
+    // Live-update table every 7 rows
+    if (done % 7 === 0 || done === total) {
+      renderTable(frame, counts);
+    }
+  });
+
+  // Final render
+  renderTable(frame, counts);
+  renderChart(frame, counts);
+  renderVenn(frame, counts);
+  setCache({ frame, counts });
+  hideProgress();
+  setStatus('done', `Updated ${new Date().toLocaleDateString()}`);
+  document.getElementById('refreshBtn').disabled = false;
+  document.getElementById('exportBtn').disabled = false;
+}
+
+async function forceRefresh() {
+  localStorage.removeItem(CACHE_KEY);
+  await runFetch(buildClockFrame());
+}
+
+function exportCSV() {
+  const cache = getCache();
+  if (!cache || !cache.counts || !cache.frame) return;
+
+  const frame = cache.frame;
+  const years = frame.years;
+  const lines = [];
+
+  // Header with date range info — the YTD year comes from the frame, so
+  // the exported file's own header describes exactly the data it carries.
+  const endYear = frame.ytdYear || years[years.length - 1];
+  lines.push(`"PubMed Summary Report","${years[0]}-${endYear}","Generated ${new Date().toISOString().slice(0,10)}"`);
+  lines.push('');
+
+  // Column headers come straight from the frame's labels
+  const colHeaders = [''].concat(frame.labels.map(String));
+  lines.push(colHeaders.map(c => `"${c}"`).join(','));
+
+  // Data rows
+  for (const row of CONFIG.rows) {
+    const cells = [`"${row.label}"`];
+    years.forEach(y => {
+      const val = getComputedValue(row, y, cache.counts);
+      if (val === null) {
+        cells.push('');
+      } else if (row.type === 'percent') {
+        cells.push((val / 100).toFixed(4));
+      } else {
+        cells.push(String(val));
+      }
+    });
+    lines.push(cells.join(','));
+  }
+
+  const csv = lines.join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'pubmed-data.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ─── LOAD SERVER DATA ─────────────────────────────────────────────
+async function loadServerData() {
+  try {
+    const resp = await fetch('pubmed-data.csv?_=' + Date.now());
+    if (!resp.ok) return null;
+    const text = await resp.text();
+    return parseCSVData(text);
+  } catch { return null; }
+}
+
+function parseCSVData(csv) {
+  const lines = csv.split('\n').filter(l => l.trim());
+  if (lines.length < 3) return null;
+
+  // Line 0: header with date info
+  // Line 1: empty (skip)
+  // Line 2: column headers (year labels)
+  // Line 3+: data rows
+
+  // Find the column header line (starts with empty first column)
+  let headerIdx = -1;
+  for (let i = 0; i < Math.min(5, lines.length); i++) {
+    const parsed = parseCSVLine(lines[i]);
+    if (parsed[0] === '' && parsed.length > 1) { headerIdx = i; break; }
+  }
+  if (headerIdx === -1) return null;
+
+  // ── Build the frame straight from the header. The file owns its
+  //    timeframe: numeric tokens are full years; a non-numeric token
+  //    (e.g. "Apr YTD") is the YTD column, whose year is lastFullYear+1
+  //    so it is independent of when the page is opened. ──
+  const tokens = parseCSVLine(lines[headerIdx]).slice(1);
+  const years = [], labels = [];
+  let ytdYear = null, ytdRange = null, lastFullYear = null;
+  for (const tok of tokens) {
+    if (/^\s*\d{4}\s*$/.test(tok)) {
+      const y = parseInt(tok, 10);
+      years.push(y); labels.push(String(y)); lastFullYear = y;
+    } else {
+      // YTD column — derive its year from the data, not the clock
+      const yy = (lastFullYear !== null ? lastFullYear : new Date().getFullYear() - 1) + 1;
+      ytdYear = yy;
+      years.push(yy); labels.push(tok);
+      const mi = ytdMonthIdx(tok);
+      ytdRange = mi >= 0 ? ytdRangeFor(yy, mi) : null;
+    }
+  }
+  const frame = { years, labels, ytdYear, ytdRange };
+
+  const counts = {};
+  let configIdx = 0;
+
+  for (let i = headerIdx + 1; i < lines.length && configIdx < CONFIG.rows.length; i++) {
+    const row = CONFIG.rows[configIdx];
+    const cells = parseCSVLine(lines[i]);
+    if (!cells[0]) { configIdx++; continue; }
+
+    if (row.type === 'count') {
+      counts[row.id] = {};
+      for (let c = 1; c < cells.length && c - 1 < years.length; c++) {
+        const val = parseInt(cells[c], 10);
+        counts[row.id][years[c - 1]] = isNaN(val) ? null : val;
+      }
+    }
+    configIdx++;
+  }
+
+  // Extract timestamp from first line
+  const firstLine = parseCSVLine(lines[0]);
+  const generated = firstLine.length >= 3 ? firstLine[2].replace('Generated ', '') : '';
+
+  return { frame, counts, timestamp: generated || new Date().toISOString() };
+}
+
+function parseCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') { inQuotes = !inQuotes; }
+    else if (ch === ',' && !inQuotes) { result.push(current.trim()); current = ''; }
+    else { current += ch; }
+  }
+  result.push(current.trim());
+  return result;
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', init);
+window.addEventListener('resize', () => {
+  const cache = getCache();
+  if (cache && cache.counts && cache.frame) {
+    renderChart(cache.frame, cache.counts);
+    renderVenn(cache.frame, cache.counts);
+  }
+});
+</script>
+
+</body>
+</html>

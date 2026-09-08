@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================ SEO ============================ -->
+<title>Citation Bar Reference — Every Symbol Explained | PubMed Citation Bar</title>
+<link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/help.html">
+<meta name="description" content="Complete reference for the PubMed Citation Bar: what Cited, RCR, IC, Alt, Top-J, SJR, Xout and every flag mean, where each number comes from, and the impact score formula in full.">
+<meta name="keywords" content="RCR meaning, relative citation ratio, influential citations, Altmetric score, MEDLINE indexed, SJR, PubMed publication types, Xout filter, impact score">
+<meta name="author" content="PubMed Citation Bar">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#005a8c">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="PubMed Citation Bar">
+<meta property="og:title" content="Citation Bar Reference — Every Symbol Explained">
+<meta property="og:description" content="What every element on the bar means, where each number comes from, and the impact score formula in full.">
+<meta property="og:url" content="https://tomlaheyh.github.io/citation-bar/help.html">
+
+<link rel="icon" href="assets/icon128.png" type="image/png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Source+Sans+3:wght@400;600;700&display=swap">
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Citation Bar reference</h1>
+    <p class="tagline">
+      Every element on the bar, what it means, and where the number comes from.
+      This is the same content as the <code>?</code> help inside the extension.
+    </p>
+  </header>
+
+  <h2 id="flags">Article flags</h2>
+
+  <div class="table-scroll">
+  <table class="data">
+    <thead><tr><th>Symbol</th><th>Meaning</th><th>Reference</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="sym">Retracted</td>
+        <td>The article has been retracted from the literature. Clicking shows both the original PMID and the retraction PMID.</td>
+        <td><a href="https://www.nlm.nih.gov/bsd/policy/errata.html">NLM errata policy</a></td>
+      </tr>
+      <tr>
+        <td class="sym">*</td>
+        <td>High-impact article; the row is shown on a green background. Marked when the article's score meets your threshold — see <a href="#score">the formula</a>.</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td class="sym">e</td>
+        <td>Has a correction or erratum. This is <em>not</em> a retraction; roughly 1% of articles have one. Clicking shows the original and correction PMIDs.</td>
+        <td><a href="https://www.nlm.nih.gov/bsd/policy/errata.html">NLM errata policy</a></td>
+      </tr>
+      <tr>
+        <td class="sym">p</td>
+        <td>Preprint — not yet peer reviewed. Useful for early access, but read with the usual caution.</td>
+        <td><a href="https://pmc.ncbi.nlm.nih.gov/about/nihpreprints/">NIH preprints</a></td>
+      </tr>
+      <tr>
+        <td class="sym">m</td>
+        <td>Indexed for MEDLINE.</td>
+        <td><a href="https://www.nlm.nih.gov/medline/medline_overview.html">MEDLINE overview</a></td>
+      </tr>
+      <tr>
+        <td class="sym">n</td>
+        <td>New — under two years old, measured by PubMed's create date <code>[crdt]</code>, which never changes. Publication dates sometimes do.</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td class="sym">t</td>
+        <td>Trending — currently in PubMed's top 1,000. The exact logic isn't public, but "new and heavily viewed" is close.</td>
+        <td><a href="https://pubmed.ncbi.nlm.nih.gov/trending/">PubMed Trending</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 id="metrics">Article metrics</h2>
+
+  <div class="table-scroll">
+  <table class="data">
+    <thead><tr><th>Element</th><th>Meaning</th><th>Reference</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="sym">Cited <em>n</em></td>
+        <td>Citation count from iCite, provided by the NIH — the same agency that runs PubMed. Several sources of citation counts exist, including PubMed itself; iCite is the best overall fit. When iCite is down or slow, counts come from Europe PMC instead.</td>
+        <td><a href="https://icite.od.nih.gov/">iCite</a></td>
+      </tr>
+      <tr>
+        <td class="sym">RCR <em>n.n</em></td>
+        <td>Relative Citation Ratio — an iCite measure defined as the citations per year of a paper, normalized to the citations per year received by NIH-funded papers in the same field and year. A citation-based measure of scientific influence. Shows <code>-</code> when iCite is unavailable, since no other source computes it.</td>
+        <td><a href="https://support.icite.nih.gov/hc/en-us/articles/9062490125083-Metrics">iCite metrics</a></td>
+      </tr>
+      <tr>
+        <td class="sym">IC <em>n</em></td>
+        <td>Influential Citations — citations where the cited work had a significant effect on the citing work, identified by a machine-learning model that reads citation context. Shows <code>-</code> if not found.</td>
+        <td><a href="https://www.semanticscholar.org/faq#influential-citations">Semantic Scholar</a></td>
+      </tr>
+      <tr>
+        <td class="sym">Alt</td>
+        <td>Altmetric Attention Score — a weighted count of attention from social media, news and policy documents. Links to the article's Altmetric page.</td>
+        <td><a href="https://help.altmetric.com/en/articles/9800513">Altmetric</a></td>
+      </tr>
+      <tr>
+        <td class="sym">Overall&nbsp;Score</td>
+        <td>A numeric quality score combining MEDLINE indexing, citation count, RCR, journal SJR, trending status and influential citations. Shown at the top of the citation report.</td>
+        <td><a href="#score">Formula</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 id="score">The impact score, in full</h2>
+
+  <p>
+    Most tools that highlight "high impact" papers won't tell you what that
+    means. Here is the actual function. The default threshold is 5, adjustable
+    from 1 to 6 in the extension's settings. You can disagree with the weights —
+    but you can see them, and you can move the line.
+  </p>
+
+<pre><code>function calculateScore(item) {
+    let score = 0;
+
+    // MEDLINE: 2.25 points
+    if (item.recordStatus === 'PubMed - indexed for MEDLINE') {
+        score += 2.25;
+    }
+
+    const citations = parseInt(item.Citations);
+    const crc = parseFloat(item.RelativeCitationRatio);
+
+    if (item.PublishCurrent === 'n') {
+        // Recent articles (&lt; 2 years)
+
+        // Citations scoring
+        if (citations &gt; 30) score += 2.25;
+        else if (citations &gt; 15) score += 1.75;
+        else if (citations &gt; 5) score += 1;
+        else if (citations &gt; 2) score += 0.25;
+
+        // RCR scoring
+        if (crc &gt; 2) score += 1.25;
+
+    } else {
+        // Older articles (&gt;= 2 years)
+
+        // Citations scoring
+        if (citations &gt;= 200) score += 3.5;
+        else if (citations &gt;= 50) score += 2.75;
+        else if (citations &gt;= 10) score += 1.5;
+
+        // RCR scoring
+        if (crc &gt; 10) score += 1.25;
+        else if (crc &gt; 5) score += 0.75;
+    }
+
+    // SJR: 1.25 points
+    if (item.SJR !== '-' &amp;&amp; item.SJR &gt; 3) {
+        score += 1.25;
+    }
+
+    // Trending: 1 point
+    if (item.isTrending) {
+        score += 1;
+    }
+
+    // Influential Citations: 0.5 points
+    if (item.s2Url &amp;&amp; item.influentialCitations &gt;= 1) {
+        score += 0.5;
+    }
+
+    return score;
+}</code></pre>
+
+  <h2 id="links">Links and lookups</h2>
+
+  <div class="table-scroll">
+  <table class="data">
+    <thead><tr><th>Element</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">doi</td><td>Opens the article's DOI in DOI Lookup, which checks retractions, citations, journal metrics and open access across a dozen sources. Up to 15 DOIs can be collected and viewed together. Greyed out when the article has no DOI.</td></tr>
+      <tr><td class="sym">MeSH</td><td>The Medical Subject Headings assigned to the article. Only MEDLINE-indexed articles have them.</td></tr>
+      <tr><td class="sym">s</td><td>Similar articles, from PubMed's own similarity list.</td></tr>
+      <tr><td class="sym">c</td><td>Articles in PubMed citing this one. Differs slightly from iCite, which uses a different method.</td></tr>
+      <tr><td class="sym">G&nbsp;Sch</td><td>Google Scholar, matched by DOI (about 97% of PubMed articles have one), falling back to the title when there isn't one.</td></tr>
+      <tr><td class="sym">-Con-</td><td>Connections — an interactive citation graph built from OpenAlex data, with three views: papers this one cites (Inside), papers citing it (Outside), and a combined Mix. Bubbles are colour-coded by journal quality and tagged where free full text exists. Re-centre on any paper, or run a multi-level expansion to surface the most co-cited foundational works nearby.</td></tr>
+      <tr><td class="sym">Ab</td><td>The abstract, inline, without leaving the results page. Present on about 99% of PubMed articles.</td></tr>
+      <tr><td class="sym">link</td><td>Full text. PubMed holds the abstract and metadata but not the article itself. Where a free version exists (PMC, for instance) that link is used and shown <span class="free">green</span>; otherwise it points at the publisher, which may be paywalled.</td></tr>
+      <tr><td class="sym">Author</td><td>First and last authors — by convention the first leads the work and the last leads the lab — with affiliations, PubMed and ORCID search links, and h-index, i10-index and two-year citation rate from OpenAlex. Metrics require an ORCID; name-based matching is not used for them, because it catches the wrong researchers.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 id="journal">Journal information</h2>
+
+  <p>Everything to the right of the <code>|||</code> divider describes the journal rather than the article.</p>
+
+  <div class="table-scroll">
+  <table class="data">
+    <thead><tr><th>Element</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">Top-J</td><td>A deliberately small, highly selective curated list of top medical journals, matched by ISSN and including associated journals within a publisher umbrella. Current list: Annals of Internal Medicine, British Medical Journal (BMJ), European Heart Journal, Journal of the American College of Cardiology, JAMA, Lancet, Nature, New England Journal of Medicine.</td></tr>
+      <tr><td class="sym">SJR</td><td>SCImago Journal Rank — a free, widely respected measure of journal visibility, computed with an algorithm similar to PageRank. SCImago is a research group affiliated with several Spanish universities and the CSIC.</td></tr>
+      <tr><td class="sym">Rank</td><td>The journal's position in the <a href="journal-ranking/journal-ranking.html">Journal Ranking</a>, built from a full PubMed pull run roughly monthly.</td></tr>
+      <tr><td class="sym">Medline&nbsp;%</td><td>The share of that journal's articles, by ISSN, indexed for MEDLINE year to date.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 id="tools">Tools on the bar</h2>
+
+  <h3>Xout — exclusion search</h3>
+
+  <p>
+    Roughly a quarter of PubMed is not primary research. Xout reopens your
+    current search in a dialog with your query pre-filled and a checkbox for each
+    publication type to exclude. All are checked by default; uncheck any to let
+    that type through. The full query preview updates live, so you can search
+    directly, or copy the string into your methods section.
+  </p>
+
+  <ul>
+    <li><strong>Has Abstract</strong> — recommended; articles without abstracts are rarely primary research</li>
+    <li><strong>No Retracted Publications</strong> — excludes retraction notices, not the retracted articles themselves</li>
+    <li><strong>No Published Errata</strong> · <strong>No Letters</strong> · <strong>No Editorials</strong> · <strong>No Comments</strong></li>
+    <li><strong>No Systematic Reviews</strong> · <strong>No Meta-Analyses</strong> · <strong>No Reviews</strong></li>
+  </ul>
+
+  <h3>pR — PubMed reports</h3>
+
+  <p>
+    Opens the four standing reports:
+    <a href="pubmed-summary/pubmed-summary.html">PubMed Summary</a>,
+    <a href="filters/filters.html">Filters</a>,
+    <a href="mesh/mesh.html">MeSH Counts</a> and
+    <a href="journal-ranking/journal-ranking.html">Journal Ranking</a>.
+  </p>
+
+  <h3>/Report — citation report</h3>
+
+  <p>
+    Every key measure and link for one article in an easy-to-copy format. The
+    <em>List Data</em> button in the extension popup goes further and exports
+    everything: PMIDs first, then all measures, timestamps and internal fields.
+    Full disclosure of every field the extension holds.
+  </p>
+
+  <h3>Term Analysis</h3>
+
+  <p>
+    Enter up to 20 variants of a single concept — <code>vitamin B1</code>,
+    <code>thiamine</code>, <code>B-1</code> — and it returns PubMed hit counts for
+    each across four field configurations (Title, Title/Abstract, quoted,
+    unquoted), validates each against MeSH, and stars the terms that are both
+    high-volume and MeSH-backed. A "Special" mode handles custom date windows and
+    up to ten term groups at once.
+  </p>
+
+  <div class="note">
+    Comparing the quoted and unquoted columns is worth doing once on a term you
+    care about. An unquoted phrase is not a looser version of a quoted one — it
+    searches the phrase <em>and</em> the individual words, and it keeps the
+    automatic MeSH mapping that quoting switches off. The two columns rarely
+    look the way people expect.
+  </div>
+
+  <h3>Expand</h3>
+
+  <p>
+    Takes your current PubMed search and opens the same query against OpenAlex,
+    ClinicalTrials.gov and Google Scholar in three new tabs — a quick check on
+    whether PubMed alone is giving you the whole picture.
+  </p>
+
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span>PubMed Citation Bar — free, no tracking</span>
+    <span>
+      <a href="index.html">Home</a> ·
+      <a href="support.html">Support</a> ·
+      <a href="privacy.html">Privacy</a> ·
+      <a href="https://chromewebstore.google.com/detail/pubmed-citation-bar/ghbpnjpggopkfhbngpcieoimiopbmmom">Chrome Web Store</a>
+    </span>
+  </div>
+</footer>
+
+<script src="siteNav.js"></script>
+
+</body>
+</html>

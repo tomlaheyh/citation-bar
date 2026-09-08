@@ -1,0 +1,116 @@
+CategoryCode,CategoryName,TotalCount,PriorYearTotalCount,UniqueTerms
+B01,Eukaryota,11316087,11655618,2455
+N06,Environment and Public Health,4798065,4503213,634
+E05,Investigative Techniques,4656101,4241932,1213
+N05,"Health Care Quality, Access, and Evaluation",3939669,3656383,426
+M01,Persons,2538848,2263846,361
+D12,"Amino Acids, Peptides, and Proteins",2381322,2383329,4176
+E01,Diagnosis,1957402,1886189,784
+D27,Chemical Actions and Uses,1408401,1382432,692
+L01,Information Science,1303596,1129830,501
+N04,Health Services Administration,1284167,1216950,406
+G07,Physiological Phenomena,1257929,1143222,546
+C23,"Pathological Conditions, Signs and Symptoms",1213212,1286395,966
+A11,Cells,1046772,942095,606
+D02,Organic Chemicals,999679,1058410,2179
+N01,Population Characteristics,984219,940946,146
+C04,Neoplasms,968633,1024269,703
+Z01,Geographic Locations,964876,901730,406
+E02,Therapeutics,949113,926435,744
+H02,Health Occupations,925641,906077,273
+F01,Behavior and Behavior Mechanisms,875588,840250,573
+H01,Natural Science Disciplines,807921,727322,245
+D08,Enzymes and Coenzymes,796456,789062,1898
+C01,Infections,767954,890642,786
+G05,Genetic Phenomena,757095,683625,582
+G02,Chemical Phenomena,743740,643559,395
+G16,Biological Phenomena,722735,669698,193
+D01,Inorganic Chemicals,717055,786776,476
+C10,Nervous System Diseases,713793,758425,925
+N02,Health Care Facilities Workforce and Services,712428,705738,569
+J01,"Technology, Industry, and Agriculture",700941,656914,456
+I01,Social Sciences,641611,651407,558
+D23,Biological Factors,605548,610269,889
+D03,Heterocyclic Compounds,596664,620749,1470
+E04,"Surgical Procedures, Operative",593796,633220,582
+C12,Urogenital Diseases,570227,591259,418
+F02,Psychological Phenomena,499608,499458,350
+G01,Physical Phenomena,467134,433432,227
+G17,Mathematical Concepts,458631,369336,71
+B03,Bacteria,454372,425555,859
+D09,Carbohydrates,417461,424763,687
+G11,Musculoskeletal and Neural Physiological Phenomena,412005,404202,237
+C14,Cardiovascular Diseases,410473,467345,471
+G04,Cell Physiological Phenomena,409642,351307,197
+C06,Digestive System Diseases,390708,412093,325
+C08,Respiratory Tract Diseases,362991,445781,254
+A08,Nervous System,357466,337552,404
+F04,Behavioral Disciplines and Activities,355581,360515,216
+B04,Viruses,322949,365493,560
+C18,Nutritional and Metabolic Diseases,313743,333645,354
+A15,Hemic and Immune Systems,310348,300057,109
+G03,Metabolism,308562,262593,185
+D13,"Nucleic Acids, Nucleotides, and Nucleosides",296619,313675,325
+N03,Health Care Economics and Organizations,275829,276963,429
+D20,Complex Mixtures,265514,269536,278
+D05,Macromolecular Substances,261097,259721,304
+F03,Mental Disorders,250884,255844,235
+A10,Tissues,247385,245796,182
+G08,Reproductive and Urinary Physiological Phenomena,245253,251843,166
+D04,Polycyclic Compounds,236045,251547,565
+E07,Equipment and Supplies,223599,228935,345
+A02,Musculoskeletal System,222982,235190,226
+C17,Skin and Connective Tissue Diseases,216295,242869,410
+J02,Food and Beverages,207352,200984,146
+C05,Musculoskeletal Diseases,189109,198628,381
+C20,Immune System Diseases,187583,208836,260
+C16,"Congenital, Hereditary, and Neonatal Diseases and Abnormalities",183522,208351,759
+D25,Inorganic Chemicals,175026,173183,138
+C19,Endocrine System Diseases,170241,175384,171
+D10,Lipids,158714,165666,326
+G09,Circulatory and Respiratory Physiological Phenomena,155676,154592,168
+D06,"Hormones, Hormone Substitutes, and Hormone Antagonists",151012,161966,250
+D26,Pharmaceutical Preparations,150699,137325,129
+G06,Microbiological Phenomena,148111,122444,76
+C15,Hemic and Lymphatic Diseases,143105,164520,307
+K01,Humanities,141171,152781,208
+I03,Human Activities,139067,136129,115
+C26,Wounds and Injuries,122721,134291,267
+I02,Education,112678,111904,94
+A07,Cardiovascular System,112125,122095,135
+A03,Digestive System,108207,110175,76
+C22,Animal Diseases,106202,88157,136
+A05,Urogenital System,102593,103928,83
+A01,Body Regions,102084,118278,97
+G12,Immune System Phenomena,91108,82797,122
+C07,Stomatognathic Diseases,86675,89904,224
+A18,Plant Structures,86466,76713,41
+A12,Fluids and Secretions,85098,84667,70
+C11,Eye Diseases,81134,89445,271
+A09,Sense Organs,60583,61058,116
+E06,Dentistry,60385,57181,203
+C09,Otorhinolaryngologic Diseases,57145,59619,131
+C25,Chemically-Induced Disorders,55653,59454,116
+A14,Stomatognathic System,55040,55159,81
+B05,Organism Forms,54441,50469,44
+J03,Non-Medical Public and Private Facilities,36480,36881,64
+A06,Endocrine System,35220,33314,57
+A04,Respiratory System,31392,34518,46
+G15,Plant Physiological Phenomena,28469,24275,36
+A16,Embryonic Structures,26771,26915,69
+G14,Ocular Physiological Phenomena,22076,20713,36
+G10,Digestive System and Oral Physiological Phenomena,21053,20630,47
+E03,Anesthesia and Analgesia,20453,20734,47
+A17,Integumentary System,17758,19087,17
+A13,Animal Structures,15360,13890,68
+A20,Bacterial Structures,12477,11085,14
+C24,Occupational Diseases,8958,8624,25
+G13,Integumentary System Physiological Phenomena,8109,7243,13
+A19,Fungal Structures,4080,3603,10
+B02,Archaea,2202,2144,60
+A21,Viral Structures,1694,1757,7
+C21,Disorders of Environmental Origin,72,55,5
+V03,Study Characteristics,0,0,34
+V02,Publication Formats,0,0,151
+V01,Publication Components,0,0,34
+V04,Support of Research,0,0,8

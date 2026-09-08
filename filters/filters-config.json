@@ -1,0 +1,158 @@
+{
+  "title": "PubMed Filters (the standard web filters on the left)",
+  "note": "Articles can have multiple assignments (such as more than 1 age group). * For all records \u2014 other filters may have limited data.",
+  "refreshDayOfMonth": 10,
+  "sections": [
+    {
+      "id": "medline_preprints",
+      "header": "Medline and PrePrints",
+      "core": true,
+      "rows": [
+        { "id": "total", "label": "Total", "term": "{daterange} [crdt]", "type": "count", "bold": true },
+        { "id": "medline_filt", "label": "* MEDLINE", "term": "{daterange} [crdt] AND (medline[Filter])", "type": "count" },
+        { "id": "exclude_preprints", "label": "* Exclude Preprints", "type": "calculated", "formula": "total - preprint_filt" },
+        { "id": "preprint_filt", "label": "* Preprint", "term": "{daterange} [crdt] AND (preprint[Filter])", "type": "count" }
+      ]
+    },
+    {
+      "id": "text_availability",
+      "header": "Text Availability",
+      "core": true,
+      "rows": [
+        { "id": "abstract_filt", "label": "* Abstract", "term": "{daterange} [crdt] AND (fha[Filter])", "type": "count" },
+        { "id": "free_full_text_filt", "label": "* Free Full Text", "term": "{daterange} [crdt] AND (ffrft[Filter])", "type": "count" },
+        { "id": "full_text_filt", "label": "* Full Text", "term": "{daterange} [crdt] AND (fft[Filter])", "type": "count" }
+      ]
+    },
+    {
+      "id": "associated_data",
+      "header": "Associated Data",
+      "rows": [
+        { "id": "assoc_data", "label": "Associated Data", "term": "{daterange} [crdt] AND (data[Filter])", "type": "count" }
+      ]
+    },
+    {
+      "id": "language",
+      "header": "Language (only showing English)",
+      "rows": [
+        { "id": "english", "label": "English", "term": "{daterange} [crdt] AND (english[Filter])", "type": "count" },
+        { "id": "english_abstract", "label": "English Abstract", "term": "{daterange} [crdt] AND (englishabstract[Filter])", "type": "count" }
+      ]
+    },
+    {
+      "id": "species",
+      "header": "Species",
+      "rows": [
+        { "id": "humans", "label": "Humans", "term": "{daterange} [crdt] AND (humans[Filter])", "type": "count" },
+        { "id": "other_animals", "label": "Other Animals", "term": "{daterange} [crdt] AND (animal[Filter])", "type": "count" }
+      ]
+    },
+    {
+      "id": "sex",
+      "header": "Sex",
+      "rows": [
+        { "id": "male", "label": "Male", "term": "{daterange} [crdt] AND (male[Filter])", "type": "count" },
+        { "id": "female", "label": "Female", "term": "{daterange} [crdt] AND (female[Filter])", "type": "count" }
+      ]
+    },
+    {
+      "id": "age",
+      "header": "Age",
+      "rows": [
+        { "id": "child_all", "label": "Child: birth-18 years", "term": "{daterange} [crdt] AND (allchild[Filter])", "type": "count" },
+        { "id": "newborn", "label": "Newborn: birth-1 month", "term": "{daterange} [crdt] AND (newborn[Filter])", "type": "count" },
+        { "id": "infant_birth23", "label": "Infant: birth-23 months", "term": "{daterange} [crdt] AND (infant[Filter])", "type": "count" },
+        { "id": "infant_1to23", "label": "Infant: 1-23 months", "type": "calculated", "formula": "infant_birth23 - newborn" },
+        { "id": "preschool", "label": "Preschool Child: 2-5 years", "term": "{daterange} [crdt] AND (preschoolchild[Filter])", "type": "count" },
+        { "id": "child_6to12", "label": "Child: 6-12 years", "term": "{daterange} [crdt] AND (child[Filter])", "type": "count" },
+        { "id": "adolescent", "label": "Adolescent: 13-18 years", "term": "{daterange} [crdt] AND (adolescent[Filter])", "type": "count" },
+        { "id": "adult_all", "label": "Adult: 19+ years", "term": "{daterange} [crdt] AND (alladult[Filter])", "type": "count" },
+        { "id": "young_adult", "label": "Young Adult: 19-24 years", "term": "{daterange} [crdt] AND (youngadult[Filter])", "type": "count" },
+        { "id": "adult_19to44", "label": "Adult: 19-44 years", "term": "{daterange} [crdt] AND (adult[Filter])", "type": "count" },
+        { "id": "middle_aged_plus", "label": "Middle Aged + Aged: 45+ years", "term": "{daterange} [crdt] AND (middleagedaged[Filter])", "type": "count" },
+        { "id": "middle_aged", "label": "Middle Aged: 45-64 years", "term": "{daterange} [crdt] AND (middleaged[Filter])", "type": "count" },
+        { "id": "aged", "label": "Aged: 65+ years", "term": "{daterange} [crdt] AND (aged[Filter])", "type": "count" },
+        { "id": "aged_80", "label": "80 and over: 80+ years", "term": "{daterange} [crdt] AND (80andover[Filter])", "type": "count" }
+      ]
+    },
+    {
+      "id": "article_type",
+      "header": "Article Type (sorted)",
+      "sorted": true,
+      "rows": [
+        { "id": "at_total", "label": "Article Type Total (sum, overlaps)", "type": "sum_all_at", "bold": true },
+        { "id": "at_review", "label": "Review", "term": "{daterange} [crdt] AND (review[Filter])", "type": "count" },
+        { "id": "at_res_nonusgov", "label": "Research Support, Non-U.S. Gov't", "term": "{daterange} [crdt] AND (researchsupportnonusgovt[Filter])", "type": "count" },
+        { "id": "at_case_reports", "label": "Case Reports", "term": "{daterange} [crdt] AND (casereports[Filter])", "type": "count" },
+        { "id": "at_clinical_study", "label": "Clinical Study", "term": "{daterange} [crdt] AND (clinicalstudy[Filter])", "type": "count" },
+        { "id": "at_systematic_review", "label": "Systematic Review", "term": "{daterange} [crdt] AND (systematicreview[Filter])", "type": "count" },
+        { "id": "at_letter", "label": "Letter", "term": "{daterange} [crdt] AND (letter[Filter])", "type": "count" },
+        { "id": "at_editorial", "label": "Editorial", "term": "{daterange} [crdt] AND (editorial[Filter])", "type": "count" },
+        { "id": "at_clinical_trial", "label": "Clinical Trial", "term": "{daterange} [crdt] AND (clinicaltrial[Filter])", "type": "count" },
+        { "id": "at_comparative", "label": "Comparative Study", "term": "{daterange} [crdt] AND (comparativestudy[Filter])", "type": "count" },
+        { "id": "at_controlled_ct", "label": "Controlled Clinical Trial", "term": "{daterange} [crdt] AND (controlledclinicaltrial[Filter])", "type": "count" },
+        { "id": "at_rct", "label": "Randomized Controlled Trial", "term": "{daterange} [crdt] AND (randomizedcontrolledtrial[Filter])", "type": "count" },
+        { "id": "at_erratum", "label": "Published Erratum", "term": "{daterange} [crdt] AND (publishederratum[Filter])", "type": "count" },
+        { "id": "at_multicenter", "label": "Multicenter Study", "term": "{daterange} [crdt] AND (multicenterstudy[Filter])", "type": "count" },
+        { "id": "at_meta_analysis", "label": "Meta-Analysis", "term": "{daterange} [crdt] AND (meta-analysis[Filter])", "type": "count" },
+        { "id": "at_comment", "label": "Comment", "term": "{daterange} [crdt] AND (comment[Filter])", "type": "count" },
+        { "id": "at_res_usgov", "label": "Research Support, U.S. Gov't", "term": "{daterange} [crdt] AND (researchsupportusgovernment[Filter])", "type": "count" },
+        { "id": "at_observational", "label": "Observational Study", "term": "{daterange} [crdt] AND (observationalstudy[Filter])", "type": "count" },
+        { "id": "at_res_nih_extra", "label": "Research Support, N.I.H., Extramural", "term": "{daterange} [crdt] AND (researchsupportnihextramural[Filter])", "type": "count" },
+        { "id": "at_news", "label": "News", "term": "{daterange} [crdt] AND (news[Filter])", "type": "count" },
+        { "id": "at_validation", "label": "Validation Study", "term": "{daterange} [crdt] AND (validationstudy[Filter])", "type": "count" },
+        { "id": "at_historical", "label": "Historical Article", "term": "{daterange} [crdt] AND (historicalarticle[Filter])", "type": "count" },
+        { "id": "at_retraction_of", "label": "Retraction Notice", "term": "{daterange} [crdt] AND (retractionnotice[Filter])", "type": "count" },
+        { "id": "at_res_usgov_nonphs", "label": "Research Support, U.S. Gov't, Non-P.H.S.", "term": "{daterange} [crdt] AND (researchsupportusgovtnonphs[Filter])", "type": "count" },
+        { "id": "at_ct_protocol", "label": "Clinical Trial Protocol", "term": "{daterange} [crdt] AND (clinicaltrialprotocol[Filter])", "type": "count" },
+        { "id": "at_evaluation", "label": "Evaluation Study", "term": "{daterange} [crdt] AND (evaluationstudy[Filter])", "type": "count" },
+        { "id": "at_electronic_supp", "label": "Electronic Supplementary Materials", "term": "{daterange} [crdt] AND (electronicsupplementarymaterials[Filter])", "type": "count" },
+        { "id": "at_video_audio", "label": "Video-Audio Media", "term": "{daterange} [crdt] AND (videoaudiomedia[Filter])", "type": "count" },
+        { "id": "at_ct_phase2", "label": "Clinical Trial, Phase II", "term": "{daterange} [crdt] AND (clinicaltrialphaseii[Filter])", "type": "count" },
+        { "id": "at_intro_journal", "label": "Introductory Journal Article", "term": "{daterange} [crdt] AND (introductoryjournalarticle[Filter])", "type": "count" },
+        { "id": "at_guideline", "label": "Guideline", "term": "{daterange} [crdt] AND (guideline[Filter])", "type": "count" },
+        { "id": "at_practice_guide", "label": "Practice Guideline", "term": "{daterange} [crdt] AND (practiceguideline[Filter])", "type": "count" },
+        { "id": "at_ct_phase3", "label": "Clinical Trial, Phase III", "term": "{daterange} [crdt] AND (clinicaltrialphaseiii[Filter])", "type": "count" },
+        { "id": "at_ct_phase1", "label": "Clinical Trial, Phase I", "term": "{daterange} [crdt] AND (clinicaltrialphasei[Filter])", "type": "count" },
+        { "id": "at_biography", "label": "Biography", "term": "{daterange} [crdt] AND (biography[Filter])", "type": "count" },
+        { "id": "at_dataset", "label": "Dataset", "term": "{daterange} [crdt] AND (dataset[Filter])", "type": "count" },
+        { "id": "at_res_usgov_phs", "label": "Research Support, U.S. Gov't, P.H.S.", "term": "{daterange} [crdt] AND (researchsupportusgovtphs[Filter])", "type": "count" },
+        { "id": "at_congress", "label": "Conference Proceedings", "term": "{daterange} [crdt] AND (conferenceproceedings[Filter])", "type": "count" },
+        { "id": "at_expression", "label": "Expression of Concern", "term": "{daterange} [crdt] AND (expressionofconcern[Filter])", "type": "count" },
+        { "id": "at_ct_vet", "label": "Clinical Trial, Veterinary", "term": "{daterange} [crdt] AND (veterinaryclinicaltrial[Filter])", "type": "count" },
+        { "id": "at_retracted", "label": "Retracted Publication", "term": "{daterange} [crdt] AND (retractedpublication[Filter])", "type": "count" },
+        { "id": "at_interview", "label": "Interview", "term": "{daterange} [crdt] AND (interview[Filter])", "type": "count" },
+        { "id": "at_rct_vet", "label": "Randomized Controlled Trial, Veterinary", "term": "{daterange} [crdt] AND (randomizedcontrolledtrialveterinary[Filter])", "type": "count" },
+        { "id": "at_personal_narr", "label": "Personal Narrative", "term": "{daterange} [crdt] AND (personalnarrative[Filter])", "type": "count" },
+        { "id": "at_res_nih_intra", "label": "Research Support, N.I.H., Intramural", "term": "{daterange} [crdt] AND (researchsupportnihintramural[Filter])", "type": "count" },
+        { "id": "at_pragmatic_ct", "label": "Pragmatic Clinical Trial", "term": "{daterange} [crdt] AND (pragmaticclinicaltrial[Filter])", "type": "count" },
+        { "id": "at_equivalence", "label": "Equivalence Trial", "term": "{daterange} [crdt] AND (equivalencetrial[Filter])", "type": "count" },
+        { "id": "at_twin", "label": "Twin Study", "term": "{daterange} [crdt] AND (twinstudy[Filter])", "type": "count" },
+        { "id": "at_patient_ed", "label": "Patient Education Handout", "term": "{daterange} [crdt] AND (patienteducationhandout[Filter])", "type": "count" },
+        { "id": "at_ct_phase4", "label": "Clinical Trial, Phase IV", "term": "{daterange} [crdt] AND (clinicaltrialphaseiv[Filter])", "type": "count" },
+        { "id": "at_obs_vet", "label": "Observational Study, Veterinary", "term": "{daterange} [crdt] AND (veterinaryobservationalstudy[Filter])", "type": "count" },
+        { "id": "at_lecture", "label": "Lecture", "term": "{daterange} [crdt] AND (lecture[Filter])", "type": "count" },
+        { "id": "at_address", "label": "Address", "term": "{daterange} [crdt] AND (address[Filter])", "type": "count" },
+        { "id": "at_adaptive_ct", "label": "Adaptive Clinical Trial", "term": "{daterange} [crdt] AND (adaptiveclinicaltrial[Filter])", "type": "count" },
+        { "id": "at_webcast", "label": "Webcast", "term": "{daterange} [crdt] AND (webcast[Filter])", "type": "count" },
+        { "id": "at_collected", "label": "Collected Work", "term": "{daterange} [crdt] AND (collectedwork[Filter])", "type": "count" },
+        { "id": "at_festschrift", "label": "Festschrift", "term": "{daterange} [crdt] AND (festschrift[Filter])", "type": "count" },
+        { "id": "at_corrected_repub", "label": "Corrected and Republished Article", "term": "{daterange} [crdt] AND (correctedandrepublishedarticle[Filter])", "type": "count" },
+        { "id": "at_duplicate", "label": "Duplicate Publication", "term": "{daterange} [crdt] AND (duplicatepublication[Filter])", "type": "count" },
+        { "id": "at_res_arra", "label": "Research Support, American Recovery and Reinvestment Act", "term": "{daterange} [crdt] AND (researchsupportamericanrecoveryandreinvestmentact[Filter])", "type": "count" },
+        { "id": "at_consensus", "label": "Consensus Statement", "term": "{daterange} [crdt] AND (consensusstatement[Filter])", "type": "count" },
+        { "id": "at_books_docs", "label": "Books and Documents", "term": "{daterange} [crdt] AND booksdocs[Filter]", "type": "count" }
+      ]
+    }
+  ],
+  "references": {
+    "search_tags": "https://pubmed.ncbi.nlm.nih.gov/help/#search-tags",
+    "training": "https://learn.nlm.nih.gov/documentation/training-packets/T0042010P/"
+  },
+  "favorites": [
+    "Title Abstract [tiab]", "Author ID [auid]", "Grants Funding [gr]",
+    "Title [ti]", "Affiliation [ad]", "Publish Date [pd]",
+    "MeSH Terms [mh] (advance users)", "PMID [PMID]", "Create Date [crdt]",
+    "Author [au]", "Journal [ta]", "Subset [sb] some, no longer supported"
+  ]
+}

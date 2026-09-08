@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Privacy — PubMed Citation Bar</title>
+<link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/privacy.html">
+<meta name="description" content="Privacy policy for the PubMed Citation Bar Chrome extension: no accounts, no analytics, no telemetry, no user tracking. What each browser permission is used for, and which public APIs are contacted.">
+<meta name="author" content="PubMed Citation Bar">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#005a8c">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="PubMed Citation Bar">
+<meta property="og:title" content="Privacy — PubMed Citation Bar">
+<meta property="og:description" content="No accounts, no analytics, no telemetry, no user tracking. What each permission does and which public APIs are contacted.">
+<meta property="og:url" content="https://tomlaheyh.github.io/citation-bar/privacy.html">
+
+<link rel="icon" href="assets/icon128.png" type="image/png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Source+Sans+3:wght@400;600;700&display=swap">
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Privacy</h1>
+    <p class="tagline">
+      There is no account, no login, no analytics package, no telemetry and no
+      user tracking of any kind. Nothing about you or your searches is sent
+      anywhere by the extension.
+    </p>
+  </header>
+
+  <h2>What is collected</h2>
+
+  <p>
+    Nothing. The extension has no server of its own, no analytics library and no
+    event reporting. It does not build a profile, does not record your searches,
+    and does not transmit anything about you or your browsing.
+  </p>
+
+  <h2>What stays on your machine</h2>
+
+  <p>
+    Article data the extension gathers — PMIDs, citation counts, scores, journal
+    figures — is kept in Chrome's local extension storage on your own computer so
+    the bar can render without re-fetching. It never leaves the machine. You can
+    inspect all of it with the <em>List Data</em> button in the popup, which
+    exports every field the extension holds, including its internal ones, and
+    clear it with <em>Reset Extension</em>.
+  </p>
+
+  <h2>Which services are contacted</h2>
+
+  <p>
+    To display metrics, the extension requests public data about the articles on
+    the page you are viewing. Those requests contain article identifiers — PMIDs
+    and DOIs — and nothing about you. As with any web request, the services
+    below will see that a request arrived and from what IP address, under their
+    own privacy policies.
+  </p>
+
+  <div class="table-scroll">
+  <table class="data">
+    <thead><tr><th>Service</th><th>What is requested</th></tr></thead>
+    <tbody>
+      <tr><td>NIH iCite</td><td>Citation counts and RCR, by PMID</td></tr>
+      <tr><td>Europe PMC</td><td>Citation counts, by PMID, when iCite is unavailable</td></tr>
+      <tr><td>NCBI E-utilities</td><td>Article metadata, by PMID</td></tr>
+      <tr><td>Semantic Scholar</td><td>Influential citation counts</td></tr>
+      <tr><td>Altmetric</td><td>Attention scores, by DOI</td></tr>
+      <tr><td>Crossref</td><td>Full-text links and DOI registration details</td></tr>
+      <tr><td>OpenAlex</td><td>Author metrics, by ORCID</td></tr>
+      <tr><td>ClinicalTrials.gov</td><td>Trial results, only when you use Expand</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>
+    SCImago journal rankings and the curated top-journal list ship inside the
+    extension as local files, so those cost no network request at all.
+  </p>
+
+  <h2>Browser permissions</h2>
+
+  <p>
+    Chrome asks you to approve a list of permissions at install. Here is what
+    each one is actually for.
+  </p>
+
+  <div class="table-scroll">
+  <table class="data">
+    <thead><tr><th>Permission</th><th>Why it is needed</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">activeTab, scripting</td><td>To draw the citation bar onto the PubMed page you are looking at</td></tr>
+      <tr><td class="sym">storage</td><td>To keep article data and your settings locally between pages</td></tr>
+      <tr><td class="sym">tabs</td><td>To detect which kind of PubMed page you are on, and to open reports in new tabs</td></tr>
+      <tr><td class="sym">bookmarks, management,<br>system.memory, browsingData</td><td>To display the diagnostic panel at the bottom of the popup — Chrome version, operating system, memory, and counts of bookmarks and installed extensions — which exists so you can paste useful details into a support request. These are read locally and shown to you only. They are never transmitted.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>
+    Host permissions are limited to PubMed, NCBI and the public metadata
+    services listed above. The extension does not run on any other site.
+  </p>
+
+  <h2>This website</h2>
+
+  <p>
+    These pages are static files served by GitHub Pages. There are no cookies,
+    no analytics and no third-party trackers. Web fonts are loaded from Google
+    Fonts, which will see your IP address as it would on any site using them.
+    GitHub keeps its own server logs, as any web host does.
+  </p>
+
+  <div class="note">
+    <strong>Questions?</strong> The
+    <a href="support.html">support page</a>
+    is the place to ask.
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span>PubMed Citation Bar — free, no tracking</span>
+    <span>
+      <a href="index.html">Home</a> ·
+      <a href="help.html">Help</a> ·
+      <a href="https://chromewebstore.google.com/detail/pubmed-citation-bar/ghbpnjpggopkfhbngpcieoimiopbmmom">Chrome Web Store</a>
+    </span>
+  </div>
+</footer>
+
+<script src="siteNav.js"></script>
+
+</body>
+</html>

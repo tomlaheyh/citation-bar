@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================ SEO ============================ -->
+<title>Support &amp; Troubleshooting — PubMed Citation Bar</title>
+<link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/support.html">
+<meta name="description" content="Support for the PubMed Citation Bar Chrome extension: why the bar isn't showing, what blank values mean, scan and term limits, what Reset Extension really does, how to gather diagnostics, and how to get in touch.">
+<meta name="keywords" content="PubMed Citation Bar support, extension not working, citation bar not showing, RCR blank, Scan 1000, troubleshooting">
+<meta name="author" content="PubMed Citation Bar">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#005a8c">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="PubMed Citation Bar">
+<meta property="og:title" content="Support &amp; Troubleshooting — PubMed Citation Bar">
+<meta property="og:description" content="Why the bar isn't showing, what blank values mean, the real limits, and how to get in touch.">
+<meta property="og:url" content="https://tomlaheyh.github.io/citation-bar/support.html">
+
+<link rel="icon" href="assets/icon128.png" type="image/png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Source+Sans+3:wght@400;600;700&display=swap">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why isn't the citation bar showing on PubMed?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The bar only runs on PubMed search results, trending, collection and individual article pages. It does not run on the PubMed home page, Advanced Search, MeSH Database or My NCBI. If you are on a supported page, check the toggle in the popup reads Citation Bar On, then reload the page." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does RCR show a dash?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Relative Citation Ratio is calculated only by NIH iCite. When iCite is slow or unavailable, citation counts fall back to Europe PMC but RCR shows a dash, because no other source computes the same measure. Substituting a different number would be misleading." }
+    },
+    {
+      "@type": "Question",
+      "name": "How many results can Scan 1,000 process?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Up to five pages of 200 results, so 1,000 articles, and it takes about a minute. It works on search, trending and collection pages." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Support</h1>
+    <p class="tagline">
+      Most problems fall into one of a few categories, and several things that
+      look like faults are the extension telling you the truth about missing
+      data. Start here.
+    </p>
+    <div class="btn-row">
+      <a class="btn" href="https://chromewebstore.google.com/detail/pubmed-citation-bar/ghbpnjpggopkfhbngpcieoimiopbmmom/support">Ask a question or report a bug</a>
+    </div>
+  </header>
+
+  <h2 id="not-showing">The bar isn't showing</h2>
+
+  <p>Work through these in order.</p>
+
+  <ol>
+    <li>
+      <strong>Check you're on a supported page.</strong> The bar runs on PubMed
+      search results, the trending page, saved collections, and individual
+      article pages. It does <em>not</em> run on the PubMed home page, Advanced
+      Search, the MeSH Database, or My NCBI.
+    </li>
+    <li>
+      <strong>Check the toggle.</strong> Open the extension popup; the top
+      button should read <code>-Citation Bar On-</code>. Click it to switch it
+      back on, then reload the page.
+    </li>
+    <li>
+      <strong>Reload the page.</strong> If you switched the bar on while already
+      on a results page, it needs a reload to draw.
+    </li>
+    <li>
+      <strong>Give it a few seconds.</strong> A normal page takes three to six
+      seconds because the extension is fetching live data from several sources.
+    </li>
+  </ol>
+
+  <h2 id="blank">Blank values aren't bugs</h2>
+
+  <p>
+    The extension leaves a gap visible rather than filling it with a
+    plausible-looking substitute. Here is what each gap means.
+  </p>
+
+  <div class="table-scroll">
+  <table class="data">
+    <thead><tr><th>What you see</th><th>What it means</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">RCR -</td><td>iCite is slow or unavailable. Citation counts fall back to Europe PMC, but RCR is an iCite-only measure, so no substitute is shown. Usually resolves on its own.</td></tr>
+      <tr><td class="sym">IC -</td><td>Semantic Scholar has no record for this article, which is common for very recent papers.</td></tr>
+      <tr><td class="sym">Alt greyed out</td><td>The article has no DOI, so there is nothing to look up at Altmetric. A greyed <code>Alt</code> is not the same as an Altmetric score of zero.</td></tr>
+      <tr><td class="sym">doi greyed out</td><td>No DOI on the PubMed record. About 3% of articles.</td></tr>
+      <tr><td class="sym">Author metrics blank</td><td>No ORCID on the record. Author metrics come from OpenAlex keyed by ORCID; matching by name would return the wrong researcher, so nothing is shown.</td></tr>
+      <tr><td class="sym">MeSH empty</td><td>The article isn't MEDLINE-indexed, so it has no MeSH terms yet. It may get them later.</td></tr>
+      <tr><td class="sym">SJR -</td><td>The journal's ISSN isn't in the SCImago table.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <strong>On MEDLINE status in particular.</strong> A missing <code>m</code>
+    flag does not always mean the article will never be indexed. A growing
+    number of records sit in an "in-process" state for extended periods, so
+    filtering a search by MEDLINE can quietly exclude papers that are simply
+    waiting. The <a href="pubmed-summary/pubmed-summary.html">PubMed Summary
+    report</a> tracks this year by year if you want to see the scale of it.
+  </div>
+
+  <h2 id="limits">Limits, and what the messages mean</h2>
+
+  <div class="table-scroll">
+  <table class="data">
+    <thead><tr><th>Message or limit</th><th>Explanation</th></tr></thead>
+    <tbody>
+      <tr><td>Scan 1,000</td><td>Walks up to five pages of 200 results — 1,000 articles — in about a minute.</td></tr>
+      <tr><td>"Scan 1,000 only works on PubMed search, trending, or collection pages"</td><td>You're on an individual article page or somewhere unsupported. Run a search first.</td></tr>
+      <tr><td>"High Impact filter only works on PubMed pages"</td><td>Same cause.</td></tr>
+      <tr><td>"No High Impact items found"</td><td>Nothing on the page clears your threshold. Lower it in the popup — the default is 5, and it adjusts from 1 to 6.</td></tr>
+      <tr><td>"Limited to first 20 terms"</td><td>Term Analysis takes a maximum of 20 terms. The first 20 are processed.</td></tr>
+      <tr><td>Special mode</td><td>Up to 10 term groups separated by blank lines. Line 1 must be <code>Special:</code>, line 2 a period in the form <code>Last X days/months/years</code>, with X between 1 and 100.</td></tr>
+      <tr><td>DOI collection</td><td>Up to 15 DOIs can be gathered and viewed together in DOI Lookup.</td></tr>
+      <tr><td>"Failed to search external databases"</td><td>OpenAlex or ClinicalTrials.gov didn't respond. Usually temporary.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 id="reset">Before you click "Reset Extension"</h2>
+
+  <div class="note note-warn">
+    <strong>Read this first — the button does more than its name suggests.</strong>
+    <em>Reset Extension</em> clears the extension's stored data <strong>and</strong>
+    your browser's cache, cookies, history, local storage, IndexedDB, cache
+    storage and service workers, for all time — not just for PubMed. Saved
+    passwords, form data and downloads are <strong>not</strong> affected. You
+    will be signed out of sites and your history will be gone. Chrome shows a
+    confirmation dialog before it runs.
+  </div>
+
+  <p>
+    Try these first, in order — they fix nearly everything and cost you nothing:
+  </p>
+
+  <ol>
+    <li>Reload the PubMed page.</li>
+    <li>Toggle the citation bar off and on in the popup, then reload.</li>
+    <li>Close and reopen the tab.</li>
+    <li>If a specific data source looks wrong, wait a few minutes — iCite,
+        Semantic Scholar and Altmetric all have occasional slow periods, and the
+        bar recovers by itself.</li>
+  </ol>
+
+  <p>
+    Only reach for <em>Reset Extension</em> if the extension is genuinely stuck
+    after all of that, and you're willing to lose your browsing history and
+    active sign-ins.
+  </p>
+
+  <h2 id="diagnostics">Gathering details for a bug report</h2>
+
+  <p>
+    A report is far easier to act on with these attached. Both are in the
+    extension popup.
+  </p>
+
+  <ul>
+    <li>
+      <strong>The diagnostic panel</strong> at the bottom of the popup shows your
+      Chrome version, operating system, available memory, and counts of bookmarks
+      and installed extensions. It exists purely so you can paste it into a
+      support message. It is read locally and never transmitted anywhere.
+    </li>
+    <li>
+      <strong>List Data</strong> exports everything the extension is holding —
+      PMIDs first, then every measure, timestamp and internal field. If the
+      trouble is with specific articles, this is the single most useful thing to
+      include.
+    </li>
+  </ul>
+
+  <p>Also helpful: the exact PubMed search you ran, and what you expected instead.</p>
+
+  <h2 id="contact">Getting in touch</h2>
+
+  <p>
+    Questions, bug reports and suggestions all go through the Chrome Web Store
+    support tab. It reaches me directly and keeps everything in one place.
+  </p>
+
+  <div class="btn-row">
+    <a class="btn" href="https://chromewebstore.google.com/detail/pubmed-citation-bar/ghbpnjpggopkfhbngpcieoimiopbmmom/support">Support tab on the Chrome Web Store</a>
+    <a class="btn btn-ghost" href="help.html">Reference: every symbol explained</a>
+  </div>
+
+  <p>
+    Suggestions for the curated top-journal list are welcome. It's deliberately
+    small and selective, but it isn't fixed.
+  </p>
+
+  <h2 id="videos">Training videos</h2>
+
+  <p>
+    Short walkthroughs — screening a search with High Impact and Scan 1,000,
+    building a clean query with Xout, and using Term Analysis to test which
+    phrasing actually finds the literature — are planned for this page.
+  </p>
+
+  <p>
+    Until then the <a href="help.html">reference page</a> covers every element on
+    the bar, and NLM's own
+    <a href="https://learn.nlm.nih.gov/documentation/training-packets/T0042010P/">PubMed training</a>
+    is a solid grounding in PubMed itself.
+  </p>
+
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span>PubMed Citation Bar — free, no tracking</span>
+    <span>
+      <a href="index.html">Home</a> ·
+      <a href="help.html">Help</a> ·
+      <a href="support.html">Support</a> ·
+      <a href="privacy.html">Privacy</a> ·
+      <a href="https://chromewebstore.google.com/detail/pubmed-citation-bar/ghbpnjpggopkfhbngpcieoimiopbmmom">Chrome Web Store</a>
+    </span>
+  </div>
+</footer>
+
+<script src="siteNav.js"></script>
+
+</body>
+</html>

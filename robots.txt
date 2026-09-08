@@ -1,0 +1,15 @@
+# robots.txt — PubMed Citation Bar
+#
+# NOTE: on a GitHub Pages *project* site (tomlaheyh.github.io/citation-bar/)
+# crawlers read robots.txt from the DOMAIN ROOT — tomlaheyh.github.io/robots.txt —
+# which is controlled by the "tomlaheyh.github.io" user-site repo, not this one.
+# This file therefore has no effect until the site moves to its own domain or
+# the root robots.txt allows this path. Submit sitemap.xml in Search Console
+# in the meantime.
+#
+# Full indexing is intended.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://tomlaheyh.github.io/citation-bar/sitemap.xml

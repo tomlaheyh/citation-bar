@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PubMed Journal Ranking</title>
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/journal-ranking/journal-ranking.html">
+<meta name="description" content="Journals ranked by articles added to PubMed year to date, with ISSN, SJR, MEDLINE percentage, free full text percentage, ORCID percentage, retraction counts and month-by-month volume. Free, with CSV export.">
+<meta name="author" content="PubMed Citation Bar">
+<meta name="theme-color" content="#005a8c">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="PubMed Citation Bar">
+<meta property="og:title" content="PubMed Journal Ranking">
+<meta property="og:description" content="Journals ranked by articles added to PubMed year to date, with ISSN, SJR, MEDLINE percentage, free full text percentage, ORCID percentage, retraction counts and month-by-month volume. Free, with CSV export.">
+<meta property="og:url" content="https://tomlaheyh.github.io/citation-bar/journal-ranking/journal-ranking.html">
+<link rel="icon" href="../assets/icon128.png" type="image/png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #d0d5dd;
+    --text: #1a1a2e;
+    --text-muted: #64748b;
+    --accent: #1e40af;
+    --accent-light: #dbeafe;
+    --section-bg: #e8f0fe;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 24px 20px;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 20px 0;
+    margin-bottom: 24px;
+  }
+
+  header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  h1 { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+  .subtitle { font-size: 0.85rem; color: var(--text-muted); }
+
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .note-bar {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* Search */
+  .search-bar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .search-bar input {
+    font-family: inherit;
+    font-size: 0.85rem;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    width: 300px;
+    outline: none;
+  }
+
+  .search-bar input:focus { border-color: var(--accent); }
+
+  .search-bar .count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* Table */
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: auto;
+    max-height: 80vh;
+    margin-bottom: 24px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    padding: 9px 10px;
+    text-align: right;
+    white-space: nowrap;
+    z-index: 2;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  thead th:hover { background: #163380; }
+
+  thead th.sort-asc::after { content: ' ▲'; font-size: 0.65rem; }
+  thead th.sort-desc::after { content: ' ▼'; font-size: 0.65rem; }
+
+  thead th:nth-child(1) { text-align: center; width: 50px; }
+  thead th:nth-child(2) { text-align: left; width: 90px; }
+  thead th:nth-child(3) { text-align: right; width: 60px; }   /* SJR */
+  thead th:nth-child(4) { text-align: left; min-width: 180px; } /* Journal Title */
+
+  /* Medline %, FreeFull %, ORCID %: tighter horizontal padding than their
+     neighbours (8px vs 10px). These columns are content-sized, so padding is
+     the only lever that narrows them without clipping the header text, which
+     floors each column at its own label width. Retractions is left at 10px. */
+  thead th:nth-child(5), tbody td:nth-child(5),
+  thead th:nth-child(6), tbody td:nth-child(6),
+  thead th:nth-child(7), tbody td:nth-child(7) { padding-left: 8px; padding-right: 8px; }
+
+  tbody td {
+    padding: 5px 10px;
+    text-align: right;
+    border-bottom: 1px solid #eef0f4;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+  }
+
+  tbody td:nth-child(1) {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+  }
+
+  tbody td:nth-child(2) {
+    text-align: left;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  /* SJR column (numeric, right-aligned, subtly emphasized) */
+  tbody td:nth-child(3) {
+    font-size: 0.72rem;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  tbody td:nth-child(4) {
+    text-align: left;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.82rem;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  tbody td.pct-cell {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  /* Retractions column: muted by default, flagged red when non-zero */
+  tbody td.retr-cell {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+  tbody td.retr-hit {
+    color: #b91c1c;
+    font-weight: 600;
+  }
+  /* Withdrawn-preprint count ("W25"): amber, distinct from retraction red */
+  tbody td.withdrawn-hit {
+    color: #b45309;
+    font-weight: 600;
+  }
+
+  tbody td:nth-child(4) a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--text-muted);
+  }
+  tbody td:nth-child(4) a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    border-bottom-style: solid;
+  }
+
+  /* SJR column link to SCImago profile */
+  tbody td:nth-child(3) a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--text-muted);
+  }
+  tbody td:nth-child(3) a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    border-bottom-style: solid;
+  }
+
+  /* Retractions link: keep the cell's red emphasis, signal clickability */
+  tbody td.retr-cell a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dotted currentColor;
+  }
+  tbody td.retr-cell a:hover {
+    border-bottom-style: solid;
+  }
+
+  tbody tr:hover { background: #f7f9fc; }
+  tbody tr:nth-child(even) { background: #fafbfd; }
+  tbody tr:nth-child(even):hover { background: #f7f9fc; }
+
+  /* Top 10 highlight */
+  tbody tr.top10 td:nth-child(1) { font-weight: 700; color: var(--accent); }
+  tbody tr.top10 td:nth-child(4) { font-weight: 600; }
+
+  .status-bar .btn, .search-bar .btn {
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .status-bar .btn:hover, .search-bar .btn:hover { background: var(--accent-light); border-color: var(--accent); }
+  .status-bar .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Total column bracket styling */
+  thead th.total-col {
+    border-left: 2px solid rgba(255,255,255,0.4);
+    border-right: 2px solid rgba(255,255,255,0.4);
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  tbody td.total-cell {
+    border-left: 2px solid var(--border);
+    border-right: 2px solid var(--border);
+    padding-left: 14px;
+    padding-right: 14px;
+    font-weight: 600;
+  }
+
+  /* Gap before months */
+  thead th.month-first {
+    padding-left: 16px;
+  }
+  tbody td.month-first {
+    padding-left: 16px;
+  }
+
+  .footnote {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+<script src="../siteNav.js"></script>
+
+<div class="container" style="padding-top:12px">
+  <div style="display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:10px">
+    <span style="font-size:0.82rem;color:var(--text-muted)" id="statusText">Loading...</span>
+    <span style="font-size:0.82rem;color:var(--text-muted)" id="reportPeriod"></span>
+    <button class="btn" id="exportBtn" onclick="exportCSV()" disabled>Export CSV</button>
+  </div>
+  <div class="note-bar" style="margin-bottom:12px">Journals ranked by total articles YTD. SJR is the SCImago Journal Rank (annual prestige metric); click an SJR value to open the journal's SCImago profile. Medline %, Free Full Text %, and ORCID % are ratios for articles in that journal. Retractions counts retracted journal articles (by last-revised date) over the same period; a "W" value (e.g. W25) instead shows withdrawals, matched from PubMed's "WITHDRAWN:" title text. PubMed has no official withdrawal field, so the W count is an approximate, best-effort signal rather than an exact figure. Monthly columns show article counts by create date.</div>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search by journal title or ISSN..." onkeydown="if(event.key==='Enter')filterTable()">
+    <button class="btn" onclick="filterTable()">Search</button>
+    <button class="btn" onclick="document.getElementById('searchInput').value='';filterTable()">Clear</button>
+    <span class="count" id="rowCount"></span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr id="tableHead"></tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="footnote" id="footnote">
+    Rankings based on PubMed create date [crdt]. Retractions use "Retracted Publication"[pt] dated by last-revised [lr] over the same period (a separate benchmark — this year's new articles are too recent to have been retracted yet). Withdrawals (shown as "W<n>") are detected from the "WITHDRAWN:" prefix PubMed adds to a citation's title — the route NLM uses for both withdrawn ahead-of-print articles (publisher-updated) and withdrawn preprints (PMC-updated). Per NLM, there is no publication type or comment/correction type for withdrawals, so this is a title-text match over the same [lr] window and won't always map exactly to official withdrawals. Journals with no articles in the period are excluded.
+  </div>
+</div>
+
+<script>
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+let allRows = [];
+let sortedFiltered = []; // current sorted+filtered view
+let renderedCount = 0;   // how many rows of sortedFiltered are in the DOM
+const PAGE_SIZE = 100;
+let sortCol = 0;
+let sortDir = 'asc'; // rank is ascending by default
+
+// ─── TIMEFRAME (data-owned) ───────────────────────────────────────
+// The report's year and the PubMed link date range are derived from the
+// data file itself — the stamped metadata line (preferred) or, failing
+// that, the months actually present and the filename. The clock is only
+// ever used to locate the newest file, never to label or query it.
+let REPORT_YEAR = new Date().getFullYear();
+let LINK_RANGE = '';
+
+// ISSN -> SCImago Sourceid, loaded client-side from SJR.csv (same file the
+// extension bundles). Populates the SJR-column links; empty until loaded.
+let SJR_SOURCEMAP = {};
+
+function splitCSVLine(line) {
+  const cells = [];
+  let current = '';
+  let inQuotes = false;
+  for (let c = 0; c < line.length; c++) {
+    const ch = line[c];
+    if (ch === '"') { inQuotes = !inQuotes; }
+    else if (ch === ',' && !inQuotes) { cells.push(current.trim()); current = ''; }
+    else { current += ch; }
+  }
+  cells.push(current.trim());
+  return cells;
+}
+
+// Parse the optional self-describing line, e.g.
+//   "Journal Ranking YTD","2026","Jan-Apr","Generated 2026-05-18"
+function parseMeta(cells) {
+  let year = null, period = null, generated = '';
+  for (const c of cells) {
+    if (/^\d{4}$/.test(c)) year = parseInt(c, 10);
+    else if (/^[A-Za-z]{3}-[A-Za-z]{3}$/.test(c)) period = c;
+    else if (/^generated/i.test(c)) generated = c.replace(/^generated\s*/i, '');
+  }
+  return { year, period, generated };
+}
+
+// Returns { meta, rows }. Handles both stamped files (metadata line first)
+// and legacy files whose first line is the "Rank,..." table header.
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  if (lines.length < 2) return { meta: null, rows: [] };
+
+  let idx = 0, meta = null;
+  const first = splitCSVLine(lines[0]);
+  if (first[0] && first[0].toLowerCase() !== 'rank') {
+    meta = parseMeta(first);
+    idx = 1; // header is on the next line
+  }
+
+  const rows = [];
+  for (let i = idx + 1; i < lines.length; i++) {
+    const cells = splitCSVLine(lines[i]);
+    if (cells.length < 9) continue;
+
+    // The Retractions column carries a combined value: a bare integer for
+    // retracted journal articles, or "W<n>" for withdrawn preprints. Split it
+    // into two numeric fields so each renders and links its own way.
+    let retr = 0, withdrawn = 0;
+    const retrRaw = (cells[7] || '').trim();
+    const wMatch = /^W(\d+)$/i.exec(retrRaw);
+    if (wMatch) withdrawn = parseInt(wMatch[1]) || 0;
+    else retr = parseInt(retrRaw) || 0;
+
+    const row = {
+      rank: parseInt(cells[0]) || 0,
+      issn: cells[1] || '',
+      sjr: parseFloat(cells[2]) || 0,
+      title: cells[3] || '',
+      medlinePct: parseFloat(cells[4]) || 0,
+      freeFullPct: parseFloat(cells[5]) || 0,
+      orcidPct: parseFloat(cells[6]) || 0,
+      retractions: retr,
+      withdrawals: withdrawn,
+      total: parseInt(cells[8]) || 0,
+      // API_Ref (col V, idx 21) and Withdrawn_URL (col W, idx 22) ride after the
+      // month columns. withdrawnUrl is an explicit PubMed id-list URL for this
+      // journal's withdrawn preprints (or '' when none, or when the journal has
+      // retractions). It's the only link that resolves to exactly the
+      // "WITHDRAWN:" records, since no query reproduces that set.
+      apiRef: cells[21] || '',
+      withdrawnUrl: cells[22] || '',
+      months: []
+    };
+
+    // SJR is column 2, Retractions 7, Total 8, Months are columns 9-20.
+    for (let m = 9; m <= 20; m++) {
+      row.months.push(parseInt(cells[m]) || 0);
+    }
+
+    if (row.total > 0) rows.push(row);
+  }
+
+  return { meta, rows };
+}
+
+// PubMed [crdt] range for the row links: Jan 1 → end of the last month
+// that actually has data, in the report's own year.
+function buildLinkRange(year, lastMonthIdx) {
+  const mm = String(lastMonthIdx + 1).padStart(2, '0');
+  const lastDay = new Date(year, lastMonthIdx + 1, 0).getDate();
+  const dd = String(lastDay).padStart(2, '0');
+  return `${year}/01/01:${year}/${mm}/${dd}`;
+}
+
+function buildHeader() {
+  const head = document.getElementById('tableHead');
+  head.innerHTML = '';
+
+  const cols = [
+    { label: 'Rank', key: 'rank' },
+    { label: 'ISSN', key: 'issn' },
+    { label: 'SJR', key: 'sjr' },
+    { label: 'Journal Title', key: 'title' },
+    { label: 'Medline %', key: 'medlinePct' },
+    { label: 'FreeFull %', key: 'freeFullPct' },
+    { label: 'ORCID %', key: 'orcidPct' },
+    { label: 'Retractions', key: 'retractions' },
+    { label: 'Total', key: 'total' }
+  ];
+
+  MONTHS.forEach((m, i) => {
+    cols.push({ label: m, key: 'month_' + i });
+  });
+
+  cols.forEach((col, idx) => {
+    const th = document.createElement('th');
+    th.textContent = col.label;
+    th.dataset.colIdx = idx;
+    th.dataset.key = col.key;
+
+    let cls = '';
+    if (idx === sortCol) cls = sortDir === 'asc' ? 'sort-asc' : 'sort-desc';
+    if (col.key === 'total') cls += ' total-col';
+    if (col.key === 'month_0') cls += ' month-first';
+    th.className = cls.trim();
+
+    th.addEventListener('click', () => {
+      if (sortCol === idx) {
+        sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        sortCol = idx;
+        sortDir = col.key === 'title' || col.key === 'issn' ? 'asc' : 'desc';
+      }
+      renderRows();
+      buildHeader();
+    });
+
+    head.appendChild(th);
+  });
+}
+
+function getCellValue(row, colIdx) {
+  const fixedCols = ['rank', 'issn', 'sjr', 'title', 'medlinePct', 'freeFullPct', 'orcidPct', 'retractions', 'total'];
+  if (colIdx < fixedCols.length) {
+    return row[fixedCols[colIdx]];
+  }
+  const monthIdx = colIdx - fixedCols.length;
+  return row.months[monthIdx] || 0;
+}
+
+function buildRowHTML(r, dateRange) {
+  const rowCls = r.rank <= 10 ? ' class="top10"' : '';
+  const isValidISSN = /^\d{4}-\d{3}[\dXx]$/.test(r.issn);
+  const titleSearchable = r.title && r.title !== 'N/A';
+  let titleCell;
+  if (isValidISSN) {
+    const term = `${dateRange} [crdt] ${r.issn} [ta]`;
+    const pubmedUrl = 'https://pubmed.ncbi.nlm.nih.gov/?term=' + encodeURIComponent(term);
+    titleCell = `<a href="${pubmedUrl}" target="_blank" title="Open in PubMed">${r.title}</a>`;
+  } else if (titleSearchable) {
+    // No standard ISSN (e.g. preprint servers like medRxiv/bioRxiv, whose key is
+    // "NLM<id>"): PubMed has no searchable NLM Unique ID field [jid], so link via
+    // the journal's title abbreviation in [ta] (quoted) over the same [crdt]
+    // period. [ta] is the field the NLM ID corresponds to, so this gives these
+    // rows the same working period link the ISSN journals get.
+    const term = `${dateRange} [crdt] "${r.title}" [ta]`;
+    const pubmedUrl = 'https://pubmed.ncbi.nlm.nih.gov/?term=' + encodeURIComponent(term);
+    titleCell = `<a href="${pubmedUrl}" target="_blank" title="Open in PubMed (matched by journal title)">${r.title}</a>`;
+  } else {
+    titleCell = r.title;
+  }
+  let row = `<tr${rowCls}>`;
+  row += `<td>${r.rank}</td>`;
+  row += `<td>${r.issn}</td>`;
+  // SJR cell: link to the journal's SCImago profile when we have a Sourceid.
+  // URL format mirrors the extension's getSJRdata.js exactly (incl. text fragment).
+  let sjrCell = '';
+  if (r.sjr > 0) {
+    const sjrText = r.sjr.toFixed(2);
+    const sourceid = SJR_SOURCEMAP[r.issn];
+    if (sourceid) {
+      const sjrUrl = `https://www.scimagojr.com/journalsearch.php?q=${sourceid}&tip=sid&clean=0#:~:text=External%20Cites%20per%20Doc`;
+      sjrCell = `<a href="${sjrUrl}" target="_blank" title="Open journal in SCImago">${sjrText}</a>`;
+    } else {
+      sjrCell = sjrText;
+    }
+  }
+  row += `<td>${sjrCell}</td>`;
+  row += `<td>${titleCell}</td>`;
+  row += `<td class="pct-cell">${(r.medlinePct * 100).toFixed(0)}%</td>`;
+  row += `<td class="pct-cell">${(r.freeFullPct * 100).toFixed(0)}%</td>`;
+  row += `<td class="pct-cell">${(r.orcidPct * 100).toFixed(0)}%</td>`;
+  // Retractions / Withdrawals cell. One column, two signals: a retracted-article
+  // count (red) takes the cell when present; otherwise a withdrawn-preprint count
+  // shows as amber "W<n>". Each links to the matching PubMed query for this
+  // journal over the report window, dated by last-revised [lr].
+  const rv = r.retractions || 0;
+  const wv = r.withdrawals || 0;
+  let retrCell = '';
+  let retrCls = 'retr-cell';
+  if (rv > 0) {
+    retrCls += ' retr-hit';
+    const retrText = rv.toLocaleString();
+    if (isValidISSN) {
+      const retrTerm = `"Retracted Publication"[pt] AND ${dateRange}[lr] AND ${r.issn}[ta]`;
+      const retrUrl = 'https://pubmed.ncbi.nlm.nih.gov/?term=' + encodeURIComponent(retrTerm);
+      retrCell = `<a href="${retrUrl}" target="_blank" title="Retracted articles in PubMed, by last-revised date">${retrText}</a>`;
+    } else {
+      retrCell = retrText;
+    }
+  } else if (wv > 0) {
+    retrCls += ' withdrawn-hit';
+    const wText = 'W' + wv.toLocaleString();
+    const wTitle = `${wv.toLocaleString()} withdrawn preprint${wv === 1 ? '' : 's'} matched from the WITHDRAWN: title flag over ${dateRange.replace(':', ' to ')} (by last-revised). The link opens exactly these ${wv.toLocaleString()} record${wv === 1 ? '' : 's'} by PMID. Withdrawn is not the same as retracted.`;
+    // Link to the explicit PMID list from the data file (Withdrawn_URL, col W).
+    // This resolves to exactly the WITHDRAWN: records — a WITHDRAWN[ti] search
+    // can't isolate the colon-prefixed set — and it works for preprint servers
+    // (medRxiv/bioRxiv) that have no standard ISSN, which the old ISSN-gated
+    // search link never reached.
+    if (r.withdrawnUrl) {
+      retrCell = `<a href="${r.withdrawnUrl}" target="_blank" title="${wTitle}">${wText}</a>`;
+    } else {
+      retrCell = `<span title="${wTitle}">${wText}</span>`;
+    }
+  }
+  row += `<td class="${retrCls}">${retrCell}</td>`;
+  row += `<td class="total-cell">${r.total.toLocaleString()}</td>`;
+  for (let m = 0; m < 12; m++) {
+    const val = r.months[m];
+    const cls = m === 0 ? ' class="month-first"' : '';
+    row += `<td${cls}>${val > 0 ? val.toLocaleString() : ''}</td>`;
+  }
+  row += '</tr>';
+  return row;
+}
+
+function renderRows() {
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+  let filtered = allRows;
+  if (searchTerm) {
+    filtered = allRows.filter(r =>
+      r.title.toLowerCase().includes(searchTerm) ||
+      r.issn.toLowerCase().includes(searchTerm)
+    );
+  }
+
+  // Sort
+  sortedFiltered = filtered.slice().sort((a, b) => {
+    const va = getCellValue(a, sortCol);
+    const vb = getCellValue(b, sortCol);
+    let cmp;
+    if (typeof va === 'string') {
+      cmp = va.localeCompare(vb);
+    } else {
+      cmp = va - vb;
+    }
+    return sortDir === 'asc' ? cmp : -cmp;
+  });
+
+  // Render only the first PAGE_SIZE rows
+  const body = document.getElementById('tableBody');
+  const initialCount = Math.min(PAGE_SIZE, sortedFiltered.length);
+
+  const htmlParts = [];
+  for (let i = 0; i < initialCount; i++) {
+    htmlParts.push(buildRowHTML(sortedFiltered[i], LINK_RANGE));
+  }
+  body.innerHTML = htmlParts.join('');
+  renderedCount = initialCount;
+
+  // Reset scroll to top so the user sees the new first row after sort/filter
+  const wrap = document.querySelector('.table-wrap');
+  if (wrap) wrap.scrollTop = 0;
+
+  updateRowCount();
+}
+
+function appendNextPage() {
+  if (renderedCount >= sortedFiltered.length) return;
+  const body = document.getElementById('tableBody');
+  const end = Math.min(renderedCount + PAGE_SIZE, sortedFiltered.length);
+  const htmlParts = [];
+  for (let i = renderedCount; i < end; i++) {
+    htmlParts.push(buildRowHTML(sortedFiltered[i], LINK_RANGE));
+  }
+  body.insertAdjacentHTML('beforeend', htmlParts.join(''));
+  renderedCount = end;
+  updateRowCount();
+}
+
+function updateRowCount() {
+  const searchTerm = document.getElementById('searchInput').value;
+  const el = document.getElementById('rowCount');
+  const shown = renderedCount;
+  const total = sortedFiltered.length;
+  if (searchTerm) {
+    el.textContent = `Showing ${shown} of ${total} matches (${allRows.length} total)`;
+  } else {
+    el.textContent = `Showing ${shown} of ${allRows.length} journals`;
+  }
+}
+
+function filterTable() {
+  renderRows();
+}
+
+function exportCSV() {
+  // Re-emit a self-describing file: metadata line, header, then rows.
+  const monthsWithData = [];
+  for (let m = 0; m < 12; m++) {
+    if (allRows.some(r => r.months[m] > 0)) monthsWithData.push(m);
+  }
+  const fm = monthsWithData.length ? MONTHS[monthsWithData[0]] : 'Jan';
+  const lm = monthsWithData.length ? MONTHS[monthsWithData[monthsWithData.length - 1]] : 'Dec';
+  const today = new Date().toISOString().slice(0, 10);
+
+  const lines = [];
+  lines.push(`"Journal Ranking YTD","${REPORT_YEAR}","${fm}-${lm}","Generated ${today}"`);
+
+  const headers = ['Rank','ISSN','SJR','Journal Title','Medline %','FreeFull %','ORCID %','Retractions','Total'];
+  MONTHS.forEach(m => headers.push(m));
+  headers.push('API_Ref', 'Withdrawn_URL');
+  lines.push(headers.map(h => `"${h}"`).join(','));
+
+  allRows.forEach(r => {
+    const cells = [
+      r.rank,
+      `"${r.issn}"`,
+      r.sjr > 0 ? r.sjr : '',
+      `"${r.title.replace(/"/g, '""')}"`,
+      r.medlinePct,
+      r.freeFullPct,
+      r.orcidPct,
+      // Re-emit the combined Retractions/Withdrawals cell in the same format
+      // the file uses: integer retractions, else "W<n>", else 0.
+      r.retractions > 0 ? r.retractions : (r.withdrawals > 0 ? 'W' + r.withdrawals : 0),
+      r.total
+    ];
+    for (let m = 0; m < 12; m++) {
+      cells.push(r.months[m] || '');
+    }
+    // Trailing helper columns, matching the source layout so the exported file
+    // re-imports with withdrawn links intact. Withdrawn_URL carries no comma, so
+    // it needs no quoting.
+    cells.push(r.apiRef || '');
+    cells.push(r.withdrawnUrl || '');
+    lines.push(cells.join(','));
+  });
+
+  const csv = lines.join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `journal-ranking-${REPORT_YEAR}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Load ISSN -> Sourceid from SJR.csv (sits alongside this page). Matches the
+// extension's getSJRdata.js: keys on both ISSN1 and ISSN2. Failure is silent —
+// the SJR column simply renders as plain numbers with no links.
+async function loadSJRMap() {
+  try {
+    const resp = await fetch('SJR.csv?_=' + Date.now());
+    if (!resp.ok) return;
+    const text = await resp.text();
+    const lines = text.split('\n');
+    const start = (lines[0].includes('Sourceid') || lines[0].includes('ISSN')) ? 1 : 0;
+    const map = {};
+    for (let i = start; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) continue;
+      const cols = splitCSVLine(line);
+      if (cols.length < 3) continue;
+      const issn1 = cols[0], issn2 = cols[1], sourceid = cols[2];
+      if (!sourceid) continue;
+      if (issn1) map[issn1] = sourceid;
+      if (issn2) map[issn2] = sourceid;
+    }
+    SJR_SOURCEMAP = map;
+  } catch (e) { /* links just won't render */ }
+}
+
+// Locate the newest data file. The filename carries the year only as a
+// locator; the year SHOWN comes from the file's own stamp. Try the current
+// year, then the prior year (covers early January before the new year's
+// file has been generated).
+async function loadData() {
+  const clockYear = new Date().getFullYear();
+  for (const y of [clockYear, clockYear - 1]) {
+    try {
+      const resp = await fetch(`Journal_Ranking_YTD_${y}.csv?_=` + Date.now());
+      if (resp.ok) return { text: await resp.text(), fileYear: y };
+    } catch (e) { /* try next */ }
+  }
+  return null;
+}
+
+async function init() {
+  try {
+    const loaded = await loadData();
+    if (!loaded) throw new Error('Data file not found');
+
+    const { meta, rows } = parseCSV(loaded.text);
+    allRows = rows;
+
+    // Which months actually have data
+    const monthsWithData = [];
+    for (let m = 0; m < 12; m++) {
+      if (allRows.some(r => r.months[m] > 0)) monthsWithData.push(m);
+    }
+    const firstMonth = monthsWithData.length > 0 ? MONTHS[monthsWithData[0]] : 'Jan';
+    const lastIdx = monthsWithData.length > 0 ? monthsWithData[monthsWithData.length - 1] : 11;
+    const lastMonth = MONTHS[lastIdx];
+
+    // Year: the file's stamp wins; fall back to the filename, then the clock.
+    REPORT_YEAR = (meta && meta.year) || loaded.fileYear || new Date().getFullYear();
+    // Period label: prefer the stamp, else derive from the data.
+    const periodLabel = (meta && meta.period) || `${firstMonth}-${lastMonth}`;
+    // Link range always reflects the data window (never the clock).
+    LINK_RANGE = buildLinkRange(REPORT_YEAR, lastIdx);
+
+    document.title = `PubMed Journal Ranking ${REPORT_YEAR}`;
+    document.getElementById('reportPeriod').textContent =
+      `${allRows.length} journals ranked by total articles — ${periodLabel} ${REPORT_YEAR} YTD`;
+    document.getElementById('statusText').textContent = `${allRows.length} journals loaded`;
+
+    buildHeader();
+    renderRows();
+    attachScrollListener();
+    document.getElementById('exportBtn').disabled = false;
+
+    // Load SCImago Sourceids in the background, then re-render so the SJR
+    // column picks up its links without delaying the initial table paint.
+    loadSJRMap().then(() => {
+      if (Object.keys(SJR_SOURCEMAP).length) renderRows();
+    });
+
+  } catch (e) {
+    document.getElementById('statusText').textContent = 'Error loading data: ' + e.message;
+  }
+}
+
+function attachScrollListener() {
+  const wrap = document.querySelector('.table-wrap');
+  if (!wrap) return;
+  wrap.addEventListener('scroll', () => {
+    // Trigger when within ~400px of the bottom
+    if (wrap.scrollTop + wrap.clientHeight >= wrap.scrollHeight - 400) {
+      appendNextPage();
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>

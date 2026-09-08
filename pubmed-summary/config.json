@@ -1,0 +1,371 @@
+{
+  "title": "PubMed Summary",
+  "note": "Medline indexing is now automatic; fields/tags such as free articles button can take 1-2 weeks to process (show up).",
+  "refreshDayOfMonth": 10,
+  "yearsBack": 6,
+  "rows": [
+    {
+      "id": "total",
+      "label": "# Articles - [crdt] create date",
+      "db": "pubmed",
+      "term": "{year} [crdt]",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "medline",
+      "label": "medline [sb]",
+      "db": "pubmed",
+      "term": "{year} [crdt] medline[sb]",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "automated",
+      "label": "indexingmethod_automated",
+      "db": "pubmed",
+      "term": "{year} [crdt] medline[sb] (indexingmethod_automated)",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "inprocess",
+      "label": "inprocess [sb]",
+      "db": "pubmed",
+      "term": "{year} [crdt] inprocess[sb]",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "publisher",
+      "label": "publisher [sb]",
+      "db": "pubmed",
+      "term": "{year} [crdt] publisher[sb]",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "pubmednotmedline",
+      "label": "pubmednotmedline [sb]",
+      "db": "pubmed",
+      "term": "{year} [crdt] pubmednotmedline[sb]",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "all",
+      "label": "all [sb]",
+      "db": "pubmed",
+      "term": "{year} [crdt] all[sb]",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "preprints",
+      "label": "Preprints",
+      "db": "pubmed",
+      "term": "preprint[pt] AND {year} [crdt]",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "corrections",
+      "label": "Corrections (erratum notices)",
+      "db": "pubmed",
+      "term": "\"Published Erratum\"[pt] AND {year}[crdt]",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "retractions",
+      "label": "Retractions",
+      "db": "pubmed",
+      "term": "\"Retracted Publication\"[pt] AND {year}[lr]",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "hasabstract",
+      "label": "hasabstract (has abstract)",
+      "db": "pubmed",
+      "term": "{year} [crdt] hasabstract",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "fulltext",
+      "label": "\"Full Text\"[sb] (full text links)",
+      "db": "pubmed",
+      "term": "{year} [crdt] \"full text\" [sb]",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "freefulltext",
+      "label": "\"free full text\"[sb] (free links)",
+      "db": "pubmed",
+      "term": "{year} [crdt] \"free full text\"[sb]",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "freefulltext_pct",
+      "label": "Free Full Text (percent)",
+      "type": "percent",
+      "numerator": "freefulltext",
+      "denominator": "total",
+      "section": "core"
+    },
+    {
+      "id": "orcid",
+      "label": "orcid [auid] popular author ID",
+      "db": "pubmed",
+      "term": "{year} [crdt]orcid [auid]",
+      "type": "count",
+      "section": "core"
+    },
+    {
+      "id": "medline_pct",
+      "label": "PubMed % medline",
+      "type": "percent",
+      "numerator": "medline",
+      "denominator": "total",
+      "section": "core"
+    },
+    {
+      "id": "pmc_total",
+      "label": "PubMed Central (PMC) Totals",
+      "db": "pmc",
+      "term": "{year} [edat]",
+      "type": "count",
+      "section": "pmc"
+    },
+    {
+      "id": "pmc_in_pubmed",
+      "label": "pmc[sb] (PMC in PubMed)",
+      "db": "pubmed",
+      "term": "{year} [crdt] pubmed pmc[sb]",
+      "type": "count",
+      "section": "pmc"
+    },
+    {
+      "id": "pmc_pct",
+      "label": "percent of PubMed from PMC",
+      "type": "percent",
+      "numerator": "pmc_in_pubmed",
+      "denominator": "total",
+      "section": "pmc"
+    },
+    {
+      "id": "pmc_medline",
+      "label": "pubmed pmc[sb] medline[sb]",
+      "db": "pubmed",
+      "term": "{year} [crdt] pubmed pmc[sb] medline [sb]",
+      "type": "count",
+      "section": "pmc"
+    },
+    {
+      "id": "pmc_medline_pct",
+      "label": "PMC & medline % in PubMed",
+      "type": "percent",
+      "numerator": "pmc_medline",
+      "denominator": "total",
+      "section": "pmc"
+    },
+    {
+      "id": "systematic",
+      "label": "systematic [sb] (sys reviews)",
+      "db": "pubmed",
+      "term": "{year} [crdt] AND (systematic [sb] or meta analysis [pt])",
+      "type": "count",
+      "section": "topics"
+    },
+    {
+      "id": "clinicaltrials",
+      "label": "Clinical Trials *",
+      "db": "pubmed",
+      "term": "{year} [crdt](clinicaltrials.gov[si] OR clinical trial[pt] OR Clinical Trial Protocol[ptyp])",
+      "type": "count",
+      "section": "topics"
+    },
+    {
+      "id": "cancer",
+      "label": "Cancer",
+      "db": "pubmed",
+      "term": "{year} [crdt] Cancer",
+      "type": "count",
+      "section": "topics"
+    },
+    {
+      "id": "aids",
+      "label": "AIDS (Custom query)",
+      "db": "pubmed",
+      "term": "{year} [crdt] AND (\"AIDS\" OR \"acquired immunodeficiency syndrome\" OR \"HIV\")",
+      "type": "count",
+      "section": "topics"
+    },
+    {
+      "id": "complementmed",
+      "label": "Complement Med (Custom)",
+      "db": "pubmed",
+      "term": "{year} [crdt] AND (Holistic OR Homeopathic OR \"Alternative Medicine\" OR \"Complementary Medicine\" OR \"aromatherapy\" OR \"Meditation\" OR\"Mind-Body\" OR \"Homeopathy\" OR \"Essential Oils\" OR \"Phytotherapy\" OR \"psychotherapy\" OR \"biofeedback\" OR\" hypnotherapy\" OR \"hypnosis\" OR\"Acupuncture\" OR \"Light therapy\" OR \"phototherapy\")",
+      "type": "count",
+      "section": "topics"
+    },
+    {
+      "id": "lighttherapy",
+      "label": "Light Therapy (custom)",
+      "db": "pubmed",
+      "term": "{year} [crdt] AND (photic stimulation OR \"light therapy\" OR phototherapy OR \"evoked potentials, visual\"[MeSH Terms])",
+      "type": "count",
+      "section": "topics"
+    },
+    {
+      "id": "veterinary",
+      "label": "Veterinary OR Zoo",
+      "db": "pubmed",
+      "term": "{year} [crdt] AND (veterinary OR \"Zoo\")",
+      "type": "count",
+      "section": "topics"
+    },
+    {
+      "id": "etiology",
+      "label": "Etiology/Broad [filter]",
+      "db": "pubmed",
+      "term": "{year} [crdt] Etiology/Broad [filter]",
+      "type": "count",
+      "section": "filters"
+    },
+    {
+      "id": "diagnosis",
+      "label": "Diagnosis/Broad [filter]",
+      "db": "pubmed",
+      "term": "{year} [crdt] Diagnosis/Broad [filter]",
+      "type": "count",
+      "section": "filters"
+    },
+    {
+      "id": "therapy",
+      "label": "Therapy/Broad [filter]",
+      "db": "pubmed",
+      "term": "{year} [crdt] Therapy/Broad [filter]",
+      "type": "count",
+      "section": "filters"
+    },
+    {
+      "id": "prognosis",
+      "label": "Prognosis/Broad [filter]",
+      "db": "pubmed",
+      "term": "{year} [crdt] Prognosis/Broad [filter]",
+      "type": "count",
+      "section": "filters"
+    },
+    {
+      "id": "clinicalprediction",
+      "label": "Clinical Prediction Guides/Broad[filter]",
+      "db": "pubmed",
+      "term": "{year} [crdt] Clinical Prediction Guides/Broad [filter]",
+      "type": "count",
+      "section": "filters"
+    },
+    {
+      "id": "systematic_pct",
+      "label": "systematic [sb] (sys reviews)",
+      "type": "percent",
+      "numerator": "systematic",
+      "denominator": "total",
+      "section": "topic_pcts"
+    },
+    {
+      "id": "clinicaltrials_pct",
+      "label": "Clinical Trials *",
+      "type": "percent",
+      "numerator": "clinicaltrials",
+      "denominator": "total",
+      "section": "topic_pcts"
+    },
+    {
+      "id": "cancer_pct",
+      "label": "Cancer",
+      "type": "percent",
+      "numerator": "cancer",
+      "denominator": "total",
+      "section": "topic_pcts"
+    },
+    {
+      "id": "aids_pct",
+      "label": "AIDS (Custom query)",
+      "type": "percent",
+      "numerator": "aids",
+      "denominator": "total",
+      "section": "topic_pcts"
+    },
+    {
+      "id": "complementmed_pct",
+      "label": "Complement Med (Custom)",
+      "type": "percent",
+      "numerator": "complementmed",
+      "denominator": "total",
+      "section": "topic_pcts"
+    },
+    {
+      "id": "lighttherapy_pct",
+      "label": "Light Therapy (custom)",
+      "type": "percent",
+      "numerator": "lighttherapy",
+      "denominator": "total",
+      "section": "topic_pcts"
+    },
+    {
+      "id": "etiology_pct",
+      "label": "Etiology/Broad [filter]",
+      "type": "percent",
+      "numerator": "etiology",
+      "denominator": "total",
+      "section": "filter_pcts"
+    },
+    {
+      "id": "diagnosis_pct",
+      "label": "Diagnosis/Broad [filter]",
+      "type": "percent",
+      "numerator": "diagnosis",
+      "denominator": "total",
+      "section": "filter_pcts"
+    },
+    {
+      "id": "therapy_pct",
+      "label": "Therapy/Broad [filter]",
+      "type": "percent",
+      "numerator": "therapy",
+      "denominator": "total",
+      "section": "filter_pcts"
+    },
+    {
+      "id": "prognosis_pct",
+      "label": "Prognosis/Broad [filter]",
+      "type": "percent",
+      "numerator": "prognosis",
+      "denominator": "total",
+      "section": "filter_pcts"
+    },
+    {
+      "id": "clinicalprediction_pct",
+      "label": "Clinical Prediction Guides/Broad[filter]",
+      "type": "percent",
+      "numerator": "clinicalprediction",
+      "denominator": "total",
+      "section": "filter_pcts"
+    }
+  ],
+  "chart": {
+    "title": "PubMed Summary",
+    "type": "stacked_bar",
+    "series": [
+      { "id": "medline", "label": "medline [sb]", "color": "#4472C4" },
+      { "id": "inprocess", "label": "inprocess [sb]", "color": "#ED7D31" },
+      { "id": "publisher", "label": "publisher [sb]", "color": "#A5A5A5" },
+      { "id": "pubmednotmedline", "label": "pubmednotmedline [sb]", "color": "#FFC000" }
+    ]
+  },
+  "footnote": "- Filters overlap, many SB filters discontinued. *clinicaltrials.gov[si],clinical trial[pt],Clinical Trial Protocol[ptyp] by T Lahey"
+}

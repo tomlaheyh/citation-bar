@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PubMed MeSH Counts</title>
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/mesh/mesh.html">
+<meta name="description" content="MeSH term usage across PubMed by Level 2 category, with prior-year comparison and unique term counts. Terms occupy several tree positions, so counts reflect all of them. Free, with CSV export.">
+<meta name="author" content="PubMed Citation Bar">
+<meta name="theme-color" content="#005a8c">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="PubMed Citation Bar">
+<meta property="og:title" content="PubMed MeSH Counts">
+<meta property="og:description" content="MeSH term usage across PubMed by Level 2 category, with prior-year comparison and unique term counts. Terms occupy several tree positions, so counts reflect all of them. Free, with CSV export.">
+<meta property="og:url" content="https://tomlaheyh.github.io/citation-bar/mesh/mesh.html">
+<link rel="icon" href="../assets/icon128.png" type="image/png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #d0d5dd;
+    --text: #1a1a2e;
+    --text-muted: #64748b;
+    --accent: #1e40af;
+    --accent-light: #dbeafe;
+    --section-bg: #e8f0fe;
+    --green: #16a34a;
+    --red: #dc2626;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px 20px;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 20px 0;
+    margin-bottom: 24px;
+  }
+
+  header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  h1 { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+  .subtitle { font-size: 0.85rem; color: var(--text-muted); }
+
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .note-bar {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* Full-width group layout */
+  .groups-area {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .group-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .group-header-bar {
+    background: var(--section-bg);
+    padding: 8px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .group-header-bar .group-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--accent);
+  }
+
+  .group-header-bar .group-total {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .group-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+
+  @media (max-width: 900px) {
+    .group-items { grid-template-columns: 1fr; }
+  }
+
+  .group-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    border-bottom: 1px solid #eef0f4;
+    border-right: 1px solid #eef0f4;
+    gap: 6px;
+  }
+
+  .group-item:hover { background: #f7f9fc; }
+
+  .group-item .item-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    min-width: 28px;
+  }
+
+  .group-item .item-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .group-item .item-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    text-align: right;
+    min-width: 70px;
+  }
+
+  .group-item .item-change {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    min-width: 40px;
+    text-align: right;
+  }
+
+  .change-up { color: var(--green); }
+  .change-down { color: var(--red); }
+  .change-flat { color: var(--text-muted); }
+
+  /* Summary totals */
+  .summary-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+
+  .summary-section h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+  }
+
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    font-size: 0.82rem;
+    border-bottom: 1px solid #eef0f4;
+  }
+
+  .summary-item .label { color: var(--text); }
+  .summary-item .value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  .footnote {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+    line-height: 1.6;
+  }
+
+  .footnote a { color: var(--accent); }
+
+  .btn {
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn:hover { background: var(--accent-light); border-color: var(--accent); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+</style>
+</head>
+<body>
+<script src="../siteNav.js"></script>
+
+<div class="container" style="padding-top:12px">
+  <div style="display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap">
+    <span style="font-size:0.82rem;color:var(--text-muted)" id="statusText">Loading...</span>
+    <span style="font-size:0.82rem;color:var(--text-muted)" id="reportPeriod"></span>
+    <button class="btn" id="exportBtn" onclick="exportCSV()" disabled>Export CSV</button>
+  </div>
+  <div class="note-bar" style="margin-bottom:12px">MeSH terms can appear in several areas — counts reflect all tree positions. Level 2 categories shown, sorted by count within each major group. ▲▼ vs prior year.</div>
+
+  <div class="groups-area" id="groupsArea"></div>
+
+  <div class="summary-section">
+    <h3>Major Group Totals</h3>
+    <div class="summary-grid" id="summaryGrid"></div>
+  </div>
+
+  <div class="footnote" id="footnote">
+    Questions / Feedback: <a class="obf-email" data-user="tomlaheyh" data-domain="gmail.com" href="#" style="color:inherit;">email me</a><br>
+    MeSH Browser: <a href="https://meshb.nlm.nih.gov/search" target="_blank">https://meshb.nlm.nih.gov/search</a>
+  </div>
+</div>
+
+<script>
+const DATA_FILE = 'MeSH_2026_Level2_Summary.csv';
+let allRows = null;
+
+const GROUP_NAMES = {
+  'A': 'Anatomy', 'B': 'Organisms', 'C': 'Diseases',
+  'D': 'Chemicals and Drugs', 'E': 'Analytical, Diagnostic and Therapeutic Techniques, and Equipment',
+  'F': 'Psychiatry and Psychology', 'G': 'Phenomena and Processes',
+  'H': 'Disciplines and Occupations', 'I': 'Anthropology, Education, Sociology, and Social Phenomena',
+  'J': 'Technology, Industry, and Agriculture', 'K': 'Humanities',
+  'L': 'Information Science', 'M': 'Named Groups',
+  'N': 'Health Care', 'V': 'Publication Characteristics', 'Z': 'Geographicals'
+};
+
+function formatNumber(n) {
+  return n.toLocaleString('en-US');
+}
+
+function changeIndicator(current, prior) {
+  if (!prior || prior === 0) return { text: '', cls: 'change-flat' };
+  const pct = ((current - prior) / prior) * 100;
+  if (pct > 0.5) return { text: '▲' + pct.toFixed(0) + '%', cls: 'change-up' };
+  if (pct < -0.5) return { text: '▼' + Math.abs(pct).toFixed(0) + '%', cls: 'change-down' };
+  return { text: '—', cls: 'change-flat' };
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',');
+  const rows = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+
+    // Handle quoted fields
+    const cells = [];
+    let current = '';
+    let inQuotes = false;
+    for (let c = 0; c < line.length; c++) {
+      const ch = line[c];
+      if (ch === '"') { inQuotes = !inQuotes; }
+      else if (ch === ',' && !inQuotes) { cells.push(current.trim()); current = ''; }
+      else { current += ch; }
+    }
+    cells.push(current.trim());
+
+    if (cells.length >= 4) {
+      rows.push({
+        code: cells[0],
+        name: cells[1],
+        count: parseInt(cells[2]) || 0,
+        priorYear: parseInt(cells[3]) || 0,
+        terms: parseInt(cells[4]) || 0,
+        group: cells[0] ? cells[0][0] : ''
+      });
+    }
+  }
+  return rows;
+}
+
+function render(rows) {
+  // Group by letter
+  const groups = {};
+  const groupTotals = {};
+
+  rows.forEach(r => {
+    if (!groups[r.group]) groups[r.group] = [];
+    groups[r.group].push(r);
+    if (!groupTotals[r.group]) groupTotals[r.group] = { count: 0, prior: 0 };
+    groupTotals[r.group].count += r.count;
+    groupTotals[r.group].prior += r.priorYear;
+  });
+
+  const sortedGroups = Object.keys(groups).sort();
+  sortedGroups.forEach(g => {
+    groups[g].sort((a, b) => b.count - a.count);
+  });
+
+  // Render full-width group cards
+  const area = document.getElementById('groupsArea');
+  area.innerHTML = '';
+
+  sortedGroups.forEach(g => {
+    const groupName = GROUP_NAMES[g] || g;
+    const total = groupTotals[g];
+    const change = changeIndicator(total.count, total.prior);
+
+    const card = document.createElement('div');
+    card.className = 'group-card';
+
+    // Header bar
+    const header = document.createElement('div');
+    header.className = 'group-header-bar';
+    header.innerHTML = `<span class="group-name">${groupName} [${g}]</span><span class="group-total">${formatNumber(total.count)} <span class="${change.cls}">${change.text}</span></span>`;
+    card.appendChild(header);
+
+    // Items grid
+    const itemsDiv = document.createElement('div');
+    itemsDiv.className = 'group-items';
+    const numRows = Math.ceil(groups[g].length / 3);
+    itemsDiv.style.gridTemplateRows = `repeat(${numRows}, auto)`;
+    itemsDiv.style.gridAutoFlow = 'column';
+
+    groups[g].forEach(r => {
+      const ch = changeIndicator(r.count, r.priorYear);
+      const item = document.createElement('div');
+      item.className = 'group-item';
+      item.innerHTML = `<span class="item-code">${r.code}</span><span class="item-name">${r.name}</span><span class="item-count">${formatNumber(r.count)}</span><span class="item-change ${ch.cls}">${ch.text}</span>`;
+      itemsDiv.appendChild(item);
+    });
+
+    card.appendChild(itemsDiv);
+    area.appendChild(card);
+  });
+
+  // Summary totals
+  const grid = document.getElementById('summaryGrid');
+  grid.innerHTML = '';
+
+  let grandTotal = 0;
+
+  sortedGroups.forEach(g => {
+    if (groupTotals[g].count === 0) return;
+    grandTotal += groupTotals[g].count;
+    const item = document.createElement('div');
+    item.className = 'summary-item';
+    item.innerHTML = `<span class="label">${GROUP_NAMES[g] || g} [${g}]</span><span class="value">${formatNumber(groupTotals[g].count)}</span>`;
+    grid.appendChild(item);
+  });
+
+  // Grand total
+  const totalItem = document.createElement('div');
+  totalItem.className = 'summary-item';
+  totalItem.style.borderTop = '2px solid var(--border)';
+  totalItem.style.fontWeight = '700';
+  totalItem.innerHTML = `<span class="label">Total MeSH terms</span><span class="value">${formatNumber(grandTotal)}</span>`;
+  grid.appendChild(totalItem);
+}
+
+async function init() {
+  try {
+    const resp = await fetch(DATA_FILE + '?_=' + Date.now());
+    if (!resp.ok) throw new Error('File not found');
+    const text = await resp.text();
+    const rows = parseCSV(text);
+    allRows = rows;
+
+    document.getElementById('reportPeriod').textContent =
+      'PubMed MeSH Counts, all levels — 2025 full year (terms can be in several areas)';
+    document.getElementById('statusText').textContent = `${rows.length} Level 2 categories loaded`;
+
+    render(rows);
+    document.getElementById('exportBtn').disabled = false;
+  } catch (e) {
+    document.getElementById('statusText').textContent = 'Error loading data: ' + e.message;
+  }
+}
+
+function exportCSV() {
+  const resp = document.getElementById('groupsArea');
+  if (!resp || !allRows) return;
+
+  const lines = [];
+  lines.push('"Category Code","Category Name","Total Count","Prior Year Count"');
+
+  // Group and sort same as render
+  const groups = {};
+  allRows.forEach(r => {
+    if (!groups[r.group]) groups[r.group] = [];
+    groups[r.group].push(r);
+  });
+
+  const sortedGroups = Object.keys(groups).sort();
+  sortedGroups.forEach(g => {
+    groups[g].sort((a, b) => b.count - a.count);
+    const groupName = GROUP_NAMES[g] || g;
+    lines.push('');
+    lines.push(`"${groupName} [${g}]","","",""`);
+    groups[g].forEach(r => {
+      lines.push(`"${r.code}","${r.name.replace(/"/g, '""')}",${r.count},${r.priorYear}`);
+    });
+  });
+
+  const csv = lines.join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'mesh-counts-2025.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>

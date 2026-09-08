@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================ SEO ============================ -->
+<title>PubMed Citation Bar — Citation Metrics on PubMed Search Results</title>
+<!-- NOTE: base URL assumes the repo is published at tomlaheyh.github.io/citation-bar/
+     If the repo name differs, update every absolute URL in this file, the other
+     pages, and sitemap.xml. Search for "github.io/citation-bar". -->
+<link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/">
+<meta name="description" content="Free Chrome extension that adds citation counts, NIH iCite RCR, Altmetric scores, MEDLINE status and journal metrics directly to PubMed search results. No account, no tracking.">
+<meta name="keywords" content="PubMed extension, PubMed citation counts, iCite RCR, Altmetric, MEDLINE indexed, journal ranking, SJR, Chrome extension, literature screening, systematic review">
+<meta name="author" content="PubMed Citation Bar">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#005a8c">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PubMed Citation Bar">
+<meta property="og:title" content="PubMed Citation Bar — Citation Metrics on PubMed Search Results">
+<meta property="og:description" content="Adds citation counts, RCR, Altmetric scores, MEDLINE status and journal metrics directly to PubMed search results. Free, no account, no tracking.">
+<meta property="og:url" content="https://tomlaheyh.github.io/citation-bar/">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PubMed Citation Bar">
+<meta name="twitter:description" content="Citation counts, RCR, Altmetric and journal metrics on PubMed search results. Free, no tracking.">
+
+<link rel="icon" href="assets/icon128.png" type="image/png">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Source+Sans+3:wght@400;600;700&display=swap">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PubMed Citation Bar",
+  "applicationCategory": "BrowserApplication",
+  "operatingSystem": "Chrome",
+  "url": "https://tomlaheyh.github.io/citation-bar/",
+  "description": "Chrome extension that adds citation counts, NIH iCite Relative Citation Ratio, Altmetric scores, MEDLINE indexing status and journal metrics to PubMed search results.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Extra measures, right in your search results</h1>
+    <p class="tagline">
+      A free Chrome extension that adds citation counts, field-normalized impact,
+      MEDLINE status and journal metrics to every PubMed result — extra measures
+      placed where you can see them directly, as you search.
+    </p>
+    <div class="btn-row">
+      <a class="btn" href="https://chromewebstore.google.com/detail/pubmed-citation-bar/ghbpnjpggopkfhbngpcieoimiopbmmom">Add to Chrome — free</a>
+      <a class="btn btn-ghost" href="help.html">See what every symbol means</a>
+    </div>
+  </header>
+
+  <h2>What it adds to each result</h2>
+
+  <p>
+    Two compact lines under every article. The first describes the paper, the
+    second describes the journal.
+  </p>
+
+  <div class="table-scroll">
+  <table class="data">
+    <thead>
+      <tr><th>On the bar</th><th>What it tells you</th><th>Source</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="sym">Cited <em>n</em></td><td>Citation count</td><td>NIH iCite, falling back to Europe PMC</td></tr>
+      <tr><td class="sym">RCR <em>n.n</em></td><td>Relative Citation Ratio — citations per year normalized to NIH-funded papers in the same field and year</td><td>NIH iCite</td></tr>
+      <tr><td class="sym">IC <em>n</em></td><td>Influential citations — those that materially shaped the citing work</td><td>Semantic Scholar</td></tr>
+      <tr><td class="sym">Alt</td><td>Attention score from news, policy documents and social media</td><td>Altmetric</td></tr>
+      <tr><td class="sym">m</td><td>Indexed for MEDLINE</td><td>PubMed</td></tr>
+      <tr><td class="sym">n · t</td><td>New (under two years, by create date) · currently trending</td><td>PubMed</td></tr>
+      <tr><td class="sym">p · e</td><td>Preprint · has a published erratum</td><td>PubMed</td></tr>
+      <tr><td class="sym">Retracted</td><td>Retracted, with a link to the retraction notice</td><td>PubMed</td></tr>
+      <tr><td class="sym">*</td><td>Clears your impact threshold — the row turns green</td><td>Computed; <a href="help.html#score">formula published in full</a></td></tr>
+      <tr><td class="sym">SJR · Top-J</td><td>SCImago Journal Rank · on the curated top-journal list</td><td>SCImago; curated ISSN list</td></tr>
+      <tr><td class="sym">Rank · Medline %</td><td>Journal volume this year, and what share of it reached MEDLINE</td><td><a href="journal-ranking/journal-ranking.html">Journal Ranking</a></td></tr>
+      <tr><td class="sym">Ab · link</td><td>Abstract inline · full text (<span class="free">green when free</span>)</td><td>PubMed, PMC, Crossref</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><a href="help.html">Every element explained, with references →</a></p>
+
+  <h2>Screening at volume</h2>
+
+  <p>
+    Set an impact threshold, then <strong>High Impact</strong> filters the current
+    page to results that clear it. <strong>Scan 1,000</strong> walks up to five
+    pages of 200 results and collects the full data set as it goes. The bar takes
+    three to six seconds on a normal page; a full thousand takes about a minute.
+  </p>
+
+  <p>
+    <strong>Xout</strong> reopens your search with checkboxes that exclude
+    letters, editorials, comments, errata, retraction notices, reviews,
+    systematic reviews and meta-analyses — roughly a quarter of PubMed — with a
+    live query preview you can copy into your methods.
+  </p>
+
+  <p>
+    <strong>Term Analysis</strong> takes up to twenty variants of one concept and
+    returns PubMed counts for each across four field configurations, validated
+    against MeSH, so you can see which phrasing actually finds the literature.
+  </p>
+
+  <h2>Reports on PubMed itself</h2>
+
+  <p>
+    Four standing reports, rebuilt from a full PubMed pull. Each has live figures
+    and a CSV export.
+  </p>
+
+  <div class="cards">
+    <a class="card" href="pubmed-summary/pubmed-summary.html">
+      <h3>PubMed Summary</h3>
+      <p>How PubMed, PMC and MEDLINE overlap, by year. Retractions, preprints, free full text, and MEDLINE's shrinking share.</p>
+    </a>
+    <a class="card" href="filters/filters.html">
+      <h3>Filters Report</h3>
+      <p>What each of PubMed's sidebar filters actually returns, counted, for the current year to date.</p>
+    </a>
+    <a class="card" href="mesh/mesh.html">
+      <h3>MeSH Counts</h3>
+      <p>MeSH usage by Level 2 category with prior-year comparison and unique term counts.</p>
+    </a>
+    <a class="card" href="journal-ranking/journal-ranking.html">
+      <h3>Journal Ranking</h3>
+      <p>Journals by articles added year to date, with MEDLINE %, free full text %, ORCID % and retraction counts.</p>
+    </a>
+  </div>
+
+  <h2>Where the data comes from</h2>
+
+  <p>
+    Every figure is traceable, because a metric you cannot attribute is a metric
+    you cannot defend in a methods section.
+  </p>
+
+  <ul>
+    <li><strong>NIH iCite</strong> — citation counts and RCR, requested in chunks of 200 PMIDs and rate-limited to iCite's published limit.</li>
+    <li><strong>Europe PMC</strong> — citation counts when iCite is slow or unavailable. RCR is iCite-specific, so it shows <code>-</code> rather than a substituted number.</li>
+    <li><strong>Semantic Scholar</strong> — influential citations.</li>
+    <li><strong>Altmetric</strong> — attention scores.</li>
+    <li><strong>OpenAlex</strong> — author h-index, i10-index and two-year citation rate; requires an ORCID.</li>
+    <li><strong>SCImago</strong> — journal rank, bundled locally so it costs no network round trip.</li>
+    <li><strong>NCBI E-utilities</strong> — article metadata.</li>
+    <li><strong>Crossref</strong> — full-text links and DOI registration details.</li>
+  </ul>
+
+  <div class="note">
+    <strong>No account. No tracking. No telemetry.</strong>
+    Everything comes from public sources, and the extension's
+    <em>List Data</em> button exports every field it holds, so you can see
+    exactly what it is working with. <a href="privacy.html">Privacy details →</a>
+  </div>
+
+  <h2>What it deliberately doesn't do</h2>
+
+  <p>
+    It won't show Journal Impact Factor — that is a licensed metric, and this
+    extension uses only sources that are free to redistribute, which is why SJR
+    sits in that slot. Author metrics stay blank without an ORCID rather than
+    guessing from a name match. RCR shows <code>-</code> when iCite is
+    unavailable. Every gap is left visible instead of being filled with a
+    plausible-looking substitute.
+  </p>
+
+  <div class="btn-row">
+    <a class="btn" href="https://chromewebstore.google.com/detail/pubmed-citation-bar/ghbpnjpggopkfhbngpcieoimiopbmmom">Add to Chrome — free</a>
+    <a class="btn btn-ghost" href="support.html">Support &amp; troubleshooting</a>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span>PubMed Citation Bar — free, no tracking</span>
+    <span>
+      <a href="help.html">Help</a> ·
+      <a href="support.html">Support</a> ·
+      <a href="privacy.html">Privacy</a> ·
+      <a href="https://chromewebstore.google.com/detail/pubmed-citation-bar/ghbpnjpggopkfhbngpcieoimiopbmmom">Chrome Web Store</a>
+    </span>
+  </div>
+</footer>
+
+<script src="siteNav.js"></script>
+
+</body>
+</html>
