@@ -1,0 +1,47 @@
+name: Drift collect
+
+# 13:00 UTC is 09:00 ET while daylight saving is in force, 08:00 ET in winter.
+# Actions cron is UTC and does not observe DST, but both land inside the quiet
+# window: the full-text batch runs at 07:00 ET and nothing else has been seen
+# before 12:00 ET, so an hour of seasonal slide changes nothing. GitHub also
+# delays scheduled runs under load, which the same margin absorbs.
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch:        # lets a failed baseline be re-fired the same day
+
+permissions:
+  contents: write
+
+concurrency:                # never let two runs write the CSV at once
+  group: drift-collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Pull drift data
+        env:
+          NO_PAUSE: "1"                                   # no console to read
+          NCBI_EMAIL: ${{ secrets.NCBI_EMAIL }}
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+        run: python scripts/pull_drift_data.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "drift-collector"
+          git config user.email "actions@users.noreply.github.com"
+          git add drift/drift-data.csv
+          if git diff --staged --quiet; then
+            echo "no change"
+          else
+            git commit -m "drift: $(date -u +%Y-%m-%d) collection"
+            git push
+          fi

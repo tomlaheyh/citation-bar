@@ -108,16 +108,7 @@
   .s-ytd  { left: 178px; text-align: right; }
   .s-ytdd { left: 284px; text-align: right;
             border-right: 2px solid var(--border); }
-  /* The anchor column pins right after the YTD block (178+106+80), so the
-     baseline you are measuring from never scrolls away from its own diffs. */
-  .s-anchor { left: 364px; }
   thead .stick { z-index: 4; }
-
-  /* A rule down the anchor's right edge: bold alone is easy to lose once the
-     eye is eight columns to the right. */
-  td.cell.base, th.age.is-anchor, th.date.is-anchor {
-    border-right: 2px solid var(--accent);
-  }
 
   th, td { font-size: 11.5px; text-align: right; white-space: nowrap; }
 
@@ -270,9 +261,6 @@
 <script>
 const DATA_FILE = 'drift-data-sample.csv';
 
-// width of the always-pinned block: label 178 + YTD 106 + drift 80
-const PIN_W = 364;
-
 const MEASURES = [
   ['all_sb',            'all [sb]'],
   ['medline',           'medline [sb]'],
@@ -334,12 +322,6 @@ function longDate(iso) {
 function dow(iso) {
   return new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short' });
 }
-function addDays(iso, n) {
-  const [y, m, d] = iso.split('-').map(Number);
-  const t = new Date(Date.UTC(y, m - 1, d));
-  t.setUTCDate(t.getUTCDate() + n);
-  return t.toISOString().slice(0, 10);
-}
 function fmt(n) { return n.toLocaleString('en-US'); }
 function fmtDelta(n) { return (n > 0 ? '+' : '') + n.toLocaleString('en-US'); }
 
@@ -376,12 +358,7 @@ async function init() {
     // one-day diff, not a cohort with a 30-day history.
     if (c[col.row_type] === 'ytd') { YTD.push(row); continue; }
 
-    // The grid's columns are CLOSE dates, not observation dates: a column is a
-    // day that closed, and the cell under it is that cohort as read two days
-    // later. Observation days with no close of their own (the last two) are
-    // still used -- they are where the older cohorts' later readings come from.
-    dset.add(c[col.close_date] || coh);
-    cset.add(coh);
+    dset.add(obs); cset.add(coh);
     (IDX[coh] = IDX[coh] || {})[obs] = row;
   }
   buildYtd();
@@ -391,9 +368,7 @@ async function init() {
   const slider = document.getElementById('anchor');
   slider.max = COHORTS.length - 1;
   slider.value = 0;
-  slider.addEventListener('input', () => { _maskFrom = -1; render(); });
-  document.getElementById('scroller')
-          .addEventListener('scroll', maskUnderPin, { passive: true });
+  slider.addEventListener('input', render);
   document.getElementById('exportBtn').disabled = false;
   render();
 }
@@ -402,16 +377,7 @@ function render() {
   const ai = +document.getElementById('anchor').value;
   const anchor = COHORTS[ai];
   const series = IDX[anchor] || {};
-
-  // Columns are close dates, so the anchor sits on its own date and +0 needs no
-  // explaining. The reading behind each column was taken LAG days later -- two,
-  // by the collector's rule -- and LAG is measured from the data rather than
-  // assumed, so changing the rule doesn't silently misalign the grid.
-  const obsDates = Object.keys(series).sort();
-  const firstObs = obsDates.length ? obsDates[0] : anchor;
-  const LAG = Math.round(
-    (Date.parse(firstObs + 'T00:00:00Z') - Date.parse(anchor + 'T00:00:00Z')) / 86400000);
-  const anchorPos = Math.max(DATES.indexOf(anchor), 0);
+  const anchorPos = DATES.indexOf(anchor);
 
   document.getElementById('anchorRead').textContent = longDate(anchor);
   const obsCount = DATES.length - anchorPos - 1;
@@ -420,7 +386,7 @@ function render() {
 
   // The +0 pull carries the whole row: with nothing to diff against, the cohort
   // is unusable, and it can never be recaptured. Say so loudly.
-  const baseRow = series[firstObs];
+  const baseRow = series[anchor];
   const warn = document.getElementById('warn');
   const baseMissing = !baseRow || baseRow.status === 'NA';
   if (baseMissing) {
@@ -449,7 +415,7 @@ function render() {
     + '<th class="ytdsub stick s-ytdd">1 day</th>';
   DATES.forEach((d, i) => {
     const before = i < anchorPos, isA = i === anchorPos;
-    const cls = before ? ' is-before' : (isA ? ' is-anchor stick s-anchor' : '');
+    const cls = before ? ' is-before' : (isA ? ' is-anchor' : '');
     ageRow.insertAdjacentHTML('beforeend',
       `<th class="age${cls}">${before ? '' : '+' + (i - anchorPos)}</th>`);
     dateRow.insertAdjacentHTML('beforeend',
@@ -465,16 +431,13 @@ function render() {
     DATES.forEach((d, i) => {
       if (i < anchorPos) { html += '<td class="cell before">·</td>'; return; }
 
-      // the anchor column pins even when its own pull failed -- the column has
-      // to hold its place or the +N headers stop lining up with the body
-      const anchorCls = (i === anchorPos) ? ' stick s-anchor' : '';
-      const r = series[addDays(d, LAG)];      // close date -> the day it was read
+      const r = series[d];
       if (!r || r.status === 'NA' || r[key] === null) {
-        html += `<td class="cell na${anchorCls}" data-tip="${label}|${longDate(d)}|na">N/A</td>`;
+        html += `<td class="cell na" data-tip="${label}|${longDate(d)}|na">N/A</td>`;
         return;
       }
       if (i === anchorPos) {
-        html += `<td class="cell base stick s-anchor" data-tip="${label}|${longDate(d)}|base|${r[key]}">${fmt(r[key])}</td>`;
+        html += `<td class="cell base" data-tip="${label}|${longDate(d)}|base|${r[key]}">${fmt(r[key])}</td>`;
         return;
       }
       if (baseMissing) {
@@ -493,42 +456,6 @@ function render() {
   });
 
   attachTips();
-  maskUnderPin();
-}
-
-// Pinning a middle column means the columns behind it slide underneath, and a
-// cell only half-covered shows its right-hand end -- a truncated "-1,371" reads
-// as "1,371", which is worse than showing nothing. Hide any column that the
-// pinned zone overlaps at all.
-let _maskFrom = -1;
-function maskUnderPin() {
-  const sc = document.getElementById('scroller');
-  const ths = document.querySelectorAll('#ageRow th');
-  const anchorTh = document.querySelector('#ageRow th.is-anchor');
-  if (!sc || !anchorTh || ths.length < 2) return;
-
-  const edge = sc.scrollLeft + PIN_W + anchorTh.offsetWidth;
-
-  // Header and body share the same leading cells -- label, YTD, YTD drift --
-  // so the date columns start at index 3 in both and the indexes line up.
-  const FIRST_DATE = 3;
-  let first = FIRST_DATE;
-  for (let i = FIRST_DATE; i < ths.length; i++) {
-    if (ths[i].classList.contains('is-anchor')) continue;
-    if (ths[i].offsetLeft >= edge) { first = i; break; }
-    first = i + 1;
-  }
-  if (first === _maskFrom) return;
-  _maskFrom = first;
-
-  const dts = document.querySelectorAll('#dateRow th');
-  const rows = document.querySelectorAll('#body tr');
-  for (let i = FIRST_DATE; i < ths.length; i++) {
-    const vis = (ths[i].classList.contains('is-anchor') || i >= first) ? '' : 'hidden';
-    ths[i].style.visibility = vis;
-    if (dts[i]) dts[i].style.visibility = vis;
-    rows.forEach(tr => { if (tr.children[i]) tr.children[i].style.visibility = vis; });
-  }
 }
 
 function tint(diff) {
@@ -578,12 +505,8 @@ function exportCSV() {
   const ai = +document.getElementById('anchor').value;
   const anchor = COHORTS[ai];
   const series = IDX[anchor] || {};
-  const obsDates = Object.keys(series).sort();
-  const firstObs = obsDates.length ? obsDates[0] : anchor;
-  const LAG = Math.round(
-    (Date.parse(firstObs + 'T00:00:00Z') - Date.parse(anchor + 'T00:00:00Z')) / 86400000);
-  const anchorPos = Math.max(DATES.indexOf(anchor), 0);
-  const base = series[firstObs];
+  const anchorPos = DATES.indexOf(anchor);
+  const base = series[anchor];
 
   const out = [];
   out.push(`"Drift Report - SAMPLE DATA","anchor ${longDate(anchor)}"`);
@@ -592,7 +515,7 @@ function exportCSV() {
   out.push(['""'].concat(DATES.slice(anchorPos).map(d => `"${longDate(d)}"`)).join(','));
   MEASURES.forEach(([key, label]) => {
     const cells = DATES.slice(anchorPos).map((d, i) => {
-      const r = series[addDays(d, LAG)];
+      const r = series[d];
       if (!r || r.status === 'NA' || r[key] === null) return '"N/A"';
       if (i === 0) return r[key];
       if (!base || base.status === 'NA') return '"N/A"';

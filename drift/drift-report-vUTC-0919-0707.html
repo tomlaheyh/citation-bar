@@ -96,28 +96,8 @@
      which a 6-character figure like -1,174 still clears its neighbour. Below
      that the scroller scrolls rather than letting numbers collide. */
   table { border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums;
-    width: 100%; table-layout: fixed; min-width: 1690px; }
-  col.lbl  { width: 178px; }
-  col.ytd  { width: 106px; }
-  col.ytdd { width:  80px; }
-
-  /* The label and the two YTD columns stay pinned while the 30 days scroll, so
-     the year-to-date reference never leaves the screen. */
-  .stick { position: sticky; z-index: 2; background: var(--surface); }
-  .s-lbl  { left: 0; }
-  .s-ytd  { left: 178px; text-align: right; }
-  .s-ytdd { left: 284px; text-align: right;
-            border-right: 2px solid var(--border); }
-  /* The anchor column pins right after the YTD block (178+106+80), so the
-     baseline you are measuring from never scrolls away from its own diffs. */
-  .s-anchor { left: 364px; }
-  thead .stick { z-index: 4; }
-
-  /* A rule down the anchor's right edge: bold alone is easy to lose once the
-     eye is eight columns to the right. */
-  td.cell.base, th.age.is-anchor, th.date.is-anchor {
-    border-right: 2px solid var(--accent);
-  }
+    width: 100%; table-layout: fixed; min-width: 1500px; }
+  col.lbl { width: 178px; }
 
   th, td { font-size: 11.5px; text-align: right; white-space: nowrap; }
 
@@ -136,20 +116,10 @@
 
   th.rowhead, td.rowhead {
     text-align: left; background: var(--surface); padding: 4px 12px 4px 4px;
-    font-weight: 600; font-size: 12.5px;
+    border-right: 1px solid var(--border); font-weight: 600; font-size: 12.5px;
   }
-  th.corner { background: var(--surface); border-bottom: 1px solid var(--border); }
-  th.ytdhead {
-    font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 11px;
-    color: var(--accent); padding: 6px 6px 1px; text-align: right;
-  }
-  th.ytdsub {
-    font-family: 'JetBrains Mono', monospace; font-weight: 400; font-size: 10px;
-    color: var(--text-muted); padding: 0 6px 6px; text-align: right;
-    border-bottom: 1px solid var(--border);
-  }
-  td.ytdval  { padding: 4px 6px; font-weight: 700; border-bottom: 1px solid #eef0f3; }
-  td.ytddrift { padding: 4px 6px; border-bottom: 1px solid #eef0f3; }
+  th.corner { background: var(--surface);
+    border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 
   td.cell { padding: 4px 4px; border-bottom: 1px solid #eef0f3; min-width: 40px; }
   td.cell.before { background: var(--grey-cell); color: transparent; }
@@ -253,13 +223,6 @@
       Colour carries direction only; the number carries the amount. Hover any cell for the
       absolute value behind the drift.
     </p>
-    <p class="note">
-      <b>The two pinned columns are different.</b> <code>YTD</code> is the whole year to the
-      close date shown, and its <code>drift</code> is <b>one day's</b> change — the same range
-      measured on two consecutive mornings, so the window is identical and nothing of the
-      change comes from the year getting longer. The columns to its right are cumulative from
-      an anchor. Don't read across the divider as if it were one scale.
-    </p>
   </div>
 
 </div>
@@ -269,9 +232,6 @@
 <script src="../siteNav.js"></script>
 <script>
 const DATA_FILE = 'drift-data-sample.csv';
-
-// width of the always-pinned block: label 178 + YTD 106 + drift 80
-const PIN_W = 364;
 
 const MEASURES = [
   ['all_sb',            'all [sb]'],
@@ -289,27 +249,6 @@ const MEASURES = [
 let DATES = [];       // every observation date in the window, ascending
 let COHORTS = [];     // cohort dates that have at least one observation
 let IDX = {};         // IDX[cohort][observed] = row
-let YTD = [];         // every year-to-date row, both readings of every range
-let YTD_NOW = null;   // the later reading of the newest range with two of them
-let YTD_WAS = null;   // its reading the morning before
-
-// Both YTD columns have to describe the SAME range, or the value and its drift
-// are not like-for-like. So we show the newest range that has been measured
-// twice -- the value is its current reading, the drift is the change since the
-// morning before. The range opened today has only one reading and no drift yet;
-// it becomes the displayed one tomorrow.
-function buildYtd() {
-  const byRange = {};
-  YTD.forEach(r => (byRange[r.range] = byRange[r.range] || []).push(r));
-  const paired = Object.keys(byRange)
-    .filter(k => byRange[k].length >= 2)
-    .sort();
-  if (!paired.length) return;
-  const pair = byRange[paired[paired.length - 1]]
-    .slice().sort((a, b) => a.observed.localeCompare(b.observed));
-  YTD_WAS = pair[pair.length - 2];
-  YTD_NOW = pair[pair.length - 1];
-}
 
 function parseCSVLine(line) {
   const out = []; let cur = '', q = false;
@@ -334,12 +273,6 @@ function longDate(iso) {
 function dow(iso) {
   return new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short' });
 }
-function addDays(iso, n) {
-  const [y, m, d] = iso.split('-').map(Number);
-  const t = new Date(Date.UTC(y, m - 1, d));
-  t.setUTCDate(t.getUTCDate() + n);
-  return t.toISOString().slice(0, 10);
-}
 function fmt(n) { return n.toLocaleString('en-US'); }
 function fmtDelta(n) { return (n > 0 ? '+' : '') + n.toLocaleString('en-US'); }
 
@@ -363,37 +296,26 @@ async function init() {
   const dset = new Set(), cset = new Set();
   for (let i = 1; i < lines.length; i++) {
     const c = parseCSVLine(lines[i]);
+    // YTD ranges live in the same file but are not anchors -- they are a
+    // separate pair-wise daily diff, not a cohort with a 30-day history.
+    if (c[col.row_type] === 'ytd') continue;
     const obs = c[col.observed_et], coh = c[col.cohort_date];
     if (!obs || !coh) continue;
-    const row = { status: c[col.status] || 'OK', observed: obs, range: coh,
-                  close: c[col.close_date] };
+    dset.add(obs); cset.add(coh);
+    const row = { status: c[col.status] || 'OK' };
     MEASURES.forEach(([k]) => {
       const raw = c[col[k]];
       row[k] = (raw === '' || raw === undefined) ? null : Number(raw);
     });
-
-    // YTD ranges share the file but are not anchors: they are a pair-wise
-    // one-day diff, not a cohort with a 30-day history.
-    if (c[col.row_type] === 'ytd') { YTD.push(row); continue; }
-
-    // The grid's columns are CLOSE dates, not observation dates: a column is a
-    // day that closed, and the cell under it is that cohort as read two days
-    // later. Observation days with no close of their own (the last two) are
-    // still used -- they are where the older cohorts' later readings come from.
-    dset.add(c[col.close_date] || coh);
-    cset.add(coh);
     (IDX[coh] = IDX[coh] || {})[obs] = row;
   }
-  buildYtd();
   DATES = [...dset].sort();
   COHORTS = [...cset].sort();
 
   const slider = document.getElementById('anchor');
   slider.max = COHORTS.length - 1;
   slider.value = 0;
-  slider.addEventListener('input', () => { _maskFrom = -1; render(); });
-  document.getElementById('scroller')
-          .addEventListener('scroll', maskUnderPin, { passive: true });
+  slider.addEventListener('input', render);
   document.getElementById('exportBtn').disabled = false;
   render();
 }
@@ -402,16 +324,7 @@ function render() {
   const ai = +document.getElementById('anchor').value;
   const anchor = COHORTS[ai];
   const series = IDX[anchor] || {};
-
-  // Columns are close dates, so the anchor sits on its own date and +0 needs no
-  // explaining. The reading behind each column was taken LAG days later -- two,
-  // by the collector's rule -- and LAG is measured from the data rather than
-  // assumed, so changing the rule doesn't silently misalign the grid.
-  const obsDates = Object.keys(series).sort();
-  const firstObs = obsDates.length ? obsDates[0] : anchor;
-  const LAG = Math.round(
-    (Date.parse(firstObs + 'T00:00:00Z') - Date.parse(anchor + 'T00:00:00Z')) / 86400000);
-  const anchorPos = Math.max(DATES.indexOf(anchor), 0);
+  const anchorPos = DATES.indexOf(anchor);
 
   document.getElementById('anchorRead').textContent = longDate(anchor);
   const obsCount = DATES.length - anchorPos - 1;
@@ -420,7 +333,7 @@ function render() {
 
   // The +0 pull carries the whole row: with nothing to diff against, the cohort
   // is unusable, and it can never be recaptured. Say so loudly.
-  const baseRow = series[firstObs];
+  const baseRow = series[anchor];
   const warn = document.getElementById('warn');
   const baseMissing = !baseRow || baseRow.status === 'NA';
   if (baseMissing) {
@@ -437,19 +350,13 @@ function render() {
   const dateRow = document.getElementById('dateRow');
   // one <col> per date so table-layout:fixed spreads the columns evenly
   const cols = document.getElementById('cols');
-  cols.innerHTML = '<col class="lbl"><col class="ytd"><col class="ytdd">'
-                 + DATES.map(() => '<col>').join('');
+  cols.innerHTML = '<col class="lbl">' + DATES.map(() => '<col>').join('');
 
-  const closed = YTD_NOW ? 'closed ' + longDate(YTD_NOW.close) : 'no data';
-  ageRow.innerHTML = '<th class="corner stick s-lbl"></th>'
-    + '<th class="ytdhead stick s-ytd">YTD</th>'
-    + '<th class="ytdhead stick s-ytdd">drift</th>';
-  dateRow.innerHTML = '<th class="corner stick s-lbl"></th>'
-    + `<th class="ytdsub stick s-ytd">${closed}</th>`
-    + '<th class="ytdsub stick s-ytdd">1 day</th>';
+  ageRow.innerHTML = '<th class="corner"></th>';
+  dateRow.innerHTML = '<th class="corner"></th>';
   DATES.forEach((d, i) => {
     const before = i < anchorPos, isA = i === anchorPos;
-    const cls = before ? ' is-before' : (isA ? ' is-anchor stick s-anchor' : '');
+    const cls = before ? ' is-before' : (isA ? ' is-anchor' : '');
     ageRow.insertAdjacentHTML('beforeend',
       `<th class="age${cls}">${before ? '' : '+' + (i - anchorPos)}</th>`);
     dateRow.insertAdjacentHTML('beforeend',
@@ -461,20 +368,17 @@ function render() {
   body.innerHTML = '';
 
   MEASURES.forEach(([key, label]) => {
-    let html = `<tr><td class="rowhead stick s-lbl">${label}</td>` + ytdCells(key);
+    let html = `<tr><td class="rowhead">${label}</td>`;
     DATES.forEach((d, i) => {
       if (i < anchorPos) { html += '<td class="cell before">·</td>'; return; }
 
-      // the anchor column pins even when its own pull failed -- the column has
-      // to hold its place or the +N headers stop lining up with the body
-      const anchorCls = (i === anchorPos) ? ' stick s-anchor' : '';
-      const r = series[addDays(d, LAG)];      // close date -> the day it was read
+      const r = series[d];
       if (!r || r.status === 'NA' || r[key] === null) {
-        html += `<td class="cell na${anchorCls}" data-tip="${label}|${longDate(d)}|na">N/A</td>`;
+        html += `<td class="cell na" data-tip="${label}|${longDate(d)}|na">N/A</td>`;
         return;
       }
       if (i === anchorPos) {
-        html += `<td class="cell base stick s-anchor" data-tip="${label}|${longDate(d)}|base|${r[key]}">${fmt(r[key])}</td>`;
+        html += `<td class="cell base" data-tip="${label}|${longDate(d)}|base|${r[key]}">${fmt(r[key])}</td>`;
         return;
       }
       if (baseMissing) {
@@ -493,63 +397,10 @@ function render() {
   });
 
   attachTips();
-  maskUnderPin();
-}
-
-// Pinning a middle column means the columns behind it slide underneath, and a
-// cell only half-covered shows its right-hand end -- a truncated "-1,371" reads
-// as "1,371", which is worse than showing nothing. Hide any column that the
-// pinned zone overlaps at all.
-let _maskFrom = -1;
-function maskUnderPin() {
-  const sc = document.getElementById('scroller');
-  const ths = document.querySelectorAll('#ageRow th');
-  const anchorTh = document.querySelector('#ageRow th.is-anchor');
-  if (!sc || !anchorTh || ths.length < 2) return;
-
-  const edge = sc.scrollLeft + PIN_W + anchorTh.offsetWidth;
-
-  // Header and body share the same leading cells -- label, YTD, YTD drift --
-  // so the date columns start at index 3 in both and the indexes line up.
-  const FIRST_DATE = 3;
-  let first = FIRST_DATE;
-  for (let i = FIRST_DATE; i < ths.length; i++) {
-    if (ths[i].classList.contains('is-anchor')) continue;
-    if (ths[i].offsetLeft >= edge) { first = i; break; }
-    first = i + 1;
-  }
-  if (first === _maskFrom) return;
-  _maskFrom = first;
-
-  const dts = document.querySelectorAll('#dateRow th');
-  const rows = document.querySelectorAll('#body tr');
-  for (let i = FIRST_DATE; i < ths.length; i++) {
-    const vis = (ths[i].classList.contains('is-anchor') || i >= first) ? '' : 'hidden';
-    ths[i].style.visibility = vis;
-    if (dts[i]) dts[i].style.visibility = vis;
-    rows.forEach(tr => { if (tr.children[i]) tr.children[i].style.visibility = vis; });
-  }
 }
 
 function tint(diff) {
   return diff < 0 ? 'var(--neg)' : 'var(--pos)';
-}
-
-function ytdCells(key) {
-  if (!YTD_NOW) {
-    return '<td class="ytdval stick s-ytd na">N/A</td>'
-         + '<td class="ytddrift stick s-ytdd na">N/A</td>';
-  }
-  const now = YTD_NOW[key], was = YTD_WAS ? YTD_WAS[key] : null;
-  const val = (now === null) ? 'N/A' : fmt(now);
-  let drift = 'N/A', bg = 'var(--pos)';
-  if (now !== null && was !== null) {
-    const d = now - was;
-    drift = fmtDelta(d);
-    bg = tint(d);
-  }
-  return `<td class="ytdval stick s-ytd" style="background:var(--pos)">${val}</td>`
-       + `<td class="ytddrift stick s-ytdd" style="background:${bg}">${drift}</td>`;
 }
 
 function attachTips() {
@@ -578,12 +429,8 @@ function exportCSV() {
   const ai = +document.getElementById('anchor').value;
   const anchor = COHORTS[ai];
   const series = IDX[anchor] || {};
-  const obsDates = Object.keys(series).sort();
-  const firstObs = obsDates.length ? obsDates[0] : anchor;
-  const LAG = Math.round(
-    (Date.parse(firstObs + 'T00:00:00Z') - Date.parse(anchor + 'T00:00:00Z')) / 86400000);
-  const anchorPos = Math.max(DATES.indexOf(anchor), 0);
-  const base = series[firstObs];
+  const anchorPos = DATES.indexOf(anchor);
+  const base = series[anchor];
 
   const out = [];
   out.push(`"Drift Report - SAMPLE DATA","anchor ${longDate(anchor)}"`);
@@ -592,7 +439,7 @@ function exportCSV() {
   out.push(['""'].concat(DATES.slice(anchorPos).map(d => `"${longDate(d)}"`)).join(','));
   MEASURES.forEach(([key, label]) => {
     const cells = DATES.slice(anchorPos).map((d, i) => {
-      const r = series[addDays(d, LAG)];
+      const r = series[d];
       if (!r || r.status === 'NA' || r[key] === null) return '"N/A"';
       if (i === 0) return r[key];
       if (!base || base.status === 'NA') return '"N/A"';

@@ -334,12 +334,6 @@ function longDate(iso) {
 function dow(iso) {
   return new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short' });
 }
-function addDays(iso, n) {
-  const [y, m, d] = iso.split('-').map(Number);
-  const t = new Date(Date.UTC(y, m - 1, d));
-  t.setUTCDate(t.getUTCDate() + n);
-  return t.toISOString().slice(0, 10);
-}
 function fmt(n) { return n.toLocaleString('en-US'); }
 function fmtDelta(n) { return (n > 0 ? '+' : '') + n.toLocaleString('en-US'); }
 
@@ -376,12 +370,7 @@ async function init() {
     // one-day diff, not a cohort with a 30-day history.
     if (c[col.row_type] === 'ytd') { YTD.push(row); continue; }
 
-    // The grid's columns are CLOSE dates, not observation dates: a column is a
-    // day that closed, and the cell under it is that cohort as read two days
-    // later. Observation days with no close of their own (the last two) are
-    // still used -- they are where the older cohorts' later readings come from.
-    dset.add(c[col.close_date] || coh);
-    cset.add(coh);
+    dset.add(obs); cset.add(coh);
     (IDX[coh] = IDX[coh] || {})[obs] = row;
   }
   buildYtd();
@@ -403,15 +392,14 @@ function render() {
   const anchor = COHORTS[ai];
   const series = IDX[anchor] || {};
 
-  // Columns are close dates, so the anchor sits on its own date and +0 needs no
-  // explaining. The reading behind each column was taken LAG days later -- two,
-  // by the collector's rule -- and LAG is measured from the data rather than
-  // assumed, so changing the rule doesn't silently misalign the grid.
+  // A cohort is first measured two days after its own date -- that first
+  // reading is the baseline, so +0 sits where the reading is, not where the
+  // cohort date falls. Looking the cohort date up among observation dates
+  // would put the baseline two columns too far left and blank the front of
+  // every row.
   const obsDates = Object.keys(series).sort();
   const firstObs = obsDates.length ? obsDates[0] : anchor;
-  const LAG = Math.round(
-    (Date.parse(firstObs + 'T00:00:00Z') - Date.parse(anchor + 'T00:00:00Z')) / 86400000);
-  const anchorPos = Math.max(DATES.indexOf(anchor), 0);
+  const anchorPos = Math.max(DATES.indexOf(firstObs), 0);
 
   document.getElementById('anchorRead').textContent = longDate(anchor);
   const obsCount = DATES.length - anchorPos - 1;
@@ -468,7 +456,7 @@ function render() {
       // the anchor column pins even when its own pull failed -- the column has
       // to hold its place or the +N headers stop lining up with the body
       const anchorCls = (i === anchorPos) ? ' stick s-anchor' : '';
-      const r = series[addDays(d, LAG)];      // close date -> the day it was read
+      const r = series[d];
       if (!r || r.status === 'NA' || r[key] === null) {
         html += `<td class="cell na${anchorCls}" data-tip="${label}|${longDate(d)}|na">N/A</td>`;
         return;
@@ -580,9 +568,7 @@ function exportCSV() {
   const series = IDX[anchor] || {};
   const obsDates = Object.keys(series).sort();
   const firstObs = obsDates.length ? obsDates[0] : anchor;
-  const LAG = Math.round(
-    (Date.parse(firstObs + 'T00:00:00Z') - Date.parse(anchor + 'T00:00:00Z')) / 86400000);
-  const anchorPos = Math.max(DATES.indexOf(anchor), 0);
+  const anchorPos = Math.max(DATES.indexOf(firstObs), 0);
   const base = series[firstObs];
 
   const out = [];
@@ -592,7 +578,7 @@ function exportCSV() {
   out.push(['""'].concat(DATES.slice(anchorPos).map(d => `"${longDate(d)}"`)).join(','));
   MEASURES.forEach(([key, label]) => {
     const cells = DATES.slice(anchorPos).map((d, i) => {
-      const r = series[addDays(d, LAG)];
+      const r = series[d];
       if (!r || r.status === 'NA' || r[key] === null) return '"N/A"';
       if (i === 0) return r[key];
       if (!base || base.status === 'NA') return '"N/A"';
