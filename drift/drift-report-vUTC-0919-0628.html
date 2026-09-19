@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drift Report</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Day-by-day drift of PubMed citation-status measures from a locked baseline.">
+<meta name="author" content="PubMed Citation Bar">
+<meta name="theme-color" content="#005a8c">
+<link rel="icon" href="../assets/icon128.png" type="image/png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #d0d5dd;
+    --text: #1a1a2e;
+    --text-muted: #64748b;
+    --accent: #1e40af;
+    --accent-light: #dbeafe;
+    --section-bg: #f1f5f9;
+
+    /* Two flat tints, no intensity ramp: rose = fell, blue = rose.
+       An intensity scale made every row shout at once; magnitude is the
+       reader's job via the number, direction is the colour's.
+       The +/- sign already carries direction, so colour is redundant
+       encoding - nothing here depends on distinguishing the two hues. */
+    --pos: #cfe3fa;   /* every observed cell except a fall */
+    --neg: #fbd7d5;   /* fell - the only thing that breaks the blue field */
+
+    --grey-cell: #f2f3f5;
+    --na-ink: #94a3b8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  /* Wide enough that all 31 columns sit on screen at once - the greyed
+     columns stay in view rather than scrolling the live data off the edge. */
+  .container { max-width: 1680px; margin: 0 auto; padding: 24px 20px; }
+
+  header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 20px 0;
+    margin-bottom: 20px;
+  }
+  header .container {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px; padding-top: 0; padding-bottom: 0;
+  }
+  h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.2px; }
+  h1 span { color: var(--text-muted); font-weight: 400; font-size: 15px; display: block; }
+
+  .sample-banner {
+    background: #fef3c7; border: 1px solid #f59e0b; border-left: 4px solid #f59e0b;
+    border-radius: 6px; padding: 10px 14px; margin-bottom: 18px;
+    font-size: 14px; color: #78350f;
+  }
+  .sample-banner b { font-weight: 700; }
+
+  .panel {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px 18px; margin-bottom: 18px;
+  }
+
+  .controls { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .controls label { font-size: 13px; color: var(--text-muted); font-weight: 600;
+    text-transform: uppercase; letter-spacing: .4px; }
+  #anchor { flex: 1 1 340px; min-width: 240px; accent-color: var(--accent); }
+  .anchor-read {
+    font-family: 'JetBrains Mono', monospace; font-size: 17px; font-weight: 500;
+    background: var(--accent-light); color: var(--accent);
+    padding: 3px 10px; border-radius: 5px; white-space: nowrap;
+  }
+  .anchor-sub { font-size: 13px; color: var(--text-muted); }
+
+  .btn {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px 13px; font: inherit; font-size: 14px; cursor: pointer; color: var(--text);
+  }
+  .btn:hover { background: var(--section-bg); }
+  .btn:disabled { opacity: .5; cursor: default; }
+
+  .scroller { overflow-x: auto; }
+
+  /* fixed layout spreads the 31 columns evenly; the min-width is the floor at
+     which a 6-character figure like -1,174 still clears its neighbour. Below
+     that the scroller scrolls rather than letting numbers collide. */
+  table { border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums;
+    width: 100%; table-layout: fixed; min-width: 1500px; }
+  col.lbl { width: 178px; }
+
+  th, td { font-size: 11.5px; text-align: right; white-space: nowrap; }
+
+  th.age {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+    color: var(--text-muted); padding: 6px 4px 1px; border-bottom: none;
+  }
+  th.date {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 400;
+    color: var(--text-muted); padding: 0 4px 6px; border-bottom: 1px solid var(--border);
+  }
+  th.age.is-anchor, th.date.is-anchor {
+    color: var(--accent); font-weight: 700; background: var(--accent-light);
+  }
+  th.age.is-before, th.date.is-before { color: #c3cad4; }
+
+  th.rowhead, td.rowhead {
+    text-align: left; background: var(--surface); padding: 4px 12px 4px 4px;
+    border-right: 1px solid var(--border); font-weight: 600; font-size: 12.5px;
+  }
+  th.corner { background: var(--surface);
+    border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  td.cell { padding: 4px 4px; border-bottom: 1px solid #eef0f3; min-width: 40px; }
+  td.cell.before { background: var(--grey-cell); color: transparent; }
+  /* the anchor column reads as the spine of the row */
+  td.cell.base { font-weight: 700; background: var(--accent-light); color: var(--accent); }
+  /* N/A and no-change sit on the same blue as a rise, so the grid reads as one
+     calm field and only a fall breaks it. The distinction is carried by the
+     text - N/A stays italic and muted so "we did not look" never passes for a
+     measurement at a glance. */
+  td.cell.na { color: var(--na-ink); font-style: italic; background: var(--pos); }
+  td.cell.zero { color: #8f9bab; }
+
+  tbody tr:hover td.cell { outline: none; }
+  tbody tr:hover td.rowhead { background: var(--section-bg); }
+  td.cell[data-tip]:hover { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+  .legend { display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    margin-top: 14px; font-size: 12.5px; color: var(--text-muted); }
+  .ramp { display: flex; align-items: center; gap: 0; }
+  .ramp i { width: 20px; height: 13px; display: block; border: 1px solid rgba(0,0,0,.06); }
+  .key { display: flex; align-items: center; gap: 5px; }
+  .key i { width: 14px; height: 13px; display: block; border: 1px solid rgba(0,0,0,.08); }
+
+  .note { font-size: 13px; color: var(--text-muted); margin-top: 12px; line-height: 1.55; }
+  .note code { font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    background: var(--section-bg); padding: 1px 5px; border-radius: 3px; }
+
+  .warn {
+    background: #fee2e2; border: 1px solid #ef4444; border-radius: 6px;
+    padding: 10px 14px; margin-bottom: 14px; font-size: 14px; color: #7f1d1d; display: none;
+  }
+  .warn.show { display: block; }
+
+  #tip {
+    position: fixed; pointer-events: none; opacity: 0; transition: opacity .1s;
+    background: #0b0b0b; color: #fff; font-size: 12.5px; line-height: 1.45;
+    padding: 7px 10px; border-radius: 6px; z-index: 50; max-width: 260px;
+  }
+  #tip.show { opacity: 1; }
+  #tip b { color: #9ec5f4; }
+
+  @media (max-width: 720px) {
+    h1 { font-size: 19px; }
+    td.cell, th.age, th.date { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>Drift Report
+      <span>How one day's PubMed records change after their baseline is locked</span></h1>
+    <button class="btn" id="exportBtn" onclick="exportCSV()" disabled>Export CSV</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="sample-banner">
+    <b>SAMPLE DATA — not real.</b> Every number on this page is synthetic, generated to
+    exercise the layout. Real collection begins when the daily action runs; no
+    pre-collection baseline can ever be backfilled.
+  </div>
+
+  <div class="warn" id="warn"></div>
+
+  <div class="panel">
+    <div class="controls">
+      <label for="anchor">Anchor</label>
+      <input type="range" id="anchor" min="0" max="0" value="0" step="1">
+      <span class="anchor-read" id="anchorRead">—</span>
+      <span class="anchor-sub" id="anchorSub"></span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="scroller" id="scroller">
+      <table id="grid">
+        <colgroup id="cols"><col class="lbl"></colgroup>
+        <thead>
+          <tr id="ageRow"></tr>
+          <tr id="dateRow"></tr>
+        </thead>
+        <tbody id="body"></tbody>
+      </table>
+    </div>
+
+    <div class="legend">
+      <span class="key"><i style="background:var(--neg)"></i> fell</span>
+      <span class="key"><i style="background:var(--pos)"></i> rose, no change, or N/A</span>
+      <span class="key"><i style="background:var(--accent-light)"></i> baseline</span>
+      <span class="key"><i style="background:var(--grey-cell)"></i> before anchor</span>
+      <span class="key"><i style="background:var(--pos)"></i> <i style="border:none;width:auto;font-style:italic;color:var(--na-ink)">N/A</i> &nbsp;pull failed — no data, not zero</span>
+    </div>
+
+    <p class="note">
+      The <code>+0</code> column holds the locked absolute value. Every column after it is
+      that measure's <b>cumulative</b> change from the locked number, never a day-over-day
+      step — so a single failed pull leaves one hole rather than corrupting everything after it.
+      Colour carries direction only; the number carries the amount. Hover any cell for the
+      absolute value behind the drift.
+    </p>
+  </div>
+
+</div>
+
+<div id="tip"></div>
+
+<script src="../siteNav.js"></script>
+<script>
+const DATA_FILE = 'drift-data-sample.csv';
+
+const MEASURES = [
+  ['all_sb',            'all [sb]'],
+  ['medline',           'medline [sb]'],
+  ['medline_automated', 'indexingmethod_automated'],
+  ['inprocess',         'inprocess [sb]'],
+  ['publisher',         'publisher [sb]'],
+  ['pubmednotmedline',  'pubmednotmedline [sb]'],
+  ['preprint',          'Preprints'],
+  ['hasabstract',       'hasabstract'],
+  ['fulltext',          '"Full Text"[sb]'],
+  ['freefulltext',      '"free full text"[sb]'],
+];
+
+let DATES = [];       // every observation date in the window, ascending
+let COHORTS = [];     // cohort dates that have at least one observation
+let IDX = {};         // IDX[cohort][observed] = row
+
+function parseCSVLine(line) {
+  const out = []; let cur = '', q = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') q = !q;
+    else if (ch === ',' && !q) { out.push(cur.trim()); cur = ''; }
+    else cur += ch;
+  }
+  out.push(cur.trim());
+  return out;
+}
+
+function shortDate(iso) {
+  const [y, m, d] = iso.split('-');
+  return `${+m}/${+d}`;
+}
+function longDate(iso) {
+  const [y, m, d] = iso.split('-');
+  return `${+m}/${+d}/${y.slice(2)}`;
+}
+function dow(iso) {
+  return new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short' });
+}
+function fmt(n) { return n.toLocaleString('en-US'); }
+function fmtDelta(n) { return (n > 0 ? '+' : '') + n.toLocaleString('en-US'); }
+
+async function init() {
+  let text;
+  try {
+    const resp = await fetch(DATA_FILE + '?_=' + Date.now());
+    if (!resp.ok) throw new Error(resp.status);
+    text = await resp.text();
+  } catch (e) {
+    document.getElementById('warn').className = 'warn show';
+    document.getElementById('warn').textContent =
+      'Could not load ' + DATA_FILE + ' — open this page over http, not file://, or check the file is beside it.';
+    return;
+  }
+
+  const lines = text.split('\n').filter(l => l.trim());
+  const head = parseCSVLine(lines[0]);
+  const col = {}; head.forEach((h, i) => col[h] = i);
+
+  const dset = new Set(), cset = new Set();
+  for (let i = 1; i < lines.length; i++) {
+    const c = parseCSVLine(lines[i]);
+    const obs = c[col.observed_et], coh = c[col.cohort_date];
+    if (!obs || !coh) continue;
+    dset.add(obs); cset.add(coh);
+    const row = { status: c[col.status] || 'OK' };
+    MEASURES.forEach(([k]) => {
+      const raw = c[col[k]];
+      row[k] = (raw === '' || raw === undefined) ? null : Number(raw);
+    });
+    (IDX[coh] = IDX[coh] || {})[obs] = row;
+  }
+  DATES = [...dset].sort();
+  COHORTS = [...cset].sort();
+
+  const slider = document.getElementById('anchor');
+  slider.max = COHORTS.length - 1;
+  slider.value = 0;
+  slider.addEventListener('input', render);
+  document.getElementById('exportBtn').disabled = false;
+  render();
+}
+
+function render() {
+  const ai = +document.getElementById('anchor').value;
+  const anchor = COHORTS[ai];
+  const series = IDX[anchor] || {};
+  const anchorPos = DATES.indexOf(anchor);
+
+  document.getElementById('anchorRead').textContent = longDate(anchor);
+  const obsCount = DATES.length - anchorPos - 1;
+  document.getElementById('anchorSub').textContent =
+    `${dow(anchor)} · ${obsCount} day${obsCount === 1 ? '' : 's'} of drift`;
+
+  // The +0 pull carries the whole row: with nothing to diff against, the cohort
+  // is unusable, and it can never be recaptured. Say so loudly.
+  const baseRow = series[anchor];
+  const warn = document.getElementById('warn');
+  const baseMissing = !baseRow || baseRow.status === 'NA';
+  if (baseMissing) {
+    warn.className = 'warn show';
+    warn.innerHTML = '<b>Baseline missing for ' + longDate(anchor) + '.</b> ' +
+      'The +0 pull failed, so there is nothing to measure drift against. ' +
+      'A baseline can only be captured on the day itself — this cohort cannot be recovered.';
+  } else {
+    warn.className = 'warn';
+  }
+
+  // ── headers: +N row re-labels from the anchor, date row is fixed ──────
+  const ageRow = document.getElementById('ageRow');
+  const dateRow = document.getElementById('dateRow');
+  // one <col> per date so table-layout:fixed spreads the columns evenly
+  const cols = document.getElementById('cols');
+  cols.innerHTML = '<col class="lbl">' + DATES.map(() => '<col>').join('');
+
+  ageRow.innerHTML = '<th class="corner"></th>';
+  dateRow.innerHTML = '<th class="corner"></th>';
+  DATES.forEach((d, i) => {
+    const before = i < anchorPos, isA = i === anchorPos;
+    const cls = before ? ' is-before' : (isA ? ' is-anchor' : '');
+    ageRow.insertAdjacentHTML('beforeend',
+      `<th class="age${cls}">${before ? '' : '+' + (i - anchorPos)}</th>`);
+    dateRow.insertAdjacentHTML('beforeend',
+      `<th class="date${cls}">${shortDate(d)}</th>`);
+  });
+
+  // ── body ──────────────────────────────────────────────────────────────
+  const body = document.getElementById('body');
+  body.innerHTML = '';
+
+  MEASURES.forEach(([key, label]) => {
+    let html = `<tr><td class="rowhead">${label}</td>`;
+    DATES.forEach((d, i) => {
+      if (i < anchorPos) { html += '<td class="cell before">·</td>'; return; }
+
+      const r = series[d];
+      if (!r || r.status === 'NA' || r[key] === null) {
+        html += `<td class="cell na" data-tip="${label}|${longDate(d)}|na">N/A</td>`;
+        return;
+      }
+      if (i === anchorPos) {
+        html += `<td class="cell base" data-tip="${label}|${longDate(d)}|base|${r[key]}">${fmt(r[key])}</td>`;
+        return;
+      }
+      if (baseMissing) {
+        html += `<td class="cell na" data-tip="${label}|${longDate(d)}|nobase">N/A</td>`;
+        return;
+      }
+
+      const diff = r[key] - baseRow[key];
+      const bg = tint(diff);
+      const cls = diff === 0 ? 'cell zero' : 'cell';
+      html += `<td class="${cls}" style="background:${bg}" ` +
+              `data-tip="${label}|${longDate(d)}|d|${r[key]}|${diff}|${i - anchorPos}">` +
+              `${fmtDelta(diff)}</td>`;
+    });
+    body.insertAdjacentHTML('beforeend', html + '</tr>');
+  });
+
+  attachTips();
+}
+
+function tint(diff) {
+  return diff < 0 ? 'var(--neg)' : 'var(--pos)';
+}
+
+function attachTips() {
+  const tip = document.getElementById('tip');
+  document.querySelectorAll('td.cell[data-tip]').forEach(td => {
+    td.addEventListener('mouseenter', e => {
+      const p = td.dataset.tip.split('|');
+      const [label, date, kind] = p;
+      let html = `<b>${label}</b><br>${date}`;
+      if (kind === 'base')   html += `<br>baseline &nbsp;${fmt(+p[3])}`;
+      else if (kind === 'd') html += ` &nbsp;(+${p[5]})<br>value &nbsp;${fmt(+p[3])}` +
+                                     `<br>drift &nbsp;${fmtDelta(+p[4])}`;
+      else if (kind === 'na')     html += `<br>pull failed — no data`;
+      else if (kind === 'nobase') html += `<br>no baseline to measure against`;
+      tip.innerHTML = html;
+      tip.className = 'show';
+      const r = td.getBoundingClientRect();
+      tip.style.left = Math.min(r.left, window.innerWidth - 270) + 'px';
+      tip.style.top = (r.bottom + 8) + 'px';
+    });
+    td.addEventListener('mouseleave', () => { tip.className = ''; });
+  });
+}
+
+function exportCSV() {
+  const ai = +document.getElementById('anchor').value;
+  const anchor = COHORTS[ai];
+  const series = IDX[anchor] || {};
+  const anchorPos = DATES.indexOf(anchor);
+  const base = series[anchor];
+
+  const out = [];
+  out.push(`"Drift Report - SAMPLE DATA","anchor ${longDate(anchor)}"`);
+  out.push('');
+  out.push(['"measure"'].concat(DATES.slice(anchorPos).map((d, i) => `"+${i}"`)).join(','));
+  out.push(['""'].concat(DATES.slice(anchorPos).map(d => `"${longDate(d)}"`)).join(','));
+  MEASURES.forEach(([key, label]) => {
+    const cells = DATES.slice(anchorPos).map((d, i) => {
+      const r = series[d];
+      if (!r || r.status === 'NA' || r[key] === null) return '"N/A"';
+      if (i === 0) return r[key];
+      if (!base || base.status === 'NA') return '"N/A"';
+      return r[key] - base[key];
+    });
+    out.push([`"${label.replace(/"/g, '""')}"`].concat(cells).join(','));
+  });
+
+  const blob = new Blob([out.join('\n')], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'drift-' + anchor + '.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
