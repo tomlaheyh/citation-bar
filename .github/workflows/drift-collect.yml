@@ -1,10 +1,13 @@
 name: Drift collect
 
-# 13:00 UTC is 09:00 ET while daylight saving is in force, 08:00 ET in winter.
-# Actions cron is UTC and does not observe DST, but both land inside the quiet
-# window: the full-text batch runs at 07:00 ET and nothing else has been seen
-# before 12:00 ET, so an hour of seasonal slide changes nothing. GitHub also
-# delays scheduled runs under load, which the same margin absorbs.
+# 13:00 UTC daily -- 09:00 ET under daylight saving, 08:00 ET in winter. Actions
+# cron is UTC and ignores DST, but both land in the quiet window: the full-text
+# batch runs at 07:00 ET and nothing else has been seen before 12:00 ET, so an
+# hour of seasonal slide changes nothing. GitHub also delays scheduled runs under
+# load, which the same margin absorbs.
+#
+# This is the 13:00 slot. Summary collect takes 14:00 and Filters collect 15:00
+# on the 5th of the month, so no two collectors commit from the same base.
 on:
   schedule:
     - cron: "0 13 * * *"
@@ -43,5 +46,6 @@ jobs:
             echo "no change"
           else
             git commit -m "drift: $(date -u +%Y-%m-%d) collection"
+            git pull --rebase        # another collector may have pushed meanwhile
             git push
           fi
