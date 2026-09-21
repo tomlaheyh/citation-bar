@@ -1,15 +1,20 @@
 name: Summary collect
 
-# The 5th of each month at 13:00 UTC. The YTD column ends at the last COMPLETE
+# The 5th of each month at 14:00 UTC. The YTD column ends at the last COMPLETE
 # month, so on the 5th the youngest record in that window is five days old --
 # comfortably past the two days we measured counts and full text taking to
 # settle, with margin to spare. (It was the 10th before that was measured.)
+#
+# The hour is 14:00, not 13:00. Drift collect runs daily at 13:00, so sharing
+# that slot would mean two jobs committing from the same base commit on the 5th
+# of every month, with the loser dying on a non-fast-forward. Filters collect
+# takes 15:00. The pull --rebase in the commit step covers the rest.
 #
 # Actions cron is UTC and ignores DST, which only slides the hour, and the
 # monthly window has no hour that matters.
 on:
   schedule:
-    - cron: "0 13 5 * *"
+    - cron: "0 14 5 * *"
   workflow_dispatch:        # re-fire by hand if a run fails
 
 permissions:
@@ -45,5 +50,6 @@ jobs:
             echo "no change"
           else
             git commit -m "summary: $(date -u +%Y-%m) refresh"
+            git pull --rebase        # another collector may have pushed meanwhile
             git push
           fi

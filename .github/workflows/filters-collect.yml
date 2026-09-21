@@ -1,0 +1,51 @@
+name: Filters collect
+
+# The 5th of each month at 15:00 UTC.
+#
+# The hour is deliberately NOT 13:00. Drift collect runs daily at 13:00, so on
+# the 5th of the month it would fire at the same minute as this one and as
+# Summary collect. Two jobs that both commit and push from the same base commit
+# race, and the loser dies on a non-fast-forward. Staggering is the cheap half
+# of the fix; the pull --rebase in the commit step below is the other half, and
+# covers the case where one run simply takes longer than the gap.
+on:
+  schedule:
+    - cron: "0 15 5 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: filters-collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Refresh PubMed filters
+        env:
+          NO_PAUSE: "1"
+          NCBI_EMAIL: ${{ secrets.NCBI_EMAIL }}
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+        run: python scripts/pull_pubmed_filters.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "filters-collector"
+          git config user.email "actions@users.noreply.github.com"
+          git add filters/pubmed-filters-data.csv
+          if git diff --staged --quiet; then
+            echo "no change"
+          else
+            git commit -m "filters: $(date -u +%Y-%m) refresh"
+            git pull --rebase        # another collector may have pushed meanwhile
+            git push
+          fi
