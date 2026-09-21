@@ -1,0 +1,49 @@
+name: Summary collect
+
+# The 5th of each month at 13:00 UTC. The YTD column ends at the last COMPLETE
+# month, so on the 5th the youngest record in that window is five days old --
+# comfortably past the two days we measured counts and full text taking to
+# settle, with margin to spare. (It was the 10th before that was measured.)
+#
+# Actions cron is UTC and ignores DST, which only slides the hour, and the
+# monthly window has no hour that matters.
+on:
+  schedule:
+    - cron: "0 13 5 * *"
+  workflow_dispatch:        # re-fire by hand if a run fails
+
+permissions:
+  contents: write
+
+concurrency:
+  group: summary-collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Refresh PubMed summary
+        env:
+          NO_PAUSE: "1"                                   # no console to read
+          NCBI_EMAIL: ${{ secrets.NCBI_EMAIL }}
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+        run: python scripts/pull_pubmed_summary.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "summary-collector"
+          git config user.email "actions@users.noreply.github.com"
+          git add pubmed-summary/pubmed-data.csv
+          if git diff --staged --quiet; then
+            echo "no change"
+          else
+            git commit -m "summary: $(date -u +%Y-%m) refresh"
+            git push
+          fi
