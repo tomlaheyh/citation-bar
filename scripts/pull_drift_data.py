@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # pull_drift_data.py
-# Version: 1.2 (built with python-script-standard v3.10)
+# Version: 1.3 (built with python-script-standard v3.10)
 # Required Python: 3.8+
 # Series: standalone
 # Required Libraries: none
@@ -232,10 +232,17 @@ _check([__file__])
 # one status while another rises is consistent with records moving between the
 # two, and equally consistent with records leaving the cohort while unrelated
 # ones appear elsewhere in it. Read the columns as counts, not as transitions.
+#
+# "Main abstract" is PubMed's hasabstract filter (the sidebar's "Abstract"
+# box). It tests only the main <Abstract> element. A record whose only abstract
+# sits in <OtherAbstract> -- non-English, or English added by the publisher --
+# counts as NO main abstract. Verified 2026-09-27: in Sep 2025 MEDLINE, 83 of
+# the 101 records without a main abstract carried a non-English one.
 # ---------------------------------------------------------------------------
 
 import csv
 import json
+import xml.etree.ElementTree as ET
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -248,6 +255,8 @@ OLDEST_AGE = 32       # days; 31 cohorts inclusive -- the report's 31 columns
 DATE_FIELD = "crdt"   # PubMed record create date; NLM never revises it
 
 ENDPOINT = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+FETCH_ENDPOINT = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
+FETCH_BATCH = 200     # ids per efetch POST
 TOOL = "citation_bar_drift"
 
 # Never hardcode a real address here: this file lives in a public repository.
@@ -267,13 +276,29 @@ MEASURES = [
     ("publisher",         "publisher[sb]"),
     ("pubmednotmedline",  "pubmednotmedline[sb]"),
     ("preprint",          "preprint[pt]"),
-    ("hasabstract",       "hasabstract"),
+    ("mainabstract",      "hasabstract"),
     ("fulltext",          '"full text"[sb]'),
     ("freefulltext",      '"free full text"[sb]'),
+    ("nonenglishabstract", "hasnonenglishabstract"),
+    ("structuredabstract", "hasstructuredabstract"),
+    ("medline_mainabstract",    "(medline[sb] AND hasabstract)"),
+    ("medline_nomainabstract",  "(medline[sb] NOT hasabstract)"),
+    ("medline_nonenglish_only", "(medline[sb] AND hasnonenglishabstract NOT hasabstract)"),
 ]
 
+# No search filter exists for these two, so they come from the records' XML:
+# every MEDLINE record with no main abstract is fetched and its <OtherAbstract>
+# elements read. Cohorts only -- YTD and alltime are far too large to fetch
+# daily, so those rows leave the columns blank (N/A), never zero.
+#   medline_engother_only  English OtherAbstract(s) only, no non-English one
+#   medline_noabstract_any no OtherAbstract at all
+# abstract_unaccounted = medline_nomainabstract minus the three sub-groups; it
+# should be 0, as unaccounted is for the status partition.
+XML_TERM = "(medline[sb] NOT hasabstract)"
+XML_MEASURES = ("medline_engother_only", "medline_noabstract_any")
+
 # The four that partition a cohort. medline_automated is a slice of medline and
-# the last four overlap everything, so none of them belong here.
+# the rest overlap everything, so none of them belong here.
 STATUS_PARTS = ("medline", "pubmednotmedline", "inprocess", "publisher")
 
 CSV_NAME = "../drift/drift-data.csv"
@@ -291,7 +316,8 @@ COLUMNS = (
     ["observed_et", "observed_utc", "row_type", "cohort_date", "close_date",
      "cohort_dow", "age_days", "status"]
     + [name for name, _ in MEASURES]
-    + ["status_sum", "unaccounted"]
+    + list(XML_MEASURES)
+    + ["status_sum", "unaccounted", "abstract_unaccounted"]
 )
 
 # --------------------------------------------------------------------- work
@@ -343,6 +369,62 @@ def _count(term):
     raise RuntimeError(f"esearch failed {ATTEMPTS}x: {term}\n    last error: {last!r}")
 
 
+def _eutils(url, data=None):
+    """One E-utilities call, retried. data given -> POST. Returns the body bytes."""
+    extra = {"tool": TOOL}
+    if EMAIL:
+        extra["email"] = EMAIL
+    if API_KEY:
+        extra["api_key"] = API_KEY
+    if data is None:
+        url = url + "&" + urllib.parse.urlencode(extra)
+        body = None
+    else:
+        body = urllib.parse.urlencode(dict(data, **extra)).encode("ascii")
+    last = None
+    for attempt in range(1, ATTEMPTS + 1):
+        try:
+            with urllib.request.urlopen(url, data=body, timeout=TIMEOUT) as r:
+                return r.read()
+        except Exception as e:
+            last = e
+            if attempt < ATTEMPTS:
+                time.sleep(2 ** attempt)
+    raise RuntimeError(f"E-utilities failed {ATTEMPTS}x: {url[:120]}\n    last error: {last!r}")
+
+
+def _classify(term_base):
+    """Split MEDLINE records with no main abstract by what <OtherAbstract> holds.
+
+    Returns (engother_only, none_at_all, nonenglish). Raises unless every id
+    esearch listed came back from efetch -- a partial split would look complete."""
+    q = urllib.parse.urlencode({"db": "pubmed", "retmode": "json", "retmax": 10000,
+                                "term": f"{term_base} AND {XML_TERM}"})
+    res = json.loads(_eutils(ENDPOINT + "?" + q))["esearchresult"]
+    ids, total = res["idlist"], int(res["count"])
+    if len(ids) != total:
+        raise RuntimeError(f"esearch listed {len(ids)} of {total} ids")
+    time.sleep(GAP_SECS)
+
+    eng = none = nonen = seen = 0
+    for i in range(0, len(ids), FETCH_BATCH):
+        xml = _eutils(FETCH_ENDPOINT, {"db": "pubmed", "retmode": "xml",
+                                       "id": ",".join(ids[i:i + FETCH_BATCH])})
+        time.sleep(GAP_SECS)
+        for art in ET.fromstring(xml).iter("PubmedArticle"):
+            seen += 1
+            langs = [(o.get("Language") or "eng").lower() for o in art.iter("OtherAbstract")]
+            if any(l != "eng" for l in langs):
+                nonen += 1
+            elif langs:
+                eng += 1
+            else:
+                none += 1
+    if seen != total:
+        raise RuntimeError(f"efetch returned {seen} of {total} records")
+    return eng, none, nonen
+
+
 def _read_existing(path):
     if not path.exists():
         return []
@@ -350,8 +432,9 @@ def _read_existing(path):
         return list(csv.DictReader(f))
 
 
-def _measure(term_base, row):
-    """Fill row with the ten counts for one [crdt] target, or mark it NA.
+def _measure(term_base, row, classify=False):
+    """Fill row with the counts for one [crdt] target, or mark it NA.
+    classify=True (cohorts only) adds the two XML-derived abstract columns.
 
     One bad target is a hole in that column, not a failed run -- the caller
     decides whether this particular hole matters."""
@@ -360,6 +443,13 @@ def _measure(term_base, row):
         for name, frag in MEASURES:
             counts[name] = _count(f"{term_base} AND {frag}")
             time.sleep(GAP_SECS)
+        if classify:
+            eng, none, _ = _classify(term_base)
+            counts["medline_engother_only"] = eng
+            counts["medline_noabstract_any"] = none
+            counts["abstract_unaccounted"] = (counts["medline_nomainabstract"]
+                                              - counts["medline_nonenglish_only"]
+                                              - eng - none)
         ssum = sum(counts[k] for k in STATUS_PARTS)
         row.update(counts)
         row["status"] = "OK"
@@ -413,7 +503,7 @@ def main():
                    cohort_date=f"{cohort:%Y-%m-%d}",
                    close_date=f"{cohort:%Y-%m-%d}",
                    cohort_dow=f"{cohort:%a}", age_days=age)
-        ok, err = _measure(f"{cohort:%Y/%m/%d}[{DATE_FIELD}]", row)
+        ok, err = _measure(f"{cohort:%Y/%m/%d}[{DATE_FIELD}]", row, classify=True)
         if ok:
             flag = " <- baseline" if age == YOUNGEST_AGE else ""
             print(f"  {cohort:%Y-%m-%d} {cohort:%a} age {age:>2}  "

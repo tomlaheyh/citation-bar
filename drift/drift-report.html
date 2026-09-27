@@ -60,13 +60,6 @@
   h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.2px; }
   h1 span { color: var(--text-muted); font-weight: 400; font-size: 15px; display: block; }
 
-  .sample-banner {
-    background: #fef3c7; border: 1px solid #f59e0b; border-left: 4px solid #f59e0b;
-    border-radius: 6px; padding: 10px 14px; margin-bottom: 18px;
-    font-size: 14px; color: #78350f;
-  }
-  .sample-banner b { font-weight: 700; }
-
   .panel {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 8px; padding: 16px 18px; margin-bottom: 18px;
@@ -96,21 +89,25 @@
      which a 6-character figure like -1,174 still clears its neighbour. Below
      that the scroller scrolls rather than letting numbers collide. */
   table { border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums;
-    width: 100%; table-layout: fixed; min-width: 1690px; }
-  col.lbl  { width: 178px; }
+    width: 100%; table-layout: fixed; min-width: 1900px; }
+  col.lbl  { width: 196px; }
   col.ytd  { width: 106px; }
   col.ytdd { width:  80px; }
+  col.all  { width: 112px; }
+  col.alld { width:  80px; }
 
-  /* The label and the two YTD columns stay pinned while the 30 days scroll, so
-     the year-to-date reference never leaves the screen. */
+  /* The label, the two YTD columns and the two All columns stay pinned while
+     the 30 days scroll, so the range references never leave the screen. */
   .stick { position: sticky; z-index: 2; background: var(--surface); }
   .s-lbl  { left: 0; }
-  .s-ytd  { left: 178px; text-align: right; }
-  .s-ytdd { left: 284px; text-align: right;
+  .s-ytd  { left: 196px; text-align: right; }
+  .s-ytdd { left: 302px; text-align: right; }
+  .s-all  { left: 382px; text-align: right; }
+  .s-alld { left: 494px; text-align: right;
             border-right: 2px solid var(--border); }
-  /* The anchor column pins right after the YTD block (178+106+80), so the
-     baseline you are measuring from never scrolls away from its own diffs. */
-  .s-anchor { left: 364px; }
+  /* The anchor column pins right after the range block (196+106+80+112+80), so
+     the baseline you are measuring from never scrolls away from its own diffs. */
+  .s-anchor { left: 574px; }
   thead .stick { z-index: 4; }
 
   /* A rule down the anchor's right edge: bold alone is easy to lose once the
@@ -150,6 +147,8 @@
   }
   td.ytdval  { padding: 4px 6px; font-weight: 700; border-bottom: 1px solid #eef0f3; }
   td.ytddrift { padding: 4px 6px; border-bottom: 1px solid #eef0f3; }
+  td.ytdval.na, td.ytddrift.na { color: var(--na-ink); font-style: italic; font-weight: 400; }
+  td.rowhead.sub { font-weight: 400; padding-left: 14px; }
 
   td.cell { padding: 4px 4px; border-bottom: 1px solid #eef0f3; min-width: 40px; }
   td.cell.before { background: var(--grey-cell); color: transparent; }
@@ -209,12 +208,6 @@
 
 <div class="container">
 
-  <div class="sample-banner">
-    <b>SAMPLE DATA — not real.</b> Every number on this page is synthetic, generated to
-    exercise the layout. Real collection begins when the daily action runs; no
-    pre-collection baseline can ever be backfilled.
-  </div>
-
   <div class="warn" id="warn"></div>
 
   <div class="panel">
@@ -254,11 +247,19 @@
       absolute value behind the drift.
     </p>
     <p class="note">
-      <b>The two pinned columns are different.</b> <code>YTD</code> is the whole year to the
-      close date shown, and its <code>drift</code> is <b>one day's</b> change — the same range
-      measured on two consecutive mornings, so the window is identical and nothing of the
-      change comes from the year getting longer. The columns to its right are cumulative from
-      an anchor. Don't read across the divider as if it were one scale.
+      <b>The pinned range columns are different.</b> <code>YTD</code> is the whole year to the
+      close date shown and <code>All</code> is the whole database to it. Each <code>drift</code>
+      is <b>one day's</b> change — the same range measured on two consecutive mornings, so the
+      window is identical and nothing of the change comes from the range getting longer. The
+      columns to their right are cumulative from an anchor. Don't read across the divider as
+      if it were one scale.
+    </p>
+    <p class="note">
+      <b>"Main abstract" is PubMed's Abstract filter</b> (<code>hasabstract</code>). It checks only
+      the main abstract, so <i>no main abstract</i> includes records that do carry a non-English
+      or publisher-added abstract. The three <code>↳</code> rows split it. The two English-other and
+      no-abstract rows are read from each record's XML, so they exist for the daily cohorts only
+      and are N/A for YTD and All. <a href="../help.html#abstracts">More in Help</a>.
     </p>
   </div>
 
@@ -268,10 +269,10 @@
 
 <script src="../siteNav.js"></script>
 <script>
-const DATA_FILE = 'drift-data-sample.csv';
+const DATA_FILE = 'drift-data.csv';
 
-// width of the always-pinned block: label 178 + YTD 106 + drift 80
-const PIN_W = 364;
+// width of the always-pinned block: label 196 + YTD 106 + drift 80 + All 112 + drift 80
+const PIN_W = 574;
 
 const MEASURES = [
   ['all_sb',            'all [sb]'],
@@ -281,9 +282,16 @@ const MEASURES = [
   ['publisher',         'publisher [sb]'],
   ['pubmednotmedline',  'pubmednotmedline [sb]'],
   ['preprint',          'Preprints'],
-  ['hasabstract',       'hasabstract'],
+  ['mainabstract',      'main abstract'],
+  ['nonenglishabstract', 'non-English abstract'],
+  ['structuredabstract', 'structured abstract'],
   ['fulltext',          '"Full Text"[sb]'],
   ['freefulltext',      '"free full text"[sb]'],
+  ['medline_mainabstract',    'medline main abstract'],
+  ['medline_nomainabstract',  'medline no main abstract'],
+  ['medline_nonenglish_only', '↳ non-English only', 'sub'],
+  ['medline_engother_only',   '↳ English other only', 'sub'],
+  ['medline_noabstract_any',  '↳ no abstract at all', 'sub'],
 ];
 
 let DATES = [];       // every observation date in the window, ascending
@@ -292,23 +300,26 @@ let IDX = {};         // IDX[cohort][observed] = row
 let YTD = [];         // every year-to-date row, both readings of every range
 let YTD_NOW = null;   // the later reading of the newest range with two of them
 let YTD_WAS = null;   // its reading the morning before
+let ALL = [];         // the same for the whole-database (alltime) rows
+let ALL_NOW = null;
+let ALL_WAS = null;
 
 // Both YTD columns have to describe the SAME range, or the value and its drift
 // are not like-for-like. So we show the newest range that has been measured
 // twice -- the value is its current reading, the drift is the change since the
 // morning before. The range opened today has only one reading and no drift yet;
 // it becomes the displayed one tomorrow.
-function buildYtd() {
+// The same rule serves YTD and All: returns [now, was], or [null, null].
+function newestPair(rows) {
   const byRange = {};
-  YTD.forEach(r => (byRange[r.range] = byRange[r.range] || []).push(r));
+  rows.forEach(r => (byRange[r.range] = byRange[r.range] || []).push(r));
   const paired = Object.keys(byRange)
     .filter(k => byRange[k].length >= 2)
     .sort();
-  if (!paired.length) return;
+  if (!paired.length) return [null, null];
   const pair = byRange[paired[paired.length - 1]]
     .slice().sort((a, b) => a.observed.localeCompare(b.observed));
-  YTD_WAS = pair[pair.length - 2];
-  YTD_NOW = pair[pair.length - 1];
+  return [pair[pair.length - 1], pair[pair.length - 2]];
 }
 
 function parseCSVLine(line) {
@@ -363,7 +374,9 @@ async function init() {
   const dset = new Set(), cset = new Set();
   for (let i = 1; i < lines.length; i++) {
     const c = parseCSVLine(lines[i]);
-    const obs = c[col.observed_et], coh = c[col.cohort_date];
+    // observed_et carries a time ("2026-09-19 12:07:51"); the grid keys on the
+    // day. The collector keeps one run per ET day, so the date is unique.
+    const obs = (c[col.observed_et] || '').slice(0, 10), coh = c[col.cohort_date];
     if (!obs || !coh) continue;
     const row = { status: c[col.status] || 'OK', observed: obs, range: coh,
                   close: c[col.close_date] };
@@ -378,7 +391,8 @@ async function init() {
     // accidentally appear in the slider.
     const rt = c[col.row_type];
     if (rt === 'ytd') { YTD.push(row); continue; }
-    if (rt !== 'cohort') continue;      // alltime and anything future: ignored here
+    if (rt === 'alltime') { ALL.push(row); continue; }
+    if (rt !== 'cohort') continue;      // anything future: ignored here
 
     // The grid's columns are CLOSE dates, not observation dates: a column is a
     // day that closed, and the cell under it is that cohort as read two days
@@ -388,7 +402,8 @@ async function init() {
     cset.add(coh);
     (IDX[coh] = IDX[coh] || {})[obs] = row;
   }
-  buildYtd();
+  [YTD_NOW, YTD_WAS] = newestPair(YTD);
+  [ALL_NOW, ALL_WAS] = newestPair(ALL);
   DATES = [...dset].sort();
   COHORTS = [...cset].sort();
 
@@ -442,15 +457,21 @@ function render() {
   // one <col> per date so table-layout:fixed spreads the columns evenly
   const cols = document.getElementById('cols');
   cols.innerHTML = '<col class="lbl"><col class="ytd"><col class="ytdd">'
+                 + '<col class="all"><col class="alld">'
                  + DATES.map(() => '<col>').join('');
 
   const closed = YTD_NOW ? 'closed ' + longDate(YTD_NOW.close) : 'no data';
+  const closedAll = ALL_NOW ? 'closed ' + longDate(ALL_NOW.close) : 'no data';
   ageRow.innerHTML = '<th class="corner stick s-lbl"></th>'
     + '<th class="ytdhead stick s-ytd">YTD</th>'
-    + '<th class="ytdhead stick s-ytdd">drift</th>';
+    + '<th class="ytdhead stick s-ytdd">drift</th>'
+    + '<th class="ytdhead stick s-all">All</th>'
+    + '<th class="ytdhead stick s-alld">drift</th>';
   dateRow.innerHTML = '<th class="corner stick s-lbl"></th>'
     + `<th class="ytdsub stick s-ytd">${closed}</th>`
-    + '<th class="ytdsub stick s-ytdd">1 day</th>';
+    + '<th class="ytdsub stick s-ytdd">1 day</th>'
+    + `<th class="ytdsub stick s-all">${closedAll}</th>`
+    + '<th class="ytdsub stick s-alld">1 day</th>';
   DATES.forEach((d, i) => {
     const before = i < anchorPos, isA = i === anchorPos;
     const cls = before ? ' is-before' : (isA ? ' is-anchor stick s-anchor' : '');
@@ -464,8 +485,10 @@ function render() {
   const body = document.getElementById('body');
   body.innerHTML = '';
 
-  MEASURES.forEach(([key, label]) => {
-    let html = `<tr><td class="rowhead stick s-lbl">${label}</td>` + ytdCells(key);
+  MEASURES.forEach(([key, label, sub]) => {
+    let html = `<tr><td class="rowhead stick s-lbl${sub ? ' sub' : ''}">${label}</td>`
+             + rangeCells(key, YTD_NOW, YTD_WAS, 's-ytd', 's-ytdd')
+             + rangeCells(key, ALL_NOW, ALL_WAS, 's-all', 's-alld');
     DATES.forEach((d, i) => {
       if (i < anchorPos) { html += '<td class="cell before">·</td>'; return; }
 
@@ -513,9 +536,9 @@ function maskUnderPin() {
 
   const edge = sc.scrollLeft + PIN_W + anchorTh.offsetWidth;
 
-  // Header and body share the same leading cells -- label, YTD, YTD drift --
-  // so the date columns start at index 3 in both and the indexes line up.
-  const FIRST_DATE = 3;
+  // Header and body share the same leading cells -- label, YTD, YTD drift,
+  // All, All drift -- so the date columns start at index 5 in both.
+  const FIRST_DATE = 5;
   let first = FIRST_DATE;
   for (let i = FIRST_DATE; i < ths.length; i++) {
     if (ths[i].classList.contains('is-anchor')) continue;
@@ -539,12 +562,14 @@ function tint(diff) {
   return diff < 0 ? 'var(--neg)' : 'var(--pos)';
 }
 
-function ytdCells(key) {
-  if (!YTD_NOW) {
-    return '<td class="ytdval stick s-ytd na">N/A</td>'
-         + '<td class="ytddrift stick s-ytdd na">N/A</td>';
+// One pinned range pair (YTD or All). A measure the range never carries --
+// the XML-derived abstract rows -- is null in the data and shows N/A, not 0.
+function rangeCells(key, NOW, WAS, sv, sd) {
+  if (!NOW) {
+    return `<td class="ytdval stick ${sv} na">N/A</td>`
+         + `<td class="ytddrift stick ${sd} na">N/A</td>`;
   }
-  const now = YTD_NOW[key], was = YTD_WAS ? YTD_WAS[key] : null;
+  const now = NOW[key], was = WAS ? WAS[key] : null;
   const val = (now === null) ? 'N/A' : fmt(now);
   let drift = 'N/A', bg = 'var(--pos)';
   if (now !== null && was !== null) {
@@ -552,8 +577,9 @@ function ytdCells(key) {
     drift = fmtDelta(d);
     bg = tint(d);
   }
-  return `<td class="ytdval stick s-ytd" style="background:var(--pos)">${val}</td>`
-       + `<td class="ytddrift stick s-ytdd" style="background:${bg}">${drift}</td>`;
+  const vna = now === null ? ' na' : '', dna = drift === 'N/A' ? ' na' : '';
+  return `<td class="ytdval stick ${sv}${vna}" style="background:var(--pos)">${val}</td>`
+       + `<td class="ytddrift stick ${sd}${dna}" style="background:${bg}">${drift}</td>`;
 }
 
 function attachTips() {
@@ -590,7 +616,7 @@ function exportCSV() {
   const base = series[firstObs];
 
   const out = [];
-  out.push(`"Drift Report - SAMPLE DATA","anchor ${longDate(anchor)}"`);
+  out.push(`"Drift Report","anchor ${longDate(anchor)}"`);
   out.push('');
   out.push(['"measure"'].concat(DATES.slice(anchorPos).map((d, i) => `"+${i}"`)).join(','));
   out.push(['""'].concat(DATES.slice(anchorPos).map(d => `"${longDate(d)}"`)).join(','));

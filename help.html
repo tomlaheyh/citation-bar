@@ -282,6 +282,34 @@
     whether PubMed alone is giving you the whole picture.
   </p>
 
+  <h2 id="abstracts">What PubMed's Abstract filter checks</h2>
+
+  <p>
+    PubMed's <strong>Abstract</strong> filter (the sidebar box, or <code>hasabstract</code>
+    in a query) checks only the record's <em>main</em> abstract. Abstracts stored separately —
+    a non-English abstract, or one the publisher added later — are not counted. So a record
+    can fail the filter and still have an abstract. This site calls those records
+    <strong>no main abstract</strong>, and the Drift Report splits them three ways:
+  </p>
+
+  <div class="table-scroll">
+  <table class="data">
+    <thead><tr><th>Group</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td class="sym">main abstract</td><td>Matches <code>hasabstract</code>.</td></tr>
+      <tr><td class="sym">no main abstract</td><td>Everything else: <code>NOT hasabstract</code>. Made up of the three rows below.</td></tr>
+      <tr><td class="sym">↳ non-English only</td><td>Its only abstract is in another language. Searchable with <code>hasnonenglishabstract</code>. In September 2025 this was most MEDLINE records without a main abstract (83 of 101).</td></tr>
+      <tr><td class="sym">↳ English other only</td><td>An English abstract stored outside the main one, usually added by the publisher. No search filter exists; it is read from the record's XML.</td></tr>
+      <tr><td class="sym">↳ no abstract at all</td><td>Nothing of any kind — typically letters, editorials, comments and many case reports. Also read from the XML.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>
+    The two XML-derived groups are counted for the daily cohorts only. The year-to-date and
+    whole-database ranges are too large to read record by record, so they show N/A there.
+  </p>
+
 </div>
 
 <footer class="site-footer">
