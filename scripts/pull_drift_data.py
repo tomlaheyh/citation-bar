@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # pull_drift_data.py
-# Version: 1.3 (built with python-script-standard v3.10)
+# Version: 1.4 (built with python-script-standard v3.10)
 # Required Python: 3.8+
 # Series: standalone
 # Required Libraries: none
@@ -233,11 +233,14 @@ _check([__file__])
 # two, and equally consistent with records leaving the cohort while unrelated
 # ones appear elsewhere in it. Read the columns as counts, not as transitions.
 #
-# "Main abstract" is PubMed's hasabstract filter (the sidebar's "Abstract"
-# box). It tests only the main <Abstract> element. A record whose only abstract
-# sits in <OtherAbstract> -- non-English, or English added by the publisher --
-# counts as NO main abstract. Verified 2026-09-27: in Sep 2025 MEDLINE, 83 of
-# the 101 records without a main abstract carried a non-English one.
+# hasabstract is PubMed's own Abstract filter (the sidebar's "Abstract" box).
+# Verified 2026-09-27 against the XML, it counts a record that has the main
+# <Abstract> OR an English plain-language summary (PMID 42758511 has only the
+# summary and matches). It does NOT count a record whose only abstract is a
+# publisher-supplied <OtherAbstract>, in any language: in Sep 2025 MEDLINE, 83
+# of the 101 records failing the filter carried a non-English one. The column
+# names "mainabstract"/"nomainabstract" predate this finding and are kept so the
+# CSV stays continuous; they mean "passes/fails hasabstract", nothing more.
 # ---------------------------------------------------------------------------
 
 import csv
@@ -284,18 +287,28 @@ MEASURES = [
     ("medline_mainabstract",    "(medline[sb] AND hasabstract)"),
     ("medline_nomainabstract",  "(medline[sb] NOT hasabstract)"),
     ("medline_nonenglish_only", "(medline[sb] AND hasnonenglishabstract NOT hasabstract)"),
+    ("nomainabstract",          "(all[sb] NOT hasabstract)"),
+    ("nonenglish_only",         "(all[sb] AND hasnonenglishabstract NOT hasabstract)"),
 ]
 
-# No search filter exists for these two, so they come from the records' XML:
-# every MEDLINE record with no main abstract is fetched and its <OtherAbstract>
-# elements read. Cohorts only -- YTD and alltime are far too large to fetch
-# daily, so those rows leave the columns blank (N/A), never zero.
-#   medline_engother_only  English OtherAbstract(s) only, no non-English one
-#   medline_noabstract_any no OtherAbstract at all
-# abstract_unaccounted = medline_nomainabstract minus the three sub-groups; it
+# No search filter exists for these, so they come from the records' XML: every
+# record failing hasabstract is fetched and its <OtherAbstract> elements read.
+# Done twice -- MEDLINE, then all records. Cohorts only -- YTD and alltime are
+# far too large to fetch daily, so those rows leave the columns blank (N/A),
+# never zero.
+#   *engother_only   English OtherAbstract(s) only, no non-English one
+#   *noabstract_any  no OtherAbstract at all
+# The check column is the no-abstract count minus its three sub-groups; it
 # should be 0, as unaccounted is for the status partition.
-XML_TERM = "(medline[sb] NOT hasabstract)"
-XML_MEASURES = ("medline_engother_only", "medline_noabstract_any")
+#   (prefix, subset term, no-abstract col, non-English col, check col)
+XML_SETS = [
+    ("medline_", "(medline[sb] NOT hasabstract)", "medline_nomainabstract",
+     "medline_nonenglish_only", "abstract_unaccounted"),
+    ("",         "(all[sb] NOT hasabstract)",     "nomainabstract",
+     "nonenglish_only",         "all_abstract_unaccounted"),
+]
+XML_MEASURES = ("medline_engother_only", "medline_noabstract_any",
+                "engother_only", "noabstract_any")
 
 # The four that partition a cohort. medline_automated is a slice of medline and
 # the rest overlap everything, so none of them belong here.
@@ -317,7 +330,7 @@ COLUMNS = (
      "cohort_dow", "age_days", "status"]
     + [name for name, _ in MEASURES]
     + list(XML_MEASURES)
-    + ["status_sum", "unaccounted", "abstract_unaccounted"]
+    + ["status_sum", "unaccounted", "abstract_unaccounted", "all_abstract_unaccounted"]
 )
 
 # --------------------------------------------------------------------- work
@@ -393,13 +406,13 @@ def _eutils(url, data=None):
     raise RuntimeError(f"E-utilities failed {ATTEMPTS}x: {url[:120]}\n    last error: {last!r}")
 
 
-def _classify(term_base):
-    """Split MEDLINE records with no main abstract by what <OtherAbstract> holds.
+def _classify(term_base, subset):
+    """Split the records failing hasabstract by what <OtherAbstract> holds.
 
     Returns (engother_only, none_at_all, nonenglish). Raises unless every id
     esearch listed came back from efetch -- a partial split would look complete."""
     q = urllib.parse.urlencode({"db": "pubmed", "retmode": "json", "retmax": 10000,
-                                "term": f"{term_base} AND {XML_TERM}"})
+                                "term": f"{term_base} AND {subset}"})
     res = json.loads(_eutils(ENDPOINT + "?" + q))["esearchresult"]
     ids, total = res["idlist"], int(res["count"])
     if len(ids) != total:
@@ -411,7 +424,10 @@ def _classify(term_base):
         xml = _eutils(FETCH_ENDPOINT, {"db": "pubmed", "retmode": "xml",
                                        "id": ",".join(ids[i:i + FETCH_BATCH])})
         time.sleep(GAP_SECS)
-        for art in ET.fromstring(xml).iter("PubmedArticle"):
+        root = ET.fromstring(xml)
+        # book chapters come back as PubmedBookArticle -- count them too, or
+        # one would fail the seen == total check and blank the whole cohort
+        for art in [*root.iter("PubmedArticle"), *root.iter("PubmedBookArticle")]:
             seen += 1
             langs = [(o.get("Language") or "eng").lower() for o in art.iter("OtherAbstract")]
             if any(l != "eng" for l in langs):
@@ -444,12 +460,11 @@ def _measure(term_base, row, classify=False):
             counts[name] = _count(f"{term_base} AND {frag}")
             time.sleep(GAP_SECS)
         if classify:
-            eng, none, _ = _classify(term_base)
-            counts["medline_engother_only"] = eng
-            counts["medline_noabstract_any"] = none
-            counts["abstract_unaccounted"] = (counts["medline_nomainabstract"]
-                                              - counts["medline_nonenglish_only"]
-                                              - eng - none)
+            for prefix, subset, nomain, nonen, check in XML_SETS:
+                eng, none, _ = _classify(term_base, subset)
+                counts[prefix + "engother_only"] = eng
+                counts[prefix + "noabstract_any"] = none
+                counts[check] = counts[nomain] - counts[nonen] - eng - none
         ssum = sum(counts[k] for k in STATUS_PARTS)
         row.update(counts)
         row["status"] = "OK"

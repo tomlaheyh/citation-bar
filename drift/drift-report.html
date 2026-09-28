@@ -89,8 +89,8 @@
      which a 6-character figure like -1,174 still clears its neighbour. Below
      that the scroller scrolls rather than letting numbers collide. */
   table { border-collapse: separate; border-spacing: 0; font-variant-numeric: tabular-nums;
-    width: 100%; table-layout: fixed; min-width: 1900px; }
-  col.lbl  { width: 196px; }
+    width: 100%; table-layout: fixed; min-width: 1936px; }
+  col.lbl  { width: 232px; }
   col.ytd  { width: 106px; }
   col.ytdd { width:  80px; }
   col.all  { width: 112px; }
@@ -100,14 +100,14 @@
      the 30 days scroll, so the range references never leave the screen. */
   .stick { position: sticky; z-index: 2; background: var(--surface); }
   .s-lbl  { left: 0; }
-  .s-ytd  { left: 196px; text-align: right; }
-  .s-ytdd { left: 302px; text-align: right; }
-  .s-all  { left: 382px; text-align: right; }
-  .s-alld { left: 494px; text-align: right;
+  .s-ytd  { left: 232px; text-align: right; }
+  .s-ytdd { left: 338px; text-align: right; }
+  .s-all  { left: 418px; text-align: right; }
+  .s-alld { left: 530px; text-align: right;
             border-right: 2px solid var(--border); }
-  /* The anchor column pins right after the range block (196+106+80+112+80), so
+  /* The anchor column pins right after the range block (232+106+80+112+80), so
      the baseline you are measuring from never scrolls away from its own diffs. */
-  .s-anchor { left: 574px; }
+  .s-anchor { left: 610px; }
   thead .stick { z-index: 4; }
 
   /* A rule down the anchor's right edge: bold alone is easy to lose once the
@@ -149,6 +149,9 @@
   td.ytddrift { padding: 4px 6px; border-bottom: 1px solid #eef0f3; }
   td.ytdval.na, td.ytddrift.na { color: var(--na-ink); font-style: italic; font-weight: 400; }
   td.rowhead.sub { font-weight: 400; padding-left: 14px; }
+  .notes-h { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .notes-list { padding-left: 20px; }
+  .notes-list li { margin-top: 6px; }
 
   td.cell { padding: 4px 4px; border-bottom: 1px solid #eef0f3; min-width: 40px; }
   td.cell.before { background: var(--grey-cell); color: transparent; }
@@ -255,12 +258,39 @@
       if it were one scale.
     </p>
     <p class="note">
-      <b>"Main abstract" is PubMed's Abstract filter</b> (<code>hasabstract</code>). It checks only
-      the main abstract, so <i>no main abstract</i> includes records that do carry a non-English
-      or publisher-added abstract. The three <code>↳</code> rows split it. The two English-other and
-      no-abstract rows are read from each record's XML, so they exist for the daily cohorts only
-      and are N/A for YTD and All. <a href="../help.html#abstracts">More in Help</a>.
+      <b>"(PubMed)" means PubMed's own Abstract filter</b> (<code>hasabstract</code>). It counts a
+      main abstract or an English plain-language summary, but not an abstract the publisher
+      supplied separately, in any language. So <i>no abstract (PubMed)</i> includes records that do
+      carry an abstract. The three <code>↳</code> rows under it split it, for all records and for
+      MEDLINE. The English-other and no-abstract-at-all rows are read from each record's XML, so they
+      exist for the daily cohorts only and are N/A for YTD and All.
+      <a href="../help.html#abstracts">More in Help</a>.
     </p>
+  </div>
+
+  <div class="panel">
+    <h2 class="notes-h">How PubMed changes during the day</h2>
+    <p class="note">
+      These are the timings the collector is built around. They come from watching the data, not
+      from an NLM schedule; NLM does not publish one.
+    </p>
+    <ul class="note notes-list">
+      <li><b>Full-text links are added in a batch at 07:00 ET.</b> It takes two passes to land about
+        97% of a day's links: about 85% on the first morning, about 12% on the second, under 1% on
+        the third.</li>
+      <li><b>That is why the baseline is taken at age 2.</b> A cohort read any younger has a
+        full-text count that is not finished yet. Record counts settle much sooner.</li>
+      <li><b>The collector reads at 09:00 ET</b> (13:00 UTC), after that morning's 07:00 batch.
+        No other changes have been seen before 12:00 ET, so the run lands in a quiet window.</li>
+      <li><b>Winter shifts it to 08:00 ET.</b> GitHub's schedule is in UTC and ignores daylight
+        saving; 08:00 is still after the batch and inside the quiet window. GitHub can also start a
+        scheduled run late, which the same margin absorbs.</li>
+      <li><b>The other collectors are staggered</b> so no two commit at once. Both run monthly
+        on the 5th: PubMed Summary at 14:00 UTC, Filters at 15:00 UTC.</li>
+      <li><b>A run started by hand at another hour</b> reads PubMed at a different point in its
+        day, so that day's numbers are not like-for-like with the rest. The first real collection,
+        on 9/27/26, was one of these (about 6:30 PM ET).</li>
+    </ul>
   </div>
 
 </div>
@@ -271,8 +301,8 @@
 <script>
 const DATA_FILE = 'drift-data.csv';
 
-// width of the always-pinned block: label 196 + YTD 106 + drift 80 + All 112 + drift 80
-const PIN_W = 574;
+// width of the always-pinned block: label 232 + YTD 106 + drift 80 + All 112 + drift 80
+const PIN_W = 610;
 
 const MEASURES = [
   ['all_sb',            'all [sb]'],
@@ -282,13 +312,18 @@ const MEASURES = [
   ['publisher',         'publisher [sb]'],
   ['pubmednotmedline',  'pubmednotmedline [sb]'],
   ['preprint',          'Preprints'],
-  ['mainabstract',      'main abstract'],
-  ['nonenglishabstract', 'non-English abstract'],
-  ['structuredabstract', 'structured abstract'],
   ['fulltext',          '"Full Text"[sb]'],
   ['freefulltext',      '"free full text"[sb]'],
-  ['medline_mainabstract',    'medline main abstract'],
-  ['medline_nomainabstract',  'medline no main abstract'],
+  // "(PubMed)" = PubMed's own hasabstract filter; see the note under the grid
+  ['mainabstract',       'has abstract (PubMed)'],
+  ['nomainabstract',     'no abstract (PubMed)'],
+  ['nonenglish_only',    '↳ non-English only', 'sub'],
+  ['engother_only',      '↳ English other only', 'sub'],
+  ['noabstract_any',     '↳ no abstract at all', 'sub'],
+  ['nonenglishabstract', 'non-English abstract'],
+  ['structuredabstract', 'structured abstract'],
+  ['medline_mainabstract',    'medline has abstract (PubMed)'],
+  ['medline_nomainabstract',  'medline no abstract (PubMed)'],
   ['medline_nonenglish_only', '↳ non-English only', 'sub'],
   ['medline_engother_only',   '↳ English other only', 'sub'],
   ['medline_noabstract_any',  '↳ no abstract at all', 'sub'],
