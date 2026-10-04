@@ -31,6 +31,7 @@
     { title: 'PubMed Filters Report',  href: '/filters/filters.html' },
     { title: 'PubMed MeSH Counts',     href: '/mesh/mesh.html' },
     { title: 'PubMed Journal Ranking', href: '/journal-ranking/journal-ranking.html' },
+    { title: 'PubMed Drift Report',    href: '/drift/drift-report.html' },
     { title: 'Privacy',                href: '/privacy.html' }
   ];
 
