@@ -13,6 +13,13 @@ Running log for the drift report rework (ver2). Newest entry at the top.
 
 ## Log
 
+### 2026-10-04: pushed (`5c7db98`)
+
+- **What was pushed:** report v2, the menu link, `delete.bat` and these notes. The 21 tracked twins were removed from the repo; they remain in git history.
+- **Rebase:** brought in the 10/4 collection (`3d174da`). Local `drift-data.csv` now has 278 rows.
+- **Pages:** a build was running for `5c7db98` at the time of the push.
+- **Next:** the 4 check columns.
+
 ### 2026-10-04: delete.bat (repo root)
 
 - **What it does:** moves every `*-vUTC-*` twin into a `_to_delete` folder beside it. It skips `.git` and anything already in a `_to_delete`. It lists everything and asks Y/N first, never overwrites (a name clash is skipped and listed), and checks that each move landed.

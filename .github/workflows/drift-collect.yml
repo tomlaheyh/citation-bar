@@ -46,6 +46,11 @@ jobs:
             echo "no change"
           else
             git commit -m "drift: $(date -u +%Y-%m-%d) collection"
-            git pull --rebase        # another collector may have pushed meanwhile
-            git push
+            # retry: another collector may have pushed meanwhile, or GitHub may
+            # reject the push with a transient server error
+            for attempt in 1 2 3; do
+              git pull --rebase && git push && exit 0
+              sleep 30
+            done
+            exit 1
           fi

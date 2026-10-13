@@ -10,7 +10,7 @@
      If the repo name differs, update every absolute URL in this file, the other
      pages, and sitemap.xml. Search for "github.io/citation-bar". -->
 <link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/">
-<meta name="description" content="Free Chrome extension that adds citation counts, NIH iCite RCR, Altmetric scores, MEDLINE status and journal metrics directly to PubMed search results. No account, no tracking.">
+<meta name="description" content="Free Chrome extension that adds citation counts, NIH iCite RCR, Altmetric scores, MEDLINE status, journal metrics and author indexes directly to PubMed search results, with exports for reference managers and AI tools. No account, no tracking.">
 <meta name="keywords" content="PubMed extension, PubMed citation counts, iCite RCR, Altmetric, MEDLINE indexed, journal ranking, SJR, Chrome extension, literature screening, systematic review">
 <meta name="author" content="PubMed Citation Bar">
 <meta name="robots" content="index, follow">
@@ -42,7 +42,7 @@
   "applicationCategory": "BrowserApplication",
   "operatingSystem": "Chrome",
   "url": "https://tomlaheyh.github.io/citation-bar/",
-  "description": "Chrome extension that adds citation counts, NIH iCite Relative Citation Ratio, Altmetric scores, MEDLINE indexing status and journal metrics to PubMed search results.",
+  "description": "Chrome extension that adds citation counts, NIH iCite Relative Citation Ratio, Altmetric scores, MEDLINE indexing status, journal metrics and author indexes to PubMed search results, with exports for reference managers and AI tools.",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
 }
 </script>
@@ -64,6 +64,13 @@
     </div>
   </header>
 
+  <figure style="margin: 0 0 30px;">
+    <img src="assets/citation-bar.png" width="733" height="308"
+         alt="A PubMed search result with the citation bar underneath: citation count, RCR, influential citations, Altmetric, author, journal rank and MEDLINE share"
+         style="max-width: 100%; height: auto; display: block; border: 1px solid var(--rule); border-radius: 5px;">
+    <figcaption style="font-size: 14px; color: var(--ink-faint); margin-top: 8px;">The citation bar under a PubMed result.</figcaption>
+  </figure>
+
   <h2>What it adds to each result</h2>
 
   <p>
@@ -77,18 +84,32 @@
       <tr><th>On the bar</th><th>What it tells you</th><th>Source</th></tr>
     </thead>
     <tbody>
+      <tr><td class="sym">?</td><td>Help for every element of the bar, with this article's overall score at the top</td><td>Computed</td></tr>
+      <tr><td class="sym">EN</td><td>Language of the bar's hover text, the help and the popup, in ten languages; also translates result titles</td><td>Bundled; Chrome's translator for titles</td></tr>
+      <tr><td class="sym">Retracted</td><td>Retracted, with a link to the retraction notice</td><td>PubMed</td></tr>
+      <tr><td class="sym">*</td><td>Clears your impact threshold — the row turns green</td><td>Computed; <a href="help.html#score">formula published in full</a></td></tr>
+      <tr><td class="sym">e · p</td><td>Has a published erratum · preprint</td><td>PubMed</td></tr>
+      <tr><td class="sym">m</td><td>Indexed for MEDLINE</td><td>PubMed</td></tr>
+      <tr><td class="sym">n · t</td><td>New (under two years, by create date) · currently trending</td><td>PubMed</td></tr>
+      <tr><td class="sym">doi</td><td>Opens the DOI in DOI Lookup: retractions, citations, journal metrics and open access from a dozen sources (grey when there is no DOI)</td><td>doilookup.com</td></tr>
+      <tr><td class="sym">MeSH+</td><td>The article's MeSH terms and keywords, exactly as PubMed indexes them</td><td>PubMed</td></tr>
       <tr><td class="sym">Cited <em>n</em></td><td>Citation count</td><td>NIH iCite, falling back to Europe PMC</td></tr>
       <tr><td class="sym">RCR <em>n.n</em></td><td>Relative Citation Ratio — citations per year normalized to NIH-funded papers in the same field and year</td><td>NIH iCite</td></tr>
       <tr><td class="sym">IC <em>n</em></td><td>Influential citations — those that materially shaped the citing work</td><td>Semantic Scholar</td></tr>
       <tr><td class="sym">Alt</td><td>Attention score from news, policy documents and social media</td><td>Altmetric</td></tr>
-      <tr><td class="sym">m</td><td>Indexed for MEDLINE</td><td>PubMed</td></tr>
-      <tr><td class="sym">n · t</td><td>New (under two years, by create date) · currently trending</td><td>PubMed</td></tr>
-      <tr><td class="sym">p · e</td><td>Preprint · has a published erratum</td><td>PubMed</td></tr>
-      <tr><td class="sym">Retracted</td><td>Retracted, with a link to the retraction notice</td><td>PubMed</td></tr>
-      <tr><td class="sym">*</td><td>Clears your impact threshold — the row turns green</td><td>Computed; <a href="help.html#score">formula published in full</a></td></tr>
-      <tr><td class="sym">SJR · Top-J</td><td>SCImago Journal Rank · on the curated top-journal list</td><td>SCImago; curated ISSN list</td></tr>
-      <tr><td class="sym">Rank · Medline %</td><td>Journal volume this year, and what share of it reached MEDLINE</td><td><a href="journal-ranking/journal-ranking.html">Journal Ranking</a></td></tr>
-      <tr><td class="sym">Ab · link</td><td>Abstract inline · full text (<span class="free">green when free</span>)</td><td>PubMed, PMC, Crossref</td></tr>
+      <tr><td class="sym">s · c</td><td>Similar articles · articles citing this one</td><td>PubMed</td></tr>
+      <tr><td class="sym">G Sch</td><td>The article in Google Scholar, found by its DOI</td><td>Google Scholar</td></tr>
+      <tr><td class="sym">Con</td><td>Interactive citation graph: the references, the citing papers, and both combined</td><td>doilookup.com, built on OpenAlex</td></tr>
+      <tr><td class="sym">Abstract · Link · PDF</td><td>Abstract inline · full text (<span class="free">green when free</span>) · the free PMC PDF when there is one</td><td>PubMed, PMC, Crossref</td></tr>
+      <tr><td class="sym">✓ · list</td><td>Add the article to your export list · open the list</td><td>PubMed</td></tr>
+      <tr><td class="sym">Author</td><td>First and last authors, with ORCID, h-index, i10-index and two-year citation rate</td><td>PubMed; OpenAlex</td></tr>
+      <tr><td class="sym">|||</td><td>Divider: the article to its left, the journal to its right</td><td></td></tr>
+      <tr><td class="sym">Top-J · SJR</td><td>On the curated top-journal list · SCImago Journal Rank</td><td>Curated ISSN list; SCImago</td></tr>
+      <tr><td class="sym">YTD · Medline %</td><td>Journal volume this year, and what share of it reached MEDLINE</td><td><a href="journal-ranking/journal-ranking.html">Journal Ranking</a></td></tr>
+      <tr><td class="sym">Free %</td><td>Share of the journal's articles this year with free full text</td><td><a href="journal-ranking/journal-ranking.html">Journal Ranking</a></td></tr>
+      <tr><td class="sym">Xout</td><td>Re-runs your search without letters, editorials, comments and other non-primary publication types</td><td>PubMed</td></tr>
+      <tr><td class="sym">pR</td><td>Menu of the four PubMed reports on this site</td><td>This site</td></tr>
+      <tr><td class="sym">/Report</td><td>All of the article's measures and links in one easy-to-copy report</td><td>All of the above</td></tr>
     </tbody>
   </table>
   </div>
@@ -115,6 +136,29 @@
     <strong>Term Analysis</strong> takes up to twenty variants of one concept and
     returns PubMed counts for each across four field configurations, validated
     against MeSH, so you can see which phrasing actually finds the literature.
+  </p>
+
+  <h2>Exporting what you find</h2>
+
+  <p>
+    Tick articles as you go — across pages and searches — and the
+    <strong>export list</strong> gathers them. Download them as
+    <strong>.nbib</strong> or <strong>.ris</strong> for EndNote, Zotero,
+    Mendeley or RefWorks, with full records including abstracts and MeSH terms,
+    or open them as one PubMed search. The popup's <strong>Excel</strong> button
+    gives the page's bar data as a table, ready to paste into a spreadsheet.
+  </p>
+
+  <p>
+    <strong>AI pack</strong> puts up to 40 articles from the list into one zip
+    file for an AI tool: the full text where it is free (open access articles
+    and NIH author manuscripts, from Europe PMC or PubMed Central), the abstract
+    otherwise, plus a README that explains the citation bar data. For
+    paywalled articles you can add PDFs you have access to, or
+    <strong>Convert PDF</strong>: the extension turns the PDF into text in your
+    browser, moves the reference lists to a separate file and keeps the table
+    pages as a small PDF — much lighter for an AI to read. The AI pack is new
+    and still being improved.
   </p>
 
   <h2>Reports on PubMed itself</h2>
@@ -152,12 +196,12 @@
 
   <ul>
     <li><strong>NIH iCite</strong> — citation counts and RCR, requested in chunks of 200 PMIDs and rate-limited to iCite's published limit.</li>
-    <li><strong>Europe PMC</strong> — citation counts when iCite is slow or unavailable. RCR is iCite-specific, so it shows <code>-</code> rather than a substituted number.</li>
+    <li><strong>Europe PMC</strong> — citation counts when iCite is slow or unavailable, and open access full text for the AI pack. RCR is iCite-specific, so it shows <code>-</code> rather than a substituted number.</li>
     <li><strong>Semantic Scholar</strong> — influential citations.</li>
     <li><strong>Altmetric</strong> — attention scores.</li>
-    <li><strong>OpenAlex</strong> — author h-index, i10-index and two-year citation rate; requires an ORCID.</li>
+    <li><strong>OpenAlex</strong> — author h-index, i10-index and two-year citation rate, keyed by ORCID. When PubMed's record has no ORCID for the first or last author, OpenAlex's record of the same article supplies it.</li>
     <li><strong>SCImago</strong> — journal rank, bundled locally so it costs no network round trip.</li>
-    <li><strong>NCBI E-utilities</strong> — article metadata.</li>
+    <li><strong>NCBI E-utilities</strong> — article metadata, full records for the export list, and NIH author manuscripts for the AI pack.</li>
     <li><strong>Crossref</strong> — full-text links and DOI registration details.</li>
   </ul>
 
@@ -165,7 +209,8 @@
     <strong>No account. No tracking. No telemetry.</strong>
     Everything comes from public sources, and the extension's
     <em>Data</em> button exports every field it holds, so you can see
-    exactly what it is working with. <a href="privacy.html">Privacy details →</a>
+    exactly what it is working with. PDFs you convert are read in your
+    browser and never uploaded. <a href="privacy.html">Privacy details →</a>
   </div>
 
   <h2>What it deliberately doesn't do</h2>
@@ -173,8 +218,9 @@
   <p>
     It won't show Journal Impact Factor — that is a licensed metric, and this
     extension uses only sources that are free to redistribute, which is why SJR
-    sits in that slot. Author metrics stay blank without an ORCID rather than
-    guessing from a name match. RCR shows <code>-</code> when iCite is
+    sits in that slot. Author metrics stay blank when neither PubMed nor
+    OpenAlex links the author to an ORCID, rather than guessing from a name
+    search. RCR shows <code>-</code> when iCite is
     unavailable. Every gap is left visible instead of being filled with a
     plausible-looking substitute.
   </p>
