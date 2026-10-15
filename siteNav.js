@@ -35,6 +35,15 @@
     { title: 'Privacy',                href: '/privacy.html' }
   ];
 
+  // External sites: one expandable group at the bottom of the menu.
+  // Items open in a new tab and are never marked current.
+  var externalGroupTitle = 'External Links';
+  var externalLinks = [
+    { title: 'Citation Bar website', href: 'https://tomlaheyh.github.io/citation-bar/' },
+    { title: 'doilookup.com',        href: 'https://doilookup.com/' },
+    { title: 'demographyinfo.org',   href: 'https://demographyinfo.org/' }
+  ];
+
   // ══ ENGINE ═════════════════════════════════════════════════════════════
   // Identical across sites. No edits needed below this line.
 
@@ -131,6 +140,29 @@
       '  pointer-events: none;',
       '}',
       '#site-nav-bar .site-nav-menu a.current::before { content: "\\25B8 "; }',
+      '#site-nav-bar .site-nav-group-toggle {',
+      '  display: block;',
+      '  width: 100%;',
+      '  text-align: left;',
+      '  padding: 10px 16px;',
+      '  font-family: "IBM Plex Mono", monospace;',
+      '  font-size: 13px;',
+      '  color: #005a8c;',
+      '  background: #eef4f8;',
+      '  border: none;',
+      '  border-top: 1px solid #d8d5cc;',
+      '  cursor: pointer;',
+      '  white-space: nowrap;',
+      '}',
+      '#site-nav-bar .site-nav-group-toggle:hover { background: #005a8c; color: #fff; }',
+      '#site-nav-bar .site-nav-group-toggle:focus-visible { outline: 2px solid #005a8c; outline-offset: -2px; }',
+      '#site-nav-bar .site-nav-group-toggle::after { content: " \\25BE"; font-size: 11px; }',
+      '#site-nav-bar .site-nav-group.open .site-nav-group-toggle::after { content: " \\25B4"; }',
+      '#site-nav-bar .site-nav-group-items { display: none; }',
+      '#site-nav-bar .site-nav-group.open .site-nav-group-items { display: block; }',
+      '#site-nav-bar .site-nav-group-items a { padding-left: 32px; background: #e3eef5; color: #0f3d5c; }',
+      '#site-nav-bar .site-nav-group-items a::after { content: " \\2197"; font-size: 11px; color: #888880; }',
+      '#site-nav-bar .site-nav-group-items a:hover::after { color: #fff; }',
       '@media (max-width: 620px) {',
       '  #site-nav-bar { padding: 10px 14px; }',
       '  #site-nav-bar .site-nav-title { font-size: 17px; }',
@@ -217,6 +249,14 @@
   function setOpen(open) {
     bar.classList.toggle('open', open);
     title.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (!open) setGroupOpen(false);
+  }
+
+  var group = null, groupToggle = null;
+  function setGroupOpen(open) {
+    if (!group) return;
+    group.classList.toggle('open', open);
+    groupToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
   title.addEventListener('click', function (e) {
@@ -236,6 +276,33 @@
       a.setAttribute('aria-current', 'page');
     }
     menu.appendChild(a);
+  }
+
+  if (externalLinks.length) {
+    group = document.createElement('div');
+    group.className = 'site-nav-group';
+    groupToggle = document.createElement('button');
+    groupToggle.type = 'button';
+    groupToggle.className = 'site-nav-group-toggle';
+    groupToggle.textContent = externalGroupTitle;
+    groupToggle.setAttribute('aria-expanded', 'false');
+    groupToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setGroupOpen(!group.classList.contains('open'));
+    });
+    var items = document.createElement('div');
+    items.className = 'site-nav-group-items';
+    for (var m = 0; m < externalLinks.length; m++) {
+      var ext = document.createElement('a');
+      ext.href = externalLinks[m].href;
+      ext.textContent = externalLinks[m].title;
+      ext.target = '_blank';
+      ext.rel = 'noopener';
+      items.appendChild(ext);
+    }
+    group.appendChild(groupToggle);
+    group.appendChild(items);
+    menu.appendChild(group);
   }
 
   inner.appendChild(title);
