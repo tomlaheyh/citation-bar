@@ -1,0 +1,116 @@
+CategoryCode,CategoryName,TotalCount,PriorYearTotalCount,UniqueTerms,Period,PriorPeriod,YTDCount,YTDPeriod
+B01,Eukaryota,10344932,10059691,2455,Jan-Dec 2025,Jan-Dec 2024,6578206,Jan-Sep 2026
+N06,Environment and Public Health,4374760,3915155,634,Jan-Dec 2025,Jan-Dec 2024,2776821,Jan-Sep 2026
+E05,Investigative Techniques,4243977,3721387,1213,Jan-Dec 2025,Jan-Dec 2024,2739409,Jan-Sep 2026
+N05,"Health Care Quality, Access, and Evaluation",3578271,3161319,426,Jan-Dec 2025,Jan-Dec 2024,2282299,Jan-Sep 2026
+M01,Persons,2292540,2001217,361,Jan-Dec 2025,Jan-Dec 2024,1303291,Jan-Sep 2026
+D12,"Amino Acids, Peptides, and Proteins",2191320,2114231,4176,Jan-Dec 2025,Jan-Dec 2024,1501804,Jan-Sep 2026
+E01,Diagnosis,1779537,1636686,784,Jan-Dec 2025,Jan-Dec 2024,1139605,Jan-Sep 2026
+D27,Chemical Actions and Uses,1272956,1209759,692,Jan-Dec 2025,Jan-Dec 2024,828669,Jan-Sep 2026
+L01,Information Science,1213830,996273,501,Jan-Dec 2025,Jan-Dec 2024,853599,Jan-Sep 2026
+N04,Health Services Administration,1160573,1049657,406,Jan-Dec 2025,Jan-Dec 2024,755937,Jan-Sep 2026
+G07,Physiological Phenomena,1153026,1016406,546,Jan-Dec 2025,Jan-Dec 2024,762941,Jan-Sep 2026
+C23,"Pathological Conditions, Signs and Symptoms",1108836,1094793,966,Jan-Dec 2025,Jan-Dec 2024,725969,Jan-Sep 2026
+A11,Cells,967155,860157,606,Jan-Dec 2025,Jan-Dec 2024,642800,Jan-Sep 2026
+D02,Organic Chemicals,903500,910660,2179,Jan-Dec 2025,Jan-Dec 2024,610432,Jan-Sep 2026
+N01,Population Characteristics,901598,816530,146,Jan-Dec 2025,Jan-Dec 2024,559931,Jan-Sep 2026
+Z01,Geographic Locations,895613,808357,406,Jan-Dec 2025,Jan-Dec 2024,566169,Jan-Sep 2026
+C04,Neoplasms,879288,890505,703,Jan-Dec 2025,Jan-Dec 2024,559466,Jan-Sep 2026
+E02,Therapeutics,859049,802692,744,Jan-Dec 2025,Jan-Dec 2024,549608,Jan-Sep 2026
+H02,Health Occupations,838014,778602,273,Jan-Dec 2025,Jan-Dec 2024,534151,Jan-Sep 2026
+F01,Behavior and Behavior Mechanisms,790422,711025,573,Jan-Dec 2025,Jan-Dec 2024,498401,Jan-Sep 2026
+H01,Natural Science Disciplines,739750,643023,245,Jan-Dec 2025,Jan-Dec 2024,508926,Jan-Sep 2026
+D08,Enzymes and Coenzymes,730548,699546,1898,Jan-Dec 2025,Jan-Dec 2024,502589,Jan-Sep 2026
+G05,Genetic Phenomena,716632,632504,582,Jan-Dec 2025,Jan-Dec 2024,489776,Jan-Sep 2026
+C01,Infections,714360,776080,786,Jan-Dec 2025,Jan-Dec 2024,419670,Jan-Sep 2026
+G02,Chemical Phenomena,681612,586173,395,Jan-Dec 2025,Jan-Dec 2024,480491,Jan-Sep 2026
+G16,Biological Phenomena,672124,599754,193,Jan-Dec 2025,Jan-Dec 2024,452452,Jan-Sep 2026
+C10,Nervous System Diseases,650263,638755,925,Jan-Dec 2025,Jan-Dec 2024,416762,Jan-Sep 2026
+N02,Health Care Facilities Workforce and Services,646729,605327,569,Jan-Dec 2025,Jan-Dec 2024,413712,Jan-Sep 2026
+D01,Inorganic Chemicals,643923,669211,476,Jan-Dec 2025,Jan-Dec 2024,425391,Jan-Sep 2026
+J01,"Technology, Industry, and Agriculture",629112,576131,456,Jan-Dec 2025,Jan-Dec 2024,402996,Jan-Sep 2026
+I01,Social Sciences,582100,555545,558,Jan-Dec 2025,Jan-Dec 2024,370360,Jan-Sep 2026
+D23,Biological Factors,555733,539284,889,Jan-Dec 2025,Jan-Dec 2024,378694,Jan-Sep 2026
+D03,Heterocyclic Compounds,541195,537990,1470,Jan-Dec 2025,Jan-Dec 2024,358733,Jan-Sep 2026
+E04,"Surgical Procedures, Operative",526505,530560,582,Jan-Dec 2025,Jan-Dec 2024,328685,Jan-Sep 2026
+C12,Urogenital Diseases,524452,510304,418,Jan-Dec 2025,Jan-Dec 2024,340115,Jan-Sep 2026
+F02,Psychological Phenomena,452565,418722,350,Jan-Dec 2025,Jan-Dec 2024,290615,Jan-Sep 2026
+G17,Mathematical Concepts,433042,327941,71,Jan-Dec 2025,Jan-Dec 2024,324724,Jan-Sep 2026
+G01,Physical Phenomena,422371,382821,227,Jan-Dec 2025,Jan-Dec 2024,282035,Jan-Sep 2026
+B03,Bacteria,418486,381042,859,Jan-Dec 2025,Jan-Dec 2024,284414,Jan-Sep 2026
+D09,Carbohydrates,379708,371695,687,Jan-Dec 2025,Jan-Dec 2024,252211,Jan-Sep 2026
+G04,Cell Physiological Phenomena,377848,321400,197,Jan-Dec 2025,Jan-Dec 2024,265379,Jan-Sep 2026
+G11,Musculoskeletal and Neural Physiological Phenomena,377526,342944,237,Jan-Dec 2025,Jan-Dec 2024,240746,Jan-Sep 2026
+C14,Cardiovascular Diseases,368464,390755,471,Jan-Dec 2025,Jan-Dec 2024,234224,Jan-Sep 2026
+C06,Digestive System Diseases,356982,357006,325,Jan-Dec 2025,Jan-Dec 2024,227072,Jan-Sep 2026
+A08,Nervous System,327887,295906,404,Jan-Dec 2025,Jan-Dec 2024,217206,Jan-Sep 2026
+C08,Respiratory Tract Diseases,326947,380113,254,Jan-Dec 2025,Jan-Dec 2024,185305,Jan-Sep 2026
+F04,Behavioral Disciplines and Activities,321450,302256,216,Jan-Dec 2025,Jan-Dec 2024,208922,Jan-Sep 2026
+B04,Viruses,297558,326584,560,Jan-Dec 2025,Jan-Dec 2024,165331,Jan-Sep 2026
+C18,Nutritional and Metabolic Diseases,289197,287562,354,Jan-Dec 2025,Jan-Dec 2024,190424,Jan-Sep 2026
+A15,Hemic and Immune Systems,288416,271397,109,Jan-Dec 2025,Jan-Dec 2024,203203,Jan-Sep 2026
+G03,Metabolism,283749,238876,185,Jan-Dec 2025,Jan-Dec 2024,207236,Jan-Sep 2026
+D13,"Nucleic Acids, Nucleotides, and Nucleosides",275188,278723,325,Jan-Dec 2025,Jan-Dec 2024,182629,Jan-Sep 2026
+N03,Health Care Economics and Organizations,250032,241461,429,Jan-Dec 2025,Jan-Dec 2024,156365,Jan-Sep 2026
+D20,Complex Mixtures,239064,235033,278,Jan-Dec 2025,Jan-Dec 2024,159487,Jan-Sep 2026
+D05,Macromolecular Substances,235447,226368,304,Jan-Dec 2025,Jan-Dec 2024,151288,Jan-Sep 2026
+F03,Mental Disorders,225229,212989,235,Jan-Dec 2025,Jan-Dec 2024,140755,Jan-Sep 2026
+G08,Reproductive and Urinary Physiological Phenomena,225003,215863,166,Jan-Dec 2025,Jan-Dec 2024,142752,Jan-Sep 2026
+A10,Tissues,224853,212689,182,Jan-Dec 2025,Jan-Dec 2024,149006,Jan-Sep 2026
+D04,Polycyclic Compounds,213619,216855,565,Jan-Dec 2025,Jan-Dec 2024,141150,Jan-Sep 2026
+E07,Equipment and Supplies,200351,191038,345,Jan-Dec 2025,Jan-Dec 2024,117282,Jan-Sep 2026
+A02,Musculoskeletal System,198997,194971,226,Jan-Dec 2025,Jan-Dec 2024,122112,Jan-Sep 2026
+C17,Skin and Connective Tissue Diseases,196567,208282,410,Jan-Dec 2025,Jan-Dec 2024,125339,Jan-Sep 2026
+J02,Food and Beverages,185441,173339,146,Jan-Dec 2025,Jan-Dec 2024,123758,Jan-Sep 2026
+C20,Immune System Diseases,171516,179542,260,Jan-Dec 2025,Jan-Dec 2024,112793,Jan-Sep 2026
+C05,Musculoskeletal Diseases,171225,165857,381,Jan-Dec 2025,Jan-Dec 2024,104558,Jan-Sep 2026
+C16,"Congenital, Hereditary, and Neonatal Diseases and Abnormalities",165926,172284,759,Jan-Dec 2025,Jan-Dec 2024,103819,Jan-Sep 2026
+D25,Biomedical and Dental Materials,157145,150712,138,Jan-Dec 2025,Jan-Dec 2024,98836,Jan-Sep 2026
+C19,Endocrine System Diseases,155417,152793,171,Jan-Dec 2025,Jan-Dec 2024,103062,Jan-Sep 2026
+D10,Lipids,143902,144223,326,Jan-Dec 2025,Jan-Dec 2024,98217,Jan-Sep 2026
+G09,Circulatory and Respiratory Physiological Phenomena,139698,133179,168,Jan-Dec 2025,Jan-Dec 2024,91627,Jan-Sep 2026
+G06,Microbiological Phenomena,139106,112888,76,Jan-Dec 2025,Jan-Dec 2024,98341,Jan-Sep 2026
+D06,"Hormones, Hormone Substitutes, and Hormone Antagonists",137547,138905,250,Jan-Dec 2025,Jan-Dec 2024,94953,Jan-Sep 2026
+D26,Pharmaceutical Preparations,133357,121058,129,Jan-Dec 2025,Jan-Dec 2024,87707,Jan-Sep 2026
+C15,Hemic and Lymphatic Diseases,130295,141650,307,Jan-Dec 2025,Jan-Dec 2024,88362,Jan-Sep 2026
+K01,Humanities,128545,129251,208,Jan-Dec 2025,Jan-Dec 2024,84750,Jan-Sep 2026
+I03,Human Activities,126753,114589,115,Jan-Dec 2025,Jan-Dec 2024,78821,Jan-Sep 2026
+C26,Wounds and Injuries,109768,110041,267,Jan-Dec 2025,Jan-Dec 2024,70782,Jan-Sep 2026
+I02,Education,101305,94339,94,Jan-Dec 2025,Jan-Dec 2024,65340,Jan-Sep 2026
+A07,Cardiovascular System,100378,101963,135,Jan-Dec 2025,Jan-Dec 2024,63000,Jan-Sep 2026
+C22,Animal Diseases,99196,80810,136,Jan-Dec 2025,Jan-Dec 2024,60475,Jan-Sep 2026
+A03,Digestive System,98237,96149,76,Jan-Dec 2025,Jan-Dec 2024,63739,Jan-Sep 2026
+A05,Urogenital System,93743,89966,83,Jan-Dec 2025,Jan-Dec 2024,62132,Jan-Sep 2026
+A01,Body Regions,91629,95279,97,Jan-Dec 2025,Jan-Dec 2024,52890,Jan-Sep 2026
+G12,Immune System Phenomena,84991,75567,122,Jan-Dec 2025,Jan-Dec 2024,65664,Jan-Sep 2026
+A18,Plant Structures,80095,69006,41,Jan-Dec 2025,Jan-Dec 2024,51308,Jan-Sep 2026
+C07,Stomatognathic Diseases,78615,74589,224,Jan-Dec 2025,Jan-Dec 2024,47168,Jan-Sep 2026
+A12,Fluids and Secretions,78101,74110,70,Jan-Dec 2025,Jan-Dec 2024,51529,Jan-Sep 2026
+C11,Eye Diseases,72925,72534,271,Jan-Dec 2025,Jan-Dec 2024,45300,Jan-Sep 2026
+A09,Sense Organs,54359,51786,116,Jan-Dec 2025,Jan-Dec 2024,33501,Jan-Sep 2026
+E06,Dentistry,53461,48623,203,Jan-Dec 2025,Jan-Dec 2024,32791,Jan-Sep 2026
+B05,Organism Forms,50616,45961,44,Jan-Dec 2025,Jan-Dec 2024,32519,Jan-Sep 2026
+A14,Stomatognathic System,49889,46786,81,Jan-Dec 2025,Jan-Dec 2024,29722,Jan-Sep 2026
+C25,Chemically-Induced Disorders,49393,50513,116,Jan-Dec 2025,Jan-Dec 2024,30255,Jan-Sep 2026
+C09,Otorhinolaryngologic Diseases,49161,49250,131,Jan-Dec 2025,Jan-Dec 2024,31621,Jan-Sep 2026
+J03,Non-Medical Public and Private Facilities,32763,30723,64,Jan-Dec 2025,Jan-Dec 2024,19924,Jan-Sep 2026
+A06,Endocrine System,31986,29554,57,Jan-Dec 2025,Jan-Dec 2024,22339,Jan-Sep 2026
+A04,Respiratory System,27733,29078,46,Jan-Dec 2025,Jan-Dec 2024,17426,Jan-Sep 2026
+G15,Plant Physiological Phenomena,27697,22513,36,Jan-Dec 2025,Jan-Dec 2024,19756,Jan-Sep 2026
+A16,Embryonic Structures,24472,23365,69,Jan-Dec 2025,Jan-Dec 2024,15239,Jan-Sep 2026
+G14,Ocular Physiological Phenomena,19907,17727,36,Jan-Dec 2025,Jan-Dec 2024,11689,Jan-Sep 2026
+E03,Anesthesia and Analgesia,18928,17735,47,Jan-Dec 2025,Jan-Dec 2024,13018,Jan-Sep 2026
+G10,Digestive System and Oral Physiological Phenomena,18850,17705,47,Jan-Dec 2025,Jan-Dec 2024,15585,Jan-Sep 2026
+A17,Integumentary System,15875,16461,17,Jan-Dec 2025,Jan-Dec 2024,10034,Jan-Sep 2026
+A13,Animal Structures,14406,12846,68,Jan-Dec 2025,Jan-Dec 2024,9534,Jan-Sep 2026
+A20,Bacterial Structures,11437,9983,14,Jan-Dec 2025,Jan-Dec 2024,8443,Jan-Sep 2026
+C24,Occupational Diseases,8276,7291,25,Jan-Dec 2025,Jan-Dec 2024,5217,Jan-Sep 2026
+G13,Integumentary System Physiological Phenomena,7272,6488,13,Jan-Dec 2025,Jan-Dec 2024,4548,Jan-Sep 2026
+A19,Fungal Structures,3894,3307,10,Jan-Dec 2025,Jan-Dec 2024,2901,Jan-Sep 2026
+B02,Archaea,2083,2030,60,Jan-Dec 2025,Jan-Dec 2024,1373,Jan-Sep 2026
+A21,Viral Structures,1634,1586,7,Jan-Dec 2025,Jan-Dec 2024,1036,Jan-Sep 2026
+C21,Disorders of Environmental Origin,72,49,5,Jan-Dec 2025,Jan-Dec 2024,34,Jan-Sep 2026
+V02,Publication Formats,0,0,151,Jan-Dec 2025,Jan-Dec 2024,0,Jan-Sep 2026
+V03,Study Characteristics,0,0,34,Jan-Dec 2025,Jan-Dec 2024,0,Jan-Sep 2026
+V01,Publication Components,0,0,34,Jan-Dec 2025,Jan-Dec 2024,0,Jan-Sep 2026
+V04,Support of Research,0,0,8,Jan-Dec 2025,Jan-Dec 2024,0,Jan-Sep 2026
