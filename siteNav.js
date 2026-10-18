@@ -32,6 +32,7 @@
     { title: 'PubMed MeSH Counts',     href: '/mesh/mesh.html' },
     { title: 'PubMed Journal Ranking', href: '/journal-ranking/journal-ranking.html' },
     { title: 'PubMed Drift Report',    href: '/drift/drift-report.html' },
+    { title: 'PubMed ORCID Ranking',   href: '/orcid-ranking/orcid-ranking.html' },
     { title: 'Privacy',                href: '/privacy.html' }
   ];
 

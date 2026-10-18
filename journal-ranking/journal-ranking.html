@@ -146,15 +146,16 @@
   thead th:nth-child(1) { text-align: center; width: 50px; }
   thead th:nth-child(2) { text-align: left; width: 90px; }
   thead th:nth-child(3) { text-align: right; width: 60px; }   /* SJR */
-  thead th:nth-child(4) { text-align: left; min-width: 180px; } /* Journal Title */
+  thead th:nth-child(4) { text-align: left; min-width: 140px; } /* Journal Title */
 
-  /* Medline %, FreeFull %, ORCID %: tighter horizontal padding than their
-     neighbours (8px vs 10px). These columns are content-sized, so padding is
-     the only lever that narrows them without clipping the header text, which
-     floors each column at its own label width. Retractions is left at 10px. */
+  /* Medline %, FreeFull %, ORCID %, Retract: tighter horizontal padding than
+     their neighbours (8px vs 10px). These columns are content-sized, so padding
+     is the only lever that narrows them without clipping the header text, which
+     floors each column at its own label width. */
   thead th:nth-child(5), tbody td:nth-child(5),
   thead th:nth-child(6), tbody td:nth-child(6),
-  thead th:nth-child(7), tbody td:nth-child(7) { padding-left: 8px; padding-right: 8px; }
+  thead th:nth-child(7), tbody td:nth-child(7),
+  thead th:nth-child(8), tbody td:nth-child(8) { padding-left: 8px; padding-right: 8px; }
 
   tbody td {
     padding: 5px 10px;
@@ -182,6 +183,24 @@
     color: var(--text);
     font-weight: 500;
   }
+
+  /* Journal title: one line, cut off with an ellipsis; full name on hover */
+  tbody td:nth-child(4) .jt {
+    display: inline-block;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+
+  /* Change vs the same months of the prior year, beside Total */
+  /* Fixed-width box so every Total lines up on its last digit, whatever the
+     marker says. 5ch fits "▲999%"; the few longer ones spill into the padding. */
+  .chg { display: inline-block; width: 5ch; text-align: left; font-size: 0.68rem; margin-left: 4px; }
+  .change-up { color: #16a34a; }
+  .change-down { color: #dc2626; }
+  .change-flat { color: var(--text-muted); }
 
   tbody td:nth-child(4) {
     text-align: left;
@@ -269,6 +288,7 @@
 
   /* Total column bracket styling */
   thead th.total-col {
+    text-align: center;
     border-left: 2px solid rgba(255,255,255,0.4);
     border-right: 2px solid rgba(255,255,255,0.4);
     padding-left: 14px;
@@ -309,7 +329,7 @@
     <span style="font-size:0.82rem;color:var(--text-muted)" id="reportPeriod"></span>
     <button class="btn" id="exportBtn" onclick="exportCSV()" disabled>Export CSV</button>
   </div>
-  <div class="note-bar" style="margin-bottom:12px">Journals ranked by total articles YTD. SJR is the SCImago Journal Rank (annual prestige metric); click an SJR value to open the journal's SCImago profile. Medline %, Free Full Text %, and ORCID % are ratios for articles in that journal. Retractions counts retracted journal articles (by last-revised date) over the same period; a "W" value (e.g. W25) instead shows withdrawals, matched from PubMed's "WITHDRAWN:" title text. PubMed has no official withdrawal field, so the W count is an approximate, best-effort signal rather than an exact figure. Monthly columns show article counts by create date.</div>
+  <div class="note-bar" style="margin-bottom:12px">Journals ranked by total articles YTD. SJR is the SCImago Journal Rank (annual prestige metric); click an SJR value to open the journal's SCImago profile. Medline %, Free Full Text %, and ORCID % are ratios for articles in that journal. Retractions counts retracted journal articles (by last-revised date) over the same period; a "W" value (e.g. W25) instead shows withdrawals, matched from PubMed's "WITHDRAWN:" title text. PubMed has no official withdrawal field, so the W count is an approximate, best-effort signal rather than an exact figure. Monthly columns show article counts by create date. ▲▼ beside Total compares it with the same months of the prior year; "new" means the journal had no articles then. For the top 1,000 journals, hover over Total to see Crossref's DOI count for the same period.</div>
 
   <div class="search-bar">
     <input type="text" id="searchInput" placeholder="Search by journal title or ISSN..." onkeydown="if(event.key==='Enter')filterTable()">
@@ -348,7 +368,9 @@ let sortDir = 'asc'; // rank is ascending by default
 // that, the months actually present and the filename. The clock is only
 // ever used to locate the newest file, never to label or query it.
 let REPORT_YEAR = new Date().getFullYear();
+let REPORT_PERIOD = '';  // e.g. "Jan-Sep", from the stamp; used in the Crossref hover
 let LINK_RANGE = '';
+let RAW_CSV = '';        // the data file exactly as fetched; Export hands this back
 
 // ISSN -> SCImago Sourceid, loaded client-side from SJR.csv (same file the
 // extension bundles). Populates the SJR-column links; empty until loaded.
@@ -373,8 +395,10 @@ function splitCSVLine(line) {
 function parseMeta(cells) {
   let year = null, period = null, generated = '';
   for (const c of cells) {
-    if (/^\d{4}$/.test(c)) year = parseInt(c, 10);
-    else if (/^[A-Za-z]{3}-[A-Za-z]{3}$/.test(c)) period = c;
+    // First year and period only: the stamp now goes on to name the prior-year
+    // comparison ("2025","Jan-Sep"), which must not replace the report's own.
+    if (/^\d{4}$/.test(c)) { if (year === null) year = parseInt(c, 10); }
+    else if (/^[A-Za-z]{3}-[A-Za-z]{3}$/.test(c)) { if (period === null) period = c; }
     else if (/^generated/i.test(c)) generated = c.replace(/^generated\s*/i, '');
   }
   return { year, period, generated };
@@ -392,6 +416,13 @@ function parseCSV(text) {
     meta = parseMeta(first);
     idx = 1; // header is on the next line
   }
+
+  // Columns after the months are found by header name, not position, so the
+  // file can gain or drop trailing columns without the page misreading them.
+  const head = splitCSVLine(lines[idx]);
+  const col = name => head.indexOf(name);
+  const iWithdrawn = col('Withdrawn_URL'), iPctChg = col('Pct_Chg'),
+        iRA = col('RA'), iRaYtd = col('RA_YTD');
 
   const rows = [];
   for (let i = idx + 1; i < lines.length; i++) {
@@ -418,13 +449,18 @@ function parseCSV(text) {
       retractions: retr,
       withdrawals: withdrawn,
       total: parseInt(cells[8]) || 0,
-      // API_Ref (col V, idx 21) and Withdrawn_URL (col W, idx 22) ride after the
-      // month columns. withdrawnUrl is an explicit PubMed id-list URL for this
-      // journal's withdrawn preprints (or '' when none, or when the journal has
+      // withdrawnUrl is an explicit PubMed id-list URL for this journal's
+      // withdrawn preprints (or '' when none, or when the journal has
       // retractions). It's the only link that resolves to exactly the
       // "WITHDRAWN:" records, since no query reproduces that set.
-      apiRef: cells[21] || '',
-      withdrawnUrl: cells[22] || '',
+      withdrawnUrl: iWithdrawn >= 0 ? (cells[iWithdrawn] || '') : '',
+      // Pct_Chg: % change vs the same months of the prior year, as written by
+      // the pipeline; "new" when the prior year had none; '' if absent.
+      pctChg: iPctChg >= 0 ? (cells[iPctChg] || '') : '',
+      // Crossref DOIs created in the same period (top N journals only).
+      // null when not Crossref or not counted -- never shown as 0.
+      raYtd: (iRA >= 0 && iRaYtd >= 0 && cells[iRA] === 'Crossref' && cells[iRaYtd] !== '')
+        ? parseInt(cells[iRaYtd]) : null,
       months: []
     };
 
@@ -448,6 +484,21 @@ function buildLinkRange(year, lastMonthIdx) {
   return `${year}/01/01:${year}/${mm}/${dd}`;
 }
 
+// Safe text for a title="" attribute.
+function attr(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+// ▲▼ from the file's Pct_Chg, styled as on the MeSH Counts page.
+function changeIndicator(pct) {
+  if (pct === 'new') return { text: 'new', cls: 'change-flat' };
+  const v = parseFloat(pct);
+  if (pct === '' || isNaN(v)) return { text: '', cls: 'change-flat' };
+  if (v > 0.5) return { text: '▲' + v.toFixed(0) + '%', cls: 'change-up' };
+  if (v < -0.5) return { text: '▼' + Math.abs(v).toFixed(0) + '%', cls: 'change-down' };
+  return { text: '—', cls: 'change-flat' };
+}
+
 function buildHeader() {
   const head = document.getElementById('tableHead');
   head.innerHTML = '';
@@ -457,10 +508,10 @@ function buildHeader() {
     { label: 'ISSN', key: 'issn' },
     { label: 'SJR', key: 'sjr' },
     { label: 'Journal Title', key: 'title' },
-    { label: 'Medline %', key: 'medlinePct' },
-    { label: 'FreeFull %', key: 'freeFullPct' },
-    { label: 'ORCID %', key: 'orcidPct' },
-    { label: 'Retractions', key: 'retractions' },
+    { label: 'Medline', key: 'medlinePct' },
+    { label: 'FreeFull', key: 'freeFullPct' },
+    { label: 'ORCID', key: 'orcidPct' },
+    { label: 'Retract', key: 'retractions' },
     { label: 'Total', key: 'total' }
   ];
 
@@ -512,7 +563,7 @@ function buildRowHTML(r, dateRange) {
   if (isValidISSN) {
     const term = `${dateRange} [crdt] ${r.issn} [ta]`;
     const pubmedUrl = 'https://pubmed.ncbi.nlm.nih.gov/?term=' + encodeURIComponent(term);
-    titleCell = `<a href="${pubmedUrl}" target="_blank" title="Open in PubMed">${r.title}</a>`;
+    titleCell = `<a href="${pubmedUrl}" target="_blank" title="${attr(r.title)} (open in PubMed)">${r.title}</a>`;
   } else if (titleSearchable) {
     // No standard ISSN (e.g. preprint servers like medRxiv/bioRxiv, whose key is
     // "NLM<id>"): PubMed has no searchable NLM Unique ID field [jid], so link via
@@ -521,10 +572,11 @@ function buildRowHTML(r, dateRange) {
     // rows the same working period link the ISSN journals get.
     const term = `${dateRange} [crdt] "${r.title}" [ta]`;
     const pubmedUrl = 'https://pubmed.ncbi.nlm.nih.gov/?term=' + encodeURIComponent(term);
-    titleCell = `<a href="${pubmedUrl}" target="_blank" title="Open in PubMed (matched by journal title)">${r.title}</a>`;
+    titleCell = `<a href="${pubmedUrl}" target="_blank" title="${attr(r.title)} (open in PubMed, matched by journal title)">${r.title}</a>`;
   } else {
     titleCell = r.title;
   }
+  titleCell = `<span class="jt" title="${attr(r.title)}">${titleCell}</span>`;
   let row = `<tr${rowCls}>`;
   row += `<td>${r.rank}</td>`;
   row += `<td>${r.issn}</td>`;
@@ -580,7 +632,12 @@ function buildRowHTML(r, dateRange) {
     }
   }
   row += `<td class="${retrCls}">${retrCell}</td>`;
-  row += `<td class="total-cell">${r.total.toLocaleString()}</td>`;
+  // Hover: Crossref's DOI count for the same period, when we have one.
+  const totalTip = r.raYtd !== null
+    ? ` title="Crossref: ${r.raYtd.toLocaleString()} DOIs registered ${REPORT_PERIOD} ${REPORT_YEAR} (PubMed added ${r.total.toLocaleString()}). DOI registrations and PubMed entries can differ for several reasons, such as items PubMed doesn't index, like meeting abstracts."`
+    : '';
+  const ch = changeIndicator(r.pctChg);
+  row += `<td class="total-cell"${totalTip}>${r.total.toLocaleString()}<span class="chg ${ch.cls}">${ch.text}</span></td>`;
   for (let m = 0; m < 12; m++) {
     const val = r.months[m];
     const cls = m === 0 ? ' class="month-first"' : '';
@@ -662,50 +719,9 @@ function filterTable() {
 }
 
 function exportCSV() {
-  // Re-emit a self-describing file: metadata line, header, then rows.
-  const monthsWithData = [];
-  for (let m = 0; m < 12; m++) {
-    if (allRows.some(r => r.months[m] > 0)) monthsWithData.push(m);
-  }
-  const fm = monthsWithData.length ? MONTHS[monthsWithData[0]] : 'Jan';
-  const lm = monthsWithData.length ? MONTHS[monthsWithData[monthsWithData.length - 1]] : 'Dec';
-  const today = new Date().toISOString().slice(0, 10);
-
-  const lines = [];
-  lines.push(`"Journal Ranking YTD","${REPORT_YEAR}","${fm}-${lm}","Generated ${today}"`);
-
-  const headers = ['Rank','ISSN','SJR','Journal Title','Medline %','FreeFull %','ORCID %','Retractions','Total'];
-  MONTHS.forEach(m => headers.push(m));
-  headers.push('API_Ref', 'Withdrawn_URL');
-  lines.push(headers.map(h => `"${h}"`).join(','));
-
-  allRows.forEach(r => {
-    const cells = [
-      r.rank,
-      `"${r.issn}"`,
-      r.sjr > 0 ? r.sjr : '',
-      `"${r.title.replace(/"/g, '""')}"`,
-      r.medlinePct,
-      r.freeFullPct,
-      r.orcidPct,
-      // Re-emit the combined Retractions/Withdrawals cell in the same format
-      // the file uses: integer retractions, else "W<n>", else 0.
-      r.retractions > 0 ? r.retractions : (r.withdrawals > 0 ? 'W' + r.withdrawals : 0),
-      r.total
-    ];
-    for (let m = 0; m < 12; m++) {
-      cells.push(r.months[m] || '');
-    }
-    // Trailing helper columns, matching the source layout so the exported file
-    // re-imports with withdrawn links intact. Withdrawn_URL carries no comma, so
-    // it needs no quoting.
-    cells.push(r.apiRef || '');
-    cells.push(r.withdrawnUrl || '');
-    lines.push(cells.join(','));
-  });
-
-  const csv = lines.join('\n');
-  const blob = new Blob([csv], { type: 'text/csv' });
+  // The full data set, exactly as published: every column, and the journals
+  // with no articles this year that the ranking leaves off the page.
+  const blob = new Blob([RAW_CSV], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
@@ -739,18 +755,13 @@ async function loadSJRMap() {
   } catch (e) { /* links just won't render */ }
 }
 
-// Locate the newest data file. The filename carries the year only as a
-// locator; the year SHOWN comes from the file's own stamp. Try the current
-// year, then the prior year (covers early January before the new year's
-// file has been generated).
+// The data file has one evergreen name; the year SHOWN comes from the file's
+// own stamp.
 async function loadData() {
-  const clockYear = new Date().getFullYear();
-  for (const y of [clockYear, clockYear - 1]) {
-    try {
-      const resp = await fetch(`Journal_Ranking_YTD_${y}.csv?_=` + Date.now());
-      if (resp.ok) return { text: await resp.text(), fileYear: y };
-    } catch (e) { /* try next */ }
-  }
+  try {
+    const resp = await fetch('Journal_Ranking_YTD.csv?_=' + Date.now());
+    if (resp.ok) return { text: await resp.text() };
+  } catch (e) { /* fall through */ }
   return null;
 }
 
@@ -759,6 +770,7 @@ async function init() {
     const loaded = await loadData();
     if (!loaded) throw new Error('Data file not found');
 
+    RAW_CSV = loaded.text;
     const { meta, rows } = parseCSV(loaded.text);
     allRows = rows;
 
@@ -771,10 +783,11 @@ async function init() {
     const lastIdx = monthsWithData.length > 0 ? monthsWithData[monthsWithData.length - 1] : 11;
     const lastMonth = MONTHS[lastIdx];
 
-    // Year: the file's stamp wins; fall back to the filename, then the clock.
-    REPORT_YEAR = (meta && meta.year) || loaded.fileYear || new Date().getFullYear();
+    // Year: the file's stamp wins; fall back to the clock.
+    REPORT_YEAR = (meta && meta.year) || new Date().getFullYear();
     // Period label: prefer the stamp, else derive from the data.
     const periodLabel = (meta && meta.period) || `${firstMonth}-${lastMonth}`;
+    REPORT_PERIOD = periodLabel;
     // Link range always reflects the data window (never the clock).
     LINK_RANGE = buildLinkRange(REPORT_YEAR, lastIdx);
 

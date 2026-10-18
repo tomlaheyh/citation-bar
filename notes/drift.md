@@ -2,6 +2,10 @@
 
 Running log for the drift report rework (ver2). Newest entry at the top.
 
+## Purpose
+
+Shows how PubMed's counts for one day (a cohort) change as that day is re-read each morning, from its age-2 baseline out to 30 days later. Data comes from a daily collector run by GitHub Actions.
+
 ## Files
 
 | Role | Path |
@@ -11,7 +15,34 @@ Running log for the drift report rework (ver2). Newest entry at the top.
 | Report | `drift/drift-report.html` |
 | Schedule | `.github/workflows/drift-collect.yml` (daily 13:00 UTC, plus manual run) |
 
+## Rules and decisions
+
+Standing rules, collected from the log below. Edit here when one changes.
+
+- **No real dates in report text.** Use general concepts; an example date is fine, never "first real collection" (Tom, 10/4).
+- **Window:** 30 days. 31 fixed columns, Day +0 to Day +30; the first column is the latest data day minus 30.
+- **Latest data day** is the newest cohort in the data, not today's date.
+- **Focus:** click a column heading to make it the focus. No slider. Default focus is the oldest day with a baseline.
+- **Strict baselines:** a cohort with no age-2 baseline shows N/A.
+- **Cell meanings:** N/A = failed pull or no baseline. `-` = not collected yet, or before the focus.
+- **Runs before 9/28 are ignored in the report** (`FIRST_RUN`). The data file is left as collected.
+- **`delete.bat` is Tom's to run.** Never run by an assistant.
+
+## Open items
+
+- [x] Run `git pull` locally (Tom, in a Windows shell) to bring down the daily collections since 2026-09-27
+- [x] Default the anchor to a cohort that has data
+- [ ] Show the 4 check columns (later)
+- [x] Cohorts without an age-2 baseline show N/A (strict)
+- [x] Slider: dropped; click a date instead
+- [x] Cut blank-cell confusion while data is thin
+- [x] Sep 28 cutoff, done in the report (CSV untouched)
+- [x] Fix the "N days of drift" label so it counts real readings
+
 ## Log
+### 2026-10-17: notes moved
+
+- **Change:** moved from `drift/drift-notes.md` to `notes/drift.md` (rename, content unchanged) and put in the standard order from `notes/README.md`: Purpose, Files, Rules and decisions, Open items, Log. Rules were copied out of the log; log entries are unchanged.
 
 ### 2026-10-04: pushed (`5c7db98`)
 
@@ -143,14 +174,3 @@ The report was rendered locally against `drift-data.csv` at `08cadb2`. It loads 
 - **Starting point:** the last local edits to the report and the collector were on 2026-09-28 00:32 UTC (commit `fc4ce3e new update`).
 - **Local data (after pull to `08cadb2`, 2026-10-04):** `drift-data.csv` has 243 rows from 7 collections, 2026-09-27 to 2026-10-03, all with status OK. Each run adds 31 cohort rows. The first run (09-27) has 1 ytd row and 1 alltime row, and every run since 09-28 has 2 of each, which lines up with the collector edit of 09-28. The earlier CSV is in `drift/_to_delete/`.
 - **Working tree:** git shows 19 files as modified, but the changes are line endings only (CRLF vs LF). There is no content change.
-
-### Open items
-
-- [x] Run `git pull` locally (Tom, in a Windows shell) to bring down the daily collections since 2026-09-27
-- [x] Default the anchor to a cohort that has data
-- [ ] Show the 4 check columns (later)
-- [x] Cohorts without an age-2 baseline show N/A (strict)
-- [x] Slider: dropped; click a date instead
-- [x] Cut blank-cell confusion while data is thin
-- [x] Sep 28 cutoff, done in the report (CSV untouched)
-- [x] Fix the "N days of drift" label so it counts real readings

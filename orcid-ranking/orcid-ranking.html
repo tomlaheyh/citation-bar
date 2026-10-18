@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PubMed ORCID Ranking</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/orcid-ranking/orcid-ranking.html">
+<meta name="description" content="The ORCID iDs on the most PubMed records each year, with the papers behind each count.">
+<meta name="author" content="PubMed Citation Bar">
+<meta name="theme-color" content="#005a8c">
+<link rel="icon" href="../assets/icon128.png" type="image/png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #d0d5dd;
+    --text: #1a1a2e;
+    --text-muted: #64748b;
+    --accent: #1e40af;
+    --accent-light: #dbeafe;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 12px 16px 24px; }
+
+  .top-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 10px;
+  }
+  .top-bar .left, .top-bar .right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .muted { font-size: 0.82rem; color: var(--text-muted); }
+
+  select, .btn {
+    font-family: inherit; font-size: 0.85rem; padding: 6px 12px;
+    border: 1px solid var(--border); border-radius: 6px; background: var(--surface); color: var(--text);
+  }
+  select { font-weight: 600; }
+  .btn { font-weight: 600; cursor: pointer; }
+  .btn:hover { background: var(--accent-light); border-color: var(--accent); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .note-bar {
+    background: var(--accent-light); border-left: 3px solid var(--accent);
+    padding: 10px 16px; font-size: 0.82rem; color: var(--accent);
+    margin-bottom: 12px; border-radius: 0 6px 6px 0;
+  }
+
+  .table-wrap {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; overflow-x: auto; margin-bottom: 24px;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+
+  thead th {
+    background: var(--accent); color: #fff; font-weight: 600;
+    padding: 9px 10px; text-align: left; white-space: nowrap;
+  }
+  thead th.num { text-align: right; }
+
+  tbody td {
+    padding: 6px 10px; border-bottom: 1px solid #eef0f4; vertical-align: top;
+  }
+  td.num { text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+  td.mono { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; white-space: nowrap; }
+  td.rank { text-align: center; color: var(--text-muted); width: 50px; }
+
+  a { color: var(--text); text-decoration: none; border-bottom: 1px dotted var(--text-muted); }
+  a:hover { color: var(--accent); border-bottom: 1px solid var(--accent); }
+
+  tr.person { cursor: pointer; }
+  tr.person:hover { background: #f7f9fc; }
+  tr.person td.toggle { color: var(--accent); font-weight: 700; width: 24px; text-align: center; }
+  tr.person.open { background: var(--accent-light); }
+
+  tr.papers > td { padding: 0 0 0 34px; background: #fafbfd; }
+  tr.papers table { font-size: 0.78rem; }
+  tr.papers thead th { background: #e8f0fe; color: var(--text); font-weight: 600; padding: 6px 10px; }
+  tr.papers tbody td { padding: 4px 10px; }
+
+  .footnote {
+    font-size: 0.78rem; color: var(--text-muted); padding: 12px 0;
+    border-top: 1px solid var(--border); line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+<script src="../siteNav.js"></script>
+
+<div class="container">
+  <div class="top-bar">
+    <div class="left">
+      <label class="muted" for="yearSelect">Year</label>
+      <select id="yearSelect" disabled></select>
+      <span class="muted" id="periodText"></span>
+    </div>
+    <div class="right">
+      <span class="muted" id="statusText">Loading...</span>
+      <button class="btn" id="exportBtn" disabled>Export CSV</button>
+    </div>
+  </div>
+
+  <div class="note-bar">The ten ORCID iDs found on the most PubMed records entered in the chosen year. Click a row to list that person's papers for the year.</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th style="text-align:center">Rank</th>
+          <th>ORCID</th>
+          <th>Name</th>
+          <th class="num">Papers</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="footnote">
+    Years are by PubMed entry date, not publication year, and the latest year is partial; its months are shown beside the year.
+    Every ORCID on a record is counted, whatever the author's position. Names are kept only for first, second and last authors, so a name can be blank.
+    People tied at the cut-off share the rank, so a year can list more than ten.
+    Counts come from a local copy of PubMed.
+  </div>
+</div>
+
+<script>
+let TOP = [];        // rows of ORCID_Top10_by_Year.csv
+let PAPERS = {};     // "year|orcid" -> [paper rows]
+
+// Full CSV parser: handles quoted fields, doubled quotes and newlines inside quotes.
+function parseCSV(text) {
+  if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+  const rows = [];
+  let row = [], field = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else q = false; }
+      else field += c;
+    } else if (c === '"') q = true;
+    else if (c === ',') { row.push(field); field = ''; }
+    else if (c === '\n' || c === '\r') {
+      if (c === '\r' && text[i + 1] === '\n') i++;
+      row.push(field); field = '';
+      if (row.length > 1 || row[0] !== '') rows.push(row);
+      row = [];
+    } else field += c;
+  }
+  if (field !== '' || row.length) { row.push(field); rows.push(row); }
+  const head = rows.shift();
+  return rows.map(r => Object.fromEntries(head.map((h, j) => [h, r[j] === undefined ? '' : r[j]])));
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+async function fetchCSV(name) {
+  const r = await fetch(name + '?_=' + Date.now());
+  if (!r.ok) throw new Error(name + ' (' + r.status + ')');
+  return parseCSV(await r.text());
+}
+
+function rowsForYear(y) {
+  return TOP.filter(r => r.Year === y)
+    .sort((a, b) => (+a.Rank - +b.Rank) || (+b.Papers - +a.Papers) || a.ORCID.localeCompare(b.ORCID));
+}
+
+function render() {
+  const y = document.getElementById('yearSelect').value;
+  const rows = rowsForYear(y);
+  const total = rows.length ? +rows[0].ORCIDs_That_Year : 0;
+  document.getElementById('periodText').textContent =
+    rows.length ? `${rows[0].Period} · ${total.toLocaleString()} ORCID iDs that year` : '';
+
+  document.getElementById('tableBody').innerHTML = rows.map((r, i) => {
+    const n = (PAPERS[y + '|' + r.ORCID] || []).length;
+    return `<tr class="person" data-key="${esc(y + '|' + r.ORCID)}" data-i="${i}">
+      <td class="toggle">▸</td>
+      <td class="rank num" style="text-align:center">${esc(r.Rank)}</td>
+      <td class="mono"><a href="https://orcid.org/${esc(r.ORCID)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(r.ORCID)}</a></td>
+      <td>${esc(r.Name)}</td>
+      <td class="num" title="${n} papers listed">${(+r.Papers).toLocaleString()}</td>
+    </tr>`;
+  }).join('');
+}
+
+function togglePerson(tr) {
+  const next = tr.nextElementSibling;
+  if (next && next.classList.contains('papers')) {
+    next.remove(); tr.classList.remove('open'); tr.cells[0].textContent = '▸';
+    return;
+  }
+  const list = (PAPERS[tr.dataset.key] || []).slice()
+    .sort((a, b) => b.EntryDate.localeCompare(a.EntryDate) || (+b.PMID - +a.PMID));
+  const body = list.map(p => `<tr>
+      <td class="mono"><a href="https://pubmed.ncbi.nlm.nih.gov/${esc(p.PMID)}/" target="_blank" rel="noopener">${esc(p.PMID)}</a></td>
+      <td class="mono">${esc(p.EntryDate)}</td>
+      <td>${esc(p.Journal)}</td>
+      <td>${esc(p.Title)}</td>
+    </tr>`).join('');
+  const row = document.createElement('tr');
+  row.className = 'papers';
+  row.innerHTML = `<td colspan="5"><table>
+      <thead><tr><th>PMID</th><th>Entry date</th><th>Journal</th><th>Title</th></tr></thead>
+      <tbody>${body || '<tr><td colspan="4">No papers listed.</td></tr>'}</tbody>
+    </table></td>`;
+  tr.after(row); tr.classList.add('open'); tr.cells[0].textContent = '▾';
+}
+
+function exportCSV() {
+  const y = document.getElementById('yearSelect').value;
+  const q = v => '"' + String(v).replace(/"/g, '""') + '"';
+  const lines = [['Year', 'Period', 'Rank', 'ORCID', 'Name', 'Papers', 'PMID', 'EntryDate', 'Journal', 'Title'].join(',')];
+  rowsForYear(y).forEach(r => {
+    (PAPERS[y + '|' + r.ORCID] || []).forEach(p => {
+      lines.push([r.Year, r.Period, r.Rank, r.ORCID, r.Name, r.Papers, p.PMID, p.EntryDate, p.Journal, p.Title].map(q).join(','));
+    });
+  });
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `orcid-ranking-${y}.csv`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+async function init() {
+  try {
+    const [top, papers] = await Promise.all([fetchCSV('ORCID_Top10_by_Year.csv'), fetchCSV('ORCID_Top10_Papers.csv')]);
+    TOP = top;
+    PAPERS = {};
+    papers.forEach(p => { (PAPERS[p.Year + '|' + p.ORCID] = PAPERS[p.Year + '|' + p.ORCID] || []).push(p); });
+
+    const years = [...new Set(TOP.map(r => r.Year))].sort((a, b) => b - a);
+    const sel = document.getElementById('yearSelect');
+    sel.innerHTML = years.map(y => `<option value="${esc(y)}">${esc(y)}</option>`).join('');
+    sel.disabled = false;
+    sel.addEventListener('change', render);
+
+    document.getElementById('tableBody').addEventListener('click', e => {
+      const tr = e.target.closest('tr.person');
+      if (tr) togglePerson(tr);
+    });
+    document.getElementById('exportBtn').addEventListener('click', exportCSV);
+    document.getElementById('exportBtn').disabled = false;
+    document.getElementById('statusText').textContent =
+      `${years.length} years · ${papers.length.toLocaleString()} papers`;
+    render();
+  } catch (e) {
+    document.getElementById('statusText').textContent = 'Error loading data: ' + e.message;
+  }
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
