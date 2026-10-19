@@ -88,7 +88,7 @@
   tr.papers table { font-size: 0.78rem; }
   tr.papers thead th { background: #e8f0fe; color: var(--text); font-weight: 600; padding: 6px 10px; }
   tr.papers tbody td { padding: 4px 10px; }
-
+  td.ptype { color: var(--text-muted); font-size: 0.72rem; min-width: 110px; }
   .footnote {
     font-size: 0.78rem; color: var(--text-muted); padding: 12px 0;
     border-top: 1px solid var(--border); line-height: 1.6;
@@ -111,7 +111,7 @@
     </div>
   </div>
 
-  <div class="note-bar">The ten ORCID iDs found on the most PubMed records entered in the chosen year. Click a row to list that person's papers for the year.</div>
+  <div class="note-bar">The ten ORCID iDs found on the most PubMed research papers entered in the chosen year. First/last counts the papers where that person was first or last author. Click a row to list that person's papers for the year.</div>
 
   <div class="table-wrap">
     <table>
@@ -122,6 +122,7 @@
           <th>ORCID</th>
           <th>Name</th>
           <th class="num">Papers</th>
+          <th class="num">First/last</th>
         </tr>
       </thead>
       <tbody id="tableBody"></tbody>
@@ -130,7 +131,9 @@
 
   <div class="footnote">
     Years are by PubMed entry date, not publication year, and the latest year is partial; its months are shown beside the year.
-    Every ORCID on a record is counted, whatever the author's position. Names are kept only for first, second and last authors, so a name can be blank.
+    Research papers only: letters, comments, editorials, news, errata and notices, all reviews (including systematic reviews and meta-analyses), guidelines, consensus statements and protocols are left out.
+    Every ORCID on a paper is counted, whatever the author's position. First means author 1; last means the last listed author; a single author is both.
+    Names are kept only for first, second and last authors, so a name can be blank.
     People tied at the cut-off share the rank, so a year can list more than ten.
     Counts come from a local copy of PubMed.
   </div>
@@ -184,7 +187,7 @@ function render() {
   const rows = rowsForYear(y);
   const total = rows.length ? +rows[0].ORCIDs_That_Year : 0;
   document.getElementById('periodText').textContent =
-    rows.length ? `${rows[0].Period} · ${total.toLocaleString()} ORCID iDs that year` : '';
+    rows.length ? `${rows[0].Period} · ${total.toLocaleString()} ORCID iDs on research papers` : '';
 
   document.getElementById('tableBody').innerHTML = rows.map((r, i) => {
     const n = (PAPERS[y + '|' + r.ORCID] || []).length;
@@ -194,8 +197,15 @@ function render() {
       <td class="mono"><a href="https://orcid.org/${esc(r.ORCID)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(r.ORCID)}</a></td>
       <td>${esc(r.Name)}</td>
       <td class="num" title="${n} papers listed">${(+r.Papers).toLocaleString()}</td>
+      <td class="num">${(+r.Papers_First_or_Last).toLocaleString()} of ${(+r.Papers).toLocaleString()}</td>
     </tr>`;
   }).join('');
+}
+
+// First = author 1; Last = marked first-or-last at a later position; else Middle.
+function position(p) {
+  if (p.Author_Pos === '1') return 'First';
+  return p.First_or_Last === 'Y' ? 'Last' : 'Middle';
 }
 
 function togglePerson(tr) {
@@ -211,12 +221,14 @@ function togglePerson(tr) {
       <td class="mono">${esc(p.EntryDate)}</td>
       <td>${esc(p.Journal)}</td>
       <td>${esc(p.Title)}</td>
+      <td title="Author ${esc(p.Author_Pos)}">${position(p)}</td>
+      <td class="ptype">${esc(p.Pub_Types)}</td>
     </tr>`).join('');
   const row = document.createElement('tr');
   row.className = 'papers';
-  row.innerHTML = `<td colspan="5"><table>
-      <thead><tr><th>PMID</th><th>Entry date</th><th>Journal</th><th>Title</th></tr></thead>
-      <tbody>${body || '<tr><td colspan="4">No papers listed.</td></tr>'}</tbody>
+  row.innerHTML = `<td colspan="6"><table>
+      <thead><tr><th>PMID</th><th>Entry date</th><th>Journal</th><th>Title</th><th>Position</th><th>Type</th></tr></thead>
+      <tbody>${body || '<tr><td colspan="6">No papers listed.</td></tr>'}</tbody>
     </table></td>`;
   tr.after(row); tr.classList.add('open'); tr.cells[0].textContent = '▾';
 }
@@ -224,10 +236,12 @@ function togglePerson(tr) {
 function exportCSV() {
   const y = document.getElementById('yearSelect').value;
   const q = v => '"' + String(v).replace(/"/g, '""') + '"';
-  const lines = [['Year', 'Period', 'Rank', 'ORCID', 'Name', 'Papers', 'PMID', 'EntryDate', 'Journal', 'Title'].join(',')];
+  const lines = [['Year', 'Period', 'Rank', 'ORCID', 'Name', 'Papers', 'Papers_First_or_Last', 'Ever_First_or_Last',
+                  'PMID', 'EntryDate', 'Journal', 'Title', 'Author_Pos', 'First_or_Last', 'Pub_Types'].join(',')];
   rowsForYear(y).forEach(r => {
     (PAPERS[y + '|' + r.ORCID] || []).forEach(p => {
-      lines.push([r.Year, r.Period, r.Rank, r.ORCID, r.Name, r.Papers, p.PMID, p.EntryDate, p.Journal, p.Title].map(q).join(','));
+      lines.push([r.Year, r.Period, r.Rank, r.ORCID, r.Name, r.Papers, r.Papers_First_or_Last, r.Ever_First_or_Last,
+                  p.PMID, p.EntryDate, p.Journal, p.Title, p.Author_Pos, p.First_or_Last, p.Pub_Types].map(q).join(','));
     });
   });
   const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
