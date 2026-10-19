@@ -140,8 +140,19 @@
 
   thead th:hover { background: #163380; }
 
-  thead th.sort-asc::after { content: ' ▲'; font-size: 0.65rem; }
-  thead th.sort-desc::after { content: ' ▼'; font-size: 0.65rem; }
+  thead th.sort-asc .hdr-lbl::after { content: ' ▲'; font-size: 0.65rem; }
+  thead th.sort-desc .hdr-lbl::after { content: ' ▼'; font-size: 0.65rem; }
+
+  /* Report-wide figures shown as a second line in a few headers */
+  .hdr-sum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 400;
+    line-height: 1.35;
+    opacity: 0.95;
+  }
+  .hdr-sum .change-up { color: #bbf7d0; }
+  .hdr-sum .change-down { color: #fecaca; }
 
   thead th:nth-child(1) { text-align: center; width: 50px; }
   thead th:nth-child(2) { text-align: left; width: 90px; }
@@ -376,6 +387,56 @@ let RAW_CSV = '';        // the data file exactly as fetched; Export hands this 
 // extension bundles). Populates the SJR-column links; empty until loaded.
 let SJR_SOURCEMAP = {};
 
+// Report-wide figures for the header second line; whole report, never the
+// search result. Filled once in init().
+let GRAND = null;
+
+function computeGrand(rows, priorAll, priorYear) {
+  const total = rows.reduce((s, r) => s + r.total, 0);
+  // Overall share = sum of (journal share x journal total) / grand total. The
+  // file carries shares rounded to 2 decimals, not counts, so this rebuilds
+  // the counts from them; the error is well under half a point.
+  const share = key => total ? rows.reduce((s, r) => s + r[key] * r.total, 0) / total : null;
+  const chg = (priorAll && priorAll > 0) ? (total - priorAll) / priorAll * 100 : null;
+  return { total, priorAll, priorYear, chg,
+           medlinePct: share('medlinePct'), freeFullPct: share('freeFullPct'), orcidPct: share('orcidPct') };
+}
+
+// Second header line for the columns that have a report-wide figure.
+function headerSum(key) {
+  if (!GRAND) return '';
+  if (key === 'total') {
+    let c = '';
+    if (GRAND.chg !== null) {
+      const cls = GRAND.chg > 0.05 ? 'change-up' : GRAND.chg < -0.05 ? 'change-down' : 'change-flat';
+      const arrow = GRAND.chg > 0.05 ? '▲' : GRAND.chg < -0.05 ? '▼' : '';
+      c = `<br><span class="${cls}">${arrow}${Math.abs(GRAND.chg).toFixed(1)}%</span>`;
+    }
+    return `<div class="hdr-sum">${GRAND.total.toLocaleString()}${c}</div>`;
+  }
+  if (['medlinePct', 'freeFullPct', 'orcidPct'].includes(key) && GRAND[key] !== null) {
+    return `<div class="hdr-sum">${(GRAND[key] * 100).toFixed(0)}%</div>`;
+  }
+  return '';
+}
+
+function headerTip(key) {
+  if (!GRAND) return '';
+  const n = allRows.length.toLocaleString();
+  const when = `${REPORT_PERIOD} ${REPORT_YEAR}`;
+  if (key === 'total') {
+    let t = `All ${n} ranked journals, ${when}: ${GRAND.total.toLocaleString()} articles.`;
+    if (GRAND.chg !== null) {
+      t += ` Same months of ${GRAND.priorYear || 'the prior year'}: ${GRAND.priorAll.toLocaleString()}` +
+           ` (including journals with no articles this year).`;
+    }
+    return t + ' Search does not change these figures.';
+  }
+  const names = { medlinePct: 'MEDLINE', freeFullPct: 'free full text', orcidPct: 'ORCID' };
+  if (names[key]) return `Share of all ${GRAND.total.toLocaleString()} articles in the ${n} ranked journals with ${names[key]}, ${when}. Search does not change this figure.`;
+  return '';
+}
+
 function splitCSVLine(line) {
   const cells = [];
   let current = '';
@@ -393,15 +454,15 @@ function splitCSVLine(line) {
 // Parse the optional self-describing line, e.g.
 //   "Journal Ranking YTD","2026","Jan-Apr","Generated 2026-05-18"
 function parseMeta(cells) {
-  let year = null, period = null, generated = '';
+  let year = null, period = null, generated = '', priorYear = null;
   for (const c of cells) {
     // First year and period only: the stamp now goes on to name the prior-year
     // comparison ("2025","Jan-Sep"), which must not replace the report's own.
-    if (/^\d{4}$/.test(c)) { if (year === null) year = parseInt(c, 10); }
+    if (/^\d{4}$/.test(c)) { if (year === null) year = parseInt(c, 10); else if (priorYear === null) priorYear = parseInt(c, 10); }
     else if (/^[A-Za-z]{3}-[A-Za-z]{3}$/.test(c)) { if (period === null) period = c; }
     else if (/^generated/i.test(c)) generated = c.replace(/^generated\s*/i, '');
   }
-  return { year, period, generated };
+  return { year, period, generated, priorYear };
 }
 
 // Returns { meta, rows }. Handles both stamped files (metadata line first)
@@ -422,7 +483,11 @@ function parseCSV(text) {
   const head = splitCSVLine(lines[idx]);
   const col = name => head.indexOf(name);
   const iWithdrawn = col('Withdrawn_URL'), iPctChg = col('Pct_Chg'),
-        iRA = col('RA'), iRaYtd = col('RA_YTD');
+        iRA = col('RA'), iRaYtd = col('RA_YTD'), iPriorYtd = col('Prior_YTD');
+  // Prior-year total over EVERY row in the file, including journals with no
+  // articles this year: they are part of last year's total, and leaving them
+  // out would overstate growth. null when the file has no Prior_YTD column.
+  let priorAll = iPriorYtd >= 0 ? 0 : null;
 
   const rows = [];
   for (let i = idx + 1; i < lines.length; i++) {
@@ -469,10 +534,11 @@ function parseCSV(text) {
       row.months.push(parseInt(cells[m]) || 0);
     }
 
+    if (priorAll !== null) priorAll += parseInt(cells[iPriorYtd]) || 0;
     if (row.total > 0) rows.push(row);
   }
 
-  return { meta, rows };
+  return { meta, rows, priorAll };
 }
 
 // PubMed [crdt] range for the row links: Jan 1 → end of the last month
@@ -521,7 +587,9 @@ function buildHeader() {
 
   cols.forEach((col, idx) => {
     const th = document.createElement('th');
-    th.textContent = col.label;
+    th.innerHTML = `<span class="hdr-lbl">${col.label}</span>${headerSum(col.key)}`;
+    const tip = headerTip(col.key);
+    if (tip) th.title = tip;
     th.dataset.colIdx = idx;
     th.dataset.key = col.key;
 
@@ -560,7 +628,14 @@ function buildRowHTML(r, dateRange) {
   const isValidISSN = /^\d{4}-\d{3}[\dXx]$/.test(r.issn);
   const titleSearchable = r.title && r.title !== 'N/A';
   let titleCell;
-  if (isValidISSN) {
+  if (!r.issn && r.title === 'Bookshelf') {
+    // NCBI Bookshelf records are not a journal: PubMed finds them with the
+    // Books & Documents filter, which over the report window gives the same
+    // count as this row.
+    const term = `${dateRange}[crdt] AND booksdocs[filter]`;
+    const pubmedUrl = 'https://pubmed.ncbi.nlm.nih.gov/?term=' + encodeURIComponent(term);
+    titleCell = `<a href="${pubmedUrl}" target="_blank" title="NCBI Bookshelf (open in PubMed, Books &amp; Documents)">${r.title}</a>`;
+  } else if (isValidISSN) {
     const term = `${dateRange} [crdt] ${r.issn} [ta]`;
     const pubmedUrl = 'https://pubmed.ncbi.nlm.nih.gov/?term=' + encodeURIComponent(term);
     titleCell = `<a href="${pubmedUrl}" target="_blank" title="${attr(r.title)} (open in PubMed)">${r.title}</a>`;
@@ -771,7 +846,7 @@ async function init() {
     if (!loaded) throw new Error('Data file not found');
 
     RAW_CSV = loaded.text;
-    const { meta, rows } = parseCSV(loaded.text);
+    const { meta, rows, priorAll } = parseCSV(loaded.text);
     allRows = rows;
 
     // Which months actually have data
@@ -788,6 +863,7 @@ async function init() {
     // Period label: prefer the stamp, else derive from the data.
     const periodLabel = (meta && meta.period) || `${firstMonth}-${lastMonth}`;
     REPORT_PERIOD = periodLabel;
+    GRAND = computeGrand(allRows, priorAll, meta && meta.priorYear);
     // Link range always reflects the data window (never the clock).
     LINK_RANGE = buildLinkRange(REPORT_YEAR, lastIdx);
 
