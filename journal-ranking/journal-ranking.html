@@ -531,7 +531,8 @@ function parseCSV(text) {
 
     // SJR is column 2, Retractions 7, Total 8, Months are columns 9-20.
     for (let m = 9; m <= 20; m++) {
-      row.months.push(parseInt(cells[m]) || 0);
+      const mv = (cells[m] || '').trim();
+      row.months.push(mv === '' ? null : (parseInt(mv) || 0));   // null = blank in the file
     }
 
     if (priorAll !== null) priorAll += parseInt(cells[iPriorYtd]) || 0;
@@ -716,7 +717,8 @@ function buildRowHTML(r, dateRange) {
   for (let m = 0; m < 12; m++) {
     const val = r.months[m];
     const cls = m === 0 ? ' class="month-first"' : '';
-    row += `<td${cls}>${val > 0 ? val.toLocaleString() : ''}</td>`;
+    // Show the file's value: 0 is shown as 0, a blank cell (month not reported) stays blank.
+    row += `<td${cls}>${val === null ? '' : val.toLocaleString()}</td>`;
   }
   row += '</tr>';
   return row;
