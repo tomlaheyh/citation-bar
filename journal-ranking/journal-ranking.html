@@ -339,6 +339,11 @@
     border-radius: 0 6px 6px 0;
   }
 
+  .flag-note a {
+    color: #7f1d1d;
+    text-decoration: underline;
+  }
+
   .footnote {
     font-size: 0.78rem;
     color: var(--text-muted);
@@ -886,7 +891,21 @@ async function init() {
     flagNotes.forEach(text => {
       const note = document.createElement('div');
       note.className = 'flag-note';
-      note.textContent = text;
+      // Plain text, except [text](https://...) which becomes a link (built as an
+      // element, so nothing in the file is ever treated as HTML).
+      const linkRe = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+      let last = 0, m;
+      while ((m = linkRe.exec(text)) !== null) {
+        note.appendChild(document.createTextNode(text.slice(last, m.index)));
+        const a = document.createElement('a');
+        a.href = m[2];
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = m[1];
+        note.appendChild(a);
+        last = linkRe.lastIndex;
+      }
+      note.appendChild(document.createTextNode(text.slice(last)));
       flagArea.appendChild(note);
     });
 
