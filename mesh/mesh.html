@@ -6,13 +6,13 @@
 <title>PubMed MeSH Counts</title>
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/mesh/mesh.html">
-<meta name="description" content="MeSH term usage across PubMed by Level 2 category, with prior-year comparison, plus the current year to date. Terms occupy several tree positions, so counts reflect all of them. Free, with CSV export.">
+<meta name="description" content="MeSH usage in PubMed by Level 2 category, with prior-year comparison and the current year to date. Each figure adds up term counts that include narrower terms, so one article is counted many times. By publication date. Free, with CSV export.">
 <meta name="author" content="PubMed Citation Bar">
 <meta name="theme-color" content="#005a8c">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="PubMed Citation Bar">
 <meta property="og:title" content="PubMed MeSH Counts">
-<meta property="og:description" content="MeSH term usage across PubMed by Level 2 category, with prior-year comparison, plus the current year to date. Terms occupy several tree positions, so counts reflect all of them. Free, with CSV export.">
+<meta property="og:description" content="MeSH usage in PubMed by Level 2 category, with prior-year comparison and the current year to date. Each figure adds up term counts that include narrower terms, so one article is counted many times. By publication date. Free, with CSV export.">
 <meta property="og:url" content="https://tomlaheyh.github.io/citation-bar/mesh/mesh.html">
 <link rel="icon" href="../assets/icon128.png" type="image/png">
 <style>
@@ -257,7 +257,7 @@
     <span style="font-size:0.82rem;color:var(--text-muted)" id="reportPeriod"></span>
     <button class="btn" id="exportBtn" onclick="exportCSV()" disabled>Export CSV</button>
   </div>
-  <div class="note-bar" style="margin-bottom:12px">MeSH terms can appear in several areas — counts reflect all tree positions. Level 2 categories shown, sorted by count within each major group. Counted by PubMed entry date. ▲▼ vs prior year on the full-year report only; the year-to-date report has no comparison because MeSH indexing of the current year is still in progress.</div>
+  <div class="note-bar" style="margin-bottom:12px">Each figure adds up, for every MeSH term filed under the category, the PubMed articles indexed with that term or any narrower term. So one article is counted many times: once for each matching term, broader terms included, and a term filed in several categories counts in each. Totals are therefore far larger than the number of articles; use them to compare categories and years. Counted by publication date. Level 2 categories shown, sorted by count within each major group. ▲▼ vs prior year on the full-year report only; the year-to-date report has no comparison because MeSH indexing of the current year is still in progress.</div>
 
   <h2 class="report-title" id="fullTitle"></h2>
   <div class="groups-area" id="groupsArea"></div>
