@@ -322,6 +322,23 @@
     padding-left: 16px;
   }
 
+  /* Months the data file marks as incomplete (Flag_Months) */
+  tbody td.flag-month {
+    outline: 2px solid #dc2626;
+    outline-offset: -2px;
+  }
+
+  /* Notes the data file carries (Flag_Note), shown above the table */
+  .flag-note {
+    background: #fef2f2;
+    border-left: 3px solid #dc2626;
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    color: #7f1d1d;
+    margin-bottom: 12px;
+    border-radius: 0 6px 6px 0;
+  }
+
   .footnote {
     font-size: 0.78rem;
     color: var(--text-muted);
@@ -340,6 +357,7 @@
     <span style="font-size:0.82rem;color:var(--text-muted)" id="reportPeriod"></span>
     <button class="btn" id="exportBtn" onclick="exportCSV()" disabled>Export CSV</button>
   </div>
+  <div id="flagNotes"></div>
   <div class="note-bar" style="margin-bottom:12px">Journals ranked by total articles YTD. SJR is the SCImago Journal Rank (annual prestige metric); click an SJR value to open the journal's SCImago profile. Medline %, Free Full Text %, and ORCID % are ratios for articles in that journal. Retractions counts retracted journal articles (by last-revised date) over the same period; a "W" value (e.g. W25) instead shows withdrawals, matched from PubMed's "WITHDRAWN:" title text. PubMed has no official withdrawal field, so the W count is an approximate, best-effort signal rather than an exact figure. Monthly columns show article counts by create date. ▲▼ beside Total compares it with the same months of the prior year; "new" means the journal had no articles then. For the top 1,000 journals, hover over Total to see Crossref's DOI count for the same period.</div>
 
   <div class="search-bar">
@@ -483,7 +501,11 @@ function parseCSV(text) {
   const head = splitCSVLine(lines[idx]);
   const col = name => head.indexOf(name);
   const iWithdrawn = col('Withdrawn_URL'), iPctChg = col('Pct_Chg'),
-        iRA = col('RA'), iRaYtd = col('RA_YTD'), iPriorYtd = col('Prior_YTD');
+        iRA = col('RA'), iRaYtd = col('RA_YTD'), iPriorYtd = col('Prior_YTD'),
+        iFlagMonths = col('Flag_Months'), iFlagNote = col('Flag_Note');
+  // Flag_Note: notes to show above the table, collected from every row
+  // (even one with no articles this year), each shown once.
+  const flagNotes = [];
   // Prior-year total over EVERY row in the file, including journals with no
   // articles this year: they are part of last year's total, and leaving them
   // out would overstate growth. null when the file has no Prior_YTD column.
@@ -526,8 +548,14 @@ function parseCSV(text) {
       // null when not Crossref or not counted -- never shown as 0.
       raYtd: (iRA >= 0 && iRaYtd >= 0 && cells[iRA] === 'Crossref' && cells[iRaYtd] !== '')
         ? parseInt(cells[iRaYtd]) : null,
-      months: []
+      months: [],
+      // Flag_Months: "Aug|Sep|Oct" -> month indexes whose cells are outlined in red
+      flagMonths: iFlagMonths >= 0
+        ? (cells[iFlagMonths] || '').split('|').map(s => MONTHS.indexOf(s.trim())).filter(m => m >= 0)
+        : []
     };
+    const flagNote = iFlagNote >= 0 ? (cells[iFlagNote] || '').trim() : '';
+    if (flagNote && !flagNotes.includes(flagNote)) flagNotes.push(flagNote);
 
     // SJR is column 2, Retractions 7, Total 8, Months are columns 9-20.
     for (let m = 9; m <= 20; m++) {
@@ -539,7 +567,7 @@ function parseCSV(text) {
     if (row.total > 0) rows.push(row);
   }
 
-  return { meta, rows, priorAll };
+  return { meta, rows, priorAll, flagNotes };
 }
 
 // PubMed [crdt] range for the row links: Jan 1 → end of the last month
@@ -716,7 +744,9 @@ function buildRowHTML(r, dateRange) {
   row += `<td class="total-cell"${totalTip}>${r.total.toLocaleString()}<span class="chg ${ch.cls}">${ch.text}</span></td>`;
   for (let m = 0; m < 12; m++) {
     const val = r.months[m];
-    const cls = m === 0 ? ' class="month-first"' : '';
+    const flagged = r.flagMonths.includes(m);
+    const classes = [m === 0 ? 'month-first' : '', flagged ? 'flag-month' : ''].filter(Boolean).join(' ');
+    const cls = (classes ? ` class="${classes}"` : '') + (flagged ? ' title="Incomplete count: see the note at the top"' : '');
     // Show the file's value: 0 is shown as 0, a blank cell (month not reported) stays blank.
     row += `<td${cls}>${val === null ? '' : val.toLocaleString()}</td>`;
   }
@@ -848,8 +878,17 @@ async function init() {
     if (!loaded) throw new Error('Data file not found');
 
     RAW_CSV = loaded.text;
-    const { meta, rows, priorAll } = parseCSV(loaded.text);
+    const { meta, rows, priorAll, flagNotes } = parseCSV(loaded.text);
     allRows = rows;
+
+    const flagArea = document.getElementById('flagNotes');
+    flagArea.replaceChildren();
+    flagNotes.forEach(text => {
+      const note = document.createElement('div');
+      note.className = 'flag-note';
+      note.textContent = text;
+      flagArea.appendChild(note);
+    });
 
     // Which months actually have data
     const monthsWithData = [];
