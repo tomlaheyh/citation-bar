@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PubMed ROR Ranking</title>
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/ror-ranking/ror-ranking.html">
+<meta name="description" content="Universities, hospitals and government and research organisations ranked by articles added to PubMed year to date, by author affiliation matched to ROR, with change on the prior year, MEDLINE and PMC shares. Free, with CSV export.">
+<meta name="author" content="PubMed Citation Bar">
+<meta name="theme-color" content="#005a8c">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="PubMed Citation Bar">
+<meta property="og:title" content="PubMed ROR Ranking">
+<meta property="og:description" content="Universities, hospitals and government and research organisations ranked by articles added to PubMed year to date, by author affiliation matched to ROR.">
+<meta property="og:url" content="https://tomlaheyh.github.io/citation-bar/ror-ranking/ror-ranking.html">
+<link rel="icon" href="../assets/icon128.png" type="image/png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #d0d5dd;
+    --text: #1a1a2e;
+    --text-muted: #64748b;
+    --accent: #1e40af;
+    --accent-light: #dbeafe;
+    --section-bg: #e8f0fe;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+
+  .note-bar {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 4px 0 8px;
+  }
+  h2 .h2-sub { font-size: 0.8rem; font-weight: 400; color: var(--text-muted); margin-left: 8px; }
+
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: auto;
+    margin-bottom: 24px;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+
+  thead th {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    padding: 9px 10px;
+    text-align: right;
+    white-space: nowrap;
+  }
+  thead th.left { text-align: left; }
+  thead th.center { text-align: center; }
+
+  tbody td {
+    padding: 5px 10px;
+    text-align: right;
+    border-bottom: 1px solid #eef0f4;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+  }
+  tbody td.rank { text-align: center; color: var(--text-muted); font-size: 0.72rem; width: 50px; }
+  tbody td.name {
+    text-align: left;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.82rem;
+    color: var(--text);
+  }
+  tbody td.country { text-align: left; font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+  tbody td.pct-cell { font-size: 0.72rem; color: var(--text-muted); }
+
+  tbody td.name a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--text-muted);
+  }
+  tbody td.name a:hover { color: var(--accent); border-bottom-color: var(--accent); border-bottom-style: solid; }
+
+  tbody tr:hover { background: #f7f9fc; }
+  tbody tr:nth-child(even) { background: #fafbfd; }
+  tbody tr:nth-child(even):hover { background: #f7f9fc; }
+
+  tbody tr.top10 td.rank { font-weight: 700; color: var(--accent); }
+  tbody tr.top10 td.name { font-weight: 600; }
+
+  /* "Other in group" and "Group total" rows */
+  tbody tr.sum-row td { background: var(--section-bg); }
+  tbody tr.sum-row td.name { font-style: italic; color: var(--text-muted); }
+  tbody tr.total-row td { background: var(--section-bg); font-weight: 600; border-top: 2px solid var(--border); }
+  tbody tr.total-row td.name { font-weight: 700; color: var(--accent); }
+  tbody tr.sub-row td.name { padding-left: 28px; color: var(--text-muted); }
+
+  /* Papers column, bracketed like the Journal Ranking's Total */
+  thead th.total-col { border-left: 2px solid rgba(255,255,255,0.4); border-right: 2px solid rgba(255,255,255,0.4); padding-left: 14px; padding-right: 14px; }
+  tbody td.total-cell { border-left: 2px solid var(--border); border-right: 2px solid var(--border); padding-left: 14px; padding-right: 14px; font-weight: 600; white-space: nowrap; }
+
+  .chg { display: inline-block; width: 5ch; text-align: left; font-size: 0.68rem; margin-left: 4px; }
+  .change-up { color: #16a34a; }
+  .change-down { color: #dc2626; }
+  .change-flat { color: var(--text-muted); }
+
+  .btn {
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn:hover { background: var(--accent-light); border-color: var(--accent); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .footnote {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+    line-height: 1.6;
+  }
+  .footnote p { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<script src="../siteNav.js"></script>
+
+<div class="container" style="padding-top:12px">
+  <div style="display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap">
+    <span style="font-size:0.82rem;color:var(--text-muted)" id="statusText">Loading...</span>
+    <span style="font-size:0.82rem;color:var(--text-muted)" id="reportPeriod"></span>
+    <button class="btn" id="exportBtn" onclick="exportCSV()" disabled>Export CSV</button>
+  </div>
+  <div class="note-bar">Organisations ranked by articles added to PubMed year to date, from author affiliations matched to the Research Organization Registry (ROR). An article counts once for each organisation named in its affiliations, so an article can count in more than one group. Papers ▲▼ compares with the same months of the prior year; "new" means the organisation had no articles then. MEDLINE and In PMC are the shares of each line's articles indexed for MEDLINE and with a copy in PubMed Central. The last table counts every article once and adds up to all articles added in the period. Click an organisation to open its ROR record.</div>
+
+  <div id="sections"></div>
+
+  <div class="footnote" id="footnote">
+    <p><b>Matching.</b> Affiliations are matched first by hand-built rules for about 165 large institutions, then by ROR's own affiliation matcher run locally on every remaining affiliation. An organisation's ROR sub-units roll up into it (for example a university's schools and institutes). Umbrella records are not ranked themselves: governments, ministries, university systems (UC, Texas, SUNY and others), hospital networks and funders are split into their members, so each campus, agency or hospital ranks on its own. Research organisations usually ranked as one (CAS, CNRS, Max Planck, Helmholtz, Leibniz, DOE, NASA) stay whole.</p>
+    <p><b>Groups.</b> The group follows the organisation's ROR type: Universities (education), Hospitals (healthcare), Government &amp; research (government, research facilities, nonprofits, funders). Hospitals that our rules place inside a university (for example Massachusetts General Hospital in Harvard) count under that university, so the Hospitals table lists stand-alone hospitals. "Other in group" is the group's articles with none of the organisations listed above it.</p>
+    <p><b>All articles.</b> Each article is counted once, in the first group it qualifies for, in the order Universities, Hospitals, Government &amp; research. Unmatched covers articles with a ROR outside those groups (companies, or only an umbrella such as "University of London"), articles whose affiliations matched no ROR, and articles with no affiliation in PubMed. All articles means every record added in the period, of every publication type: research articles and reviews, but also errata, preprints, news, retraction notices, editorials, letters and comments, which often carry no affiliation or no author list.</p>
+    <p><b>MEDLINE and In PMC.</b> MEDLINE is the record's status today; the most recent months are not fully indexed yet, so it reads low for them and is not compared with the prior year. In PMC means the PubMed record carries a PubMed Central ID. PubMed's own "free full text" filter is not part of the PubMed data (it also counts articles free on publisher sites), so In PMC is a floor for it.</p>
+    <p>Dates are PubMed create dates [crdt]. Data: a local copy of PubMed and the ROR registry.</p>
+  </div>
+</div>
+
+<script>
+let RAW_CSV = '';
+let REPORT_YEAR = new Date().getFullYear();
+
+function splitCSVLine(line) {
+  const cells = [];
+  let current = '';
+  let inQuotes = false;
+  for (let c = 0; c < line.length; c++) {
+    const ch = line[c];
+    if (ch === '"') { inQuotes = !inQuotes; }
+    else if (ch === ',' && !inQuotes) { cells.push(current.trim()); current = ''; }
+    else { current += ch; }
+  }
+  cells.push(current.trim());
+  return cells;
+}
+
+// Stamp line: "ROR Ranking YTD","2026","Jan-Oct","2025","Jan-Oct","Through 2026-10-31","Generated 2026-11-12"
+function parseMeta(cells) {
+  const m = { year: null, period: null, priorYear: null, through: '', generated: '' };
+  for (const c of cells) {
+    if (/^\d{4}$/.test(c)) { if (m.year === null) m.year = parseInt(c, 10); else if (m.priorYear === null) m.priorYear = parseInt(c, 10); }
+    else if (/^[A-Za-z]{3}(-[A-Za-z]{3})?$/.test(c)) { if (m.period === null) m.period = c; }
+    else if (/^through/i.test(c)) m.through = c.replace(/^through\s*/i, '');
+    else if (/^generated/i.test(c)) m.generated = c.replace(/^generated\s*/i, '');
+  }
+  return m;
+}
+
+// Columns are found by header name, so the file can gain columns later.
+function parseCSV(text) {
+  const lines = text.replace(/\r/g, '').trim().split('\n');
+  const meta = parseMeta(splitCSVLine(lines[0]));
+  const head = splitCSVLine(lines[1]);
+  const col = name => head.indexOf(name);
+  const rows = [];
+  for (let i = 2; i < lines.length; i++) {
+    const c = splitCSVLine(lines[i]);
+    if (c.length < head.length) continue;
+    const get = name => c[col(name)] || '';
+    rows.push({
+      section: get('Section'), line: get('Line'), rank: parseInt(get('Rank')) || null,
+      name: get('Name'), country: get('Country'), ror: get('ROR'),
+      papers: parseInt(get('Papers')) || 0, pctAll: get('Pct_Of_All'), prior: parseInt(get('Prior_YTD')) || 0,
+      chg: get('Pct_Chg'), medline: get('Medline_Pct'), pmc: get('PMC_Pct')
+    });
+  }
+  return { meta, rows };
+}
+
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+
+function changeIndicator(pct) {
+  if (pct === 'new') return { text: 'new', cls: 'change-flat' };
+  const v = parseFloat(pct);
+  if (pct === '' || isNaN(v)) return { text: '', cls: 'change-flat' };
+  if (v > 0.5) return { text: '▲' + v.toFixed(0) + '%', cls: 'change-up' };
+  if (v < -0.5) return { text: '▼' + Math.abs(v).toFixed(0) + '%', cls: 'change-down' };
+  return { text: '—', cls: 'change-flat' };
+}
+
+function pctCell(v) { return `<td class="pct-cell">${v === '' ? '' : parseFloat(v).toFixed(1) + '%'}</td>`; }
+
+function papersCell(r, priorYear) {
+  const ch = changeIndicator(r.chg);
+  const tip = ` title="${r.papers.toLocaleString()} articles; same months of ${priorYear}: ${r.prior.toLocaleString()}"`;
+  return `<td class="total-cell"${tip}>${r.papers.toLocaleString()}<span class="chg ${ch.cls}">${ch.text}</span></td>`;
+}
+
+function groupTable(title, rows, meta) {
+  const tops = rows.filter(r => r.line === 'Top');
+  const sub = `top ${tops.length}`;
+  let h = `<h2>${esc(title)}<span class="h2-sub">${sub}</span></h2><div class="table-wrap"><table><thead><tr>` +
+          `<th class="center">Rank</th><th class="left">Organisation</th><th class="left">Country</th>` +
+          `<th class="total-col">Papers</th><th>% of all articles</th><th>MEDLINE</th><th>In PMC</th></tr></thead><tbody>`;
+  for (const r of rows) {
+    let cls = '', name;
+    if (r.line === 'Top') {
+      cls = r.rank <= 10 ? ' class="top10"' : '';
+      name = r.ror ? `<a href="https://ror.org/${encodeURIComponent(r.ror)}" target="_blank" title="Open in ROR">${esc(r.name)}</a>` : esc(r.name);
+    } else if (r.line === 'Group total') {
+      cls = ' class="total-row"'; name = `${esc(title)} total`;
+    } else {
+      cls = ' class="sum-row"'; name = `Other ${esc(title.toLowerCase())}`;
+    }
+    h += `<tr${cls}><td class="rank">${r.line === 'Top' ? r.rank : ''}</td><td class="name">${name}</td>` +
+         `<td class="country">${esc(r.country)}</td>${papersCell(r, meta.priorYear)}${pctCell(r.pctAll)}` +
+         `${pctCell(r.medline)}${pctCell(r.pmc)}</tr>`;
+  }
+  return h + '</tbody></table></div>';
+}
+
+function allArticlesTable(rows, meta) {
+  let h = `<h2>All articles<span class="h2-sub">each article counted once</span></h2><div class="table-wrap"><table><thead><tr>` +
+          `<th class="left">Group</th><th class="total-col">Articles</th><th>% of all articles</th><th>MEDLINE</th><th>In PMC</th></tr></thead><tbody>`;
+  // show "Unmatched total" above its three sub-lines (the file lists it after them)
+  const ut = rows.findIndex(r => r.line.startsWith('Unmatched total'));
+  const fu = rows.findIndex(r => r.line.startsWith('Unmatched:'));
+  if (ut > fu && fu >= 0) rows = [...rows.slice(0, fu), rows[ut], ...rows.slice(fu, ut), ...rows.slice(ut + 1)];
+  for (const r of rows) {
+    let cls = '', label = r.line;
+    if (r.line.startsWith('Unmatched:')) { cls = ' class="sub-row"'; label = r.line.replace(/^Unmatched:\s*/, ''); }
+    else if (r.line.startsWith('Unmatched total')) { cls = ' class="sum-row"'; label = 'Unmatched (not in the groups above)'; }
+    else if (r.line === 'Total articles') { cls = ' class="total-row"'; label = 'All articles'; }
+    label = label.charAt(0).toUpperCase() + label.slice(1);
+    h += `<tr${cls}><td class="name">${esc(label)}</td>${papersCell(r, meta.priorYear)}${pctCell(r.pctAll)}` +
+         `${pctCell(r.medline)}${pctCell(r.pmc)}</tr>`;
+  }
+  return h + '</tbody></table></div>';
+}
+
+function exportCSV() {
+  const blob = new Blob([RAW_CSV], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `ror-ranking-${REPORT_YEAR}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+async function init() {
+  try {
+    const resp = await fetch('ROR_Ranking_YTD_Page.csv?_=' + Date.now());
+    if (!resp.ok) throw new Error('Data file not found');
+    RAW_CSV = await resp.text();
+    const { meta, rows } = parseCSV(RAW_CSV);
+    REPORT_YEAR = meta.year || REPORT_YEAR;
+    const period = `${meta.period || ''} ${REPORT_YEAR}`.trim();
+    document.title = `PubMed ROR Ranking ${REPORT_YEAR}`;
+    const order = ['Universities', 'Hospitals', 'Government & research'];
+    let html = '';
+    for (const g of order) {
+      const gr = rows.filter(r => r.section === g);
+      if (gr.length) html += groupTable(g, gr, meta);
+    }
+    const all = rows.filter(r => r.section === 'All articles');
+    if (all.length) html += allArticlesTable(all, meta);
+    document.getElementById('sections').innerHTML = html;
+    const total = all.find(r => r.line === 'Total articles');
+    document.getElementById('reportPeriod').textContent =
+      `${period} YTD${meta.through ? ' (through ' + meta.through + ')' : ''}` +
+      (total ? ` — ${total.papers.toLocaleString()} articles` : '');
+    document.getElementById('statusText').textContent = meta.generated ? `Generated ${meta.generated}` : '';
+    document.getElementById('exportBtn').disabled = false;
+  } catch (e) {
+    document.getElementById('statusText').textContent = 'Error loading data: ' + e.message;
+  }
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>
