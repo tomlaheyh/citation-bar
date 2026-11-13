@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PubMed iCite Citation Gains</title>
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/icite/icite.html">
+<meta name="description" content="PubMed articles ranked by citations gained over the last 12 months, from NIH iCite monthly snapshots, with month-by-month gains. Free, with full CSV download.">
+<meta name="author" content="PubMed Citation Bar">
+<meta name="theme-color" content="#005a8c">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="PubMed Citation Bar">
+<meta property="og:title" content="PubMed iCite Citation Gains">
+<meta property="og:description" content="PubMed articles ranked by citations gained over the last 12 months, from NIH iCite monthly snapshots, with month-by-month gains. Free, with full CSV download.">
+<meta property="og:url" content="https://tomlaheyh.github.io/citation-bar/icite/icite.html">
+<link rel="icon" href="../assets/icon128.png" type="image/png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #d0d5dd;
+    --text: #1a1a2e;
+    --text-muted: #64748b;
+    --accent: #1e40af;
+    --accent-light: #dbeafe;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .container { max-width: 1450px; margin: 0 auto; padding: 24px 20px; }
+
+  .note-bar {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    color: var(--accent);
+    margin-bottom: 12px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .search-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+  .search-bar input {
+    font-family: inherit; font-size: 0.85rem; padding: 7px 14px;
+    border: 1px solid var(--border); border-radius: 6px; width: 300px; outline: none;
+  }
+  .search-bar input:focus { border-color: var(--accent); }
+  .search-bar .count { font-size: 0.8rem; color: var(--text-muted); }
+
+  .btn {
+    font-family: inherit; font-size: 0.8rem; font-weight: 600; padding: 7px 14px;
+    border: 1px solid var(--border); border-radius: 6px; background: var(--surface);
+    color: var(--text); cursor: pointer; transition: all 0.15s; text-decoration: none;
+  }
+  .btn:hover { background: var(--accent-light); border-color: var(--accent); }
+  .btn[aria-disabled="true"] { opacity: 0.5; pointer-events: none; }
+
+  .table-wrap {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    overflow: auto; max-height: 80vh; margin-bottom: 24px;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+
+  thead th {
+    position: sticky; top: 0; background: var(--accent); color: #fff; font-weight: 600;
+    padding: 9px 8px; text-align: right; white-space: nowrap; z-index: 2;
+    cursor: pointer; user-select: none; line-height: 1.25;
+  }
+  thead th:hover { background: #163380; }
+  thead th.sort-asc .hdr-lbl::after { content: ' ▲'; font-size: 0.65rem; }
+  thead th.sort-desc .hdr-lbl::after { content: ' ▼'; font-size: 0.65rem; }
+  .hdr-sub { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; font-weight: 400; opacity: 0.9; }
+
+  tbody td {
+    padding: 5px 8px; text-align: right; border-bottom: 1px solid #eef0f4;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; vertical-align: middle;
+  }
+  td.c-rank { text-align: center; color: var(--text-muted); font-size: 0.72rem; }
+  td.c-date { text-align: left; font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; }
+  td.c-trend, td.c-note { text-align: left; font-family: 'Source Sans 3', sans-serif; font-size: 0.78rem; }
+  td.c-note { color: #b91c1c; }
+  thead th.c-rank { text-align: center; }
+  thead th.c-title, thead th.c-date, thead th.c-trend, thead th.c-note { text-align: left; }
+
+  /* Article title: two lines, about 50 characters each, cut off with an
+     ellipsis; full title on hover. Fixed height keeps every row the same. */
+  td.c-title { text-align: left; font-family: 'Source Sans 3', sans-serif; font-size: 0.82rem; }
+  .tt {
+    width: 41ch;   /* ~50 characters of title text per line */
+    height: 2.5em;
+    line-height: 1.25em;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+  }
+
+  td.c-title a {
+    color: var(--text); text-decoration: none; border-bottom: 1px dotted var(--text-muted);
+  }
+  td.c-title a:hover { color: var(--accent); border-bottom: 1px solid var(--accent); }
+
+  /* 12-month total, bracketed like Total on Journal Ranking */
+  thead th.c-gain, tbody td.c-gain { border-left: 2px solid var(--border); border-right: 2px solid var(--border); padding-left: 12px; padding-right: 12px; }
+  thead th.c-gain { border-color: rgba(255,255,255,0.4); }
+  tbody td.c-gain { font-weight: 600; }
+  tbody td.c-base { color: var(--text-muted); }
+  tbody td.c-now { font-weight: 600; }
+  thead th.month-first, tbody td.month-first { padding-left: 14px; }
+
+  tbody tr:nth-child(even) { background: #fafbfd; }
+  tbody tr:hover { background: #f1f5fb; }
+  tbody tr.top10 td.c-rank { font-weight: 700; color: var(--accent); }
+
+  .footnote {
+    font-size: 0.78rem; color: var(--text-muted); padding: 12px 0;
+    border-top: 1px solid var(--border); line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+<script src="../siteNav.js"></script>
+
+<div class="container" style="padding-top:12px">
+  <div style="display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap">
+    <span style="font-size:0.82rem;color:var(--text-muted)" id="statusText">Loading...</span>
+    <span style="font-size:0.82rem;color:var(--text-muted)" id="reportPeriod"></span>
+    <a class="btn" id="downloadBtn" href="iCite_Last12M.csv" download aria-disabled="true">Download full CSV</a>
+  </div>
+  <div class="note-bar" id="noteBar">PubMed articles ranked by citations gained over the last 12 months, from monthly NIH iCite snapshots. This page shows the top-ranked articles; use Download full CSV to get every ranked article. Click a title to open the article in PubMed; hover over it to read it in full. The two citations columns are the article's total citation count at the start and at the end of the window; each month column is the citations it gained that month. High Trend: &ldquo;Yes&rdquo; when the article&rsquo;s citations per day in the last six months are at least 1.5 times those in the first six (per day, because iCite snapshots are 33&ndash;45 days apart). &ldquo;New&rdquo; when the article was not yet in iCite at the start of the window, so its start count is 0 and a rising curve is expected.</div>
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search by title or PMID..." onkeydown="if(event.key==='Enter')renderRows()">
+    <button class="btn" onclick="renderRows()">Search</button>
+    <button class="btn" onclick="document.getElementById('searchInput').value='';renderRows()">Clear</button>
+    <span class="count" id="rowCount"></span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr id="tableHead"></tr></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="footnote" id="footnote">
+    Citation counts are NIH iCite's, taken from monthly snapshots. A month's gain is the change in an article's iCite citation count between consecutive snapshots. Pub Date is shown as PubMed gives it: a full date, or only a year and month, or only a year; dates sort as the start of their period. A negative monthly gain is an iCite correction: the article&rsquo;s count went down between snapshots. An article not yet in iCite counts as 0 until it appears, and a blank count in a later snapshot carries the previous value forward.
+  </div>
+</div>
+
+<script>
+const DATA_FILE = 'iCite_Last12M.csv';
+const VERSION_FILE = 'icite_version.json';
+const SHOW_MAX_RANK = 1000;   // the page shows rows with Rank <= this; the download has every row
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+let COLS = [];        // column definitions, built from the file's header
+let allRows = [];
+let sortKey = 'rank';
+let sortDir = 'asc';
+
+// One CSV record (no embedded newlines in this file). Handles quoted fields
+// and doubled quotes ("") inside them.
+function splitCSVLine(line) {
+  const out = [];
+  let cur = '', q = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (q) {
+      if (ch === '"') {
+        if (line[i + 1] === '"') { cur += '"'; i++; } else q = false;
+      } else cur += ch;
+    } else if (ch === '"') q = true;
+    else if (ch === ',') { out.push(cur); cur = ''; }
+    else cur += ch;
+  }
+  out.push(cur);
+  return out;
+}
+
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+// Read the data file only as far as the page needs. It is in Rank order, so
+// stop at the first row ranked past SHOW_MAX_RANK and cancel the download.
+async function loadTopRows() {
+  const resp = await fetch(DATA_FILE + '?_=' + Date.now());
+  if (!resp.ok) throw new Error('Data file not found');
+  const reader = resp.body.getReader();
+  const dec = new TextDecoder('utf-8');
+  let buf = '', head = null;
+  const rows = [];
+  let done = false;
+  while (!done) {
+    const chunk = await reader.read();
+    if (chunk.done) { buf += dec.decode(); done = true; }
+    else buf += dec.decode(chunk.value, { stream: true });
+    let nl;
+    while ((nl = buf.indexOf('\n')) >= 0) {
+      const line = buf.slice(0, nl).replace(/\r$/, '');
+      buf = buf.slice(nl + 1);
+      if (!line) continue;
+      const cells = splitCSVLine(line);
+      if (!head) { head = cells.map(c => c.replace(/^﻿/, '').trim()); continue; }
+      if ((parseInt(cells[0], 10) || 0) > SHOW_MAX_RANK) { reader.cancel(); return { head, rows }; }
+      rows.push(cells);
+    }
+    if (done && buf.trim()) {
+      const cells = splitCSVLine(buf.replace(/\r$/, ''));
+      if ((parseInt(cells[0], 10) || 0) <= SHOW_MAX_RANK) rows.push(cells);
+    }
+  }
+  return { head, rows };
+}
+
+// Columns come from the header by name, so the page follows the file:
+// "Oct 2025 Citations" is the start-of-window count, every "<Mon> <Year> Gains"
+// column is a month.
+function buildCols(head) {
+  const idx = name => head.indexOf(name);
+  const cols = [
+    { key: 'rank',  label: 'Rank',     i: idx('Rank'),     cls: 'c-rank',  num: true },
+    { key: 'title', label: 'Title',    i: idx('Title'),    cls: 'c-title' },
+    { key: 'date',  label: 'Pub Date', i: idx('Pub Date'), cls: 'c-date' },
+  ];
+  let baseI = -1;
+  head.forEach((h, i) => {
+    const m = /^([A-Za-z]{3}) (\d{4}) Citations$/.exec(h);
+    if (m) { baseI = i;
+             cols.push({ key: 'base', label: `${m[1]} ${m[2]}`, sub: 'citations', i, cls: 'c-base', num: true,
+                         tip: `Citations in iCite at ${m[1]} ${m[2]}, the start of the window` }); }
+  });
+  const monthCols = [];
+  head.forEach((h, i) => {
+    const m = /^([A-Za-z]{3}) (\d{4}) Gains$/.exec(h);
+    if (m) monthCols.push({ key: 'm' + i, label: m[1], sub: m[2], i, cls: 'c-month', num: true,
+                            tip: `Citations gained in ${m[1]} ${m[2]}` });
+  });
+  if (monthCols.length) {
+    const first = monthCols[0], last = monthCols[monthCols.length - 1];
+    // End-of-window total = start count + every month's gain (the same sum the
+    // pipeline checks against the newest snapshot's own count).
+    if (baseI >= 0)
+      cols.push({ key: 'now', label: `${last.label} ${last.sub}`, sub: 'citations', cls: 'c-now', num: true,
+                  sum: [baseI, ...monthCols.map(c => c.i)],
+                  tip: `Total citations in iCite at ${last.label} ${last.sub}: the ${cols.find(c => c.key === 'base').label} count plus the month columns` });
+    cols.push({ key: 'gain', label: `${monthCols.length}-mo`, sub: 'gains', cls: 'c-gain', num: true, sum: monthCols.map(c => c.i),
+                tip: `Citations gained ${first.label} ${first.sub} to ${last.label} ${last.sub}: the sum of the month columns. Rank follows this figure.` });
+    monthCols[0].cls += ' month-first';
+    cols.push(...monthCols);
+  }
+  const iTrend = idx('High Trend');
+  if (iTrend >= 0) cols.push({ key: 'trend', label: 'High Trend', i: iTrend, cls: 'c-trend' });
+  return cols;
+}
+
+let PMID_I = -1;
+function toRow(cells) {
+  const r = { cells, pmid: (cells[PMID_I] || '').trim() };
+  COLS.forEach(c => {
+    if (c.sum) r[c.key] = c.sum.reduce((s, i) => s + (parseInt(cells[i], 10) || 0), 0);
+    else if (c.num) r[c.key] = cells[c.i] === '' || cells[c.i] === undefined ? null : parseInt(cells[c.i], 10);
+    else r[c.key] = (cells[c.i] || '').trim();
+  });
+  return r;
+}
+
+function buildHeader() {
+  const head = document.getElementById('tableHead');
+  head.innerHTML = '';
+  COLS.forEach(c => {
+    const th = document.createElement('th');
+    th.className = c.cls + (c.key === sortKey ? (sortDir === 'asc' ? ' sort-asc' : ' sort-desc') : '');
+    th.innerHTML = `<span class="hdr-lbl">${esc(c.label)}</span>` + (c.sub ? `<span class="hdr-sub">${esc(c.sub)}</span>` : '');
+    if (c.tip) th.title = c.tip;
+    th.addEventListener('click', () => {
+      if (sortKey === c.key) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+      else { sortKey = c.key; sortDir = (c.key === 'rank' || c.key === 'title') ? 'asc' : 'desc'; }
+      buildHeader();
+      renderRows();
+    });
+    head.appendChild(th);
+  });
+}
+
+function cellHTML(r, c) {
+  const v = r[c.key];
+  if (c.key === 'title') {
+    const link = /^\d+$/.test(r.pmid)
+      ? `<a href="https://pubmed.ncbi.nlm.nih.gov/${r.pmid}/" target="_blank" rel="noopener">${esc(v)}</a>` : esc(v);
+    return `<div class="tt" title="${esc(v)} (PMID ${esc(r.pmid)}, opens in PubMed)">${link}</div>`;
+  }
+  if (c.num) return v === null ? '' : v.toLocaleString();
+  return esc(v);
+}
+
+function renderRows() {
+  const term = document.getElementById('searchInput').value.trim().toLowerCase();
+  let rows = allRows;
+  if (term) rows = rows.filter(r => r.title.toLowerCase().includes(term) || String(r.pmid).includes(term));
+  const dir = sortDir === 'asc' ? 1 : -1;
+  rows = rows.slice().sort((a, b) => {
+    const va = a[sortKey], vb = b[sortKey];
+    let cmp;
+    if (typeof va === 'string' || typeof vb === 'string') {
+      // Blank text sorts last either way. Partial dates ("2024", "2024-04")
+      // sort before full dates in the same period, i.e. as its start.
+      if (!va && vb) return 1;
+      if (va && !vb) return -1;
+      cmp = String(va).localeCompare(String(vb));
+    } else {
+      if (va === null && vb !== null) return 1;
+      if (va !== null && vb === null) return -1;
+      cmp = (va || 0) - (vb || 0);
+    }
+    return cmp * dir || (a.rank - b.rank);
+  });
+  const html = rows.map(r =>
+    `<tr${r.rank <= 10 ? ' class="top10"' : ''}>` +
+    COLS.map(c => `<td class="${c.cls}">${cellHTML(r, c)}</td>`).join('') +
+    '</tr>').join('');
+  document.getElementById('tableBody').innerHTML = html;
+  const wrap = document.querySelector('.table-wrap');
+  if (wrap) wrap.scrollTop = 0;
+  document.getElementById('rowCount').textContent = term
+    ? `${rows.length.toLocaleString()} of ${allRows.length.toLocaleString()} articles match`
+    : `Showing ${allRows.length.toLocaleString()} articles`;
+}
+
+async function loadVersion() {
+  try {
+    const resp = await fetch(VERSION_FILE + '?_=' + Date.now());
+    if (resp.ok) return await resp.json();
+  } catch (e) { /* labels fall back to the CSV header */ }
+  return null;
+}
+
+function monthLabel(ym) {   // "2026-10" -> "Oct 2026"
+  const m = /^(\d{4})-(\d{2})$/.exec(ym || '');
+  return m ? `${MON[parseInt(m[2], 10) - 1]} ${m[1]}` : (ym || '');
+}
+
+async function init() {
+  try {
+    const [ver, data] = await Promise.all([loadVersion(), loadTopRows()]);
+    COLS = buildCols(data.head);
+    PMID_I = data.head.indexOf('PMID');
+    // The Note column is normally empty; show it only when a shown row has one.
+    const iNote = data.head.indexOf('Note');
+    if (iNote >= 0 && data.rows.some(c => (c[iNote] || '').trim()))
+      COLS.push({ key: 'note', label: 'Note', i: iNote, cls: 'c-note' });
+    allRows = data.rows.map(toRow);
+
+    const monthsCols = COLS.filter(c => c.cls.includes('c-month'));
+    const lastLbl = ver && ver.version ? monthLabel(ver.version)
+      : (monthsCols.length ? `${monthsCols[monthsCols.length - 1].label} ${monthsCols[monthsCols.length - 1].sub}` : '');
+    const firstLbl = monthsCols.length ? `${monthsCols[0].label} ${monthsCols[0].sub}` : '';
+    let period = firstLbl && lastLbl ? `Citations gained ${firstLbl} – ${lastLbl}` : '';
+    if (ver && ver.snapshot_date) period += ` (iCite snapshot ${ver.snapshot_date})`;
+    document.getElementById('reportPeriod').textContent = period;
+    document.getElementById('statusText').textContent =
+      `Top ${allRows.length.toLocaleString()} by rank` + (ver && ver.rows ? ` of ${ver.rows.toLocaleString()} ranked articles` : '');
+
+    const dl = document.getElementById('downloadBtn');
+    dl.setAttribute('download', ver && ver.version ? `iCite_Last12M_${ver.version}.csv` : 'iCite_Last12M.csv');
+    if (ver && ver.rows && ver.csv_bytes)
+      dl.textContent = `Download full CSV (${ver.rows.toLocaleString()} rows, ${(ver.csv_bytes / 1e6).toFixed(1)} MB)`;
+    dl.removeAttribute('aria-disabled');
+
+    document.title = lastLbl ? `PubMed iCite Citation Gains — ${lastLbl}` : document.title;
+    buildHeader();
+    renderRows();
+  } catch (e) {
+    document.getElementById('statusText').textContent = 'Error loading data: ' + e.message;
+  }
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>

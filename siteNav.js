@@ -34,6 +34,7 @@
     { title: 'PubMed Drift Report',    href: '/drift/drift-report.html' },
     { title: 'PubMed ORCID Ranking',   href: '/orcid-ranking/orcid-ranking.html' },
     { title: 'PubMed ROR Ranking',     href: '/ror-ranking/ror-ranking.html' },
+    { title: 'PubMed iCite Citation Gains', href: '/icite/icite.html' },
     { title: 'Privacy',                href: '/privacy.html' }
   ];
 
