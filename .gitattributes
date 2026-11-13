@@ -1,0 +1,3 @@
+# Keep the iCite CSV byte-for-byte. The extension checks its SHA-256 against
+# icite_version.json, so git must not convert its line endings (CRLF -> LF).
+icite/*.csv -text
