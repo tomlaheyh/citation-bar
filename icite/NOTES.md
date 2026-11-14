@@ -9,15 +9,29 @@ also in `C:\_data\pubmed_local\Notes\pubmed_db_notes.md`, in the ICITE section
 | Path | What |
 |---|---|
 | `report_icite.py` (v1.6) | Fetches and extracts monthly iCite snapshots (`--fetch YYYY-MM,...`). Also writes `iCite_Top200_Citations.csv`, `iCite_Top200_Gains.csv` and `iCite_Rising_by_Band.csv` |
-| `report_icite_monthly.py` (v2.7) | The rolling 12-month report: `iCite_Last12M.csv` + `icite_version.json` |
+| `report_icite_monthly.py` (v2.9) | The rolling 12-month report: `iCite_Last12M.csv` + `icite_version.json`, then syncs the Drive copy |
 | `icite_extract.py`, `icite_gains_analysis.sql`, `icite_spike_check.sql` | Early exploration tools |
 | `downloads\` | `icite_<YYYY-MM>_pmid_counts.csv` (pmid, citation_count; ~500 MB each) and `icite_snapshots.csv` (manifest with publish dates) |
 | `archive\` | Dated copies of each report |
 | `versions\` | `-vUTC-MMDD-HHMM` twins of scripts and notes |
 | `extension\` | Browser extension code (IndexedDB) and its README |
 
-Drive copies go to `G:\My Drive\_Claude-cowork\Reports\iCite`. The database
-connection (`pmid_core`) comes from `C:\_data\pubmed_local\pubmed_config.py`.
+`G:\My Drive\_Claude-cowork\Reports\iCite` holds a copy of everything here
+except the monthly counts files (about 6 GB; `--fetch` can rebuild them) and
+`__pycache__` (Tom, 2026-11-12). Each run of `report_icite_monthly.py` (v2.8)
+keeps that copy in sync:
+- It copies any file listed in `DRIVE_SYNC` that is missing on Drive, or whose
+  size or modified time differs. Nothing on Drive is deleted.
+- If a file is locked (open in Excel), the script names it and exits with 1;
+  the other files are still copied.
+
+The database connection (`pmid_core`) comes from
+`C:\_data\pubmed_local\pubmed_config.py`.
+
+**What's in the window:** papers that entered PubMed (crdt) in the **last 36
+months**. It's not all PMIDs and not just recent ones. Papers that entered in
+the last 3–6 months are in the window too, but few reach the list, because
+iCite lags and young papers have had little time to be cited.
 
 ## Monthly run
 
@@ -70,8 +84,15 @@ is missing, the script stops and prints the `--fetch` line to run.
   - `New`: not in iCite at the baseline.
   - Below rank ~20,000 about 30% are `Yes`, so at small numbers it is mostly
     noise.
-- **Note:** filled when the newest snapshot's own count is missing, or differs
-  from baseline + gains by more than 10. It has been 0 on every run so far.
+- **Note (v2.9):** filled when any of these happen:
+  - a month was blank in iCite after the paper first appeared (the value is
+    carried forward, so that month's gain shows up in the next month)
+  - the newest snapshot has no count
+  - a monthly gain drops by more than 10 (an iCite correction)
+
+  The old check (newest count vs baseline + gains) could never fire, because
+  the gains always add up exactly to the newest count. On 2026-10, 34 rows have
+  a Note: 20 with blank months and 14 with corrections.
 
 ### Results on 2026-10 (Oct 2025 → Oct 2026)
 

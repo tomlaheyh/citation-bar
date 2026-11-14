@@ -18,12 +18,12 @@
   "2026-09",
   "2026-10"
  ],
- "built_utc": "2026-11-13T02:53:46Z",
+ "built_utc": "2026-11-14T21:11:36Z",
  "rows": 41547,
  "top_n": 40000,
  "csv_file": "iCite_Last12M.csv",
- "csv_bytes": 6680443,
- "csv_sha256": "e1fb377251a8637c317193f0165e07fc4ad4a19d6d2a80815690d69cda7575c3",
+ "csv_bytes": 6683097,
+ "csv_sha256": "941ee8eb42fe8d2c528fa1f6e95ee453b771193c86012dd6d26f6f0c2029c598",
  "columns": [
   "Rank",
   "PMID",

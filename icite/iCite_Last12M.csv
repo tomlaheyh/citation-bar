@@ -265,7 +265,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 262,39294640,Altered metabolism in cancer: insights into energy pathways and therapeutic targets.,2024-09-18,164,20,23,26,32,30,45,29,26,28,26,9,15,,
 265,39282896,Trastuzumab Deruxtecan after Endocrine Therapy in Metastatic Breast Cancer.,2024-09-15,170,24,26,23,25,21,31,19,32,34,18,22,33,,
 265,40857552,The GSA Family in 2025: A Broadened Sharing Platform for Multi-omics and Multimodal Data.,2025-09-22,4,5,8,24,24,27,41,22,33,29,36,26,33,Yes,
-267,38519239,Executive summary of the KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease: known knowns and known unknowns.,2024-04,232,22,30,28,27,23,46,32,28,48,-32,68,-13,,
+267,38519239,Executive summary of the KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease: known knowns and known unknowns.,2024-04,232,22,30,28,27,23,46,32,28,48,-32,68,-13,,"iCite correction, drop of 32 in Aug 2026, 13 in Oct 2026"
 268,38548868,Global epidemiology of epithelial ovarian cancer.,2024-03-28,229,24,32,35,20,18,34,24,35,24,16,16,27,,
 268,39528464,Inflammation in atherosclerosis: pathophysiology and mechanisms.,2024-11-11,93,21,17,14,24,27,31,24,26,30,34,24,33,,
 268,40434108,Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD) in People With Diabetes: The Need for Screening and Early Intervention. A Consensus Report of the American Diabetes Association.,2025-07-01,20,15,13,14,27,20,29,25,44,29,36,20,33,Yes,
@@ -950,7 +950,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 948,38590838,"Sources, effects and present perspectives of heavy metals contamination: Soil, plants and human food chain.",2024-03-26,174,15,16,19,20,12,19,14,13,17,7,4,5,,
 948,39487043,EASL Clinical Practice Guidelines on liver transplantation.,2024-10-31,62,10,9,16,11,10,19,12,19,13,18,11,13,,
 948,39651976,8. Obesity and Weight Management for the Prevention and Treatment of Type 2 Diabetes: Standards of Care in Diabetes-2025.,2025-01-01,56,12,16,17,14,17,12,12,8,20,10,11,12,,
-948,39746907,Electronic structure formed by Y2O3-doping in lithium position assists improvement of charging-voltage for high-nickel cathodes.,2025-01-02,156,108,30,9,-1,8,-5,3,-7,9,14,-11,4,,
+948,39746907,Electronic structure formed by Y2O3-doping in lithium position assists improvement of charging-voltage for high-nickel cathodes.,2025-01-02,156,108,30,9,-1,8,-5,3,-7,9,14,-11,4,,"iCite correction, drop of 11 in Sep 2026"
 948,40097390,"Systemic lupus erythematosus: updated insights on the pathogenesis, diagnosis, prevention and therapeutics.",2025-03-17,32,6,9,14,12,8,16,14,14,23,16,19,10,Yes,
 948,40388329,Nerandomilast in Patients with Progressive Pulmonary Fibrosis.,2025-05-19,17,9,10,9,12,12,15,20,16,19,7,11,21,Yes,
 948,41092086,CBTRUS Statistical Report: Primary Brain and Other Central Nervous System Tumors Diagnosed in the United States in 2018-2022.,2025-10-14,0,0,2,2,5,6,7,10,16,27,29,19,38,Yes,
@@ -1835,7 +1835,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 1834,37985692,Large-scale pancreatic cancer detection via non-contrast CT and deep learning.,2023-11-20,129,8,10,16,7,7,12,12,6,11,8,8,9,,
 1834,38111585,Potential of dietary hemp and cannabinoids to modulate immune response to enhance health and performance in animals: opportunities and challenges.,2023-12-04,13,2,6,13,11,18,11,12,13,9,12,4,3,,
 1834,38192421,"Chronic low-grade inflammation and ovarian dysfunction in women with polycystic ovarian syndrome, endometriosis, and aging.",2023-12-13,60,4,6,11,6,10,16,13,11,11,11,5,10,,
-1834,38218942,Amino acid metabolism in tumor biology and therapy.,2024-01-13,115,13,13,0,13,8,13,9,10,13,10,3,9,,
+1834,38218942,Amino acid metabolism in tumor biology and therapy.,2024-01-13,115,13,13,0,13,8,13,9,10,13,10,3,9,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 1834,38247766,Hydrogels and Wound Healing: Current and Future Prospects.,2024-01-05,105,5,7,13,5,4,9,17,14,13,4,10,13,Yes,
 1834,38343989,The Toxicity of Mercury and Its Chemical Compounds: Molecular Mechanisms and Environmental and Human Health Implications: A Comprehensive Review.,2024-01-22,70,8,13,10,12,8,9,11,14,12,4,4,9,,
 1834,38347190,Plasma proteomic profiles predict future dementia in healthy adults.,2024-02-12,159,14,8,9,8,7,11,5,8,13,15,5,11,,
@@ -1971,7 +1971,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 1970,37948650,The Chemistry Behind the Folin-Ciocalteu Method for the Estimation of (Poly)phenol Content in Food: Total Phenolic Intake in a Mediterranean Dietary Pattern.,2023-11-10,114,6,11,8,5,4,13,6,8,11,14,12,12,,
 1970,37965432,Life expectancy and years of potential life lost in people with mental disorders: a systematic review and meta-analysis.,2023-10-31,97,9,10,10,8,8,10,14,12,9,7,6,7,,
 1970,38152897,Social Determinants of Health and Disparities in Hypertension and Cardiovascular Diseases.,2023-12-28,60,11,4,10,13,6,6,13,14,8,13,2,10,,
-1970,38169466,Cyclical palmitoylation regulates TLR9 signalling and systemic autoimmunity in mice.,2024-01-02,80,16,14,9,10,11,22,13,7,16,14,-21,-1,,
+1970,38169466,Cyclical palmitoylation regulates TLR9 signalling and systemic autoimmunity in mice.,2024-01-02,80,16,14,9,10,11,22,13,7,16,14,-21,-1,,"iCite correction, drop of 21 in Sep 2026"
 1970,38236955,Near-unity NIR phosphorescent quantum yield from a room-temperature solvated metal nanocluster.,2024-01-18,125,10,8,12,20,14,3,9,3,14,7,5,5,,
 1970,38275986,Sporting Mind: The Interplay of Physical Activity and Psychological Health.,2024-01-22,87,9,6,12,9,7,15,6,8,10,12,7,9,,
 1970,38280217,Unveiling Colitis: A Journey through the Dextran Sodium Sulfate-induced Model.,2024-05-02,90,2,12,11,9,5,7,9,8,12,14,8,13,Yes,
@@ -2004,7 +2004,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 2000,38123151,The Concise Guide to PHARMACOLOGY 2023/24: G protein-coupled receptors.,2023-10,300,11,19,19,19,6,7,3,6,7,6,1,5,,
 2000,38195689,Intratumoural microbiota: a new frontier in cancer development and therapy.,2024-01-10,117,2,13,15,11,5,8,12,11,10,9,6,7,,
 2000,38195752,"Lymph-node-targeted, mKRAS-specific amphiphile vaccine in pancreatic and colorectal cancer: the phase 1 AMPLIFY-201 trial.",2024-01-09,134,12,9,10,9,4,12,8,16,5,8,7,9,,
-2000,38218174,Myocardial ischemia/reperfusion: Translational pathophysiology of ischemic heart disease.,2024-01-12,112,9,3,0,16,12,12,11,13,16,5,5,7,,
+2000,38218174,Myocardial ischemia/reperfusion: Translational pathophysiology of ischemic heart disease.,2024-01-12,112,9,3,0,16,12,12,11,13,16,5,5,7,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 2000,38265880,Acetaminophen Hepatotoxicity: Paradigm for Understanding Mechanisms of Drug-Induced Liver Injury.,2024-01-24,89,7,9,11,6,10,13,14,9,12,10,3,5,,
 2000,38355974,Validation of biomarkers of aging.,2024-02-14,165,7,9,9,4,8,17,9,11,18,7,1,9,,
 2000,38382032,"The Rise of Boron-Containing Compounds: Advancements in Synthesis, Medicinal Chemistry, and Emerging Pharmacology.",2024-02-21,113,15,6,11,4,7,15,14,7,14,5,4,7,,
@@ -2248,7 +2248,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 2196,41712677,2026 AHA/ACC/ACCP/ACEP/CHEST/SCAI/SHM/SIR/SVM/SVN Guideline for the Evaluation and Management of Acute Pulmonary Embolism in Adults: A Report of the American College of Cardiology/American Heart Association Joint Committee on Clinical Practice Guidelines.,2026-02-19,0,0,0,0,0,0,4,12,14,24,19,10,21,New,
 2248,37966285,Two Phase 3 Trials of Gantenerumab in Early Alzheimer's Disease.,2023-11-16,168,8,6,11,10,8,8,11,9,10,11,7,4,,
 2248,38008103,Mycoplasma pneumoniae: delayed re-emergence after COVID-19 pandemic restrictions.,2023-11-23,146,17,9,16,8,8,8,4,10,7,6,1,9,,
-2248,38167627,Discovering biomarkers associated and predicting cardiovascular disease with high accuracy using a novel nexus of machine learning techniques for precision medicine.,2024-01-02,153,24,26,27,4,-2,18,5,-8,10,44,-47,2,,
+2248,38167627,Discovering biomarkers associated and predicting cardiovascular disease with high accuracy using a novel nexus of machine learning techniques for precision medicine.,2024-01-02,153,24,26,27,4,-2,18,5,-8,10,44,-47,2,,"iCite correction, drop of 47 in Sep 2026"
 2248,38310127,Programmed microalgae-gel promotes chronic wound healing in diabetes.,2024-02-03,139,9,15,9,11,13,9,8,10,10,1,1,7,,
 2248,38315668,Global antimicrobial resistance and use surveillance system (GLASS 2022): Investigating the relationship between antimicrobial resistance and antimicrobial consumption data across the participating countries.,2024-02-05,72,9,7,13,7,7,13,8,12,6,8,5,8,,
 2248,38383622,Fractional quantum anomalous Hall effect in multilayer graphene.,2024-02-21,111,9,10,15,14,9,5,9,6,12,8,1,5,,
@@ -2744,7 +2744,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 2741,38001551,Gut microbiota-bile acid crosstalk regulates murine lipid metabolism via the intestinal FXR-FGF19 axis in diet-induced humanized dyslipidemia.,2023-11-25,75,6,7,5,10,9,8,12,5,7,9,2,13,,
 2741,38177281,Analysis of brain and blood single-cell transcriptomics in acute and subacute phases after experimental stroke.,2024-01-04,99,8,9,6,2,7,8,11,7,8,12,4,11,,
 2741,38194616,"Adjuvant Abemaciclib Plus Endocrine Therapy for Hormone Receptor-Positive, Human Epidermal Growth Factor Receptor 2-Negative, High-Risk Early Breast Cancer: Results From a Preplanned monarchE Overall Survival Interim Analysis, Including 5-Year Efficacy Outcomes.",2024-01-09,126,12,14,5,7,5,9,7,10,7,6,4,7,,
-2741,38218819,Interacting and joint effects of triglyceride-glucose index (TyG) and body mass index on stroke risk and the mediating role of TyG in middle-aged and older Chinese adults: a nationwide prospective cohort study.,2024-01-13,111,8,8,0,12,9,11,6,6,11,11,5,6,,
+2741,38218819,Interacting and joint effects of triglyceride-glucose index (TyG) and body mass index on stroke risk and the mediating role of TyG in middle-aged and older Chinese adults: a nationwide prospective cohort study.,2024-01-13,111,8,8,0,12,9,11,6,6,11,11,5,6,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 2741,38245513,Engineering tumor-colonizing E. coli Nissle 1917 for detection and treatment of colorectal neoplasia.,2024-01-20,74,8,15,8,4,11,9,6,8,10,4,4,6,,
 2741,38273888,Identification and validation of an explainable prediction model of acute kidney injury with prognostic implications in critically ill children: a prospective multicenter cohort study.,2024-01-05,96,9,7,14,5,7,5,9,4,11,9,7,6,,
 2741,38383092,Sex Differences in Association of Physical Activity With All-Cause and Cardiovascular Mortality.,2024-02-27,112,8,10,13,7,11,7,8,3,3,7,6,10,,
@@ -3279,7 +3279,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 3226,39651980,14. Children and Adolescents: Standards of Care in Diabetes-2025.,2025-01-01,55,11,6,6,7,8,12,5,4,5,6,2,13,,
 3226,39663448,Neutralizing GDF-15 can overcome anti-PD-1 and anti-PD-L1 resistance in solid tumours.,2024-12-11,36,8,5,7,6,6,11,2,3,16,7,5,9,,
 3226,39724105,Deep Learning Model for Predicting Immunotherapy Response in Advanced Non-Small Cell Lung Cancer.,2025-02-01,21,6,5,7,6,4,5,10,10,14,9,6,3,Yes,
-3226,39747330,Cytosolic phospholipase A2 in infiltrating monocyte derived macrophages does not impair recovery after spinal cord injury in female mice.,2025-01-02,44,16,24,26,14,-2,13,1,-9,5,36,-40,1,,
+3226,39747330,Cytosolic phospholipase A2 in infiltrating monocyte derived macrophages does not impair recovery after spinal cord injury in female mice.,2025-01-02,44,16,24,26,14,-2,13,1,-9,5,36,-40,1,,"iCite correction, drop of 40 in Sep 2026"
 3226,39753753,Treatment advances across the cervical cancer spectrum.,2025-01-03,23,7,5,7,7,4,9,6,7,14,7,6,6,,
 3226,39848963,Role of macrophage in intervertebral disc degeneration.,2025-01-23,17,3,8,8,5,6,7,8,9,5,13,6,7,,
 3226,40027477,Gut-X axis.,2025-02-26,22,3,5,5,11,9,4,7,8,5,8,10,10,,
@@ -4297,7 +4297,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 4221,39661386,Global Healthspan-Lifespan Gaps Among 183 World Health Organization Member States.,2024-12-02,34,5,9,7,7,6,5,7,4,8,5,9,2,,
 4221,39674187,Endovascular therapy for acute vertebrobasilar occlusion (VERITAS): a systematic review and individual patient data meta-analysis.,2024-12-12,31,7,6,8,9,6,5,8,5,8,4,4,4,,
 4221,39722028,Current and future immunotherapy for breast cancer.,2024-12-25,15,4,6,8,5,7,6,7,6,8,7,4,6,,
-4221,39806059,Year in review 2024.,2025-01,12,5,15,13,9,0,5,2,18,0,18,-11,0,,
+4221,39806059,Year in review 2024.,2025-01,12,5,15,13,9,0,5,2,18,0,18,-11,0,,"iCite correction, drop of 11 in Sep 2026"
 4221,39851066,Assessing the Efficacy of Pyrolysis-Gas Chromatography-Mass Spectrometry for Nanoplastic and Microplastic Analysis in Human Blood.,2025-01-24,12,5,0,9,2,9,6,7,9,11,5,3,8,Yes,
 4221,39903735,Comparison of pharmacological therapies in metabolic dysfunction-associated steatohepatitis for fibrosis regression and MASH resolution: Systematic review and network meta-analysis.,2025-02-04,24,4,5,6,4,8,9,4,11,5,7,4,7,,
 4221,39920130,Molecular mechanisms in liver repair and regeneration: from physiology to therapeutics.,2025-02-08,36,2,3,5,6,8,5,7,9,8,4,7,10,Yes,
@@ -5032,7 +5032,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 5014,38171420,Recent advances and clinical translation of liposomal delivery systems in cancer therapy.,2024-01-01,68,9,6,10,10,9,4,2,8,5,3,1,1,,
 5014,38172932,Encapsulation and assessment of therapeutic cargo in engineered exosomes: a systematic review.,2024-01-03,56,2,3,7,8,8,8,8,5,5,6,2,6,,
 5014,38216757,Efficacy and safety of JAK inhibitors in rheumatoid arthritis: update for the practising clinician.,2024-01-12,69,3,6,3,3,8,9,8,3,9,4,3,9,,
-5014,38218192,"Actinium-225-PSMA radioligand therapy of metastatic castration-resistant prostate cancer (WARMTH Act): a multicentre, retrospective study.",2024-01-11,99,11,2,0,15,6,7,3,8,5,4,3,4,,
+5014,38218192,"Actinium-225-PSMA radioligand therapy of metastatic castration-resistant prostate cancer (WARMTH Act): a multicentre, retrospective study.",2024-01-11,99,11,2,0,15,6,7,3,8,5,4,3,4,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 5014,38260243,Nano-Drug Delivery Systems Based on Natural Products.,2024-01-18,53,5,4,4,6,6,4,8,8,5,6,4,8,,
 5014,38273127,New immune cell engagers for cancer immunotherapy.,2024-01-25,99,8,4,7,9,9,4,6,7,5,4,2,3,,
 5014,38291304,Targeted activation of ferroptosis in colorectal cancer via LGR4 targeting overcomes acquired drug resistance.,2024-01-30,61,5,3,6,9,8,8,3,8,7,7,-1,5,,
@@ -5677,7 +5677,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 5656,38194964,Direct observation of a condensate effect on super-enhancer controlled gene bursting.,2024-01-08,83,5,6,3,6,5,8,8,7,7,1,2,6,,
 5656,38198849,Nutritional regulation of microbiota-derived metabolites: Implications for immunity and inflammation.,2024-01-09,64,5,8,11,3,4,7,5,6,4,5,1,5,,
 5656,38203968,Biomedical Applications of Titanium Alloys: A Comprehensive Review.,2023-12-25,69,3,9,2,3,6,5,11,7,5,3,6,4,,
-5656,38218463,Targeting the gut microbiota-related metabolites for osteoporosis: The inextricable connection of gut-bone axis.,2024-01-12,64,7,7,0,13,9,3,6,2,6,2,6,3,,
+5656,38218463,Targeting the gut microbiota-related metabolites for osteoporosis: The inextricable connection of gut-bone axis.,2024-01-12,64,7,7,0,13,9,3,6,2,6,2,6,3,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 5656,38247051,Recommended implementation of quantitative susceptibility mapping for clinical research in the brain: A consensus of the ISMRM electro-magnetic tissue properties study group.,2024-01-21,87,8,4,5,8,4,4,4,5,4,8,5,5,,
 5656,38253266,Deciphering cell states and genealogies of human haematopoiesis.,2024-01-22,69,5,5,5,8,4,4,5,3,13,7,2,3,,
 5656,38254235,The interaction between ageing and Alzheimer's disease: insights from the hallmarks of ageing.,2024-01-23,51,3,6,4,9,4,5,3,7,11,5,3,4,,
@@ -6268,7 +6268,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 6244,38198832,Unveiling Cutting-Edge Developments in Electrocatalytic Nitrate-to-Ammonia Conversion.,2024-01-17,102,5,6,8,4,8,4,7,5,6,2,3,3,,
 6244,38198845,The promising role of tumor-associated macrophages in the treatment of cancer.,2024-01-03,87,7,3,6,9,4,5,6,5,10,3,-1,4,,
 6244,38200266,Mitochondrial oxidative damage reprograms lipid metabolism of renal tubular epithelial cells in the diabetic kidney.,2024-01-11,53,1,3,2,7,5,2,5,4,7,3,11,11,Yes,
-6244,38218202,Validation of the new nomenclature of steatotic liver disease in patients with a history of excessive alcohol intake: an analysis of data from a prospective cohort study.,2024-01-11,99,3,1,0,13,7,4,6,3,6,9,3,6,,
+6244,38218202,Validation of the new nomenclature of steatotic liver disease in patients with a history of excessive alcohol intake: an analysis of data from a prospective cohort study.,2024-01-11,99,3,1,0,13,7,4,6,3,6,9,3,6,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 6244,38225365,SARS-CoV-2 biology and host interactions.,2024-01-15,108,5,2,8,5,9,7,6,2,4,6,5,2,,
 6244,38225927,Integration of Pan-Cancer Single-Cell and Spatial Transcriptomics Reveals Stromal Cell Features and Therapeutic Targets in Tumor Microenvironment.,2024-01-16,51,4,7,7,6,2,3,8,4,8,2,3,7,,
 6244,38229179,Spatial Transcriptomic and Metabolomic Landscapes of Oral Submucous Fibrosis-Derived Oral Squamous Cell Carcinoma and its Tumor Microenvironment.,2024-01-16,33,7,8,5,8,4,5,3,2,5,2,5,7,,
@@ -7669,7 +7669,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 7647,38188575,"Comparing technology and regulatory landscape of probiotics as food, dietary supplements and live biotherapeutics.",2023-12-19,28,7,2,2,4,6,4,3,5,8,2,3,9,,
 7647,38201846,"Efficacy of Probiotic Supplements on Brain-Derived Neurotrophic Factor, Inflammatory Biomarkers, Oxidative Stress and Cognitive Function in Patients with Alzheimer's Dementia: A 12-Week Randomized, Double-Blind Active-Controlled Study.",2023-12-20,50,7,4,7,6,4,3,3,6,6,3,4,2,,
 7647,38215751,A GAPDH serotonylation system couples CD8+ T cell glycolytic metabolism to antitumor immunity.,2024-01-11,49,3,7,3,8,3,6,2,4,6,6,3,4,,
-7647,38218536,Antibody blockade of activin type II receptors preserves skeletal muscle mass and enhances fat loss during GLP-1 receptor agonism.,2024-01-11,62,4,4,0,10,3,7,8,2,3,7,5,2,,
+7647,38218536,Antibody blockade of activin type II receptors preserves skeletal muscle mass and enhances fat loss during GLP-1 receptor agonism.,2024-01-11,62,4,4,0,10,3,7,8,2,3,7,5,2,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 7647,38227896,TREX1 Inactivation Unleashes Cancer Cell STING-Interferon Signaling and Promotes Antitumor Immunity.,2024-05-01,49,6,4,4,8,6,7,2,5,5,2,4,2,,
 7647,38230673,Luminescent Radicals.,2024-01-17,63,2,3,5,5,7,6,7,3,8,5,0,4,,
 7647,38230722,"Burden of Illness in People with Alzheimer's Disease: A Systematic Review of Epidemiology, Comorbidities and Mortality.",2024,77,6,8,4,7,6,2,5,4,2,5,3,3,,
@@ -7975,7 +7975,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 7951,38160753,"Pseudomonasaeruginosa antimicrobial susceptibility profiles, resistance mechanisms and international clonal lineages: update from ESGARS-ESCMID/ISARPAE Group.",2023-12-30,55,4,2,6,0,3,4,9,6,5,6,4,5,Yes,
 7951,38177758,"Integrating spatial transcriptomics data across different conditions, technologies and developmental stages.",2023-10-12,67,8,5,4,0,2,10,4,1,6,5,5,4,,
 7951,38191918,Myasthenia gravis: the changing treatment landscape in the era of molecular therapies.,2024-01-08,56,3,4,2,8,9,2,5,6,5,5,3,2,,
-7951,38203724,Zearalenone Induces Blood-Testis Barrier Damage through Endoplasmic Reticulum Stress-Mediated Paraptosis of Sertoli Cells in Goats.,2023-12-31,39,11,7,5,5,3,7,4,5,12,-20,13,2,,
+7951,38203724,Zearalenone Induces Blood-Testis Barrier Damage through Endoplasmic Reticulum Stress-Mediated Paraptosis of Sertoli Cells in Goats.,2023-12-31,39,11,7,5,5,3,7,4,5,12,-20,13,2,,"iCite correction, drop of 20 in Aug 2026"
 7951,38211637,Bioactive compounds and biological functions of medicinal plant-derived extracellular vesicles.,2024-01-09,29,4,8,5,1,1,9,6,0,5,7,4,4,,
 7951,38212634,A new genomic framework to categorize pediatric acute myeloid leukemia.,2024-01-11,57,10,3,7,4,1,1,4,3,12,3,3,3,,
 7951,38226837,"Hypoxia promotes non-small cell lung cancer cell stemness, migration, and invasion via promoting glycolysis by lactylation of SOX9.",2024-01-16,51,6,5,11,3,2,6,6,5,2,1,4,3,,
@@ -10980,7 +10980,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 10929,38181123,Worldwide research trends on tumor burden and immunotherapy: a bibliometric analysis.,2024-03-01,64,9,9,3,3,3,2,5,2,4,2,1,3,,
 10929,38181797,Integrative analysis of neuroblastoma by single-cell RNA sequencing identifies the NECTIN2-TIGIT axis as a target for immunotherapy.,2024-01-04,56,3,3,2,3,5,4,2,3,9,3,2,7,,
 10929,38194058,Can Artificial Intelligence Improve the Readability of Patient Education Materials on Aortic Stenosis? A Pilot Study.,2024-01-09,47,4,4,5,6,5,3,1,6,5,3,0,4,,
-10929,38218783,Signaling pathways and potential therapeutic targets in acute respiratory distress syndrome (ARDS).,2024-01-13,41,2,2,0,7,0,7,4,4,7,5,7,1,Yes,
+10929,38218783,Signaling pathways and potential therapeutic targets in acute respiratory distress syndrome (ARDS).,2024-01-13,41,2,2,0,7,0,7,4,4,7,5,7,1,Yes,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 10929,38225620,Engaging leadership and nurse well-being: the role of the work environment and work motivation-a cross-sectional study.,2024-01-15,30,1,2,4,2,4,8,3,5,5,3,7,2,,
 10929,38225709,Outer Membrane Vesicles Released from Garlic Exosome-like Nanoparticles (GaELNs) Train Gut Bacteria that Reverses Type 2 Diabetes via the Gut-Brain Axis.,2024-01-15,36,2,7,4,4,4,5,4,5,4,1,1,5,,
 10929,38232645,"Acupuncture for primary insomnia: Effectiveness, safety, mechanisms and recommendations for clinical practice.",2023-12-11,28,6,7,2,3,3,4,8,3,3,0,3,4,,
@@ -11461,7 +11461,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 11428,38145874,From biological aging to functional decline: Insights into chronic inflammation and intrinsic capacity.,2023-12-23,32,4,2,4,7,4,3,5,5,4,2,3,2,,
 11428,38152949,Effects of Contact Force on Lesion Size During Pulsed Field Catheter Ablation: Histochemical Characterization of Ventricular Lesion Boundaries.,2023-12-28,54,4,4,4,6,5,4,2,2,2,1,6,5,,
 11428,38165378,"Adding the Optic Nerve in Multiple Sclerosis Diagnostic Criteria: A Longitudinal, Prospective, Multicenter Study",2023-12-13,39,2,4,1,3,7,8,5,4,4,2,5,0,,
-11428,38168620,scMD facilitates cell type deconvolution using single-cell DNA methylation references.,2024-01-02,35,7,9,4,2,1,5,1,4,5,22,-14,-1,,
+11428,38168620,scMD facilitates cell type deconvolution using single-cell DNA methylation references.,2024-01-02,35,7,9,4,2,1,5,1,4,5,22,-14,-1,,"iCite correction, drop of 14 in Sep 2026"
 11428,38169587,Current evidence and therapeutic implication of PANoptosis in cancer.,2024-01-01,51,3,2,7,3,2,7,4,5,4,2,2,4,,
 11428,38171708,Contemporary Management and Outcomes of Patients With High-Risk Pulmonary Embolism.,2024-01-02,51,2,6,4,3,3,4,4,5,7,1,3,3,,
 11428,38179728,Protocolized Natriuresis-Guided Decongestion Improves Diuretic Response: The Multicenter ENACT-HF Study.,2024-01-05,55,7,2,2,6,3,6,1,6,5,3,1,3,,
@@ -11479,7 +11479,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 11428,38201117,"Postbiotics: Functional Food Materials and Therapeutic Agents for Cancer, Diabetes, and Inflammatory Diseases.",2023-12-26,41,3,4,7,2,2,5,4,5,1,10,0,2,,
 11428,38203845,"The Role of Endocrine Disruptors Bisphenols and Phthalates in Obesity: Current Evidence, Perspectives and Controversies.",2024-01-04,51,4,4,2,1,5,5,5,2,4,2,6,5,,
 11428,38218350,The immunostimulatory nature of mRNA lipid nanoparticles.,2024-01-11,50,8,4,4,4,3,6,2,5,2,1,3,3,,
-11428,38218970,USP43 stabilizes c-Myc to promote glycolysis and metastasis in bladder cancer.,2024-01-13,38,3,2,0,9,4,4,5,1,9,4,0,4,,
+11428,38218970,USP43 stabilizes c-Myc to promote glycolysis and metastasis in bladder cancer.,2024-01-13,38,3,2,0,9,4,4,5,1,9,4,0,4,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 11428,38220031,Cardiovascular benefits of SGLT2 inhibitors and GLP-1 receptor agonists through effects on mitochondrial function and oxidative stress.,2024-01-12,55,3,2,1,4,5,3,3,8,5,3,4,4,Yes,
 11428,38234582,Biogenesis and delivery of extracellular vesicles: harnessing the power of EVs for diagnostics and therapeutics.,2024-01-03,40,2,1,5,4,4,6,6,7,2,5,0,3,,
 11428,38238609,Metabolic waypoints during T cell differentiation.,2024-01-18,49,9,2,2,5,3,5,2,0,7,6,1,3,,
@@ -12893,7 +12893,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 12514,39753950,Hypoxia promotes tumor immune evasion by suppressing MHC-I expression and antigen presentation.,2025-01-03,6,2,2,1,3,3,5,4,4,3,5,1,10,Yes,
 12514,39759971,Machine learning-driven optimization of mRNA-lipid nanoparticle vaccine quality with XGBoost/Bayesian method and ensemble model approaches.,2024-05-08,20,4,4,3,6,3,2,2,1,2,2,7,7,,
 12514,39762248,MAT2A inhibitor AG-270/S095033 in patients with advanced malignancies: a phase I trial.,2025-01-06,6,3,3,4,2,4,6,6,2,2,3,5,3,,
-12514,39762531,Making space for spatial biology in the clinic.,2025-01,6,3,11,7,6,2,1,1,1,4,19,-12,0,,
+12514,39762531,Making space for spatial biology in the clinic.,2025-01,6,3,11,7,6,2,1,1,1,4,19,-12,0,,"iCite correction, drop of 12 in Sep 2026"
 12514,39774813,How macrophage heterogeneity affects tuberculosis disease and therapy.,2025-01-07,22,2,0,3,4,2,2,5,4,7,4,5,5,Yes,
 12514,39779857,Functional evaluation and clinical classification of BRCA2 variants.,2025-01-08,11,2,4,6,4,3,6,4,3,3,1,2,5,,
 12514,39790140,"Global Cardiac Surgical Volume and Gaps: Trends, Targets, and Way Forward.",2023-12-09,33,3,0,6,0,5,4,3,8,6,5,3,0,Yes,
@@ -15591,7 +15591,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 15097,39810662,"Post-traumatic stress disorder: evolving conceptualization and evidence, and future research directions.",2025-02,25,2,3,2,2,2,1,6,10,2,4,3,2,Yes,
 15097,39813642,Fracture Prevention with Infrequent Zoledronate in Women 50 to 60 Years of Age.,2025-01-16,16,3,3,2,3,3,8,2,3,4,2,3,3,,
 15097,39814982,Clinical practice recommendations for the diagnosis and management of X-linked hypophosphataemia.,2025-01-15,15,1,0,4,4,1,9,5,5,4,1,3,2,,
-15097,39819478,"Impact of ""Enhanced Recovery After Surgery"" (ERAS) protocols vs. traditional perioperative care on patient outcomes after colorectal surgery: a systematic review.",2025-01-16,12,2,4,0,5,3,1,6,4,7,2,3,2,Yes,
+15097,39819478,"Impact of ""Enhanced Recovery After Surgery"" (ERAS) protocols vs. traditional perioperative care on patient outcomes after colorectal surgery: a systematic review.",2025-01-16,12,2,4,0,5,3,1,6,4,7,2,3,2,Yes,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 15097,39824181,"Immune-cell signatures of persistent inflammation, immunosuppression, and catabolism syndrome after sepsis.",2025-01-16,7,2,3,2,2,2,6,4,5,1,2,4,6,,
 15097,39824204,Outcomes after medical treatment for primary aldosteronism: an international consensus and analysis of treatment response in an international cohort.,2025-01-14,22,2,3,3,6,4,4,2,3,7,2,3,0,,
 15097,39824853,Yttrium-doped NiMo-MoO2 heterostructure electrocatalysts for hydrogen production from alkaline seawater.,2025-01-17,13,2,0,7,2,5,1,5,2,6,4,3,2,,
@@ -18691,7 +18691,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 18584,38211945,Immunology of Kidney Disease.,2024-06-14,19,1,2,4,1,2,2,6,2,4,2,2,7,Yes,
 18584,38212542,Recent advances and evolving concepts in Still's disease.,2024-01-11,34,3,0,3,3,3,4,1,2,3,3,4,6,,
 18584,38214975,Mannose-Integrated Nanoparticle Hitchhike Glucose Transporter 1 Recycling to Overcome Various Barriers of Oral Delivery for Alzheimer's Disease Therapy.,2024-01-12,39,0,3,3,2,3,5,3,3,4,2,5,2,,
-18584,38218169,"A comprehensive review on the source, ingestion route, attachment and toxicity of microplastics/nanoplastics in human systems.",2024-01-13,41,7,4,0,9,2,6,1,2,2,2,0,0,,
+18584,38218169,"A comprehensive review on the source, ingestion route, attachment and toxicity of microplastics/nanoplastics in human systems.",2024-01-13,41,7,4,0,9,2,6,1,2,2,2,0,0,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 18584,38219911,Microneedle-mediated nose-to-brain drug delivery for improved Alzheimer's disease treatment.,2024-01-18,33,1,4,4,1,3,6,2,2,3,2,6,1,,
 18584,38221513,Anaesthetic efficacy and postinduction hypotension with remimazolam compared with propofol: a multicentre randomised controlled trial.,2024-01-14,49,5,6,2,3,2,4,0,4,2,3,2,2,,
 18584,38224993,"Rheumatoid Arthritis: The Continuum of Disease and Strategies for Prediction, Early Intervention, and Prevention.",2024-04-01,20,1,4,1,6,2,3,5,4,7,0,0,2,,
@@ -18928,7 +18928,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 18584,38821718,Nivolumab plus relatlimab in patients with previously treated microsatellite instability-high/mismatch repair-deficient metastatic colorectal cancer: the phase II CheckMate 142 study.,2024-05-31,23,3,1,4,5,2,2,2,9,4,2,1,0,,
 18584,38822351,"N6-methyladenosine-modified SENP1, identified by IGF2BP3, is a novel molecular marker in acute myeloid leukemia and aggravates progression by activating AKT signal via de-SUMOylating HDAC2.",2024-05-31,16,5,5,4,2,5,2,4,2,2,3,1,0,,
 18584,38822563,Recent Advances in Digital Technology in Implant Dentistry.,2024-05-31,20,4,7,2,1,1,2,5,2,5,3,0,3,,
-18584,38826717,"Live virus neutralizing antibodies against pre and post Omicron strains in food and retail workers in Québec, Canada.",2024-05-21,1,0,0,0,0,0,0,1,0,5,65,-36,0,Yes,
+18584,38826717,"Live virus neutralizing antibodies against pre and post Omicron strains in food and retail workers in Québec, Canada.",2024-05-21,1,0,0,0,0,0,0,1,0,5,65,-36,0,Yes,"iCite correction, drop of 36 in Sep 2026"
 18584,38830860,Bottlenecks in biobased approaches to plastic degradation.,2024-06-03,23,2,4,2,3,4,6,1,3,4,2,3,1,,
 18584,38831028,Osteoporosis and fracture risk are multifactorial in patients with inflammatory rheumatic diseases.,2024-06-03,30,1,4,5,3,1,4,3,4,2,3,2,3,,
 18584,38833971,Real-world outcomes with durvalumab after chemoradiotherapy in patients with unresectable stage III NSCLC: interim analysis of overall survival from PACIFIC-R.,2024-06-03,26,2,4,4,3,2,2,2,7,0,2,2,5,,
@@ -19836,7 +19836,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 19618,38387969,Long-term radiological and pulmonary function abnormalities at 3 years after COVID-19 hospitalisation: a longitudinal cohort study.,2024-07-18,23,7,1,3,3,2,2,3,3,0,3,3,4,,
 19618,38388872,Vonoprazan: A Review in Helicobacter pylori Infection.,2024-02-23,22,0,4,2,1,2,5,4,3,4,3,2,4,Yes,
 19618,38390342,"Biomedical applications of stimuli-responsive ""smart"" interpenetrating polymer network hydrogels.",2024-02-10,34,4,3,4,6,2,3,2,3,2,1,2,2,,
-19618,38390397,Integrative analysis of potential diagnostic markers and therapeutic targets for glomerulus-associated diabetic nephropathy based on cellular senescence.,2024-01-08,28,2,3,3,5,4,7,1,6,4,-13,11,1,,
+19618,38390397,Integrative analysis of potential diagnostic markers and therapeutic targets for glomerulus-associated diabetic nephropathy based on cellular senescence.,2024-01-08,28,2,3,3,5,4,7,1,6,4,-13,11,1,,"iCite correction, drop of 13 in Aug 2026"
 19618,38391878,Principles of Analytic Validation of Immunohistochemical Assays: Guideline Update.,2024-06-01,22,5,2,5,4,4,1,1,2,3,1,1,5,,
 19618,38394851,Deciphering drug resistance in gastric cancer: Potential mechanisms and future perspectives.,2024-02-22,39,0,4,4,4,3,6,2,1,1,2,4,3,,
 19618,38394936,"Precision fermentation for improving the quality, flavor, safety, and sustainability of foods.",2024-02-23,17,2,1,2,4,4,2,3,6,4,3,1,2,,
@@ -20935,7 +20935,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 20800,38214418,Targeting cancer and immune cell metabolism with the complex I inhibitors metformin and IACS-010759.,2024-01-12,23,4,2,5,1,0,4,4,3,3,2,2,3,,
 20800,38215784,Efficacy and effectiveness of antipsychotics in schizophrenia: network meta-analyses combining evidence from randomised controlled trials and real-world data.,2024-01-09,35,3,1,2,3,2,3,2,2,3,5,2,5,Yes,
 20800,38215935,Characteristics and Prognosis Factors of Pneumocystis jirovecii Pneumonia According to Underlying Disease: A Retrospective Multicenter Study.,2024-01-11,20,2,2,3,1,4,3,5,7,2,0,1,3,,
-20800,38218941,"Copper homeostasis and cuproptosis in atherosclerosis: metabolism, mechanisms and potential therapeutic strategies.",2024-01-13,43,7,2,0,4,2,5,2,2,1,0,2,6,,
+20800,38218941,"Copper homeostasis and cuproptosis in atherosclerosis: metabolism, mechanisms and potential therapeutic strategies.",2024-01-13,43,7,2,0,4,2,5,2,2,1,0,2,6,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 20800,38225822,Long term management of people with post-tuberculosis lung disease.,2024-01-01,8,4,0,2,4,2,3,3,4,6,0,4,1,,
 20800,38227177,The Use of Artificial Intelligence in Writing Scientific Review Articles.,2024-01-16,51,4,3,1,3,2,3,3,4,4,3,2,1,,
 20800,38228152,Enhanced detection of antigen-specific T cells by a multiplexed AIM assay.,2024-01-15,17,4,1,2,5,2,0,1,3,5,2,3,5,Yes,
@@ -25187,7 +25187,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 23616,41571911,Clinical translation of injectable hydrogels: from bioactive polymers to long-acting drug delivery systems.,2026-01-22,0,0,0,0,0,0,2,0,4,5,2,5,13,New,
 23616,41596572,"Silver Nanoparticles in Antibacterial Research: Mechanisms, Applications, and Emerging Perspectives.",2026-01-16,0,0,0,0,0,1,1,8,2,7,4,2,6,New,
 23616,41622107,"Low intensity transcranial electric stimulation: Safety, ethical, legal regulatory and application guidelines (2017-2025: An update) - endorsed by the European Society for Brain Stimulation (ESBS) and by the International Federation for Clinical Neurophysiology (IFCN).",2025-11-23,0,0,0,0,4,1,2,4,4,4,1,7,4,New,
-23616,41627954,Ythdf2 loss in microglia aggravates ischemic retinopathy by increasing microglia activation and microvascular anomalies.,2025-10-24,0,0,0,0,2,1,7,5,10,6,-11,8,3,New,
+23616,41627954,Ythdf2 loss in microglia aggravates ischemic retinopathy by increasing microglia activation and microvascular anomalies.,2025-10-24,0,0,0,0,2,1,7,5,10,6,-11,8,3,New,"iCite correction, drop of 11 in Aug 2026"
 23616,41634413,Fast and flexible joint fine-mapping of multiple traits via the Sum of Single Effects model.,2026-02-03,0,0,0,0,8,0,2,1,1,1,2,9,7,New,
 23616,41698383,Pharmacotherapy for metabolic dysfunction-associated steatohepatitis: heart-liver co-management.,2026-02-13,0,0,0,0,0,0,4,2,2,10,6,3,4,New,
 23616,41745054,"Alginate-Based Hydrogels: Recent Progress in Preparation, Property Tuning, and Multifunctional Applications.",2026-02-21,0,0,0,0,0,0,1,3,6,4,4,4,9,New,
@@ -27072,7 +27072,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 26880,38216798,"Lipopeptides from Bacillus: unveiling biotechnological prospects-sources, properties, and diverse applications.",2024-01-13,18,1,2,2,3,1,1,3,3,3,1,4,5,Yes,
 26880,38217023,Deciphering tumor microenvironment: CXCL9 and SPP1 as crucial determinants of tumor-associated macrophage polarity and prognostic indicators.,2024-01-13,28,1,6,1,0,4,2,5,1,1,2,4,2,,
 26880,38217904,Long-term application of organic fertilizer prompting the dispersal of antibiotic resistance genes and their health risks in the soil plastisphere.,2024-01-06,42,5,1,2,2,2,5,4,1,2,2,1,2,,
-26880,38218193,Child deaths caused by Klebsiella pneumoniae in sub-Saharan Africa and south Asia: a secondary analysis of Child Health and Mortality Prevention Surveillance (CHAMPS) data.,2024-01-11,29,2,0,0,10,2,2,2,2,3,1,2,3,,
+26880,38218193,Child deaths caused by Klebsiella pneumoniae in sub-Saharan Africa and south Asia: a secondary analysis of Child Health and Mortality Prevention Surveillance (CHAMPS) data.,2024-01-11,29,2,0,0,10,2,2,2,2,3,1,2,3,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 26880,38220103,Association between social isolation and depression: Evidence from longitudinal and Mendelian randomization analyses.,2024-01-12,25,0,4,4,0,3,3,4,2,3,1,5,0,,
 26880,38220342,Rapid self-healing carboxymethyl chitosan/hyaluronic acid hydrogels with injectable ability for drug delivery.,2023-12-18,27,6,0,5,5,2,1,2,1,1,0,2,4,,
 26880,38225466,Disentanglement of single-cell data with biolord.,2024-01-15,19,1,6,2,3,2,0,3,1,1,2,4,4,,
@@ -28938,8 +28938,8 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 28755,38216553,Single-cell multi-omic analysis of the vestibular schwannoma ecosystem uncovers a nerve injury-like state.,2024-01-12,27,2,2,2,3,3,3,3,3,3,2,1,1,,
 28755,38217016,Immune evasion in cell-based immunotherapy: unraveling challenges and novel strategies.,2024-01-12,38,2,2,3,3,0,4,5,5,1,1,1,1,,
 28755,38217464,Unraveling and Harnessing the Immune Response at the Cell-Biomaterial Interface for Tissue Engineering Purposes.,2024-04-05,20,1,1,3,4,3,1,2,5,3,2,1,2,,
-28755,38218935,METTL14 contributes to acute lung injury by stabilizing NLRP3 expression in an IGF2BP2-dependent manner.,2024-01-13,20,1,4,0,7,0,2,3,3,4,2,1,1,,
-28755,38219269,Wearable Devices to Improve Physical Activity and Reduce Sedentary Behaviour: An Umbrella Review.,2024-01-14,25,1,4,0,2,3,6,4,0,2,1,3,2,,
+28755,38218935,METTL14 contributes to acute lung injury by stabilizing NLRP3 expression in an IGF2BP2-dependent manner.,2024-01-13,20,1,4,0,7,0,2,3,3,4,2,1,1,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
+28755,38219269,Wearable Devices to Improve Physical Activity and Reduce Sedentary Behaviour: An Umbrella Review.,2024-01-14,25,1,4,0,2,3,6,4,0,2,1,3,2,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 28755,38222551,Electrical Stimulation for Immunomodulation.,2023-12-20,23,2,1,2,2,2,1,4,4,4,4,2,0,Yes,
 28755,38222911,The functional roles of short chain fatty acids as postbiotics in human gut: future perspectives.,2023-08-28,23,4,2,4,2,3,0,3,1,2,1,2,4,,
 28755,38223123,The role of large language models in medical image processing: a narrative review.,2023-11-23,38,2,3,1,4,4,0,5,1,5,0,1,2,,
@@ -30748,7 +30748,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 28755,41325774,Direct RNA sequencing enables improved transcriptome assessment and tracking of RNA modifications for medical applications.,2025-11-26,0,0,2,2,0,2,1,1,2,6,2,3,7,New,
 28755,41328337,Recent advances and challenges in hydrogel-based delivery of immunomodulatory strategies for diabetic wound healing.,2026-01-01,0,0,1,0,0,1,2,6,4,2,6,2,4,New,
 28755,41330443,Oxidative stress and antioxidant therapeutic mechanisms.,2025-11-30,0,0,1,-1,0,3,1,4,4,7,1,3,5,New,
-28755,41334350,A Framework for Improving the Reliability of Black-box Variational Inference.,2024,0,0,8,2,2,0,1,1,0,1,33,-20,0,New,
+28755,41334350,A Framework for Improving the Reliability of Black-box Variational Inference.,2024,0,0,8,2,2,0,1,1,0,1,33,-20,0,New,"iCite correction, drop of 20 in Sep 2026"
 28755,41352486,Enhancing heterotrophic lutein production in Chlorella protothecoides through combined phytohormone and nitrogen strategies.,2025-12-04,0,0,0,0,0,0,3,3,5,7,5,4,1,New,
 28755,41358896,Summary of Revisions: Standards of Care in Diabetes-2026.,2026-01-01,0,0,0,0,1,1,2,9,1,5,1,3,5,New,
 28755,41369617,"Diagnosis and Management of Cardiovascular Adverse Effects of Targeted Oncology Therapies: Bruton's Tyrosine Kinase, Immune Checkpoint, and Vascular Endothelial Growth Factor Inhibitors: 2025 ACC Concise Clinical Guidance: A Report of the American College of Cardiology Solution Set Oversight Committee.",2025-12-10,0,0,0,1,0,0,1,2,5,5,4,2,8,New,
@@ -32241,7 +32241,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 30784,39791759,The Estrogen-Immune Interface in Endometriosis.,2025-01-06,13,3,1,0,5,4,1,1,1,5,2,2,2,,
 30784,39793613,Real-world effectiveness and safety of bulevirtide monotherapy for up to 96 weeks in patients with HDV-related cirrhosis.,2025-01-08,9,2,1,3,2,2,4,4,2,4,0,1,2,,
 30784,39794547,Cell state-dependent allelic effects and contextual Mendelian randomization analysis for human brain phenotypes.,2025-01-10,5,3,2,4,0,1,2,1,2,4,3,1,4,,
-30784,39796149,Group V Chitin Deacetylases Are Responsible for the Structure and Barrier Function of the Gut Peritrophic Matrix in the Chinese Oak Silkworm Antheraea pernyi.,2024-12-31,8,3,1,0,1,8,4,4,7,4,-12,7,0,,
+30784,39796149,Group V Chitin Deacetylases Are Responsible for the Structure and Barrier Function of the Gut Peritrophic Matrix in the Chinese Oak Silkworm Antheraea pernyi.,2024-12-31,8,3,1,0,1,8,4,4,7,4,-12,7,0,,"iCite correction, drop of 12 in Aug 2026"
 30784,39796261,Pathophysiology and Management Strategies for Post-Stroke Spasticity: An Update Review.,2025-01-05,3,4,0,2,0,1,2,5,3,2,2,2,4,Yes,
 30784,39796512,Mechanistic and Therapeutic Insights into Flavonoid-Based Inhibition of Acetylcholinesterase: Implications for Neurodegenerative Diseases.,2024-12-28,10,1,0,1,0,1,6,6,3,5,0,1,3,Yes,
 30784,39797646,Comparative effectiveness and safety of single inhaler triple therapies for chronic obstructive pulmonary disease: new user cohort study.,2024-12-30,10,4,1,3,0,4,3,2,2,3,1,2,2,,
@@ -35839,7 +35839,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 35597,38215406,Elaborating the Crystal Water of Prussian Blue for Outstanding Performance of Sodium Ion Batteries.,2024-01-12,37,5,2,2,0,1,1,4,1,4,4,1,0,,
 35597,38215528,Protein dynamics underlying allosteric regulation.,2024-01-11,34,1,1,4,0,2,6,2,4,0,0,2,3,,
 35597,38216585,Global emergence of a hypervirulent carbapenem-resistant Escherichia coli ST410 clone.,2024-01-12,25,0,1,4,1,2,1,3,4,5,3,0,1,Yes,
-35597,38218939,BIDCell: Biologically-informed self-supervised learning for segmentation of subcellular spatial transcriptomics data.,2024-01-13,34,3,2,0,6,1,1,2,0,2,3,0,5,,
+35597,38218939,BIDCell: Biologically-informed self-supervised learning for segmentation of subcellular spatial transcriptomics data.,2024-01-13,34,3,2,0,6,1,1,2,0,2,3,0,5,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 35597,38221583,Choroid plexus enlargement in mild cognitive impairment on MRI: a large cohort study.,2024-01-15,18,2,5,1,3,1,5,2,1,4,1,0,0,,
 35597,38223685,Visualizing Macrophage Phenotypes and Polarization in Diseases: From Biomarkers to Molecular Probes.,2023-10-24,22,1,3,3,1,2,1,5,1,3,2,1,2,,
 35597,38224702,Nitazenes-heralding a second wave for the UK drug-related death crisis?,2024-01-12,50,1,3,1,4,2,1,4,2,5,2,0,0,,
@@ -38300,7 +38300,7 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 35597,41819088,Vitamin C inhibits ACSL4 to alleviate ferro-aging in primates.,2026-03-11,0,0,0,0,0,0,0,1,5,5,1,1,12,New,
 35597,41841706,Prehospital Whole Blood in Traumatic Hemorrhage - A Randomized Controlled Trial.,2026-03-17,0,0,0,0,0,0,0,1,2,6,2,7,7,New,
 35597,41929376,Clinical practice guidelines for postoperative pain management in adults (2024 edition).,2025-09-19,0,0,0,0,0,0,6,1,3,2,2,7,4,New,
-35597,42079493,Emergence of seasonal influenza A(H3N2) variants with immune escape potential warrants enhanced molecular and epidemiological surveillance for the 2025-2026 season.,2025-10-31,0,0,0,0,0,0,0,4,0,0,12,4,5,New,
+35597,42079493,Emergence of seasonal influenza A(H3N2) variants with immune escape potential warrants enhanced molecular and epidemiological surveillance for the 2025-2026 season.,2025-10-31,0,0,0,0,0,0,0,4,0,0,12,4,5,New,"blank in iCite for Jun 2026, Jul 2026; value carried forward, so its gain shows in the next month with a count"
 35597,42082120,Mechanisms and therapeutic potential of the cGAS-STING signaling pathway in macrophage activation and polarization.,2026-05-02,0,0,0,0,0,0,0,0,0,3,6,7,9,New,
 35597,42150060,A functional map of the human intrinsically disordered proteome.,2026-05-18,0,0,0,0,0,0,0,2,2,2,3,4,12,New,
 38305,37927901,Exosome regulation of immune response mechanism: Pros and cons in immunotherapy.,2023-10-04,44,0,0,3,1,3,2,4,2,2,0,2,5,Yes,
@@ -38616,9 +38616,9 @@ Rank,PMID,Title,Pub Date,Oct 2025 Citations,Nov 2025 Gains,Dec 2025 Gains,Jan 20
 38305,38212068,Long-Term Overall Survival After Selective Internal Radiation Therapy for Locally Advanced Hepatocellular Carcinomas: Updated Analysis of DOSISPHERE-01 Trial.,2024-02-01,23,1,0,3,2,0,2,2,2,1,3,3,5,Yes,
 38305,38217732,Tumor-infiltrating monocytic myeloid-derived suppressor cells contribute to the development of an immunosuppressive tumor microenvironment in gastric cancer.,2024-01-13,24,2,5,0,0,2,3,1,3,2,2,1,3,,
 38305,38217884,"Challenge, integration, and change: ChatGPT and future anatomical education.",2024-01-13,22,3,2,1,3,5,-1,3,3,2,0,0,3,,
-38305,38218464,"Lipid droplets, autophagy, and ageing: A cell-specific tale.",2024-01-11,12,2,4,0,4,1,2,4,4,2,0,1,0,,
-38305,38218485,Occurrence and partitioning of p-phenylenediamine antioxidants and their quinone derivatives in water and sediment.,2024-01-11,43,3,1,0,9,4,1,1,3,2,0,0,0,,
-38305,38218917,The association between non-high-density lipoprotein cholesterol to high-density lipoprotein cholesterol ratio (NHHR) and suicidal ideation in adults: a population-based study in the United States.,2024-01-13,55,4,3,0,4,3,2,2,1,2,3,0,0,,
+38305,38218464,"Lipid droplets, autophagy, and ageing: A cell-specific tale.",2024-01-11,12,2,4,0,4,1,2,4,4,2,0,1,0,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
+38305,38218485,Occurrence and partitioning of p-phenylenediamine antioxidants and their quinone derivatives in water and sediment.,2024-01-11,43,3,1,0,9,4,1,1,3,2,0,0,0,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
+38305,38218917,The association between non-high-density lipoprotein cholesterol to high-density lipoprotein cholesterol ratio (NHHR) and suicidal ideation in adults: a population-based study in the United States.,2024-01-13,55,4,3,0,4,3,2,2,1,2,3,0,0,,"blank in iCite for Jan 2026; value carried forward, so its gain shows in the next month with a count"
 38305,38219631,"The role of first trimester serum inflammatory indexes (NLR, PLR, MLR, SII, SIRI, and PIV) and the β-hCG to PAPP-A ratio in predicting preeclampsia.",2023-12-30,23,3,1,2,2,3,2,4,4,1,0,2,0,,
 38305,38219702,Clinical characteristics and surgical outcomes of cardiac myxoma: A meta-analysis of worldwide experience.,2023-12-30,21,0,1,3,3,0,3,3,5,2,2,2,0,Yes,
 38305,38224449,To kill a microRNA: emerging concepts in target-directed microRNA degradation.,2024-02-28,32,1,4,2,3,3,2,2,0,5,1,1,0,,
