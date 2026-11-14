@@ -1,0 +1,666 @@
+{
+  "tt_retracted": {
+    "message": "سُحبت هذه المقالة من الأدبيات العلمية.",
+    "description": "Hover text on the citation bar: retracted"
+  },
+  "tt_highImpact": {
+    "message": "مقالة عالية التأثير وفق تقييم الإضافة.",
+    "description": "Hover text on the citation bar: highImpact"
+  },
+  "tt_overallScore": {
+    "message": "الدرجة الإجمالية لجودة المقالة استنادًا إلى عدة مقاييس.",
+    "description": "Hover text on the citation bar: overallScore"
+  },
+  "tt_mesh": {
+    "message": "عرض مصطلحات MeSH والكلمات المفتاحية لهذه المقالة.",
+    "description": "Hover text on the citation bar: mesh"
+  },
+  "tt_new": {
+    "message": "مقالة جديدة (< 2 سنة) وفق تاريخ الإنشاء في PubMed.",
+    "description": "Hover text on the citation bar: new"
+  },
+  "tt_trending": {
+    "message": "رائجة على PubMed (ضمن أعلى 1,000 مقالة).",
+    "description": "Hover text on the citation bar: trending"
+  },
+  "tt_medline": {
+    "message": "مفهرسة في Medline.",
+    "description": "Hover text on the citation bar: medline"
+  },
+  "tt_preprint": {
+    "message": "مقالة ما قبل الطباعة (لم تخضع بعد لمراجعة الأقران).",
+    "description": "Hover text on the citation bar: preprint"
+  },
+  "tt_erratum": {
+    "message": "لها تصحيح/استدراك (ليست سحبًا).",
+    "description": "Hover text on the citation bar: erratum"
+  },
+  "tt_retractionNotice": {
+    "message": "هذا إشعار سحب: يسحب مقالة أخرى (انقر لمعرفة أيّها).",
+    "description": "Hover text on the citation bar: this record is a retraction notice"
+  },
+  "tt_erratumNotice": {
+    "message": "هذا إشعار تصحيح: يصحّح مقالة أخرى (انقر لمعرفة أيّها).",
+    "description": "Hover text on the citation bar: this record is an erratum notice"
+  },
+  "tt_concern": {
+    "message": "إبداء قلق: نشرت المجلة تحذيرًا رسميًا بشأن هذه المقالة (ليس سحبًا). انقر لعرض الإشعار.",
+    "description": "Hover text on the citation bar: bold E, this article has an expression of concern"
+  },
+  "tt_concernErratum": {
+    "message": "إبداء قلق: نشرت المجلة تحذيرًا رسميًا بشأن هذه المقالة (ليس سحبًا). ولها أيضًا تصحيح. انقر لعرض الاثنين.",
+    "description": "Hover text on the citation bar: bold E, this article has an expression of concern and also an erratum"
+  },
+  "tt_concernNotice": {
+    "message": "هذا إبداء قلق: يحذّر بشأن مقالة أخرى (انقر لمعرفة أيّها).",
+    "description": "Hover text on the citation bar: bold E, this record is an expression of concern notice"
+  },
+  "tt_cited": {
+    "message": "عدد الاستشهادات من iCite التابع لـ NIH.",
+    "description": "Hover text on the citation bar: cited"
+  },
+  "tt_rcr": {
+    "message": "نسبة الاستشهاد النسبية (RCR) - التأثير العلمي مُعايَرًا حسب المجال.",
+    "description": "Hover text on the citation bar: rcr"
+  },
+  "tt_ic": {
+    "message": "الاستشهادات المؤثرة من Semantic Scholar.",
+    "description": "Hover text on the citation bar: ic"
+  },
+  "tt_alt": {
+    "message": "درجة الاهتمام Altmetric (الإشارات في وسائل التواصل والأخبار).",
+    "description": "Hover text on the citation bar: alt"
+  },
+  "tt_similar": {
+    "message": "مقالات مشابهة من PubMed.",
+    "description": "Hover text on the citation bar: similar"
+  },
+  "tt_citedBy": {
+    "message": "مقالات في PubMed تستشهد بهذه الورقة.",
+    "description": "Hover text on the citation bar: citedBy"
+  },
+  "tt_scholar": {
+    "message": "رابط Google Scholar عبر DOI.",
+    "description": "Hover text on the citation bar: scholar"
+  },
+  "tt_cp": {
+    "message": "الروابط (Connections) — مخطط استشهادات تفاعلي لهذه المقالة (doilookup.com).",
+    "description": "Hover text on the citation bar: cp"
+  },
+  "tt_abstract": {
+    "message": "عرض الملخص، مع الملخص المبسّط والنص الكامل إن وُجدا.",
+    "description": "Hover text on the citation bar: abstract"
+  },
+  "tt_link": {
+    "message": "رابط النص الكامل (الأخضر = مجاني).",
+    "description": "Hover text on the citation bar: link"
+  },
+  "tt_topJournal": {
+    "message": "من قائمة مختارة لأبرز المجلات الطبية.",
+    "description": "Hover text on the citation bar: topJournal"
+  },
+  "tt_sjr": {
+    "message": "تصنيف SCImago للمجلات (SJR) - درجة حضور المجلة.",
+    "description": "Hover text on the citation bar: sjr"
+  },
+  "tt_sjrQuartile": {
+    "message": "أفضل ربع {q}: أفضل ترتيب SJR للمجلة ضمن مجالاتها الموضوعية (Q1 = أعلى 25%).",
+    "description": "Hover text on the citation bar: shown before the sjr text when the journal has a best quartile. Keep {q}"
+  },
+  "tt_rank": {
+    "message": "ترتيب المجلة وفق بيانات الإضافة منذ بداية العام.",
+    "description": "Hover text on the citation bar: rank"
+  },
+  "tt_articleCount": {
+    "message": "عدد مقالات المجلة المنشورة خلال فترة الترتيب.",
+    "description": "Hover text on the citation bar: articleCount"
+  },
+  "tt_medlinePct": {
+    "message": "نسبة المفهرس في Medline؛ قد لا تكون المقالات الحديثة مفهرسة بعد.",
+    "description": "Hover text on the citation bar: medlinePct"
+  },
+  "tt_freePct": {
+    "message": "نسبة مقالات المجلة ذات النص الكامل المجاني.",
+    "description": "Hover text on the citation bar: freePct"
+  },
+  "tt_xout": {
+    "message": "استبعاد المراجعات والمقالات المسحوبة والافتتاحيات وغيرها، وهي 25% من PubMed",
+    "description": "Hover text on the citation bar: xout"
+  },
+  "tt_keySearches": {
+    "message": "عمليات بحث رئيسية: عمليات بحث جاهزة في PubMed حسب الموضوع",
+    "description": "Hover text on the citation bar: keySearches"
+  },
+  "tt_citationReport": {
+    "message": "إنشاء تقرير استشهادات مفصّل.",
+    "description": "Hover text on the citation bar: citationReport"
+  },
+  "tt_authors": {
+    "message": "عرض معلومات المؤلفين ومقاييسهم",
+    "description": "Hover text on the citation bar: authors"
+  },
+  "tt_pubmedReports": {
+    "message": "تقارير PubMed (نظرات عامة رئيسية)",
+    "description": "Hover text on the citation bar: pubmedReports"
+  },
+  "tt_pick": {
+    "message": "إضافة إلى قائمة التصدير. يجلب سجل PubMed الكامل، بما فيه الملخص وMeSH - يستغرق لحظة.",
+    "description": "Hover text on the citation bar: pick"
+  },
+  "tt_pickList": {
+    "message": "فتح قائمة التصدير - راجِع واحذف ونزّل بصيغة .nbib لبرنامج Zotero.",
+    "description": "Hover text on the citation bar: pickList"
+  },
+  "tt_pdfFree": {
+    "message": "عرض ملف PDF المجاني من PMC • مصادر أخرى قريبًا",
+    "description": "Hover text on the citation bar: pdfFree"
+  },
+  "tt_pdfNone": {
+    "message": "لم يُعثر على ملف PDF مباشر • جرّب زر الرابط لفتح صفحة المقالة وتنزيل PDF • مصادر أخرى قريبًا",
+    "description": "Hover text on the citation bar: pdfNone"
+  },
+  "tt_doiLookup": {
+    "message": "بحث DOI كامل على doilookup.com",
+    "description": "Hover text on the citation bar: doiLookup"
+  },
+  "tt_doiNone": {
+    "message": "لا يوجد DOI مرتبط",
+    "description": "Hover text on the citation bar: doiNone"
+  },
+  "tt_help": {
+    "message": "انقر للحصول على مساعدة مفصّلة",
+    "description": "Hover text on the citation bar: help"
+  },
+  "tt_language": {
+    "message": "اللغة / Language / Idioma / 语言 / 言語 / 언어 / Langue / भाषा / ভাষা",
+    "description": "Hover text on the citation bar: language"
+  },
+  "tt_searchEnglish": {
+    "message": "البحث في PubMed يعمل باللغة الإنجليزية فقط. استخدم مصطلحات بحث باللغة الإنجليزية.",
+    "description": "One-time notice when the bar language is not English: PubMed search needs English terms"
+  },
+  "tt_icite12": {
+    "message": "الاستشهادات الشهرية، {from} – {to} (iCite). انقر لفتح الرسم البياني.",
+    "description": "Hover text on the citation bar: 12-month chart icon (blue, data found). {from} and {to} are months"
+  },
+  "tt_icite12None": {
+    "message": "لا يوجد رسم بياني شهري لهذه المقالة. تشمل الرسوم البيانية فقط المقالات المضافة إلى PubMed خلال آخر 36 شهرًا والتي تقع ضمن أعلى 40,000 مقالة من حيث الاستشهادات المكتسبة خلال آخر 12 شهرًا.",
+    "description": "Hover text on the citation bar: 12-month chart icon (grey, article not in the data)"
+  },
+  "tt_icite12Loading": {
+    "message": "ما زالت بيانات الاستشهادات الشهرية قيد التحميل. أعد تحميل الصفحة بعد قليل لرؤية أيقونة الرسم البياني.",
+    "description": "Hover text on the citation bar: 12-month chart icon (grey, data not loaded yet)"
+  },
+  "tt_icite12Title": {
+    "message": "الاستشهادات حسب الشهر (iCite)",
+    "description": "12-month chart panel: heading"
+  },
+  "tt_icite12Summary": {
+    "message": "المرتبة {rank} حسب الاستشهادات المكتسبة في 12 شهرًا · +{gain} مكتسبة · {total} إجمالًا حتى {to}",
+    "description": "12-month chart panel: summary line. Keep {rank}, {gain}, {total} and {to}"
+  },
+  "tt_icite12Rising": {
+    "message": "اتجاه مرتفع: الاستشهادات اليومية في آخر 6 أشهر لا تقل عن 1.5 ضعف مثيلتها في أول 6 أشهر.",
+    "description": "12-month chart panel: High Trend = Yes"
+  },
+  "tt_icite12New": {
+    "message": "جديد: لم تكن في iCite عند بداية الفترة، لذا تبدأ من 0.",
+    "description": "12-month chart panel: High Trend = New"
+  },
+  "tt_icite12Prior": {
+    "message": "الإجمالي قبل الشهر",
+    "description": "12-month chart panel: legend, lower (blue) part of a bar"
+  },
+  "tt_icite12Gain": {
+    "message": "المكتسب في ذلك الشهر",
+    "description": "12-month chart panel: legend, upper (orange) part of a bar"
+  },
+  "tt_icite12Drop": {
+    "message": "تصحيح من iCite (انخفض العدد)",
+    "description": "12-month chart panel: legend, dashed red box for a month that went down"
+  },
+  "tt_icite12Report": {
+    "message": "القائمة الكاملة: تقرير PubMed iCite Citation Gains",
+    "description": "12-month chart panel: link to the website report"
+  },
+  "tt_authorRetractions": {
+    "message": "هذا يخص المؤلف وليس هذه المقالة: لدى المؤلف الأول أو الأخير مقالات أخرى مسحوبة. انقر على Author ثم على عدد المقالات المسحوبة للتفاصيل.",
+    "description": "Hover text on the citation bar: Author outlined in red because the first or last author has other retracted papers. Keep the word Author"
+  },
+  "tt_journal": {
+    "message": "المجلة: الاسم الكامل وISSN وNLM ID والترتيب في Journal Ranking ومقالات هذا العام مقارنة بالعام الماضي ونسب Medline والنص الكامل المجاني وORCID وعدد المقالات المسحوبة.",
+    "description": "Hover text on the citation bar: J (journal information panel)"
+  },
+  "pp_close": {
+    "message": "إغلاق",
+    "description": "Popup close button hover"
+  },
+  "pp_language": {
+    "message": "اللغة / Language / Idioma / 语言 / 言語 / 언어 / Langue / भाषा / ভাষা",
+    "description": "Popup language button hover"
+  },
+  "pp_toggleOn": {
+    "message": "-شريط الاستشهادات مُفعَّل-",
+    "description": "Popup toggle button, bar on"
+  },
+  "pp_toggleOff": {
+    "message": "-شريط الاستشهادات مُعطَّل-",
+    "description": "Popup toggle button, bar off"
+  },
+  "pp_toggleTitle": {
+    "message": "تشغيل شريط الاستشهادات أو إيقافه في صفحات PubMed.",
+    "description": "Popup toggle button hover"
+  },
+  "pp_impactTitle": {
+    "message": "أدنى درجة يستخدمها «عالي التأثير فقط» و«فحص 1,000». تستند إلى فهرسة Medline والاستشهادات وRCR وSJR للمجلة وغير ذلك.",
+    "description": "Popup Impact Score pull-down hover"
+  },
+  "pp_impactOption": {
+    "message": "درجة التأثير {n} أو أكثر",
+    "description": "Popup Impact Score option; {n} is the number"
+  },
+  "pp_impactDefault": {
+    "message": "(افتراضي)",
+    "description": "Popup Impact Score option: marks the default"
+  },
+  "pp_highImpact": {
+    "message": "عالي التأثير فقط (تصفية الأخضر)",
+    "description": "Popup button"
+  },
+  "pp_highImpactTitle": {
+    "message": "عرض المقالات عالية التأثير فقط - ذات الخلفية الخضراء - التي تبلغ درجة التأثير المحددة أعلاه أو تتجاوزها.",
+    "description": "Popup button hover"
+  },
+  "pp_return": {
+    "message": "رجوع",
+    "description": "Popup Return buttons"
+  },
+  "pp_returnTitle": {
+    "message": "العودة إلى الصفحة التي كنت فيها قبل أن يفتح «عالي التأثير فقط» هذه الصفحة.",
+    "description": "Popup Return button hover (High Impact)"
+  },
+  "pp_scan1000": {
+    "message": "فحص 1,000 (تصفية الأخضر)",
+    "description": "Popup button"
+  },
+  "pp_scan1000Title": {
+    "message": "فحص 1,000 نتيجة بحثًا عن المقالات عالية التأثير",
+    "description": "Popup button hover"
+  },
+  "pp_returnScanTitle": {
+    "message": "العودة إلى البحث الذي بدأ منه «فحص 1,000».",
+    "description": "Popup Return button hover (Scan 1,000)"
+  },
+  "pp_termsPlaceholder": {
+    "message": "أدخل صيغًا مختلفة لمفهوم واحد، كل صيغة في سطر (مثال: vitamin B1, thiamine, B-1) بحد أقصى 20 عنصرًا  ★ = مصطلح مقترح (عدد نتائج مرتفع + مُتحقَّق منه في MeSH)",
+    "description": "Popup search terms box placeholder"
+  },
+  "pp_yearTitle": {
+    "message": "نطاق السنوات المطبَّق في «تحليل المصطلحات» و«توسيع».",
+    "description": "Popup year pull-down hover"
+  },
+  "pp_yearAll": {
+    "message": "كل السنوات",
+    "description": "Popup year option"
+  },
+  "pp_year5": {
+    "message": "آخر 5 سنوات",
+    "description": "Popup year option"
+  },
+  "pp_year10": {
+    "message": "آخر 10 سنوات",
+    "description": "Popup year option"
+  },
+  "pp_year20": {
+    "message": "آخر 20 سنة",
+    "description": "Popup year option"
+  },
+  "pp_analyze": {
+    "message": "تحليل المصطلحات",
+    "description": "Popup button"
+  },
+  "pp_analyzeTitle": {
+    "message": "تقسيم هذا البحث إلى مصطلحاته المنفصلة وعرض عدد النتائج لكل منها.",
+    "description": "Popup button hover"
+  },
+  "pp_expand": {
+    "message": "توسيع...",
+    "description": "Popup button"
+  },
+  "pp_expandTitle": {
+    "message": "البحث بالمصطلحات نفسها خارج PubMed: OpenAlex وClinicalTrials.gov وGoogle Scholar.",
+    "description": "Popup button hover"
+  },
+  "pp_issues": {
+    "message": "عند حدوث مشكلات: حدّث الصفحة، أو استخدم زر «إعادة ضبط الإضافة».",
+    "description": "Popup line under the status message"
+  },
+  "pp_training": {
+    "message": "تدريب PubMed الرسمي",
+    "description": "Popup link"
+  },
+  "pp_copySearchRefTitle": {
+    "message": "انسخ مرجعًا لبحث PubMed في علامة التبويب هذه: قاعدة البيانات وتاريخ البحث والاستعلام والمرشحات وعدد النتائج (PRISMA-S)",
+    "description": "Popup: hover text of the copy-search-reference button"
+  },
+  "pp_copySearchRefNone": {
+    "message": "افتح بحثًا في PubMed في علامة التبويب هذه أولًا، ثم انسخ مرجعه.",
+    "description": "Popup: shown when the copy-search-reference button is clicked away from a PubMed search"
+  },
+  "pp_ncbiUpdates": {
+    "message": "تحديثات NCBI",
+    "description": "Popup link"
+  },
+  "pp_ncbiUpdatesTitle": {
+    "message": "النشرة التقنية لـ NLM، مُصفّاة لـ PubMed",
+    "description": "Popup link hover"
+  },
+  "pp_topJournals": {
+    "message": "أبرز المجلات (اختيار شخصي، دون ترتيب محدد)",
+    "description": "Popup heading"
+  },
+  "pp_journalRanking": {
+    "message": "ترتيب المجلات",
+    "description": "Popup link"
+  },
+  "pp_data": {
+    "message": "البيانات",
+    "description": "Popup button"
+  },
+  "pp_dataTitle": {
+    "message": "كل ما تحتفظ به الإضافة لهذه الصفحة: أرقام PMID أولًا، ثم جميع المقاييس والطوابع الزمنية والحقول الداخلية. إفصاح كامل، دون أي تتبّع.",
+    "description": "Popup button hover"
+  },
+  "pp_excel": {
+    "message": "Excel",
+    "description": "Popup button"
+  },
+  "pp_excelTitle": {
+    "message": "جدول مفصول بعلامات الجدولة - الصقه مباشرة في Excel أو Google Sheets",
+    "description": "Popup button hover"
+  },
+  "pp_tabList": {
+    "message": "قائمة علامات التبويب",
+    "description": "Popup button"
+  },
+  "pp_tabListTitle": {
+    "message": "فتح صفحة تسرد كل علامات التبويب المفتوحة حاليًا، مع عناوينها وروابطها.",
+    "description": "Popup button hover"
+  },
+  "pp_reset": {
+    "message": "إعادة ضبط الإضافة",
+    "description": "Popup button"
+  },
+  "pp_resetTitle": {
+    "message": "مسح البيانات المخزنة للإضافة وذاكرة Chrome المؤقتة، ثم إعادة فتح علامة التبويب هذه على الصفحة نفسها. لا يُمَسّ السجل وملفات تعريف الارتباط وكلمات المرور.",
+    "description": "Popup button hover"
+  },
+  "pp_devOff": {
+    "message": "وضع المطوّر: إيقاف",
+    "description": "Popup button, storage viewer hidden"
+  },
+  "pp_devOn": {
+    "message": "وضع المطوّر: تشغيل",
+    "description": "Popup button, storage viewer shown"
+  },
+  "pp_devTitle": {
+    "message": "إظهار عارض التخزين أو إخفاؤه، لاستكشاف الأخطاء وإصلاحها.",
+    "description": "Popup button hover"
+  },
+  "pp_supportAt": {
+    "message": "الدعم على:",
+    "description": "Popup system info"
+  },
+  "pp_chromeVersion": {
+    "message": "إصدار Chrome:",
+    "description": "Popup system info"
+  },
+  "pp_os": {
+    "message": "نظام التشغيل:",
+    "description": "Popup system info"
+  },
+  "pp_memory": {
+    "message": "الذاكرة:",
+    "description": "Popup system info"
+  },
+  "pp_bookmarks": {
+    "message": "الإشارات المرجعية:",
+    "description": "Popup system info"
+  },
+  "pp_extensions": {
+    "message": "الإضافات:",
+    "description": "Popup system info"
+  },
+  "pp_citationDefault": {
+    "message": "بحث عبر PubMed (https://pubmed.ncbi.nlm.nih.gov/) بتاريخ [التاريخ] باستخدام '[مصطلحات البحث]' أعاد [العدد] نتيجة.",
+    "description": "Popup citation line before a PubMed search is known"
+  },
+  "pp_citationRef": {
+    "message": "بحث في PubMed بتاريخ {date} عن \"{term}\": {count} نتيجة.",
+    "description": "Popup citation line; {date} {term} {count} filled in"
+  },
+  "pp_searchTermsPlaceholder": {
+    "message": "[مصطلحات البحث]",
+    "description": "Popup citation line when the URL has no term"
+  },
+  "pp_countPlaceholder": {
+    "message": "[العدد]",
+    "description": "Popup citation line when the count is unknown"
+  },
+  "pp_memoryLine": {
+    "message": "الإجمالي {total}، المستخدم {used}%، المتاح {free}",
+    "description": "Popup memory line"
+  },
+  "pp_memoryLow": {
+    "message": "الذاكرة المتاحة منخفضة. يحتفظ PubMed بكل بحث سابق في الذاكرة أثناء التصفح، لذا قد تستهلك علامة تبويب استُخدمت لعمليات بحث كثيرة قدرًا كبيرًا منها.\n\nلتحرير الذاكرة: أغلق التطبيقات التي لا تستخدمها، أو استخدم زر «إعادة ضبط الإضافة» أدناه - فهو يعيد فتح علامة التبويب هذه على الصفحة نفسها ببداية نظيفة، فتحتفظ ببحثك.",
+    "description": "Popup memory line hover when memory is low"
+  },
+  "pp_extensionsLine": {
+    "message": "{total} ({active} مُفعَّلة)",
+    "description": "Popup extensions count"
+  },
+  "pp_notAvailable": {
+    "message": "غير متاح",
+    "description": "Popup system info when unavailable"
+  },
+  "pp_errorPrefix": {
+    "message": "خطأ:",
+    "description": "Prefix on popup messages under the buttons"
+  },
+  "pp_errHighImpactLoad": {
+    "message": "تعذّر تحميل نتائج «عالي التأثير» القياسية.",
+    "description": "Popup error"
+  },
+  "pp_errHighImpactSortedLoad": {
+    "message": "تعذّر تحميل نتائج «عالي التأثير» المرتّبة.",
+    "description": "Popup error (sorted, hidden feature)"
+  },
+  "pp_errHighImpactNone": {
+    "message": "لم يُعثر على عناصر عالية التأثير. عدّل إعدادات درجة التأثير وحاول مرة أخرى.",
+    "description": "Popup error"
+  },
+  "pp_errHighImpactPage": {
+    "message": "تصفية «عالي التأثير» تعمل في صفحات PubMed فقط",
+    "description": "Popup error"
+  },
+  "pp_errReturnHighImpact": {
+    "message": "لا شيء للعودة إليه بعد - استخدم «عالي التأثير فقط (تصفية الأخضر)» أولًا.",
+    "description": "Popup error"
+  },
+  "pp_errReturnScan": {
+    "message": "لا شيء للعودة إليه بعد - شغّل «فحص 1,000» أولًا.",
+    "description": "Popup error"
+  },
+  "pp_errScanPage": {
+    "message": "«فحص 1,000» يعمل فقط في صفحات البحث أو الرائج أو المجموعات في PubMed",
+    "description": "Popup error"
+  },
+  "pp_scanWait": {
+    "message": "جارٍ فحص 1,000 نتيجة... يُرجى الانتظار.",
+    "description": "Popup progress message"
+  },
+  "pp_errScanFail": {
+    "message": "تعذّر فحص 1,000 نتيجة مرتّبة:",
+    "description": "Popup error; the reason follows"
+  },
+  "pp_errUnknown": {
+    "message": "خطأ غير معروف",
+    "description": "Popup error reason"
+  },
+  "pp_errNoTerms": {
+    "message": "يُرجى إدخال مصطلحات بحث أو DOI لتحليلها",
+    "description": "Popup error"
+  },
+  "pp_errTermLimit": {
+    "message": "الحد هو أول 20 مصطلحًا (أُدخل {n}). جارٍ معالجة أول 20...",
+    "description": "Popup message; {n} is the number entered"
+  },
+  "pp_errTab": {
+    "message": "تعذّرت قراءة علامة التبويب الحالية. يُرجى المحاولة مرة أخرى.",
+    "description": "Popup error"
+  },
+  "pp_errSpecialNeeds": {
+    "message": "يتطلب الوضع الخاص فترة زمنية في السطر 2 ومجموعة مصطلحات واحدة على الأقل",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialFirst": {
+    "message": "يجب أن يكون السطر الأول \"special:\"",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialPeriod": {
+    "message": "يجب أن تكون الفترة الزمنية بصيغة \"Last X days/months/years\" (مثال: Last 5 years)",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialRange": {
+    "message": "يجب أن تكون الفترة الزمنية بين 1 و100 يوم/شهر/سنة",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialNoGroups": {
+    "message": "لم يُعثر على مجموعات مصطلحات في الوضع الخاص",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_copied": {
+    "message": "تم النسخ!",
+    "description": "Copy button after copying"
+  },
+  "pp_copyFailed": {
+    "message": "تعذّر النسخ إلى الحافظة",
+    "description": "Copy error"
+  },
+  "pp_resetConfirm": {
+    "message": "سيؤدي هذا إلى إعادة ضبط الإضافة ومسح البيانات المخزنة مؤقتًا وإعادة فتح علامة التبويب هذه على الصفحة نفسها.\n\nلن يتأثر سجلك وملفات تعريف الارتباط وكلمات المرور المحفوظة. هل تريد المتابعة؟",
+    "description": "Reset Extension confirm box"
+  },
+  "pp_resetting": {
+    "message": "جارٍ إعادة الضبط...",
+    "description": "Reset Extension button while working"
+  },
+  "pp_resetError": {
+    "message": "خطأ: تعذّر مسح بيانات المتصفح.",
+    "description": "Reset Extension error"
+  },
+  "pp_termsHelpTitle": {
+    "message": "مساعدة مصطلحات البحث",
+    "description": "Search terms help heading"
+  },
+  "pp_termsHelpIntro": {
+    "message": "أدخل مصطلحات متشابهة، كل مصطلح في سطر (حتى 20 مصطلحًا). صُممت هذه الأداة لتحليل صيغ مختلفة لمفهوم واحد.",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpPrompt": {
+    "message": "<strong>موجّه توليد المصطلحات (انسخه واستخدمه):</strong><br>موجّه احترافي لتوليد صيغ المصطلحات العلمية - يشمل الأسماء الكيميائية والاختصارات والمستقلبات والصيغ الشائعة.",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_copyPrompt": {
+    "message": "نسخ الموجّه",
+    "description": "Search terms help button"
+  },
+  "pp_termsHelpReplace": {
+    "message": "استبدل \"Vitamin D1\" بمصطلح البحث الخاص بك",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpSpecial": {
+    "message": "<strong>الوضع الخاص:</strong><br>لنطاقات تواريخ مخصصة أو مجموعات مصطلحات متعددة، ابدأ بـ:",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_termsHelpFormat": {
+    "message": "الصيغة: \"Last X days/months/years\"",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpTip": {
+    "message": "<strong>نصيحة:</strong> يمكنك تحليل حتى 10 مجموعات مصطلحات مختلفة في الوضع الخاص - افصل كل مجموعة بسطر فارغ.",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_termsHelpExample": {
+    "message": "<strong>مثال - فيتامينات B (آخر 30 يومًا):</strong>",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_copyExample": {
+    "message": "نسخ المثال",
+    "description": "Search terms help button"
+  },
+  "pp_expandHeadlineOne": {
+    "message": "ستُفتح علامة تبويب جديدة واحدة:",
+    "description": "Expand dialog"
+  },
+  "pp_expandHeadlineMany": {
+    "message": "ستُفتح {n} علامات تبويب جديدة:",
+    "description": "Expand dialog; {n} is the number"
+  },
+  "pp_expandSub": {
+    "message": "ألغِ تحديد ما لا تحتاج إليه. سيُحفظ اختيارك.",
+    "description": "Expand dialog"
+  },
+  "pp_expandOpenAlexDesc": {
+    "message": "مقالات غير مفهرسة في PubMed",
+    "description": "Expand dialog"
+  },
+  "pp_expandTrialsDesc": {
+    "message": "التجارب السريرية المطابقة",
+    "description": "Expand dialog"
+  },
+  "pp_expandScholarDesc": {
+    "message": "البحث نفسه على Scholar",
+    "description": "Expand dialog"
+  },
+  "pp_expandNoTerm": {
+    "message": "لا يوجد مصطلح بحث في هذه الصفحة",
+    "description": "Expand dialog note"
+  },
+  "pp_expandFetching": {
+    "message": "جارٍ الجلب…",
+    "description": "Expand dialog note"
+  },
+  "pp_expandReady": {
+    "message": "جاهز",
+    "description": "Expand dialog note"
+  },
+  "pp_expandUnavailable": {
+    "message": "غير متاح",
+    "description": "Expand dialog note"
+  },
+  "pp_cancel": {
+    "message": "إلغاء",
+    "description": "Dialog button"
+  },
+  "pp_continue": {
+    "message": "متابعة",
+    "description": "Dialog button"
+  },
+  "pp_loading": {
+    "message": "جارٍ التحميل…",
+    "description": "Dialog button while waiting"
+  },
+  "pp_clockTitle": {
+    "message": "إعدادات الساعة العالمية",
+    "description": "Clock settings heading"
+  },
+  "pp_clockName": {
+    "message": "الاسم",
+    "description": "Clock settings name box placeholder"
+  },
+  "pp_save": {
+    "message": "حفظ",
+    "description": "Clock settings button"
+  }
+}

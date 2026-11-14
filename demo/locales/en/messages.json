@@ -1,0 +1,666 @@
+{
+  "tt_retracted": {
+    "message": "Article has been retracted from the literature.",
+    "description": "Hover text on the citation bar: retracted"
+  },
+  "tt_highImpact": {
+    "message": "High impact article based on extension scoring.",
+    "description": "Hover text on the citation bar: highImpact"
+  },
+  "tt_overallScore": {
+    "message": "Overall article quality score based on multiple metrics.",
+    "description": "Hover text on the citation bar: overallScore"
+  },
+  "tt_mesh": {
+    "message": "View MeSH terms and keywords for this article.",
+    "description": "Hover text on the citation bar: mesh"
+  },
+  "tt_new": {
+    "message": "New article (< 2 years) based on PubMed create date.",
+    "description": "Hover text on the citation bar: new"
+  },
+  "tt_trending": {
+    "message": "Trending on PubMed (top 1,000 articles).",
+    "description": "Hover text on the citation bar: trending"
+  },
+  "tt_medline": {
+    "message": "Indexed for Medline.",
+    "description": "Hover text on the citation bar: medline"
+  },
+  "tt_preprint": {
+    "message": "Preprint article (not yet peer-reviewed).",
+    "description": "Hover text on the citation bar: preprint"
+  },
+  "tt_erratum": {
+    "message": "Has correction/erratum (not a retraction).",
+    "description": "Hover text on the citation bar: erratum"
+  },
+  "tt_retractionNotice": {
+    "message": "This is a retraction notice: it retracts another article (click to see which).",
+    "description": "Hover text on the citation bar: this record is a retraction notice"
+  },
+  "tt_erratumNotice": {
+    "message": "This is an erratum notice: it corrects another article (click to see which).",
+    "description": "Hover text on the citation bar: this record is an erratum notice"
+  },
+  "tt_concern": {
+    "message": "Expression of concern: the journal has published a formal warning about this article (not a retraction). Click to see the notice.",
+    "description": "Hover text on the citation bar: bold E, this article has an expression of concern"
+  },
+  "tt_concernErratum": {
+    "message": "Expression of concern: the journal has published a formal warning about this article (not a retraction). It also has a correction/erratum. Click to see both.",
+    "description": "Hover text on the citation bar: bold E, this article has an expression of concern and also an erratum"
+  },
+  "tt_concernNotice": {
+    "message": "This is an expression of concern: it warns about another article (click to see which).",
+    "description": "Hover text on the citation bar: bold E, this record is an expression of concern notice"
+  },
+  "tt_cited": {
+    "message": "Citation count from NIH iCite.",
+    "description": "Hover text on the citation bar: cited"
+  },
+  "tt_rcr": {
+    "message": "Relative Citation Ratio - scientific influence normalized to field.",
+    "description": "Hover text on the citation bar: rcr"
+  },
+  "tt_ic": {
+    "message": "Influential Citations from Semantic Scholar.",
+    "description": "Hover text on the citation bar: ic"
+  },
+  "tt_alt": {
+    "message": "Altmetric Attention Score (social/news mentions).",
+    "description": "Hover text on the citation bar: alt"
+  },
+  "tt_similar": {
+    "message": "Similar articles from PubMed.",
+    "description": "Hover text on the citation bar: similar"
+  },
+  "tt_citedBy": {
+    "message": "Articles in PubMed citing this paper.",
+    "description": "Hover text on the citation bar: citedBy"
+  },
+  "tt_scholar": {
+    "message": "Google Scholar link via DOI.",
+    "description": "Hover text on the citation bar: scholar"
+  },
+  "tt_cp": {
+    "message": "Connections — interactive citation graph for this article (doilookup.com).",
+    "description": "Hover text on the citation bar: cp"
+  },
+  "tt_abstract": {
+    "message": "View the abstract, plus the plain-language summary and the full text when available.",
+    "description": "Hover text on the citation bar: abstract"
+  },
+  "tt_link": {
+    "message": "Full-text link (green = free).",
+    "description": "Hover text on the citation bar: link"
+  },
+  "tt_topJournal": {
+    "message": "From curated list of top medical journals.",
+    "description": "Hover text on the citation bar: topJournal"
+  },
+  "tt_sjr": {
+    "message": "SCImago Journal Rank - journal visibility score.",
+    "description": "Hover text on the citation bar: sjr"
+  },
+  "tt_sjrQuartile": {
+    "message": "Best quartile {q}: the journal's best SJR rank among its subject areas (Q1 = top 25%).",
+    "description": "Hover text on the citation bar: shown before the sjr text when the journal has a best quartile. Keep {q}"
+  },
+  "tt_rank": {
+    "message": "Journal ranking from extension YTD data.",
+    "description": "Hover text on the citation bar: rank"
+  },
+  "tt_articleCount": {
+    "message": "Journal articles published in the ranking period.",
+    "description": "Hover text on the citation bar: articleCount"
+  },
+  "tt_medlinePct": {
+    "message": "Percent Medline-indexed; recent articles may not be indexed yet.",
+    "description": "Hover text on the citation bar: medlinePct"
+  },
+  "tt_freePct": {
+    "message": "Percent of journal articles with free full text.",
+    "description": "Hover text on the citation bar: freePct"
+  },
+  "tt_xout": {
+    "message": "Filter out reviews, retractions, editorials etc. which are 25% of PubMed",
+    "description": "Hover text on the citation bar: xout"
+  },
+  "tt_keySearches": {
+    "message": "Key searches: prebuilt PubMed searches by topic",
+    "description": "Hover text on the citation bar: keySearches"
+  },
+  "tt_citationReport": {
+    "message": "Generate detailed citation report.",
+    "description": "Hover text on the citation bar: citationReport"
+  },
+  "tt_authors": {
+    "message": "View author information and metrics",
+    "description": "Hover text on the citation bar: authors"
+  },
+  "tt_pubmedReports": {
+    "message": "PubMed Reports (key overviews)",
+    "description": "Hover text on the citation bar: pubmedReports"
+  },
+  "tt_pick": {
+    "message": "Add to export list. Pulls the full PubMed record, including abstract and MeSH - takes a moment.",
+    "description": "Hover text on the citation bar: pick"
+  },
+  "tt_pickList": {
+    "message": "Open the export list - review, remove, and download as .nbib for Zotero.",
+    "description": "Hover text on the citation bar: pickList"
+  },
+  "tt_pdfFree": {
+    "message": "View free PMC PDF • More sources coming",
+    "description": "Hover text on the citation bar: pdfFree"
+  },
+  "tt_pdfNone": {
+    "message": "No direct PDF found • Try Link button for article page with PDF download • More sources coming",
+    "description": "Hover text on the citation bar: pdfNone"
+  },
+  "tt_doiLookup": {
+    "message": "Full DOI lookup at doilookup.com",
+    "description": "Hover text on the citation bar: doiLookup"
+  },
+  "tt_doiNone": {
+    "message": "No associated DOI",
+    "description": "Hover text on the citation bar: doiNone"
+  },
+  "tt_help": {
+    "message": "Click for detailed help",
+    "description": "Hover text on the citation bar: help"
+  },
+  "tt_language": {
+    "message": "Language / Idioma / 语言 / 言語 / 언어 / Langue / भाषा / اللغة / ভাষা",
+    "description": "Hover text on the citation bar: language"
+  },
+  "tt_searchEnglish": {
+    "message": "PubMed search works only in English. Use English search terms.",
+    "description": "One-time notice when the bar language is not English: PubMed search needs English terms"
+  },
+  "tt_icite12": {
+    "message": "Monthly citations, {from} – {to} (iCite). Click to open the chart.",
+    "description": "Hover text on the citation bar: 12-month chart icon (blue, data found). {from} and {to} are months"
+  },
+  "tt_icite12None": {
+    "message": "No monthly chart for this article. Charts cover only articles added to PubMed in the last 36 months that are among the 40,000 with the most citations gained in the past 12 months.",
+    "description": "Hover text on the citation bar: 12-month chart icon (grey, article not in the data)"
+  },
+  "tt_icite12Loading": {
+    "message": "Monthly citation data is still loading. Reload the page in a moment to see the chart icon.",
+    "description": "Hover text on the citation bar: 12-month chart icon (grey, data not loaded yet)"
+  },
+  "tt_icite12Title": {
+    "message": "Citations by month (iCite)",
+    "description": "12-month chart panel: heading"
+  },
+  "tt_icite12Summary": {
+    "message": "Rank {rank} by citations gained in 12 months · +{gain} gained · {total} total at {to}",
+    "description": "12-month chart panel: summary line. Keep {rank}, {gain}, {total} and {to}"
+  },
+  "tt_icite12Rising": {
+    "message": "High Trend: citations per day in the last 6 months are at least 1.5 times those in the first 6.",
+    "description": "12-month chart panel: High Trend = Yes"
+  },
+  "tt_icite12New": {
+    "message": "New: not yet in iCite at the start of the window, so it starts at 0.",
+    "description": "12-month chart panel: High Trend = New"
+  },
+  "tt_icite12Prior": {
+    "message": "Total before the month",
+    "description": "12-month chart panel: legend, lower (blue) part of a bar"
+  },
+  "tt_icite12Gain": {
+    "message": "Gained that month",
+    "description": "12-month chart panel: legend, upper (orange) part of a bar"
+  },
+  "tt_icite12Drop": {
+    "message": "iCite correction (count went down)",
+    "description": "12-month chart panel: legend, dashed red box for a month that went down"
+  },
+  "tt_icite12Report": {
+    "message": "Full list: PubMed iCite Citation Gains report",
+    "description": "12-month chart panel: link to the website report"
+  },
+  "tt_authorRetractions": {
+    "message": "About the author, NOT this paper: the first or last author has other retracted papers. Click Author, then a retraction number, for details.",
+    "description": "Hover text on the citation bar: Author outlined in red because the first or last author has other retracted papers. Keep the word Author"
+  },
+  "tt_journal": {
+    "message": "Journal: full name, ISSN, NLM ID, rank in the Journal Ranking, articles this year vs last, Medline, free full text and ORCID shares, and retractions.",
+    "description": "Hover text on the citation bar: J (journal information panel)"
+  },
+  "pp_close": {
+    "message": "Close",
+    "description": "Popup close button hover"
+  },
+  "pp_language": {
+    "message": "Language / Idioma / 语言 / 言語 / 언어 / Langue / भाषा / اللغة / ভাষা",
+    "description": "Popup language button hover"
+  },
+  "pp_toggleOn": {
+    "message": "-Citation Bar On-",
+    "description": "Popup toggle button, bar on"
+  },
+  "pp_toggleOff": {
+    "message": "-Citation Bar Off-",
+    "description": "Popup toggle button, bar off"
+  },
+  "pp_toggleTitle": {
+    "message": "Turn the citation bar on or off for PubMed pages.",
+    "description": "Popup toggle button hover"
+  },
+  "pp_impactTitle": {
+    "message": "Minimum score used by High Impact and Scan 1,000. Based on Medline indexing, citations, RCR, journal SJR and more.",
+    "description": "Popup Impact Score pull-down hover"
+  },
+  "pp_impactOption": {
+    "message": "Impact Score {n} or greater",
+    "description": "Popup Impact Score option; {n} is the number"
+  },
+  "pp_impactDefault": {
+    "message": "(Default)",
+    "description": "Popup Impact Score option: marks the default"
+  },
+  "pp_highImpact": {
+    "message": "High Impact Only (filter green)",
+    "description": "Popup button"
+  },
+  "pp_highImpactTitle": {
+    "message": "Show only the high impact articles - the ones with a green background - at or above the Impact Score selected above.",
+    "description": "Popup button hover"
+  },
+  "pp_return": {
+    "message": "Return",
+    "description": "Popup Return buttons"
+  },
+  "pp_returnTitle": {
+    "message": "Go back to the page you were on before High Impact Only opened this one.",
+    "description": "Popup Return button hover (High Impact)"
+  },
+  "pp_scan1000": {
+    "message": "Scan 1,000 (filter green)",
+    "description": "Popup button"
+  },
+  "pp_scan1000Title": {
+    "message": "Scan 1,000 results for High Impact articles",
+    "description": "Popup button hover"
+  },
+  "pp_returnScanTitle": {
+    "message": "Go back to the search Scan 1,000 started from.",
+    "description": "Popup Return button hover (Scan 1,000)"
+  },
+  "pp_termsPlaceholder": {
+    "message": "Enter variations of ONE concept, one per line (e.g., vitamin B1, thiamine, B-1) 20 items max  ★ = suggested term (high count + MeSH validated)",
+    "description": "Popup search terms box placeholder"
+  },
+  "pp_yearTitle": {
+    "message": "Year range applied by Analyze Terms and Expand.",
+    "description": "Popup year pull-down hover"
+  },
+  "pp_yearAll": {
+    "message": "All years",
+    "description": "Popup year option"
+  },
+  "pp_year5": {
+    "message": "Last 5 years",
+    "description": "Popup year option"
+  },
+  "pp_year10": {
+    "message": "Last 10 years",
+    "description": "Popup year option"
+  },
+  "pp_year20": {
+    "message": "Last 20 years",
+    "description": "Popup year option"
+  },
+  "pp_analyze": {
+    "message": "Analyze Terms",
+    "description": "Popup button"
+  },
+  "pp_analyzeTitle": {
+    "message": "Break this search into its separate terms and show how many results each one returns.",
+    "description": "Popup button hover"
+  },
+  "pp_expand": {
+    "message": "Expand...",
+    "description": "Popup button"
+  },
+  "pp_expandTitle": {
+    "message": "Search the same terms outside PubMed: OpenAlex, ClinicalTrials.gov and Google Scholar.",
+    "description": "Popup button hover"
+  },
+  "pp_issues": {
+    "message": "For issues, refresh, or Reset Extension button.",
+    "description": "Popup line under the status message"
+  },
+  "pp_training": {
+    "message": "Official PubMed Training",
+    "description": "Popup link"
+  },
+  "pp_copySearchRefTitle": {
+    "message": "Copy a reference for the PubMed search in this tab: database, date searched, search, filters and number of results (PRISMA-S)",
+    "description": "Popup: hover text of the copy-search-reference button"
+  },
+  "pp_copySearchRefNone": {
+    "message": "Open a PubMed search in this tab first, then copy its reference.",
+    "description": "Popup: shown when the copy-search-reference button is clicked away from a PubMed search"
+  },
+  "pp_ncbiUpdates": {
+    "message": "NCBI Updates",
+    "description": "Popup link"
+  },
+  "pp_ncbiUpdatesTitle": {
+    "message": "NLM Technical Bulletin, filtered to PubMed",
+    "description": "Popup link hover"
+  },
+  "pp_topJournals": {
+    "message": "Top Journals (personally curated, no specific order)",
+    "description": "Popup heading"
+  },
+  "pp_journalRanking": {
+    "message": "Journal Ranking",
+    "description": "Popup link"
+  },
+  "pp_data": {
+    "message": "Data",
+    "description": "Popup button"
+  },
+  "pp_dataTitle": {
+    "message": "Everything the extension holds for this page: PMIDs first, then all measures, timestamps and internal fields. Full disclosure, no tracking.",
+    "description": "Popup button hover"
+  },
+  "pp_excel": {
+    "message": "Excel",
+    "description": "Popup button"
+  },
+  "pp_excelTitle": {
+    "message": "Tab-separated table - paste straight into Excel or Google Sheets",
+    "description": "Popup button hover"
+  },
+  "pp_tabList": {
+    "message": "Tab List",
+    "description": "Popup button"
+  },
+  "pp_tabListTitle": {
+    "message": "Open a page listing every tab you currently have open, with titles and links.",
+    "description": "Popup button hover"
+  },
+  "pp_reset": {
+    "message": "Reset Extension",
+    "description": "Popup button"
+  },
+  "pp_resetTitle": {
+    "message": "Clear the extension's stored data and Chrome's cache, then reopen this tab on the same page. History, cookies and passwords are not touched.",
+    "description": "Popup button hover"
+  },
+  "pp_devOff": {
+    "message": "Dev Off",
+    "description": "Popup button, storage viewer hidden"
+  },
+  "pp_devOn": {
+    "message": "Dev On",
+    "description": "Popup button, storage viewer shown"
+  },
+  "pp_devTitle": {
+    "message": "Show or hide the storage viewer, for troubleshooting.",
+    "description": "Popup button hover"
+  },
+  "pp_supportAt": {
+    "message": "Support at:",
+    "description": "Popup system info"
+  },
+  "pp_chromeVersion": {
+    "message": "Chrome Version:",
+    "description": "Popup system info"
+  },
+  "pp_os": {
+    "message": "OS:",
+    "description": "Popup system info"
+  },
+  "pp_memory": {
+    "message": "Memory:",
+    "description": "Popup system info"
+  },
+  "pp_bookmarks": {
+    "message": "Bookmarks:",
+    "description": "Popup system info"
+  },
+  "pp_extensions": {
+    "message": "Extensions:",
+    "description": "Popup system info"
+  },
+  "pp_citationDefault": {
+    "message": "Search via PubMed (https://pubmed.ncbi.nlm.nih.gov/) on [date] using '[search terms]' returned [count] results.",
+    "description": "Popup citation line before a PubMed search is known"
+  },
+  "pp_citationRef": {
+    "message": "Searched PubMed {date} \"{term}\" {count} results.",
+    "description": "Popup citation line; {date} {term} {count} filled in"
+  },
+  "pp_searchTermsPlaceholder": {
+    "message": "[search terms]",
+    "description": "Popup citation line when the URL has no term"
+  },
+  "pp_countPlaceholder": {
+    "message": "[count]",
+    "description": "Popup citation line when the count is unknown"
+  },
+  "pp_memoryLine": {
+    "message": "{total} total, {used}% used, {free} free",
+    "description": "Popup memory line"
+  },
+  "pp_memoryLow": {
+    "message": "Free memory is low. PubMed keeps every previous search in memory as you browse, so a tab used for many searches can hold a lot of it.\n\nTo free memory: close applications you are not using, or use the Reset Extension button below - it reopens this tab on the same page with a clean slate, so you keep your search.",
+    "description": "Popup memory line hover when memory is low"
+  },
+  "pp_extensionsLine": {
+    "message": "{total} ({active} active)",
+    "description": "Popup extensions count"
+  },
+  "pp_notAvailable": {
+    "message": "N/A",
+    "description": "Popup system info when unavailable"
+  },
+  "pp_errorPrefix": {
+    "message": "Error:",
+    "description": "Prefix on popup messages under the buttons"
+  },
+  "pp_errHighImpactLoad": {
+    "message": "Failed to load standard High Impact results.",
+    "description": "Popup error"
+  },
+  "pp_errHighImpactSortedLoad": {
+    "message": "Failed to load sorted High Impact results.",
+    "description": "Popup error (sorted, hidden feature)"
+  },
+  "pp_errHighImpactNone": {
+    "message": "No High Impact items found. Try adjusting your Impact Score settings and try again.",
+    "description": "Popup error"
+  },
+  "pp_errHighImpactPage": {
+    "message": "High Impact filter only works on PubMed pages",
+    "description": "Popup error"
+  },
+  "pp_errReturnHighImpact": {
+    "message": "Nothing to return to yet - use High Impact Only (filter green) first.",
+    "description": "Popup error"
+  },
+  "pp_errReturnScan": {
+    "message": "Nothing to return to yet - run Scan 1,000 first.",
+    "description": "Popup error"
+  },
+  "pp_errScanPage": {
+    "message": "Scan 1,000 only works on PubMed search, trending, or collection pages",
+    "description": "Popup error"
+  },
+  "pp_scanWait": {
+    "message": "Scanning 1,000 results... please wait.",
+    "description": "Popup progress message"
+  },
+  "pp_errScanFail": {
+    "message": "Failed to scan 1,000 sorted results:",
+    "description": "Popup error; the reason follows"
+  },
+  "pp_errUnknown": {
+    "message": "Unknown error",
+    "description": "Popup error reason"
+  },
+  "pp_errNoTerms": {
+    "message": "Please enter search terms or a DOI to analyze",
+    "description": "Popup error"
+  },
+  "pp_errTermLimit": {
+    "message": "Limited to first 20 terms ({n} entered). Processing first 20...",
+    "description": "Popup message; {n} is the number entered"
+  },
+  "pp_errTab": {
+    "message": "Could not read the current tab. Please try again.",
+    "description": "Popup error"
+  },
+  "pp_errSpecialNeeds": {
+    "message": "Special mode requires time period on line 2 and at least one term group",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialFirst": {
+    "message": "First line must be \"special:\"",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialPeriod": {
+    "message": "Time period must be \"Last X days/months/years\" (e.g., Last 5 years)",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialRange": {
+    "message": "Time period must be between 1 and 100 days/months/years",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialNoGroups": {
+    "message": "No term groups found in Special mode",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_copied": {
+    "message": "Copied!",
+    "description": "Copy button after copying"
+  },
+  "pp_copyFailed": {
+    "message": "Failed to copy to clipboard",
+    "description": "Copy error"
+  },
+  "pp_resetConfirm": {
+    "message": "This will reset the extension, clear cached data, and reopen this tab with the same page.\n\nYour history, cookies and saved passwords are not affected. Do you want to proceed?",
+    "description": "Reset Extension confirm box"
+  },
+  "pp_resetting": {
+    "message": "Resetting...",
+    "description": "Reset Extension button while working"
+  },
+  "pp_resetError": {
+    "message": "Error: Unable to clear browser data.",
+    "description": "Reset Extension error"
+  },
+  "pp_termsHelpTitle": {
+    "message": "Search Terms Help",
+    "description": "Search terms help heading"
+  },
+  "pp_termsHelpIntro": {
+    "message": "Enter similar terms, one per line (up to 20 terms). This tool is designed to analyze variations of a single concept.",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpPrompt": {
+    "message": "<strong>Term Generation Prompt (Copy & Use):</strong><br>Professional prompt for generating scientific term variations - includes chemical names, abbreviations, metabolites, and common variants.",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_copyPrompt": {
+    "message": "Copy Prompt",
+    "description": "Search terms help button"
+  },
+  "pp_termsHelpReplace": {
+    "message": "Replace \"Vitamin D1\" with your search term",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpSpecial": {
+    "message": "<strong>Special Mode:</strong><br>For custom date ranges or multiple term groups, start with:",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_termsHelpFormat": {
+    "message": "Format: \"Last X days/months/years\"",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpTip": {
+    "message": "<strong>Pro tip:</strong> You can analyze up to 10 different term groups in Special mode - just separate each group with a blank line.",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_termsHelpExample": {
+    "message": "<strong>Example - B Vitamins (last 30 days):</strong>",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_copyExample": {
+    "message": "Copy Example",
+    "description": "Search terms help button"
+  },
+  "pp_expandHeadlineOne": {
+    "message": "1 new tab will open:",
+    "description": "Expand dialog"
+  },
+  "pp_expandHeadlineMany": {
+    "message": "{n} new tabs will open:",
+    "description": "Expand dialog; {n} is the number"
+  },
+  "pp_expandSub": {
+    "message": "Uncheck any you don't need. Your choice is remembered.",
+    "description": "Expand dialog"
+  },
+  "pp_expandOpenAlexDesc": {
+    "message": "articles not indexed in PubMed",
+    "description": "Expand dialog"
+  },
+  "pp_expandTrialsDesc": {
+    "message": "matching clinical trials",
+    "description": "Expand dialog"
+  },
+  "pp_expandScholarDesc": {
+    "message": "the same search on Scholar",
+    "description": "Expand dialog"
+  },
+  "pp_expandNoTerm": {
+    "message": "no search term on this page",
+    "description": "Expand dialog note"
+  },
+  "pp_expandFetching": {
+    "message": "fetching…",
+    "description": "Expand dialog note"
+  },
+  "pp_expandReady": {
+    "message": "ready",
+    "description": "Expand dialog note"
+  },
+  "pp_expandUnavailable": {
+    "message": "unavailable",
+    "description": "Expand dialog note"
+  },
+  "pp_cancel": {
+    "message": "Cancel",
+    "description": "Dialog button"
+  },
+  "pp_continue": {
+    "message": "Continue",
+    "description": "Dialog button"
+  },
+  "pp_loading": {
+    "message": "Loading…",
+    "description": "Dialog button while waiting"
+  },
+  "pp_clockTitle": {
+    "message": "World Clock Settings",
+    "description": "Clock settings heading"
+  },
+  "pp_clockName": {
+    "message": "Name",
+    "description": "Clock settings name box placeholder"
+  },
+  "pp_save": {
+    "message": "Save",
+    "description": "Clock settings button"
+  }
+}

@@ -1,0 +1,666 @@
+{
+  "tt_retracted": {
+    "message": "该文章已被撤稿。",
+    "description": "Hover text on the citation bar: retracted"
+  },
+  "tt_highImpact": {
+    "message": "根据本扩展评分判定的高影响力文章。",
+    "description": "Hover text on the citation bar: highImpact"
+  },
+  "tt_overallScore": {
+    "message": "基于多项指标的文章综合质量评分。",
+    "description": "Hover text on the citation bar: overallScore"
+  },
+  "tt_mesh": {
+    "message": "查看本文的 MeSH 主题词和关键词。",
+    "description": "Hover text on the citation bar: mesh"
+  },
+  "tt_new": {
+    "message": "新文章（不足 2 年），依据 PubMed 创建日期。",
+    "description": "Hover text on the citation bar: new"
+  },
+  "tt_trending": {
+    "message": "PubMed 热门文章（前 1000 篇）。",
+    "description": "Hover text on the citation bar: trending"
+  },
+  "tt_medline": {
+    "message": "已被 Medline 收录。",
+    "description": "Hover text on the citation bar: medline"
+  },
+  "tt_preprint": {
+    "message": "预印本（尚未经过同行评审）。",
+    "description": "Hover text on the citation bar: preprint"
+  },
+  "tt_erratum": {
+    "message": "有更正/勘误（不是撤稿）。",
+    "description": "Hover text on the citation bar: erratum"
+  },
+  "tt_retractionNotice": {
+    "message": "这是撤稿声明：它撤回另一篇文章（点击查看是哪一篇）。",
+    "description": "Hover text on the citation bar: this record is a retraction notice"
+  },
+  "tt_erratumNotice": {
+    "message": "这是勘误声明：它更正另一篇文章（点击查看是哪一篇）。",
+    "description": "Hover text on the citation bar: this record is an erratum notice"
+  },
+  "tt_concern": {
+    "message": "关注声明：期刊已就本文发布正式警示（并非撤稿）。点击查看该声明。",
+    "description": "Hover text on the citation bar: bold E, this article has an expression of concern"
+  },
+  "tt_concernErratum": {
+    "message": "关注声明：期刊已就本文发布正式警示（并非撤稿）。本文另有更正/勘误。点击查看两者。",
+    "description": "Hover text on the citation bar: bold E, this article has an expression of concern and also an erratum"
+  },
+  "tt_concernNotice": {
+    "message": "这是一则关注声明：它对另一篇文章提出警示（点击查看是哪一篇）。",
+    "description": "Hover text on the citation bar: bold E, this record is an expression of concern notice"
+  },
+  "tt_cited": {
+    "message": "NIH iCite 提供的被引次数。",
+    "description": "Hover text on the citation bar: cited"
+  },
+  "tt_rcr": {
+    "message": "Relative Citation Ratio（相对引用比）：按领域标准化的科学影响力。",
+    "description": "Hover text on the citation bar: rcr"
+  },
+  "tt_ic": {
+    "message": "Semantic Scholar 的有影响力引用（Influential Citations）。",
+    "description": "Hover text on the citation bar: ic"
+  },
+  "tt_alt": {
+    "message": "Altmetric 关注度评分（社交媒体和新闻提及）。",
+    "description": "Hover text on the citation bar: alt"
+  },
+  "tt_similar": {
+    "message": "PubMed 中的相似文章。",
+    "description": "Hover text on the citation bar: similar"
+  },
+  "tt_citedBy": {
+    "message": "PubMed 中引用本文的文章。",
+    "description": "Hover text on the citation bar: citedBy"
+  },
+  "tt_scholar": {
+    "message": "通过 DOI 链接到 Google Scholar（谷歌学术）。",
+    "description": "Hover text on the citation bar: scholar"
+  },
+  "tt_cp": {
+    "message": "Connections：本文的交互式引用图谱（doilookup.com）。",
+    "description": "Hover text on the citation bar: cp"
+  },
+  "tt_abstract": {
+    "message": "查看摘要；如有通俗语言摘要和全文，也一并显示。",
+    "description": "Hover text on the citation bar: abstract"
+  },
+  "tt_link": {
+    "message": "全文链接（绿色 = 免费）。",
+    "description": "Hover text on the citation bar: link"
+  },
+  "tt_topJournal": {
+    "message": "来自精选的顶级医学期刊名单。",
+    "description": "Hover text on the citation bar: topJournal"
+  },
+  "tt_sjr": {
+    "message": "SCImago 期刊排名：期刊可见度评分。",
+    "description": "Hover text on the citation bar: sjr"
+  },
+  "tt_sjrQuartile": {
+    "message": "最佳分区 {q}：该期刊在其各学科领域中的最佳 SJR 排名（Q1 = 前 25%）。",
+    "description": "Hover text on the citation bar: shown before the sjr text when the journal has a best quartile. Keep {q}"
+  },
+  "tt_rank": {
+    "message": "根据本扩展本年度数据得出的期刊排名。",
+    "description": "Hover text on the citation bar: rank"
+  },
+  "tt_articleCount": {
+    "message": "期刊在排名期间发表的文章数。",
+    "description": "Hover text on the citation bar: articleCount"
+  },
+  "tt_medlinePct": {
+    "message": "被 Medline 收录的百分比；近期文章可能尚未收录。",
+    "description": "Hover text on the citation bar: medlinePct"
+  },
+  "tt_freePct": {
+    "message": "期刊中提供免费全文的文章百分比。",
+    "description": "Hover text on the citation bar: freePct"
+  },
+  "tt_xout": {
+    "message": "排除综述、撤稿声明、社论等（约占 PubMed 的 25%）",
+    "description": "Hover text on the citation bar: xout"
+  },
+  "tt_keySearches": {
+    "message": "重点检索：按主题预设的 PubMed 检索",
+    "description": "Hover text on the citation bar: keySearches"
+  },
+  "tt_citationReport": {
+    "message": "生成详细的引文报告。",
+    "description": "Hover text on the citation bar: citationReport"
+  },
+  "tt_authors": {
+    "message": "查看作者信息和指标",
+    "description": "Hover text on the citation bar: authors"
+  },
+  "tt_pubmedReports": {
+    "message": "PubMed 报告（关键概览）",
+    "description": "Hover text on the citation bar: pubmedReports"
+  },
+  "tt_pick": {
+    "message": "加入导出列表。会获取完整的 PubMed 记录（包括摘要和 MeSH），需要片刻。",
+    "description": "Hover text on the citation bar: pick"
+  },
+  "tt_pickList": {
+    "message": "打开导出列表：查看、移除，并下载为 .nbib 供 Zotero 使用。",
+    "description": "Hover text on the citation bar: pickList"
+  },
+  "tt_pdfFree": {
+    "message": "查看 PMC 免费 PDF • 更多来源即将推出",
+    "description": "Hover text on the citation bar: pdfFree"
+  },
+  "tt_pdfNone": {
+    "message": "未找到直接 PDF • 可试试 Link 按钮，前往提供 PDF 下载的文章页面 • 更多来源即将推出",
+    "description": "Hover text on the citation bar: pdfNone"
+  },
+  "tt_doiLookup": {
+    "message": "在 doilookup.com 上完整查询 DOI",
+    "description": "Hover text on the citation bar: doiLookup"
+  },
+  "tt_doiNone": {
+    "message": "没有关联的 DOI",
+    "description": "Hover text on the citation bar: doiNone"
+  },
+  "tt_help": {
+    "message": "点击查看详细帮助",
+    "description": "Hover text on the citation bar: help"
+  },
+  "tt_language": {
+    "message": "语言 / Language / Idioma / 言語 / 언어 / Langue / भाषा / اللغة / ভাষা",
+    "description": "Hover text on the citation bar: language"
+  },
+  "tt_searchEnglish": {
+    "message": "PubMed 检索仅支持英文，请使用英文检索词。",
+    "description": "One-time notice when the bar language is not English: PubMed search needs English terms"
+  },
+  "tt_icite12": {
+    "message": "每月被引次数，{from} – {to}（iCite）。点击打开图表。",
+    "description": "Hover text on the citation bar: 12-month chart icon (blue, data found). {from} and {to} are months"
+  },
+  "tt_icite12None": {
+    "message": "此文章没有月度图表。图表仅涵盖过去 36 个月内收录到 PubMed、且在过去 12 个月新增被引次数排名前 40,000 的文章。",
+    "description": "Hover text on the citation bar: 12-month chart icon (grey, article not in the data)"
+  },
+  "tt_icite12Loading": {
+    "message": "月度被引数据仍在加载。请稍后刷新页面以显示图表图标。",
+    "description": "Hover text on the citation bar: 12-month chart icon (grey, data not loaded yet)"
+  },
+  "tt_icite12Title": {
+    "message": "每月被引次数（iCite）",
+    "description": "12-month chart panel: heading"
+  },
+  "tt_icite12Summary": {
+    "message": "按 12 个月新增被引排名第 {rank} · 新增 +{gain} · 截至 {to} 共 {total}",
+    "description": "12-month chart panel: summary line. Keep {rank}, {gain}, {total} and {to}"
+  },
+  "tt_icite12Rising": {
+    "message": "高趋势：最近 6 个月的日均被引次数至少是前 6 个月的 1.5 倍。",
+    "description": "12-month chart panel: High Trend = Yes"
+  },
+  "tt_icite12New": {
+    "message": "新文章：时间段开始时尚未收录于 iCite，因此从 0 开始。",
+    "description": "12-month chart panel: High Trend = New"
+  },
+  "tt_icite12Prior": {
+    "message": "本月之前的总数",
+    "description": "12-month chart panel: legend, lower (blue) part of a bar"
+  },
+  "tt_icite12Gain": {
+    "message": "当月新增",
+    "description": "12-month chart panel: legend, upper (orange) part of a bar"
+  },
+  "tt_icite12Drop": {
+    "message": "iCite 修正（次数下降）",
+    "description": "12-month chart panel: legend, dashed red box for a month that went down"
+  },
+  "tt_icite12Report": {
+    "message": "完整列表：PubMed iCite Citation Gains 报告",
+    "description": "12-month chart panel: link to the website report"
+  },
+  "tt_authorRetractions": {
+    "message": "这是关于作者的提示，不是关于本文：第一作者或最后作者有其他被撤稿的文章。点击 Author，再点击撤稿数量查看详情。",
+    "description": "Hover text on the citation bar: Author outlined in red because the first or last author has other retracted papers. Keep the word Author"
+  },
+  "tt_journal": {
+    "message": "期刊：全称、ISSN、NLM ID、在 Journal Ranking 中的排名、今年与去年的文章数、Medline、免费全文和 ORCID 比例，以及撤稿数。",
+    "description": "Hover text on the citation bar: J (journal information panel)"
+  },
+  "pp_close": {
+    "message": "关闭",
+    "description": "Popup close button hover"
+  },
+  "pp_language": {
+    "message": "语言 / Language / Idioma / 言語 / 언어 / Langue / भाषा / اللغة / ভাষা",
+    "description": "Popup language button hover"
+  },
+  "pp_toggleOn": {
+    "message": "-引文栏：开-",
+    "description": "Popup toggle button, bar on"
+  },
+  "pp_toggleOff": {
+    "message": "-引文栏：关-",
+    "description": "Popup toggle button, bar off"
+  },
+  "pp_toggleTitle": {
+    "message": "在 PubMed 页面上开启或关闭引文栏。",
+    "description": "Popup toggle button hover"
+  },
+  "pp_impactTitle": {
+    "message": "“仅高影响力”和“扫描 1000 篇”使用的最低评分。依据 Medline 收录、被引次数、RCR、期刊 SJR 等。",
+    "description": "Popup Impact Score pull-down hover"
+  },
+  "pp_impactOption": {
+    "message": "影响力评分 {n} 分及以上",
+    "description": "Popup Impact Score option; {n} is the number"
+  },
+  "pp_impactDefault": {
+    "message": "（默认）",
+    "description": "Popup Impact Score option: marks the default"
+  },
+  "pp_highImpact": {
+    "message": "仅高影响力（筛选绿色）",
+    "description": "Popup button"
+  },
+  "pp_highImpactTitle": {
+    "message": "只显示达到上方所选影响力评分的高影响力文章（即绿色背景的文章）。",
+    "description": "Popup button hover"
+  },
+  "pp_return": {
+    "message": "返回",
+    "description": "Popup Return buttons"
+  },
+  "pp_returnTitle": {
+    "message": "返回“仅高影响力”打开本页之前所在的页面。",
+    "description": "Popup Return button hover (High Impact)"
+  },
+  "pp_scan1000": {
+    "message": "扫描 1000 篇（筛选绿色）",
+    "description": "Popup button"
+  },
+  "pp_scan1000Title": {
+    "message": "扫描 1000 条结果，找出高影响力文章",
+    "description": "Popup button hover"
+  },
+  "pp_returnScanTitle": {
+    "message": "返回“扫描 1000 篇”开始时的搜索。",
+    "description": "Popup Return button hover (Scan 1,000)"
+  },
+  "pp_termsPlaceholder": {
+    "message": "输入同一概念的不同说法，每行一个（如 vitamin B1、thiamine、B-1），最多 20 个  ★ = 推荐术语（检索量高且经 MeSH 验证）",
+    "description": "Popup search terms box placeholder"
+  },
+  "pp_yearTitle": {
+    "message": "“分析术语”和“扩展”使用的年份范围。",
+    "description": "Popup year pull-down hover"
+  },
+  "pp_yearAll": {
+    "message": "所有年份",
+    "description": "Popup year option"
+  },
+  "pp_year5": {
+    "message": "最近 5 年",
+    "description": "Popup year option"
+  },
+  "pp_year10": {
+    "message": "最近 10 年",
+    "description": "Popup year option"
+  },
+  "pp_year20": {
+    "message": "最近 20 年",
+    "description": "Popup year option"
+  },
+  "pp_analyze": {
+    "message": "分析术语",
+    "description": "Popup button"
+  },
+  "pp_analyzeTitle": {
+    "message": "将本次搜索拆分为单独的术语，并显示每个术语返回的结果数。",
+    "description": "Popup button hover"
+  },
+  "pp_expand": {
+    "message": "扩展...",
+    "description": "Popup button"
+  },
+  "pp_expandTitle": {
+    "message": "在 PubMed 之外搜索相同的术语：OpenAlex、ClinicalTrials.gov 和 Google Scholar。",
+    "description": "Popup button hover"
+  },
+  "pp_issues": {
+    "message": "如遇问题，请刷新页面或使用“重置扩展”按钮。",
+    "description": "Popup line under the status message"
+  },
+  "pp_training": {
+    "message": "PubMed 官方培训",
+    "description": "Popup link"
+  },
+  "pp_copySearchRefTitle": {
+    "message": "复制此标签页中 PubMed 检索的引用信息：数据库、检索日期、检索式、筛选条件和结果数（PRISMA-S）",
+    "description": "Popup: hover text of the copy-search-reference button"
+  },
+  "pp_copySearchRefNone": {
+    "message": "请先在此标签页中打开一个 PubMed 检索，再复制其引用信息。",
+    "description": "Popup: shown when the copy-search-reference button is clicked away from a PubMed search"
+  },
+  "pp_ncbiUpdates": {
+    "message": "NCBI 更新",
+    "description": "Popup link"
+  },
+  "pp_ncbiUpdatesTitle": {
+    "message": "NLM 技术公报（仅 PubMed 相关）",
+    "description": "Popup link hover"
+  },
+  "pp_topJournals": {
+    "message": "顶级期刊（个人精选，不分先后）",
+    "description": "Popup heading"
+  },
+  "pp_journalRanking": {
+    "message": "期刊排名",
+    "description": "Popup link"
+  },
+  "pp_data": {
+    "message": "数据",
+    "description": "Popup button"
+  },
+  "pp_dataTitle": {
+    "message": "本扩展为此页面保存的全部内容：先是 PMID，然后是所有指标、时间戳和内部字段。完全公开，不做任何跟踪。",
+    "description": "Popup button hover"
+  },
+  "pp_excel": {
+    "message": "Excel",
+    "description": "Popup button"
+  },
+  "pp_excelTitle": {
+    "message": "制表符分隔的表格，可直接粘贴到 Excel 或 Google Sheets",
+    "description": "Popup button hover"
+  },
+  "pp_tabList": {
+    "message": "标签页列表",
+    "description": "Popup button"
+  },
+  "pp_tabListTitle": {
+    "message": "打开一个页面，列出您当前打开的所有标签页及其标题和链接。",
+    "description": "Popup button hover"
+  },
+  "pp_reset": {
+    "message": "重置扩展",
+    "description": "Popup button"
+  },
+  "pp_resetTitle": {
+    "message": "清除本扩展保存的数据和 Chrome 缓存，然后在同一页面重新打开此标签页。不会触及历史记录、Cookie 和密码。",
+    "description": "Popup button hover"
+  },
+  "pp_devOff": {
+    "message": "开发：关",
+    "description": "Popup button, storage viewer hidden"
+  },
+  "pp_devOn": {
+    "message": "开发：开",
+    "description": "Popup button, storage viewer shown"
+  },
+  "pp_devTitle": {
+    "message": "显示或隐藏存储查看器，用于排查问题。",
+    "description": "Popup button hover"
+  },
+  "pp_supportAt": {
+    "message": "技术支持：",
+    "description": "Popup system info"
+  },
+  "pp_chromeVersion": {
+    "message": "Chrome 版本：",
+    "description": "Popup system info"
+  },
+  "pp_os": {
+    "message": "操作系统：",
+    "description": "Popup system info"
+  },
+  "pp_memory": {
+    "message": "内存：",
+    "description": "Popup system info"
+  },
+  "pp_bookmarks": {
+    "message": "书签：",
+    "description": "Popup system info"
+  },
+  "pp_extensions": {
+    "message": "扩展程序：",
+    "description": "Popup system info"
+  },
+  "pp_citationDefault": {
+    "message": "于 [日期] 通过 PubMed (https://pubmed.ncbi.nlm.nih.gov/) 检索“[检索词]”，共 [数量] 条结果。",
+    "description": "Popup citation line before a PubMed search is known"
+  },
+  "pp_citationRef": {
+    "message": "于 {date} 检索 PubMed“{term}”，共 {count} 条结果。",
+    "description": "Popup citation line; {date} {term} {count} filled in"
+  },
+  "pp_searchTermsPlaceholder": {
+    "message": "[检索词]",
+    "description": "Popup citation line when the URL has no term"
+  },
+  "pp_countPlaceholder": {
+    "message": "[数量]",
+    "description": "Popup citation line when the count is unknown"
+  },
+  "pp_memoryLine": {
+    "message": "共 {total}，已用 {used}%，可用 {free}",
+    "description": "Popup memory line"
+  },
+  "pp_memoryLow": {
+    "message": "可用内存不足。浏览时 PubMed 会把之前的每次搜索都保存在内存中，因此做过很多次搜索的标签页可能占用大量内存。\n\n释放内存的方法：关闭不用的应用程序，或使用下方的“重置扩展”按钮——它会在同一页面重新打开此标签页，一切从头开始，但保留您的搜索。",
+    "description": "Popup memory line hover when memory is low"
+  },
+  "pp_extensionsLine": {
+    "message": "{total}（{active} 个已启用）",
+    "description": "Popup extensions count"
+  },
+  "pp_notAvailable": {
+    "message": "不可用",
+    "description": "Popup system info when unavailable"
+  },
+  "pp_errorPrefix": {
+    "message": "错误：",
+    "description": "Prefix on popup messages under the buttons"
+  },
+  "pp_errHighImpactLoad": {
+    "message": "无法加载“仅高影响力”结果。",
+    "description": "Popup error"
+  },
+  "pp_errHighImpactSortedLoad": {
+    "message": "无法加载排序后的高影响力结果。",
+    "description": "Popup error (sorted, hidden feature)"
+  },
+  "pp_errHighImpactNone": {
+    "message": "未找到高影响力文章。请调整影响力评分后重试。",
+    "description": "Popup error"
+  },
+  "pp_errHighImpactPage": {
+    "message": "“仅高影响力”筛选只能在 PubMed 页面上使用",
+    "description": "Popup error"
+  },
+  "pp_errReturnHighImpact": {
+    "message": "暂时没有可返回的页面：请先使用“仅高影响力（筛选绿色）”。",
+    "description": "Popup error"
+  },
+  "pp_errReturnScan": {
+    "message": "暂时没有可返回的页面：请先运行“扫描 1000 篇”。",
+    "description": "Popup error"
+  },
+  "pp_errScanPage": {
+    "message": "“扫描 1000 篇”只能在 PubMed 的搜索、热门或收藏集页面上使用",
+    "description": "Popup error"
+  },
+  "pp_scanWait": {
+    "message": "正在扫描 1000 条结果……请稍候。",
+    "description": "Popup progress message"
+  },
+  "pp_errScanFail": {
+    "message": "无法扫描 1000 条排序结果：",
+    "description": "Popup error; the reason follows"
+  },
+  "pp_errUnknown": {
+    "message": "未知错误",
+    "description": "Popup error reason"
+  },
+  "pp_errNoTerms": {
+    "message": "请输入要分析的检索词或 DOI",
+    "description": "Popup error"
+  },
+  "pp_errTermLimit": {
+    "message": "仅限前 20 个术语（已输入 {n} 个）。正在处理前 20 个……",
+    "description": "Popup message; {n} is the number entered"
+  },
+  "pp_errTab": {
+    "message": "无法读取当前标签页，请重试。",
+    "description": "Popup error"
+  },
+  "pp_errSpecialNeeds": {
+    "message": "Special 模式要求第 2 行为时间段，且至少有一组术语",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialFirst": {
+    "message": "第一行必须是“special:”",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialPeriod": {
+    "message": "时间段须用英文书写：“Last X days/months/years”（例如 Last 5 years）",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialRange": {
+    "message": "时间段必须在 1 到 100 days/months/years 之间",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialNoGroups": {
+    "message": "Special 模式中未找到术语组",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_copied": {
+    "message": "已复制！",
+    "description": "Copy button after copying"
+  },
+  "pp_copyFailed": {
+    "message": "无法复制到剪贴板",
+    "description": "Copy error"
+  },
+  "pp_resetConfirm": {
+    "message": "这将重置本扩展、清除缓存数据，并在同一页面重新打开此标签页。\n\n不会影响您的历史记录、Cookie 和已保存的密码。是否继续？",
+    "description": "Reset Extension confirm box"
+  },
+  "pp_resetting": {
+    "message": "正在重置……",
+    "description": "Reset Extension button while working"
+  },
+  "pp_resetError": {
+    "message": "错误：无法清除浏览器数据。",
+    "description": "Reset Extension error"
+  },
+  "pp_termsHelpTitle": {
+    "message": "检索词帮助",
+    "description": "Search terms help heading"
+  },
+  "pp_termsHelpIntro": {
+    "message": "输入相近的术语，每行一个（最多 20 个）。本工具用于分析同一概念的不同说法。",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpPrompt": {
+    "message": "<strong>术语生成提示词（复制后使用）：</strong><br>用于生成科学术语变体的专业提示词，涵盖化学名称、缩写、代谢物和常见变体。提示词为英文。",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_copyPrompt": {
+    "message": "复制提示词",
+    "description": "Search terms help button"
+  },
+  "pp_termsHelpReplace": {
+    "message": "将“Vitamin D1”替换为您的检索词",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpSpecial": {
+    "message": "<strong>Special 模式：</strong><br>如需自定义日期范围或多组术语，请按以下格式开头（关键字须用英文）：",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_termsHelpFormat": {
+    "message": "格式：“Last X days/months/years”",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpTip": {
+    "message": "<strong>小贴士：</strong>在 Special 模式下最多可分析 10 组不同的术语，只需用空行分隔各组。",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_termsHelpExample": {
+    "message": "<strong>示例：B 族维生素（最近 30 天）：</strong>",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_copyExample": {
+    "message": "复制示例",
+    "description": "Search terms help button"
+  },
+  "pp_expandHeadlineOne": {
+    "message": "将打开 1 个新标签页：",
+    "description": "Expand dialog"
+  },
+  "pp_expandHeadlineMany": {
+    "message": "将打开 {n} 个新标签页：",
+    "description": "Expand dialog; {n} is the number"
+  },
+  "pp_expandSub": {
+    "message": "取消勾选不需要的项目。系统会记住您的选择。",
+    "description": "Expand dialog"
+  },
+  "pp_expandOpenAlexDesc": {
+    "message": "未被 PubMed 收录的文章",
+    "description": "Expand dialog"
+  },
+  "pp_expandTrialsDesc": {
+    "message": "相关的临床试验",
+    "description": "Expand dialog"
+  },
+  "pp_expandScholarDesc": {
+    "message": "在 Scholar 上执行相同搜索",
+    "description": "Expand dialog"
+  },
+  "pp_expandNoTerm": {
+    "message": "此页面没有检索词",
+    "description": "Expand dialog note"
+  },
+  "pp_expandFetching": {
+    "message": "正在获取…",
+    "description": "Expand dialog note"
+  },
+  "pp_expandReady": {
+    "message": "就绪",
+    "description": "Expand dialog note"
+  },
+  "pp_expandUnavailable": {
+    "message": "不可用",
+    "description": "Expand dialog note"
+  },
+  "pp_cancel": {
+    "message": "取消",
+    "description": "Dialog button"
+  },
+  "pp_continue": {
+    "message": "继续",
+    "description": "Dialog button"
+  },
+  "pp_loading": {
+    "message": "加载中…",
+    "description": "Dialog button while waiting"
+  },
+  "pp_clockTitle": {
+    "message": "世界时钟设置",
+    "description": "Clock settings heading"
+  },
+  "pp_clockName": {
+    "message": "名称",
+    "description": "Clock settings name box placeholder"
+  },
+  "pp_save": {
+    "message": "保存",
+    "description": "Clock settings button"
+  }
+}

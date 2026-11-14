@@ -1,0 +1,666 @@
+{
+  "tt_retracted": {
+    "message": "यह लेख साहित्य से वापस ले लिया गया है (retracted)।",
+    "description": "Hover text on the citation bar: retracted"
+  },
+  "tt_highImpact": {
+    "message": "एक्सटेंशन की स्कोरिंग के आधार पर उच्च प्रभाव वाला लेख।",
+    "description": "Hover text on the citation bar: highImpact"
+  },
+  "tt_overallScore": {
+    "message": "कई मापदंडों पर आधारित लेख का समग्र गुणवत्ता स्कोर।",
+    "description": "Hover text on the citation bar: overallScore"
+  },
+  "tt_mesh": {
+    "message": "इस लेख के MeSH शब्द और कीवर्ड देखें।",
+    "description": "Hover text on the citation bar: mesh"
+  },
+  "tt_new": {
+    "message": "नया लेख (< 2 वर्ष), PubMed की create date के आधार पर।",
+    "description": "Hover text on the citation bar: new"
+  },
+  "tt_trending": {
+    "message": "PubMed पर ट्रेंडिंग (शीर्ष 1,000 लेख)।",
+    "description": "Hover text on the citation bar: trending"
+  },
+  "tt_medline": {
+    "message": "Medline में इंडेक्स किया गया।",
+    "description": "Hover text on the citation bar: medline"
+  },
+  "tt_preprint": {
+    "message": "प्रीप्रिंट लेख (अभी peer review नहीं हुआ)।",
+    "description": "Hover text on the citation bar: preprint"
+  },
+  "tt_erratum": {
+    "message": "इसमें सुधार/erratum है (यह retraction नहीं है)।",
+    "description": "Hover text on the citation bar: erratum"
+  },
+  "tt_retractionNotice": {
+    "message": "यह एक retraction सूचना है: यह किसी दूसरे लेख को वापस लेती है (कौन-सा, देखने के लिए क्लिक करें)।",
+    "description": "Hover text on the citation bar: this record is a retraction notice"
+  },
+  "tt_erratumNotice": {
+    "message": "यह एक erratum सूचना है: यह किसी दूसरे लेख में सुधार करती है (कौन-सा, देखने के लिए क्लिक करें)।",
+    "description": "Hover text on the citation bar: this record is an erratum notice"
+  },
+  "tt_concern": {
+    "message": "चिंता की अभिव्यक्ति: जर्नल ने इस लेख के बारे में औपचारिक चेतावनी प्रकाशित की है (यह retraction नहीं है)। सूचना देखने के लिए क्लिक करें।",
+    "description": "Hover text on the citation bar: bold E, this article has an expression of concern"
+  },
+  "tt_concernErratum": {
+    "message": "चिंता की अभिव्यक्ति: जर्नल ने इस लेख के बारे में औपचारिक चेतावनी प्रकाशित की है (यह retraction नहीं है)। इसमें सुधार/erratum भी है। दोनों देखने के लिए क्लिक करें।",
+    "description": "Hover text on the citation bar: bold E, this article has an expression of concern and also an erratum"
+  },
+  "tt_concernNotice": {
+    "message": "यह चिंता की अभिव्यक्ति है: यह किसी अन्य लेख के बारे में चेतावनी देती है (कौन-सा, यह देखने के लिए क्लिक करें)।",
+    "description": "Hover text on the citation bar: bold E, this record is an expression of concern notice"
+  },
+  "tt_cited": {
+    "message": "NIH iCite से साइटेशन संख्या।",
+    "description": "Hover text on the citation bar: cited"
+  },
+  "tt_rcr": {
+    "message": "Relative Citation Ratio - क्षेत्र के अनुसार सामान्यीकृत वैज्ञानिक प्रभाव।",
+    "description": "Hover text on the citation bar: rcr"
+  },
+  "tt_ic": {
+    "message": "Semantic Scholar से प्रभावशाली साइटेशन (Influential Citations)।",
+    "description": "Hover text on the citation bar: ic"
+  },
+  "tt_alt": {
+    "message": "Altmetric Attention Score (सोशल मीडिया/समाचार में उल्लेख)।",
+    "description": "Hover text on the citation bar: alt"
+  },
+  "tt_similar": {
+    "message": "PubMed से मिलते-जुलते लेख।",
+    "description": "Hover text on the citation bar: similar"
+  },
+  "tt_citedBy": {
+    "message": "PubMed में इस पेपर को साइट करने वाले लेख।",
+    "description": "Hover text on the citation bar: citedBy"
+  },
+  "tt_scholar": {
+    "message": "DOI के माध्यम से Google Scholar लिंक।",
+    "description": "Hover text on the citation bar: scholar"
+  },
+  "tt_cp": {
+    "message": "Connections — इस लेख का इंटरैक्टिव साइटेशन ग्राफ़ (doilookup.com)।",
+    "description": "Hover text on the citation bar: cp"
+  },
+  "tt_abstract": {
+    "message": "एब्स्ट्रैक्ट देखें, और यदि उपलब्ध हों तो सरल भाषा का सारांश और पूरा पाठ भी।",
+    "description": "Hover text on the citation bar: abstract"
+  },
+  "tt_link": {
+    "message": "फ़ुल-टेक्स्ट लिंक (हरा = मुफ़्त)।",
+    "description": "Hover text on the citation bar: link"
+  },
+  "tt_topJournal": {
+    "message": "शीर्ष मेडिकल जर्नलों की चुनी हुई सूची से।",
+    "description": "Hover text on the citation bar: topJournal"
+  },
+  "tt_sjr": {
+    "message": "SCImago Journal Rank - जर्नल की दृश्यता का स्कोर।",
+    "description": "Hover text on the citation bar: sjr"
+  },
+  "tt_sjrQuartile": {
+    "message": "सर्वश्रेष्ठ चतुर्थक {q}: जर्नल के विषय क्षेत्रों में उसकी सबसे अच्छी SJR रैंक (Q1 = शीर्ष 25%)।",
+    "description": "Hover text on the citation bar: shown before the sjr text when the journal has a best quartile. Keep {q}"
+  },
+  "tt_rank": {
+    "message": "एक्सटेंशन के YTD डेटा से जर्नल रैंकिंग।",
+    "description": "Hover text on the citation bar: rank"
+  },
+  "tt_articleCount": {
+    "message": "रैंकिंग अवधि में प्रकाशित जर्नल लेख।",
+    "description": "Hover text on the citation bar: articleCount"
+  },
+  "tt_medlinePct": {
+    "message": "Medline में इंडेक्स प्रतिशत; हाल के लेख शायद अभी इंडेक्स न हुए हों।",
+    "description": "Hover text on the citation bar: medlinePct"
+  },
+  "tt_freePct": {
+    "message": "मुफ़्त फ़ुल टेक्स्ट वाले जर्नल लेखों का प्रतिशत।",
+    "description": "Hover text on the citation bar: freePct"
+  },
+  "tt_xout": {
+    "message": "रिव्यू, retraction, संपादकीय आदि को हटाएँ, जो PubMed का 25% हैं",
+    "description": "Hover text on the citation bar: xout"
+  },
+  "tt_keySearches": {
+    "message": "मुख्य खोजें: विषय के अनुसार पहले से बनी PubMed खोजें",
+    "description": "Hover text on the citation bar: keySearches"
+  },
+  "tt_citationReport": {
+    "message": "विस्तृत साइटेशन रिपोर्ट बनाएँ।",
+    "description": "Hover text on the citation bar: citationReport"
+  },
+  "tt_authors": {
+    "message": "लेखक की जानकारी और मेट्रिक्स देखें",
+    "description": "Hover text on the citation bar: authors"
+  },
+  "tt_pubmedReports": {
+    "message": "PubMed रिपोर्ट (मुख्य अवलोकन)",
+    "description": "Hover text on the citation bar: pubmedReports"
+  },
+  "tt_pick": {
+    "message": "एक्सपोर्ट सूची में जोड़ें। एब्स्ट्रैक्ट और MeSH सहित पूरा PubMed रिकॉर्ड लाता है - थोड़ा समय लगता है।",
+    "description": "Hover text on the citation bar: pick"
+  },
+  "tt_pickList": {
+    "message": "एक्सपोर्ट सूची खोलें - देखें, हटाएँ, और Zotero के लिए .nbib के रूप में डाउनलोड करें।",
+    "description": "Hover text on the citation bar: pickList"
+  },
+  "tt_pdfFree": {
+    "message": "मुफ़्त PMC PDF देखें • और स्रोत जल्द आ रहे हैं",
+    "description": "Hover text on the citation bar: pdfFree"
+  },
+  "tt_pdfNone": {
+    "message": "कोई सीधा PDF नहीं मिला • PDF डाउनलोड वाले लेख पेज के लिए Link बटन आज़माएँ • और स्रोत जल्द आ रहे हैं",
+    "description": "Hover text on the citation bar: pdfNone"
+  },
+  "tt_doiLookup": {
+    "message": "doilookup.com पर पूरा DOI लुकअप",
+    "description": "Hover text on the citation bar: doiLookup"
+  },
+  "tt_doiNone": {
+    "message": "कोई संबंधित DOI नहीं",
+    "description": "Hover text on the citation bar: doiNone"
+  },
+  "tt_help": {
+    "message": "विस्तृत सहायता के लिए क्लिक करें",
+    "description": "Hover text on the citation bar: help"
+  },
+  "tt_language": {
+    "message": "भाषा / Language / Idioma / 语言 / 言語 / 언어 / Langue / اللغة / ভাষা",
+    "description": "Hover text on the citation bar: language"
+  },
+  "tt_searchEnglish": {
+    "message": "PubMed खोज केवल अंग्रेज़ी में काम करती है। अंग्रेज़ी खोज शब्दों का उपयोग करें।",
+    "description": "One-time notice when the bar language is not English: PubMed search needs English terms"
+  },
+  "tt_icite12": {
+    "message": "मासिक साइटेशन, {from} – {to} (iCite)। चार्ट खोलने के लिए क्लिक करें।",
+    "description": "Hover text on the citation bar: 12-month chart icon (blue, data found). {from} and {to} are months"
+  },
+  "tt_icite12None": {
+    "message": "इस लेख के लिए कोई मासिक चार्ट नहीं है। चार्ट केवल उन लेखों के लिए हैं जो पिछले 36 महीनों में PubMed में जोड़े गए और पिछले 12 महीनों में सबसे अधिक साइटेशन पाने वाले 40,000 लेखों में शामिल हैं।",
+    "description": "Hover text on the citation bar: 12-month chart icon (grey, article not in the data)"
+  },
+  "tt_icite12Loading": {
+    "message": "मासिक साइटेशन डेटा अभी लोड हो रहा है। चार्ट आइकन देखने के लिए थोड़ी देर में पेज फिर से लोड करें।",
+    "description": "Hover text on the citation bar: 12-month chart icon (grey, data not loaded yet)"
+  },
+  "tt_icite12Title": {
+    "message": "महीने के अनुसार साइटेशन (iCite)",
+    "description": "12-month chart panel: heading"
+  },
+  "tt_icite12Summary": {
+    "message": "12 महीनों में मिले साइटेशन के अनुसार रैंक {rank} · +{gain} मिले · {to} तक कुल {total}",
+    "description": "12-month chart panel: summary line. Keep {rank}, {gain}, {total} and {to}"
+  },
+  "tt_icite12Rising": {
+    "message": "हाई ट्रेंड: पिछले 6 महीनों में प्रति दिन साइटेशन पहले 6 महीनों के कम से कम 1.5 गुना हैं।",
+    "description": "12-month chart panel: High Trend = Yes"
+  },
+  "tt_icite12New": {
+    "message": "नया: अवधि की शुरुआत में यह iCite में नहीं था, इसलिए 0 से शुरू होता है।",
+    "description": "12-month chart panel: High Trend = New"
+  },
+  "tt_icite12Prior": {
+    "message": "महीने से पहले का कुल",
+    "description": "12-month chart panel: legend, lower (blue) part of a bar"
+  },
+  "tt_icite12Gain": {
+    "message": "उस महीने मिले",
+    "description": "12-month chart panel: legend, upper (orange) part of a bar"
+  },
+  "tt_icite12Drop": {
+    "message": "iCite सुधार (संख्या घटी)",
+    "description": "12-month chart panel: legend, dashed red box for a month that went down"
+  },
+  "tt_icite12Report": {
+    "message": "पूरी सूची: PubMed iCite Citation Gains रिपोर्ट",
+    "description": "12-month chart panel: link to the website report"
+  },
+  "tt_authorRetractions": {
+    "message": "यह लेखक के बारे में है, इस लेख के बारे में नहीं: पहले या अंतिम लेखक के अन्य लेख वापस लिए गए हैं। विवरण के लिए Author पर क्लिक करें, फिर वापसी की संख्या पर।",
+    "description": "Hover text on the citation bar: Author outlined in red because the first or last author has other retracted papers. Keep the word Author"
+  },
+  "tt_journal": {
+    "message": "जर्नल: पूरा नाम, ISSN, NLM ID, Journal Ranking में रैंक, इस साल और पिछले साल के लेख, Medline, मुफ़्त पूर्ण पाठ और ORCID का हिस्सा, और वापसियाँ।",
+    "description": "Hover text on the citation bar: J (journal information panel)"
+  },
+  "pp_close": {
+    "message": "बंद करें",
+    "description": "Popup close button hover"
+  },
+  "pp_language": {
+    "message": "भाषा / Language / Idioma / 语言 / 言語 / 언어 / Langue / اللغة / ভাষা",
+    "description": "Popup language button hover"
+  },
+  "pp_toggleOn": {
+    "message": "-साइटेशन बार चालू-",
+    "description": "Popup toggle button, bar on"
+  },
+  "pp_toggleOff": {
+    "message": "-साइटेशन बार बंद-",
+    "description": "Popup toggle button, bar off"
+  },
+  "pp_toggleTitle": {
+    "message": "PubMed पेजों के लिए साइटेशन बार चालू या बंद करें।",
+    "description": "Popup toggle button hover"
+  },
+  "pp_impactTitle": {
+    "message": "उच्च प्रभाव और 1,000 स्कैन द्वारा उपयोग किया जाने वाला न्यूनतम स्कोर। Medline इंडेक्सिंग, साइटेशन, RCR, जर्नल SJR आदि पर आधारित।",
+    "description": "Popup Impact Score pull-down hover"
+  },
+  "pp_impactOption": {
+    "message": "इम्पैक्ट स्कोर {n} या अधिक",
+    "description": "Popup Impact Score option; {n} is the number"
+  },
+  "pp_impactDefault": {
+    "message": "(डिफ़ॉल्ट)",
+    "description": "Popup Impact Score option: marks the default"
+  },
+  "pp_highImpact": {
+    "message": "केवल उच्च प्रभाव (हरा फ़िल्टर)",
+    "description": "Popup button"
+  },
+  "pp_highImpactTitle": {
+    "message": "केवल उच्च प्रभाव वाले लेख दिखाएँ - हरी पृष्ठभूमि वाले - जो ऊपर चुने गए इम्पैक्ट स्कोर के बराबर या उससे अधिक हैं।",
+    "description": "Popup button hover"
+  },
+  "pp_return": {
+    "message": "वापस जाएँ",
+    "description": "Popup Return buttons"
+  },
+  "pp_returnTitle": {
+    "message": "उस पेज पर वापस जाएँ जिस पर आप 'केवल उच्च प्रभाव' द्वारा यह पेज खोलने से पहले थे।",
+    "description": "Popup Return button hover (High Impact)"
+  },
+  "pp_scan1000": {
+    "message": "1,000 स्कैन करें (हरा फ़िल्टर)",
+    "description": "Popup button"
+  },
+  "pp_scan1000Title": {
+    "message": "उच्च प्रभाव वाले लेखों के लिए 1,000 परिणाम स्कैन करें",
+    "description": "Popup button hover"
+  },
+  "pp_returnScanTitle": {
+    "message": "उस खोज पर वापस जाएँ जहाँ से '1,000 स्कैन करें' शुरू हुआ था।",
+    "description": "Popup Return button hover (Scan 1,000)"
+  },
+  "pp_termsPlaceholder": {
+    "message": "एक ही अवधारणा के रूप दर्ज करें, प्रति पंक्ति एक (जैसे vitamin B1, thiamine, B-1) अधिकतम 20 आइटम  ★ = सुझाया गया शब्द (अधिक संख्या + MeSH द्वारा सत्यापित)",
+    "description": "Popup search terms box placeholder"
+  },
+  "pp_yearTitle": {
+    "message": "'शब्दों का विश्लेषण' और 'विस्तार' द्वारा लागू वर्ष सीमा।",
+    "description": "Popup year pull-down hover"
+  },
+  "pp_yearAll": {
+    "message": "सभी वर्ष",
+    "description": "Popup year option"
+  },
+  "pp_year5": {
+    "message": "पिछले 5 वर्ष",
+    "description": "Popup year option"
+  },
+  "pp_year10": {
+    "message": "पिछले 10 वर्ष",
+    "description": "Popup year option"
+  },
+  "pp_year20": {
+    "message": "पिछले 20 वर्ष",
+    "description": "Popup year option"
+  },
+  "pp_analyze": {
+    "message": "शब्दों का विश्लेषण",
+    "description": "Popup button"
+  },
+  "pp_analyzeTitle": {
+    "message": "इस खोज को अलग-अलग शब्दों में बाँटें और दिखाएँ कि हर शब्द कितने परिणाम देता है।",
+    "description": "Popup button hover"
+  },
+  "pp_expand": {
+    "message": "विस्तार...",
+    "description": "Popup button"
+  },
+  "pp_expandTitle": {
+    "message": "यही शब्द PubMed के बाहर खोजें: OpenAlex, ClinicalTrials.gov और Google Scholar।",
+    "description": "Popup button hover"
+  },
+  "pp_issues": {
+    "message": "समस्या होने पर पेज रीफ़्रेश करें, या 'एक्सटेंशन रीसेट करें' बटन का उपयोग करें।",
+    "description": "Popup line under the status message"
+  },
+  "pp_training": {
+    "message": "आधिकारिक PubMed प्रशिक्षण",
+    "description": "Popup link"
+  },
+  "pp_copySearchRefTitle": {
+    "message": "इस टैब की PubMed खोज का संदर्भ कॉपी करें: डेटाबेस, खोज की तारीख, क्वेरी, फ़िल्टर और परिणामों की संख्या (PRISMA-S)",
+    "description": "Popup: hover text of the copy-search-reference button"
+  },
+  "pp_copySearchRefNone": {
+    "message": "पहले इस टैब में कोई PubMed खोज खोलें, फिर उसका संदर्भ कॉपी करें।",
+    "description": "Popup: shown when the copy-search-reference button is clicked away from a PubMed search"
+  },
+  "pp_ncbiUpdates": {
+    "message": "NCBI अपडेट",
+    "description": "Popup link"
+  },
+  "pp_ncbiUpdatesTitle": {
+    "message": "NLM Technical Bulletin, PubMed तक सीमित",
+    "description": "Popup link hover"
+  },
+  "pp_topJournals": {
+    "message": "शीर्ष जर्नल (व्यक्तिगत रूप से चुने गए, किसी विशेष क्रम में नहीं)",
+    "description": "Popup heading"
+  },
+  "pp_journalRanking": {
+    "message": "जर्नल रैंकिंग",
+    "description": "Popup link"
+  },
+  "pp_data": {
+    "message": "डेटा",
+    "description": "Popup button"
+  },
+  "pp_dataTitle": {
+    "message": "इस पेज के लिए एक्सटेंशन के पास मौजूद सब कुछ: पहले PMID, फिर सभी माप, टाइमस्टैम्प और आंतरिक फ़ील्ड। पूरी पारदर्शिता, कोई ट्रैकिंग नहीं।",
+    "description": "Popup button hover"
+  },
+  "pp_excel": {
+    "message": "Excel",
+    "description": "Popup button"
+  },
+  "pp_excelTitle": {
+    "message": "टैब से अलग की गई तालिका - सीधे Excel या Google Sheets में पेस्ट करें",
+    "description": "Popup button hover"
+  },
+  "pp_tabList": {
+    "message": "टैब सूची",
+    "description": "Popup button"
+  },
+  "pp_tabListTitle": {
+    "message": "एक पेज खोलें जिसमें आपके सभी खुले टैब शीर्षक और लिंक के साथ सूचीबद्ध हों।",
+    "description": "Popup button hover"
+  },
+  "pp_reset": {
+    "message": "एक्सटेंशन रीसेट करें",
+    "description": "Popup button"
+  },
+  "pp_resetTitle": {
+    "message": "एक्सटेंशन का संग्रहीत डेटा और Chrome का कैश साफ़ करें, फिर यह टैब उसी पेज पर दोबारा खोलें। हिस्ट्री, कुकीज़ और पासवर्ड पर कोई असर नहीं पड़ता।",
+    "description": "Popup button hover"
+  },
+  "pp_devOff": {
+    "message": "Dev बंद",
+    "description": "Popup button, storage viewer hidden"
+  },
+  "pp_devOn": {
+    "message": "Dev चालू",
+    "description": "Popup button, storage viewer shown"
+  },
+  "pp_devTitle": {
+    "message": "समस्या निवारण के लिए स्टोरेज व्यूअर दिखाएँ या छिपाएँ।",
+    "description": "Popup button hover"
+  },
+  "pp_supportAt": {
+    "message": "सहायता:",
+    "description": "Popup system info"
+  },
+  "pp_chromeVersion": {
+    "message": "Chrome संस्करण:",
+    "description": "Popup system info"
+  },
+  "pp_os": {
+    "message": "OS:",
+    "description": "Popup system info"
+  },
+  "pp_memory": {
+    "message": "मेमोरी:",
+    "description": "Popup system info"
+  },
+  "pp_bookmarks": {
+    "message": "बुकमार्क:",
+    "description": "Popup system info"
+  },
+  "pp_extensions": {
+    "message": "एक्सटेंशन:",
+    "description": "Popup system info"
+  },
+  "pp_citationDefault": {
+    "message": "PubMed (https://pubmed.ncbi.nlm.nih.gov/) में [तारीख] को '[खोज शब्द]' से की गई खोज ने [संख्या] परिणाम दिए।",
+    "description": "Popup citation line before a PubMed search is known"
+  },
+  "pp_citationRef": {
+    "message": "PubMed खोज {date} \"{term}\" {count} परिणाम।",
+    "description": "Popup citation line; {date} {term} {count} filled in"
+  },
+  "pp_searchTermsPlaceholder": {
+    "message": "[खोज शब्द]",
+    "description": "Popup citation line when the URL has no term"
+  },
+  "pp_countPlaceholder": {
+    "message": "[संख्या]",
+    "description": "Popup citation line when the count is unknown"
+  },
+  "pp_memoryLine": {
+    "message": "कुल {total}, {used}% उपयोग में, {free} खाली",
+    "description": "Popup memory line"
+  },
+  "pp_memoryLow": {
+    "message": "खाली मेमोरी कम है। ब्राउज़ करते समय PubMed हर पिछली खोज को मेमोरी में रखता है, इसलिए कई खोजों में इस्तेमाल हुआ टैब काफ़ी मेमोरी घेर सकता है।\n\nमेमोरी खाली करने के लिए: जिन ऐप्लिकेशन का आप उपयोग नहीं कर रहे उन्हें बंद करें, या नीचे दिए 'एक्सटेंशन रीसेट करें' बटन का उपयोग करें - यह इस टैब को उसी पेज पर नए सिरे से दोबारा खोलता है, इसलिए आपकी खोज बनी रहती है।",
+    "description": "Popup memory line hover when memory is low"
+  },
+  "pp_extensionsLine": {
+    "message": "{total} ({active} सक्रिय)",
+    "description": "Popup extensions count"
+  },
+  "pp_notAvailable": {
+    "message": "उपलब्ध नहीं",
+    "description": "Popup system info when unavailable"
+  },
+  "pp_errorPrefix": {
+    "message": "त्रुटि:",
+    "description": "Prefix on popup messages under the buttons"
+  },
+  "pp_errHighImpactLoad": {
+    "message": "मानक उच्च प्रभाव परिणाम लोड नहीं हो सके।",
+    "description": "Popup error"
+  },
+  "pp_errHighImpactSortedLoad": {
+    "message": "क्रमबद्ध उच्च प्रभाव परिणाम लोड नहीं हो सके।",
+    "description": "Popup error (sorted, hidden feature)"
+  },
+  "pp_errHighImpactNone": {
+    "message": "कोई उच्च प्रभाव वाला आइटम नहीं मिला। अपनी इम्पैक्ट स्कोर सेटिंग बदलकर फिर से प्रयास करें।",
+    "description": "Popup error"
+  },
+  "pp_errHighImpactPage": {
+    "message": "उच्च प्रभाव फ़िल्टर केवल PubMed पेजों पर काम करता है",
+    "description": "Popup error"
+  },
+  "pp_errReturnHighImpact": {
+    "message": "अभी वापस जाने के लिए कुछ नहीं है - पहले 'केवल उच्च प्रभाव (हरा फ़िल्टर)' का उपयोग करें।",
+    "description": "Popup error"
+  },
+  "pp_errReturnScan": {
+    "message": "अभी वापस जाने के लिए कुछ नहीं है - पहले '1,000 स्कैन करें' चलाएँ।",
+    "description": "Popup error"
+  },
+  "pp_errScanPage": {
+    "message": "'1,000 स्कैन करें' केवल PubMed के खोज, ट्रेंडिंग या कलेक्शन पेजों पर काम करता है",
+    "description": "Popup error"
+  },
+  "pp_scanWait": {
+    "message": "1,000 परिणाम स्कैन हो रहे हैं... कृपया प्रतीक्षा करें।",
+    "description": "Popup progress message"
+  },
+  "pp_errScanFail": {
+    "message": "1,000 क्रमबद्ध परिणाम स्कैन नहीं हो सके:",
+    "description": "Popup error; the reason follows"
+  },
+  "pp_errUnknown": {
+    "message": "अज्ञात त्रुटि",
+    "description": "Popup error reason"
+  },
+  "pp_errNoTerms": {
+    "message": "विश्लेषण के लिए कृपया खोज शब्द या DOI दर्ज करें",
+    "description": "Popup error"
+  },
+  "pp_errTermLimit": {
+    "message": "केवल पहले 20 शब्दों तक सीमित ({n} दर्ज किए गए)। पहले 20 पर कार्य हो रहा है...",
+    "description": "Popup message; {n} is the number entered"
+  },
+  "pp_errTab": {
+    "message": "मौजूदा टैब पढ़ा नहीं जा सका। कृपया फिर से प्रयास करें।",
+    "description": "Popup error"
+  },
+  "pp_errSpecialNeeds": {
+    "message": "Special मोड के लिए पंक्ति 2 पर समय अवधि और कम से कम एक शब्द-समूह आवश्यक है",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialFirst": {
+    "message": "पहली पंक्ति \"special:\" होनी चाहिए",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialPeriod": {
+    "message": "समय अवधि \"Last X days/months/years\" के रूप में होनी चाहिए (जैसे Last 5 years)",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialRange": {
+    "message": "समय अवधि 1 से 100 दिन/महीने/वर्ष के बीच होनी चाहिए",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialNoGroups": {
+    "message": "Special मोड में कोई शब्द-समूह नहीं मिला",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_copied": {
+    "message": "कॉपी हो गया!",
+    "description": "Copy button after copying"
+  },
+  "pp_copyFailed": {
+    "message": "क्लिपबोर्ड पर कॉपी नहीं हो सका",
+    "description": "Copy error"
+  },
+  "pp_resetConfirm": {
+    "message": "इससे एक्सटेंशन रीसेट होगा, कैश किया गया डेटा साफ़ होगा, और यह टैब उसी पेज के साथ दोबारा खुलेगा।\n\nआपकी हिस्ट्री, कुकीज़ और सहेजे गए पासवर्ड पर कोई असर नहीं पड़ेगा। क्या आप आगे बढ़ना चाहते हैं?",
+    "description": "Reset Extension confirm box"
+  },
+  "pp_resetting": {
+    "message": "रीसेट हो रहा है...",
+    "description": "Reset Extension button while working"
+  },
+  "pp_resetError": {
+    "message": "त्रुटि: ब्राउज़र डेटा साफ़ नहीं हो सका।",
+    "description": "Reset Extension error"
+  },
+  "pp_termsHelpTitle": {
+    "message": "खोज शब्द सहायता",
+    "description": "Search terms help heading"
+  },
+  "pp_termsHelpIntro": {
+    "message": "मिलते-जुलते शब्द दर्ज करें, प्रति पंक्ति एक (अधिकतम 20 शब्द)। यह टूल एक ही अवधारणा के विभिन्न रूपों का विश्लेषण करने के लिए बनाया गया है।",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpPrompt": {
+    "message": "<strong>शब्द बनाने का प्रॉम्प्ट (कॉपी करके उपयोग करें):</strong><br>वैज्ञानिक शब्दों के विभिन्न रूप बनाने के लिए पेशेवर प्रॉम्प्ट - इसमें रासायनिक नाम, संक्षिप्त रूप, मेटाबोलाइट और आम रूप शामिल हैं।",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_copyPrompt": {
+    "message": "प्रॉम्प्ट कॉपी करें",
+    "description": "Search terms help button"
+  },
+  "pp_termsHelpReplace": {
+    "message": "\"Vitamin D1\" की जगह अपना खोज शब्द लिखें",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpSpecial": {
+    "message": "<strong>Special मोड:</strong><br>कस्टम तारीख सीमा या कई शब्द-समूहों के लिए, इससे शुरू करें:",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_termsHelpFormat": {
+    "message": "प्रारूप: \"Last X days/months/years\"",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpTip": {
+    "message": "<strong>उपयोगी सुझाव:</strong> Special मोड में आप 10 तक अलग-अलग शब्द-समूहों का विश्लेषण कर सकते हैं - बस हर समूह को एक खाली पंक्ति से अलग करें।",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_termsHelpExample": {
+    "message": "<strong>उदाहरण - B विटामिन (पिछले 30 दिन):</strong>",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_copyExample": {
+    "message": "उदाहरण कॉपी करें",
+    "description": "Search terms help button"
+  },
+  "pp_expandHeadlineOne": {
+    "message": "1 नया टैब खुलेगा:",
+    "description": "Expand dialog"
+  },
+  "pp_expandHeadlineMany": {
+    "message": "{n} नए टैब खुलेंगे:",
+    "description": "Expand dialog; {n} is the number"
+  },
+  "pp_expandSub": {
+    "message": "जिनकी ज़रूरत नहीं है, उनका चेक हटा दें। आपकी पसंद याद रखी जाती है।",
+    "description": "Expand dialog"
+  },
+  "pp_expandOpenAlexDesc": {
+    "message": "वे लेख जो PubMed में इंडेक्स नहीं हैं",
+    "description": "Expand dialog"
+  },
+  "pp_expandTrialsDesc": {
+    "message": "मेल खाने वाले क्लिनिकल ट्रायल",
+    "description": "Expand dialog"
+  },
+  "pp_expandScholarDesc": {
+    "message": "Scholar पर यही खोज",
+    "description": "Expand dialog"
+  },
+  "pp_expandNoTerm": {
+    "message": "इस पेज पर कोई खोज शब्द नहीं",
+    "description": "Expand dialog note"
+  },
+  "pp_expandFetching": {
+    "message": "लाया जा रहा है…",
+    "description": "Expand dialog note"
+  },
+  "pp_expandReady": {
+    "message": "तैयार",
+    "description": "Expand dialog note"
+  },
+  "pp_expandUnavailable": {
+    "message": "उपलब्ध नहीं",
+    "description": "Expand dialog note"
+  },
+  "pp_cancel": {
+    "message": "रद्द करें",
+    "description": "Dialog button"
+  },
+  "pp_continue": {
+    "message": "जारी रखें",
+    "description": "Dialog button"
+  },
+  "pp_loading": {
+    "message": "लोड हो रहा है…",
+    "description": "Dialog button while waiting"
+  },
+  "pp_clockTitle": {
+    "message": "विश्व घड़ी सेटिंग",
+    "description": "Clock settings heading"
+  },
+  "pp_clockName": {
+    "message": "नाम",
+    "description": "Clock settings name box placeholder"
+  },
+  "pp_save": {
+    "message": "सहेजें",
+    "description": "Clock settings button"
+  }
+}

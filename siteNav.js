@@ -27,6 +27,7 @@
     { title: 'PubMed Citation Bar',    href: '/' },
     { title: 'Help — Bar Reference',   href: '/help.html' },
     { title: 'Support',                href: '/support.html' },
+    { title: 'Citation Bar Demo',      href: '/demo/' },
     { title: 'PubMed Summary Report',  href: '/pubmed-summary/pubmed-summary.html' },
     { title: 'PubMed Filters Report',  href: '/filters/filters.html' },
     { title: 'PubMed MeSH Counts',     href: '/mesh/mesh.html' },

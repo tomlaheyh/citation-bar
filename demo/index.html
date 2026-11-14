@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PubMed Citation Bar — Live Demo</title>
+<meta name="description" content="Try the PubMed Citation Bar without installing it. A frozen PubMed results page with the real citation bar running on it — metrics, scoring, abstracts, MeSH terms and keywords, author and journal panels, monthly citation charts, 10 languages, reference-manager export and the AI pack.">
+<link rel="canonical" href="https://tomlaheyh.github.io/citation-bar/demo/">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap');
+
+  :root {
+    --bg: #ffffff;
+    --text: #212121;
+    --muted: #646464;
+    --link: #205493;
+    --rule: #dcdcdc;
+    --banner-bg: #fff8e6;
+    --banner-border: #f0e0b8;
+    --banner-text: #7a5c12;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  /* Explanatory banner. Deliberately unmistakable, and above the fold, so no
+     one can mistake the frozen page below for live PubMed. */
+  .demo-banner {
+    background: var(--banner-bg);
+    border-bottom: 1px solid var(--banner-border);
+    color: var(--banner-text);
+    padding: 14px 0;
+    font-size: 14px;
+  }
+  .demo-banner strong { font-weight: 700; }
+  .demo-banner .wrap { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+  .demo-banner p { margin: 0; max-width: 78ch; }
+  /* Scoped away from the button. ".demo-banner a" is a class plus an element,
+     which outranks a lone ".install-cta" - so the banner's link colour was
+     winning and painting dark blue text on the blue button. */
+  .demo-banner a:not(.install-cta) { color: #0b4f8a; }
+
+  /* Two classes, so this beats the rule above whatever order they sit in.
+     Colour is stated on hover as well, or the same collision returns there. */
+  .demo-banner .install-cta {
+    margin-left: auto;
+    flex: 0 0 auto;
+    background-color: #005a8c;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .demo-banner .install-cta:hover {
+    background-color: #004470;
+    color: #ffffff;
+  }
+
+  /* Frozen PubMed results page. Approximates PubMed's layout closely enough to
+     be recognisable; the class names are what matter, because the bar finds
+     articles by them. */
+  .pm-header { border-bottom: 1px solid var(--rule); padding: 14px 0; }
+  .pm-logo { font-size: 22px; font-weight: 700; color: #205493; letter-spacing: -0.3px; }
+  .pm-logo span { color: #646464; font-weight: 400; font-size: 14px; margin-left: 10px; }
+
+  .pm-searchbar {
+    display: flex; gap: 0; margin-top: 12px; max-width: 720px;
+    border: 1px solid #a6a6a6; border-radius: 4px; overflow: hidden;
+  }
+  .pm-searchbar input {
+    flex: 1; border: none; padding: 9px 12px; font-size: 15px; font-family: inherit;
+    background: #fff; color: var(--text);
+  }
+  .pm-searchbar button {
+    border: none; background: #f0f0f0; color: #444; padding: 0 18px;
+    font-family: inherit; font-size: 14px; cursor: not-allowed;
+  }
+
+  .pm-meta { padding: 14px 0 6px; color: var(--muted); font-size: 14px; border-bottom: 1px solid var(--rule); }
+
+  #search-results { padding-bottom: 40px; }
+
+  article.full-docsum { border-bottom: 1px solid var(--rule); padding: 16px 0; }
+  .docsum-content { position: relative; padding-left: 34px; }
+  .docsum-index { position: absolute; left: 0; top: 1px; color: var(--muted); font-size: 14px; }
+  a.docsum-title {
+    display: block; color: var(--link); font-size: 17px; font-weight: 600;
+    text-decoration: none; line-height: 1.35;
+  }
+  a.docsum-title:hover { text-decoration: underline; }
+  .docsum-authors { color: #333; font-size: 14px; margin-top: 4px; }
+  .docsum-journal-citation-wrapper { color: var(--muted); font-size: 14px; margin-top: 2px; }
+  .citation-part { margin-left: 6px; }
+
+  .demo-note {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 8px;
+    background: var(--banner-bg);
+    border: 1px solid var(--banner-border);
+    border-radius: 3px;
+    color: var(--banner-text);
+    font-size: 12px;
+  }
+
+  #demo-status {
+    display: none; margin: 40px auto; padding: 16px; max-width: 620px;
+    border: 1px solid var(--rule); border-radius: 4px; text-align: center; color: var(--muted);
+  }
+
+  .demo-foot {
+    border-top: 1px solid var(--rule); padding: 22px 0 50px;
+    color: var(--muted); font-size: 13px;
+  }
+  .demo-foot p { max-width: 80ch; margin-bottom: 8px; }
+  .demo-foot a { color: var(--link); }
+
+  @media (max-width: 640px) {
+    .install-cta { margin-left: 0; }
+    .pm-searchbar { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<script src="../siteNav.js"></script>
+
+<div class="demo-banner">
+  <div class="wrap">
+    <p>
+      <strong>This is a demo, not live PubMed.</strong>
+      A real PubMed results page frozen on <span id="snapshot-date">a recent date</span>,
+      with the actual Citation Bar running on it (extension version <span id="snapshot-version">—</span>).
+      Everything on the bar works — hover any item for what it means, open an abstract, the MeSH terms and keywords,
+      an author's ORCID and h-index, the journal panel (<strong>J</strong>) or the monthly citation chart beside
+      <strong>Cited</strong>, switch the bar's language with the <strong>EN</strong> tag, tick the green check to build
+      an export list and download it as <code>.nbib</code> or <code>.ris</code>, or build an <strong>AI pack</strong> (.zip) for an AI tool.
+      Citation counts and scores are frozen at the snapshot date, and searching is disabled.
+    </p>
+    <a class="install-cta" href="https://chromewebstore.google.com/detail/pubmed-citation-bar/ghbpnjpggopkfhbngpcieoimiopbmmom" target="_blank" rel="noopener">Add to Chrome — free</a>
+  </div>
+</div>
+
+<div class="pm-header">
+  <div class="wrap">
+    <div class="pm-logo">PubMed<span>frozen snapshot — demo only</span></div>
+    <div class="pm-searchbar">
+      <input id="pm-query" type="text" value="" readonly aria-label="Search (disabled in the demo)">
+      <button type="button" disabled title="Searching is disabled in the demo">Search</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="pm-meta"><span id="result-count">Loading…</span></div>
+  <div id="demo-status"></div>
+  <div id="search-results"></div>
+
+  <div class="demo-foot">
+    <p>
+      The bar you are looking at is the extension's own code, unmodified, running over a saved
+      page. The article records, abstracts, MeSH terms, author and journal details and monthly
+      citation counts were captured at the snapshot date and are bundled with the page. The one
+      thing fetched live is an article's free full text, from Europe PMC or PubMed Central, when
+      you open its abstract or build an AI pack. <strong>Convert PDF</strong> reads a PDF from your own
+      computer inside your browser; nothing is uploaded.
+    </p>
+    <p>
+      Two things can't be shown here because they need a live search: <strong>Xout</strong>, which
+      rebuilds your query to exclude reviews, editorials and retractions, and <strong>Scan 1,000</strong>,
+      which scores a thousand results and returns the highest-impact ones.
+    </p>
+    <p>
+      <a href="https://chromewebstore.google.com/detail/pubmed-citation-bar/ghbpnjpggopkfhbngpcieoimiopbmmom" target="_blank" rel="noopener">Install the extension</a>
+      &middot; <a href="../">How it works</a>
+      &middot; <a href="https://doilookup.com/" target="_blank" rel="noopener">DOI-Ref-Lookup</a>
+    </p>
+  </div>
+</div>
+
+<script type="module" src="./demo.js"></script>
+</body>
+</html>

@@ -1,0 +1,666 @@
+{
+  "tt_retracted": {
+    "message": "この論文は撤回されています。",
+    "description": "Hover text on the citation bar: retracted"
+  },
+  "tt_highImpact": {
+    "message": "本拡張機能のスコアによる高インパクト論文。",
+    "description": "Hover text on the citation bar: highImpact"
+  },
+  "tt_overallScore": {
+    "message": "複数の指標に基づく論文の総合品質スコア。",
+    "description": "Hover text on the citation bar: overallScore"
+  },
+  "tt_mesh": {
+    "message": "この論文の MeSH 用語とキーワードを表示します。",
+    "description": "Hover text on the citation bar: mesh"
+  },
+  "tt_new": {
+    "message": "新しい論文（2 年未満）。PubMed の作成日に基づきます。",
+    "description": "Hover text on the citation bar: new"
+  },
+  "tt_trending": {
+    "message": "PubMed で注目（上位 1000 件）。",
+    "description": "Hover text on the citation bar: trending"
+  },
+  "tt_medline": {
+    "message": "Medline に収載済み。",
+    "description": "Hover text on the citation bar: medline"
+  },
+  "tt_preprint": {
+    "message": "プレプリント（査読前）。",
+    "description": "Hover text on the citation bar: preprint"
+  },
+  "tt_erratum": {
+    "message": "訂正・正誤表あり（撤回ではありません）。",
+    "description": "Hover text on the citation bar: erratum"
+  },
+  "tt_retractionNotice": {
+    "message": "これは撤回公告です。別の論文を撤回するものです（クリックで対象を表示）。",
+    "description": "Hover text on the citation bar: this record is a retraction notice"
+  },
+  "tt_erratumNotice": {
+    "message": "これは正誤表です。別の論文を訂正するものです（クリックで対象を表示）。",
+    "description": "Hover text on the citation bar: this record is an erratum notice"
+  },
+  "tt_concern": {
+    "message": "懸念表明：ジャーナルがこの論文について正式な警告を公表しています（撤回ではありません）。クリックで通知を表示。",
+    "description": "Hover text on the citation bar: bold E, this article has an expression of concern"
+  },
+  "tt_concernErratum": {
+    "message": "懸念表明：ジャーナルがこの論文について正式な警告を公表しています（撤回ではありません）。訂正／正誤表もあります。クリックで両方を表示。",
+    "description": "Hover text on the citation bar: bold E, this article has an expression of concern and also an erratum"
+  },
+  "tt_concernNotice": {
+    "message": "これは懸念表明です：別の論文について警告しています（クリックで対象を表示）。",
+    "description": "Hover text on the citation bar: bold E, this record is an expression of concern notice"
+  },
+  "tt_cited": {
+    "message": "NIH iCite による被引用数。",
+    "description": "Hover text on the citation bar: cited"
+  },
+  "tt_rcr": {
+    "message": "Relative Citation Ratio（相対被引用比）：分野で標準化した科学的影響度。",
+    "description": "Hover text on the citation bar: rcr"
+  },
+  "tt_ic": {
+    "message": "Semantic Scholar の影響力のある引用（Influential Citations）。",
+    "description": "Hover text on the citation bar: ic"
+  },
+  "tt_alt": {
+    "message": "Altmetric Attention Score（SNS やニュースでの言及）。",
+    "description": "Hover text on the citation bar: alt"
+  },
+  "tt_similar": {
+    "message": "PubMed の類似論文。",
+    "description": "Hover text on the citation bar: similar"
+  },
+  "tt_citedBy": {
+    "message": "この論文を引用している PubMed の論文。",
+    "description": "Hover text on the citation bar: citedBy"
+  },
+  "tt_scholar": {
+    "message": "DOI で Google Scholar にリンクします。",
+    "description": "Hover text on the citation bar: scholar"
+  },
+  "tt_cp": {
+    "message": "Connections：この論文のインタラクティブな引用グラフ（doilookup.com）。",
+    "description": "Hover text on the citation bar: cp"
+  },
+  "tt_abstract": {
+    "message": "抄録を表示します。平易な要約や全文があれば併せて表示します。",
+    "description": "Hover text on the citation bar: abstract"
+  },
+  "tt_link": {
+    "message": "全文リンク（緑 = 無料）。",
+    "description": "Hover text on the citation bar: link"
+  },
+  "tt_topJournal": {
+    "message": "厳選した主要医学ジャーナルのリストに含まれます。",
+    "description": "Hover text on the citation bar: topJournal"
+  },
+  "tt_sjr": {
+    "message": "SCImago Journal Rank：ジャーナルの可視性スコア。",
+    "description": "Hover text on the citation bar: sjr"
+  },
+  "tt_sjrQuartile": {
+    "message": "最良クォータイル {q}：このジャーナルが属する分野の中で最も良い SJR 順位（Q1 = 上位 25%）。",
+    "description": "Hover text on the citation bar: shown before the sjr text when the journal has a best quartile. Keep {q}"
+  },
+  "tt_rank": {
+    "message": "本拡張機能の今年のデータによるジャーナル順位。",
+    "description": "Hover text on the citation bar: rank"
+  },
+  "tt_articleCount": {
+    "message": "順位付け期間中にジャーナルが掲載した論文数。",
+    "description": "Hover text on the citation bar: articleCount"
+  },
+  "tt_medlinePct": {
+    "message": "Medline 収載率。最近の論文はまだ収載されていない場合があります。",
+    "description": "Hover text on the citation bar: medlinePct"
+  },
+  "tt_freePct": {
+    "message": "無料全文が読めるジャーナル論文の割合。",
+    "description": "Hover text on the citation bar: freePct"
+  },
+  "tt_xout": {
+    "message": "総説、撤回、論説など（PubMed の約 25%）を除外",
+    "description": "Hover text on the citation bar: xout"
+  },
+  "tt_keySearches": {
+    "message": "キー検索：トピック別の定義済み PubMed 検索",
+    "description": "Hover text on the citation bar: keySearches"
+  },
+  "tt_citationReport": {
+    "message": "詳細な引用レポートを作成します。",
+    "description": "Hover text on the citation bar: citationReport"
+  },
+  "tt_authors": {
+    "message": "著者情報と指標を表示",
+    "description": "Hover text on the citation bar: authors"
+  },
+  "tt_pubmedReports": {
+    "message": "PubMed レポート（主要な概要）",
+    "description": "Hover text on the citation bar: pubmedReports"
+  },
+  "tt_pick": {
+    "message": "エクスポートリストに追加します。抄録と MeSH を含む PubMed の完全なレコードを取得するため、少し時間がかかります。",
+    "description": "Hover text on the citation bar: pick"
+  },
+  "tt_pickList": {
+    "message": "エクスポートリストを開きます：確認・削除し、Zotero 用に .nbib でダウンロードできます。",
+    "description": "Hover text on the citation bar: pickList"
+  },
+  "tt_pdfFree": {
+    "message": "PMC の無料 PDF を表示 • 今後ほかの提供元も追加予定",
+    "description": "Hover text on the citation bar: pdfFree"
+  },
+  "tt_pdfNone": {
+    "message": "直接の PDF は見つかりません • Link ボタンで PDF をダウンロードできる論文ページを開いてください • 今後ほかの提供元も追加予定",
+    "description": "Hover text on the citation bar: pdfNone"
+  },
+  "tt_doiLookup": {
+    "message": "doilookup.com で DOI を詳しく調べる",
+    "description": "Hover text on the citation bar: doiLookup"
+  },
+  "tt_doiNone": {
+    "message": "関連する DOI はありません",
+    "description": "Hover text on the citation bar: doiNone"
+  },
+  "tt_help": {
+    "message": "クリックして詳しいヘルプを表示",
+    "description": "Hover text on the citation bar: help"
+  },
+  "tt_language": {
+    "message": "言語 / Language / Idioma / 语言 / 언어 / Langue / भाषा / اللغة / ভাষা",
+    "description": "Hover text on the citation bar: language"
+  },
+  "tt_searchEnglish": {
+    "message": "PubMed の検索は英語のみに対応しています。英語の検索語を使ってください。",
+    "description": "One-time notice when the bar language is not English: PubMed search needs English terms"
+  },
+  "tt_icite12": {
+    "message": "月別の被引用数、{from} – {to}（iCite）。クリックでグラフを表示。",
+    "description": "Hover text on the citation bar: 12-month chart icon (blue, data found). {from} and {to} are months"
+  },
+  "tt_icite12None": {
+    "message": "この論文の月別グラフはありません。グラフの対象は、過去 36 か月に PubMed に追加され、過去 12 か月の被引用数の増加が上位 40,000 件に入る論文のみです。",
+    "description": "Hover text on the citation bar: 12-month chart icon (grey, article not in the data)"
+  },
+  "tt_icite12Loading": {
+    "message": "月別の被引用データを読み込み中です。しばらくしてからページを再読み込みすると、グラフのアイコンが表示されます。",
+    "description": "Hover text on the citation bar: 12-month chart icon (grey, data not loaded yet)"
+  },
+  "tt_icite12Title": {
+    "message": "月別の被引用数（iCite）",
+    "description": "12-month chart panel: heading"
+  },
+  "tt_icite12Summary": {
+    "message": "12 か月の被引用増加で {rank} 位 · +{gain} 増加 · {to} 時点で合計 {total}",
+    "description": "12-month chart panel: summary line. Keep {rank}, {gain}, {total} and {to}"
+  },
+  "tt_icite12Rising": {
+    "message": "上昇傾向：直近 6 か月の 1 日あたり被引用数が、最初の 6 か月の 1.5 倍以上です。",
+    "description": "12-month chart panel: High Trend = Yes"
+  },
+  "tt_icite12New": {
+    "message": "新規：期間の開始時点で iCite に未収録のため、0 から始まります。",
+    "description": "12-month chart panel: High Trend = New"
+  },
+  "tt_icite12Prior": {
+    "message": "その月より前の合計",
+    "description": "12-month chart panel: legend, lower (blue) part of a bar"
+  },
+  "tt_icite12Gain": {
+    "message": "その月の増加分",
+    "description": "12-month chart panel: legend, upper (orange) part of a bar"
+  },
+  "tt_icite12Drop": {
+    "message": "iCite の修正（件数が減少）",
+    "description": "12-month chart panel: legend, dashed red box for a month that went down"
+  },
+  "tt_icite12Report": {
+    "message": "全リスト：PubMed iCite Citation Gains レポート",
+    "description": "12-month chart panel: link to the website report"
+  },
+  "tt_authorRetractions": {
+    "message": "この論文ではなく、著者に関する表示です：筆頭著者または最終著者に、ほかの撤回論文があります。詳細は Author をクリックし、撤回数をクリック。",
+    "description": "Hover text on the citation bar: Author outlined in red because the first or last author has other retracted papers. Keep the word Author"
+  },
+  "tt_journal": {
+    "message": "ジャーナル：正式名、ISSN、NLM ID、Journal Ranking での順位、今年と昨年の論文数、Medline・無料全文・ORCID の割合、撤回数。",
+    "description": "Hover text on the citation bar: J (journal information panel)"
+  },
+  "pp_close": {
+    "message": "閉じる",
+    "description": "Popup close button hover"
+  },
+  "pp_language": {
+    "message": "言語 / Language / Idioma / 语言 / 언어 / Langue / भाषा / اللغة / ভাষা",
+    "description": "Popup language button hover"
+  },
+  "pp_toggleOn": {
+    "message": "-引用バー：オン-",
+    "description": "Popup toggle button, bar on"
+  },
+  "pp_toggleOff": {
+    "message": "-引用バー：オフ-",
+    "description": "Popup toggle button, bar off"
+  },
+  "pp_toggleTitle": {
+    "message": "PubMed のページで引用バーをオン・オフします。",
+    "description": "Popup toggle button hover"
+  },
+  "pp_impactTitle": {
+    "message": "「高インパクトのみ」と「1000件スキャン」で使う最低スコア。Medline 収載、被引用数、RCR、ジャーナルの SJR などに基づきます。",
+    "description": "Popup Impact Score pull-down hover"
+  },
+  "pp_impactOption": {
+    "message": "インパクトスコア {n} 以上",
+    "description": "Popup Impact Score option; {n} is the number"
+  },
+  "pp_impactDefault": {
+    "message": "（既定）",
+    "description": "Popup Impact Score option: marks the default"
+  },
+  "pp_highImpact": {
+    "message": "高インパクトのみ（緑で絞り込み）",
+    "description": "Popup button"
+  },
+  "pp_highImpactTitle": {
+    "message": "上で選んだインパクトスコア以上の高インパクト論文（背景が緑の論文）だけを表示します。",
+    "description": "Popup button hover"
+  },
+  "pp_return": {
+    "message": "戻る",
+    "description": "Popup Return buttons"
+  },
+  "pp_returnTitle": {
+    "message": "「高インパクトのみ」でこのページを開く前のページに戻ります。",
+    "description": "Popup Return button hover (High Impact)"
+  },
+  "pp_scan1000": {
+    "message": "1000件スキャン（緑で絞り込み）",
+    "description": "Popup button"
+  },
+  "pp_scan1000Title": {
+    "message": "1000 件の結果から高インパクト論文を探します",
+    "description": "Popup button hover"
+  },
+  "pp_returnScanTitle": {
+    "message": "「1000件スキャン」を始めた検索に戻ります。",
+    "description": "Popup Return button hover (Scan 1,000)"
+  },
+  "pp_termsPlaceholder": {
+    "message": "1 つの概念の言い換えを 1 行に 1 つずつ入力（例：vitamin B1、thiamine、B-1）。最大 20 件  ★ = 推奨用語（件数が多く MeSH で確認済み）",
+    "description": "Popup search terms box placeholder"
+  },
+  "pp_yearTitle": {
+    "message": "「用語を分析」と「拡張検索」で使う年の範囲。",
+    "description": "Popup year pull-down hover"
+  },
+  "pp_yearAll": {
+    "message": "すべての年",
+    "description": "Popup year option"
+  },
+  "pp_year5": {
+    "message": "過去 5 年",
+    "description": "Popup year option"
+  },
+  "pp_year10": {
+    "message": "過去 10 年",
+    "description": "Popup year option"
+  },
+  "pp_year20": {
+    "message": "過去 20 年",
+    "description": "Popup year option"
+  },
+  "pp_analyze": {
+    "message": "用語を分析",
+    "description": "Popup button"
+  },
+  "pp_analyzeTitle": {
+    "message": "この検索を個々の用語に分け、それぞれの件数を表示します。",
+    "description": "Popup button hover"
+  },
+  "pp_expand": {
+    "message": "拡張検索...",
+    "description": "Popup button"
+  },
+  "pp_expandTitle": {
+    "message": "同じ用語を PubMed 以外（OpenAlex、ClinicalTrials.gov、Google Scholar）で検索します。",
+    "description": "Popup button hover"
+  },
+  "pp_issues": {
+    "message": "問題があるときは、ページを再読み込みするか「拡張機能をリセット」ボタンを使ってください。",
+    "description": "Popup line under the status message"
+  },
+  "pp_training": {
+    "message": "PubMed 公式トレーニング",
+    "description": "Popup link"
+  },
+  "pp_copySearchRefTitle": {
+    "message": "このタブの PubMed 検索の記録をコピー：データベース、検索日、検索式、フィルター、件数（PRISMA-S）",
+    "description": "Popup: hover text of the copy-search-reference button"
+  },
+  "pp_copySearchRefNone": {
+    "message": "先にこのタブで PubMed の検索を開いてから、記録をコピーしてください。",
+    "description": "Popup: shown when the copy-search-reference button is clicked away from a PubMed search"
+  },
+  "pp_ncbiUpdates": {
+    "message": "NCBI 更新情報",
+    "description": "Popup link"
+  },
+  "pp_ncbiUpdatesTitle": {
+    "message": "NLM Technical Bulletin（PubMed 関連のみ）",
+    "description": "Popup link hover"
+  },
+  "pp_topJournals": {
+    "message": "主要ジャーナル（個人的に厳選、順不同）",
+    "description": "Popup heading"
+  },
+  "pp_journalRanking": {
+    "message": "ジャーナルランキング",
+    "description": "Popup link"
+  },
+  "pp_data": {
+    "message": "データ",
+    "description": "Popup button"
+  },
+  "pp_dataTitle": {
+    "message": "このページについて本拡張機能が保持しているすべてのデータ：まず PMID、次にすべての指標、タイムスタンプ、内部フィールド。完全に開示し、追跡は一切行いません。",
+    "description": "Popup button hover"
+  },
+  "pp_excel": {
+    "message": "Excel",
+    "description": "Popup button"
+  },
+  "pp_excelTitle": {
+    "message": "タブ区切りの表。Excel や Google Sheets にそのまま貼り付けられます",
+    "description": "Popup button hover"
+  },
+  "pp_tabList": {
+    "message": "タブ一覧",
+    "description": "Popup button"
+  },
+  "pp_tabListTitle": {
+    "message": "現在開いているすべてのタブをタイトルとリンク付きで一覧表示するページを開きます。",
+    "description": "Popup button hover"
+  },
+  "pp_reset": {
+    "message": "拡張機能をリセット",
+    "description": "Popup button"
+  },
+  "pp_resetTitle": {
+    "message": "本拡張機能の保存データと Chrome のキャッシュを消去し、このタブを同じページで開き直します。履歴、Cookie、パスワードには触れません。",
+    "description": "Popup button hover"
+  },
+  "pp_devOff": {
+    "message": "開発オフ",
+    "description": "Popup button, storage viewer hidden"
+  },
+  "pp_devOn": {
+    "message": "開発オン",
+    "description": "Popup button, storage viewer shown"
+  },
+  "pp_devTitle": {
+    "message": "トラブルシューティング用のストレージビューアを表示・非表示にします。",
+    "description": "Popup button hover"
+  },
+  "pp_supportAt": {
+    "message": "サポート：",
+    "description": "Popup system info"
+  },
+  "pp_chromeVersion": {
+    "message": "Chrome バージョン：",
+    "description": "Popup system info"
+  },
+  "pp_os": {
+    "message": "OS：",
+    "description": "Popup system info"
+  },
+  "pp_memory": {
+    "message": "メモリ：",
+    "description": "Popup system info"
+  },
+  "pp_bookmarks": {
+    "message": "ブックマーク：",
+    "description": "Popup system info"
+  },
+  "pp_extensions": {
+    "message": "拡張機能：",
+    "description": "Popup system info"
+  },
+  "pp_citationDefault": {
+    "message": "[日付] に PubMed (https://pubmed.ncbi.nlm.nih.gov/) で「[検索語]」を検索し、[件数] 件の結果。",
+    "description": "Popup citation line before a PubMed search is known"
+  },
+  "pp_citationRef": {
+    "message": "{date} に PubMed で「{term}」を検索、{count} 件。",
+    "description": "Popup citation line; {date} {term} {count} filled in"
+  },
+  "pp_searchTermsPlaceholder": {
+    "message": "[検索語]",
+    "description": "Popup citation line when the URL has no term"
+  },
+  "pp_countPlaceholder": {
+    "message": "[件数]",
+    "description": "Popup citation line when the count is unknown"
+  },
+  "pp_memoryLine": {
+    "message": "合計 {total}、使用率 {used}%、空き {free}",
+    "description": "Popup memory line"
+  },
+  "pp_memoryLow": {
+    "message": "空きメモリが不足しています。PubMed は閲覧中のこれまでの検索をすべてメモリに保持するため、多くの検索に使ったタブは大量のメモリを使うことがあります。\n\nメモリを空けるには、使っていないアプリを閉じるか、下の「拡張機能をリセット」ボタンを使ってください。このタブを同じページで新しい状態で開き直すので、検索はそのまま残ります。",
+    "description": "Popup memory line hover when memory is low"
+  },
+  "pp_extensionsLine": {
+    "message": "{total}（有効 {active}）",
+    "description": "Popup extensions count"
+  },
+  "pp_notAvailable": {
+    "message": "該当なし",
+    "description": "Popup system info when unavailable"
+  },
+  "pp_errorPrefix": {
+    "message": "エラー：",
+    "description": "Prefix on popup messages under the buttons"
+  },
+  "pp_errHighImpactLoad": {
+    "message": "「高インパクトのみ」の結果を読み込めませんでした。",
+    "description": "Popup error"
+  },
+  "pp_errHighImpactSortedLoad": {
+    "message": "並べ替えた高インパクトの結果を読み込めませんでした。",
+    "description": "Popup error (sorted, hidden feature)"
+  },
+  "pp_errHighImpactNone": {
+    "message": "高インパクト論文が見つかりません。インパクトスコアを調整して、もう一度お試しください。",
+    "description": "Popup error"
+  },
+  "pp_errHighImpactPage": {
+    "message": "「高インパクトのみ」は PubMed のページでのみ使えます",
+    "description": "Popup error"
+  },
+  "pp_errReturnHighImpact": {
+    "message": "戻る先がまだありません。先に「高インパクトのみ（緑で絞り込み）」を使ってください。",
+    "description": "Popup error"
+  },
+  "pp_errReturnScan": {
+    "message": "戻る先がまだありません。先に「1000件スキャン」を実行してください。",
+    "description": "Popup error"
+  },
+  "pp_errScanPage": {
+    "message": "「1000件スキャン」は PubMed の検索、トレンド、コレクションのページでのみ使えます",
+    "description": "Popup error"
+  },
+  "pp_scanWait": {
+    "message": "1000 件の結果をスキャンしています…お待ちください。",
+    "description": "Popup progress message"
+  },
+  "pp_errScanFail": {
+    "message": "並べ替えた 1000 件の結果をスキャンできませんでした：",
+    "description": "Popup error; the reason follows"
+  },
+  "pp_errUnknown": {
+    "message": "不明なエラー",
+    "description": "Popup error reason"
+  },
+  "pp_errNoTerms": {
+    "message": "分析する検索語または DOI を入力してください",
+    "description": "Popup error"
+  },
+  "pp_errTermLimit": {
+    "message": "最初の 20 語に制限されます（入力 {n} 語）。最初の 20 語を処理しています…",
+    "description": "Popup message; {n} is the number entered"
+  },
+  "pp_errTab": {
+    "message": "現在のタブを読み取れませんでした。もう一度お試しください。",
+    "description": "Popup error"
+  },
+  "pp_errSpecialNeeds": {
+    "message": "Special モードでは、2 行目に期間、さらに用語グループが 1 つ以上必要です",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialFirst": {
+    "message": "1 行目は \"special:\" にしてください",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialPeriod": {
+    "message": "期間は英語で \"Last X days/months/years\" と書いてください（例：Last 5 years）",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialRange": {
+    "message": "期間は 1～100 days/months/years の範囲にしてください",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialNoGroups": {
+    "message": "Special モードで用語グループが見つかりません",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_copied": {
+    "message": "コピーしました！",
+    "description": "Copy button after copying"
+  },
+  "pp_copyFailed": {
+    "message": "クリップボードにコピーできませんでした",
+    "description": "Copy error"
+  },
+  "pp_resetConfirm": {
+    "message": "本拡張機能をリセットしてキャッシュデータを消去し、このタブを同じページで開き直します。\n\n履歴、Cookie、保存したパスワードには影響しません。続行しますか？",
+    "description": "Reset Extension confirm box"
+  },
+  "pp_resetting": {
+    "message": "リセット中…",
+    "description": "Reset Extension button while working"
+  },
+  "pp_resetError": {
+    "message": "エラー：ブラウザのデータを消去できませんでした。",
+    "description": "Reset Extension error"
+  },
+  "pp_termsHelpTitle": {
+    "message": "検索語のヘルプ",
+    "description": "Search terms help heading"
+  },
+  "pp_termsHelpIntro": {
+    "message": "似た用語を 1 行に 1 つずつ入力してください（最大 20 語）。このツールは 1 つの概念の言い換えを分析するためのものです。",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpPrompt": {
+    "message": "<strong>用語生成プロンプト（コピーして使用）：</strong><br>科学用語の言い換えを生成するための専門的なプロンプトです。化学名、略語、代謝物、一般的な表記揺れを含みます。プロンプトは英語です。",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_copyPrompt": {
+    "message": "プロンプトをコピー",
+    "description": "Search terms help button"
+  },
+  "pp_termsHelpReplace": {
+    "message": "\"Vitamin D1\" を検索語に置き換えてください",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpSpecial": {
+    "message": "<strong>Special モード：</strong><br>期間を指定したり、複数の用語グループを使ったりするには、次のように始めます（キーワードは英語）：",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_termsHelpFormat": {
+    "message": "形式：\"Last X days/months/years\"",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpTip": {
+    "message": "<strong>ヒント：</strong>Special モードでは最大 10 個の用語グループを分析できます。グループの間は空行で区切るだけです。",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_termsHelpExample": {
+    "message": "<strong>例：ビタミン B 群（過去 30 日）：</strong>",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_copyExample": {
+    "message": "例をコピー",
+    "description": "Search terms help button"
+  },
+  "pp_expandHeadlineOne": {
+    "message": "新しいタブが 1 つ開きます：",
+    "description": "Expand dialog"
+  },
+  "pp_expandHeadlineMany": {
+    "message": "新しいタブが {n} つ開きます：",
+    "description": "Expand dialog; {n} is the number"
+  },
+  "pp_expandSub": {
+    "message": "不要なものはチェックを外してください。選択内容は記憶されます。",
+    "description": "Expand dialog"
+  },
+  "pp_expandOpenAlexDesc": {
+    "message": "PubMed に収載されていない論文",
+    "description": "Expand dialog"
+  },
+  "pp_expandTrialsDesc": {
+    "message": "該当する臨床試験",
+    "description": "Expand dialog"
+  },
+  "pp_expandScholarDesc": {
+    "message": "Scholar で同じ検索",
+    "description": "Expand dialog"
+  },
+  "pp_expandNoTerm": {
+    "message": "このページには検索語がありません",
+    "description": "Expand dialog note"
+  },
+  "pp_expandFetching": {
+    "message": "取得中…",
+    "description": "Expand dialog note"
+  },
+  "pp_expandReady": {
+    "message": "準備完了",
+    "description": "Expand dialog note"
+  },
+  "pp_expandUnavailable": {
+    "message": "利用不可",
+    "description": "Expand dialog note"
+  },
+  "pp_cancel": {
+    "message": "キャンセル",
+    "description": "Dialog button"
+  },
+  "pp_continue": {
+    "message": "続行",
+    "description": "Dialog button"
+  },
+  "pp_loading": {
+    "message": "読み込み中…",
+    "description": "Dialog button while waiting"
+  },
+  "pp_clockTitle": {
+    "message": "世界時計の設定",
+    "description": "Clock settings heading"
+  },
+  "pp_clockName": {
+    "message": "名前",
+    "description": "Clock settings name box placeholder"
+  },
+  "pp_save": {
+    "message": "保存",
+    "description": "Clock settings button"
+  }
+}

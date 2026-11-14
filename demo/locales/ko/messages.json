@@ -1,0 +1,666 @@
+{
+  "tt_retracted": {
+    "message": "이 논문은 철회되었습니다.",
+    "description": "Hover text on the citation bar: retracted"
+  },
+  "tt_highImpact": {
+    "message": "이 확장 프로그램의 점수 기준 고영향 논문입니다.",
+    "description": "Hover text on the citation bar: highImpact"
+  },
+  "tt_overallScore": {
+    "message": "여러 지표를 바탕으로 한 논문의 종합 품질 점수입니다.",
+    "description": "Hover text on the citation bar: overallScore"
+  },
+  "tt_mesh": {
+    "message": "이 논문의 MeSH 용어와 키워드를 봅니다.",
+    "description": "Hover text on the citation bar: mesh"
+  },
+  "tt_new": {
+    "message": "새 논문(2년 미만). PubMed 생성일 기준입니다.",
+    "description": "Hover text on the citation bar: new"
+  },
+  "tt_trending": {
+    "message": "PubMed 인기 논문(상위 1,000편).",
+    "description": "Hover text on the citation bar: trending"
+  },
+  "tt_medline": {
+    "message": "Medline에 등재되었습니다.",
+    "description": "Hover text on the citation bar: medline"
+  },
+  "tt_preprint": {
+    "message": "프리프린트(아직 동료 심사 전).",
+    "description": "Hover text on the citation bar: preprint"
+  },
+  "tt_erratum": {
+    "message": "정정/정오표가 있습니다(철회 아님).",
+    "description": "Hover text on the citation bar: erratum"
+  },
+  "tt_retractionNotice": {
+    "message": "철회 공지입니다. 다른 논문을 철회하는 문서입니다(클릭하면 대상 논문을 보여 줍니다).",
+    "description": "Hover text on the citation bar: this record is a retraction notice"
+  },
+  "tt_erratumNotice": {
+    "message": "정오표입니다. 다른 논문을 정정하는 문서입니다(클릭하면 대상 논문을 보여 줍니다).",
+    "description": "Hover text on the citation bar: this record is an erratum notice"
+  },
+  "tt_concern": {
+    "message": "우려 표명: 학술지가 이 논문에 대해 공식 경고를 게재했습니다(철회 아님). 클릭하면 공지를 볼 수 있습니다.",
+    "description": "Hover text on the citation bar: bold E, this article has an expression of concern"
+  },
+  "tt_concernErratum": {
+    "message": "우려 표명: 학술지가 이 논문에 대해 공식 경고를 게재했습니다(철회 아님). 정정/오류 수정도 있습니다. 클릭하면 둘 다 볼 수 있습니다.",
+    "description": "Hover text on the citation bar: bold E, this article has an expression of concern and also an erratum"
+  },
+  "tt_concernNotice": {
+    "message": "이것은 우려 표명입니다: 다른 논문에 대해 경고합니다(클릭하여 해당 논문 확인).",
+    "description": "Hover text on the citation bar: bold E, this record is an expression of concern notice"
+  },
+  "tt_cited": {
+    "message": "NIH iCite의 피인용 수입니다.",
+    "description": "Hover text on the citation bar: cited"
+  },
+  "tt_rcr": {
+    "message": "Relative Citation Ratio(상대 인용 비율): 분야별로 표준화한 과학적 영향력입니다.",
+    "description": "Hover text on the citation bar: rcr"
+  },
+  "tt_ic": {
+    "message": "Semantic Scholar의 영향력 있는 인용(Influential Citations)입니다.",
+    "description": "Hover text on the citation bar: ic"
+  },
+  "tt_alt": {
+    "message": "Altmetric 관심도 점수(소셜 미디어·뉴스 언급).",
+    "description": "Hover text on the citation bar: alt"
+  },
+  "tt_similar": {
+    "message": "PubMed의 유사 논문입니다.",
+    "description": "Hover text on the citation bar: similar"
+  },
+  "tt_citedBy": {
+    "message": "이 논문을 인용한 PubMed 논문입니다.",
+    "description": "Hover text on the citation bar: citedBy"
+  },
+  "tt_scholar": {
+    "message": "DOI로 Google Scholar(구글 학술 검색)에 연결합니다.",
+    "description": "Hover text on the citation bar: scholar"
+  },
+  "tt_cp": {
+    "message": "Connections: 이 논문의 대화형 인용 그래프(doilookup.com).",
+    "description": "Hover text on the citation bar: cp"
+  },
+  "tt_abstract": {
+    "message": "초록을 봅니다. 쉬운 말 요약과 전문이 있으면 함께 보여 줍니다.",
+    "description": "Hover text on the citation bar: abstract"
+  },
+  "tt_link": {
+    "message": "전문 링크(녹색 = 무료).",
+    "description": "Hover text on the citation bar: link"
+  },
+  "tt_topJournal": {
+    "message": "엄선한 주요 의학 저널 목록에 포함됩니다.",
+    "description": "Hover text on the citation bar: topJournal"
+  },
+  "tt_sjr": {
+    "message": "SCImago Journal Rank: 저널 가시성 점수입니다.",
+    "description": "Hover text on the citation bar: sjr"
+  },
+  "tt_sjrQuartile": {
+    "message": "최고 분위 {q}: 이 학술지가 속한 주제 분야 중 가장 높은 SJR 순위(Q1 = 상위 25%).",
+    "description": "Hover text on the citation bar: shown before the sjr text when the journal has a best quartile. Keep {q}"
+  },
+  "tt_rank": {
+    "message": "이 확장 프로그램의 올해 데이터 기준 저널 순위입니다.",
+    "description": "Hover text on the citation bar: rank"
+  },
+  "tt_articleCount": {
+    "message": "순위 산정 기간 동안 저널이 게재한 논문 수입니다.",
+    "description": "Hover text on the citation bar: articleCount"
+  },
+  "tt_medlinePct": {
+    "message": "Medline 등재 비율입니다. 최근 논문은 아직 등재되지 않았을 수 있습니다.",
+    "description": "Hover text on the citation bar: medlinePct"
+  },
+  "tt_freePct": {
+    "message": "무료 전문을 볼 수 있는 저널 논문의 비율입니다.",
+    "description": "Hover text on the citation bar: freePct"
+  },
+  "tt_xout": {
+    "message": "리뷰, 철회, 사설 등(PubMed의 약 25%)을 제외합니다",
+    "description": "Hover text on the citation bar: xout"
+  },
+  "tt_keySearches": {
+    "message": "핵심 검색: 주제별로 미리 만든 PubMed 검색",
+    "description": "Hover text on the citation bar: keySearches"
+  },
+  "tt_citationReport": {
+    "message": "자세한 인용 보고서를 만듭니다.",
+    "description": "Hover text on the citation bar: citationReport"
+  },
+  "tt_authors": {
+    "message": "저자 정보와 지표 보기",
+    "description": "Hover text on the citation bar: authors"
+  },
+  "tt_pubmedReports": {
+    "message": "PubMed 보고서(주요 개요)",
+    "description": "Hover text on the citation bar: pubmedReports"
+  },
+  "tt_pick": {
+    "message": "내보내기 목록에 추가합니다. 초록과 MeSH를 포함한 PubMed 전체 레코드를 가져오므로 잠시 걸립니다.",
+    "description": "Hover text on the citation bar: pick"
+  },
+  "tt_pickList": {
+    "message": "내보내기 목록을 엽니다: 검토하고, 제거하고, Zotero용 .nbib로 다운로드할 수 있습니다.",
+    "description": "Hover text on the citation bar: pickList"
+  },
+  "tt_pdfFree": {
+    "message": "PMC 무료 PDF 보기 • 더 많은 출처 추가 예정",
+    "description": "Hover text on the citation bar: pdfFree"
+  },
+  "tt_pdfNone": {
+    "message": "직접 PDF를 찾지 못했습니다 • Link 버튼으로 PDF를 다운로드할 수 있는 논문 페이지로 가 보세요 • 더 많은 출처 추가 예정",
+    "description": "Hover text on the citation bar: pdfNone"
+  },
+  "tt_doiLookup": {
+    "message": "doilookup.com에서 DOI 전체 조회",
+    "description": "Hover text on the citation bar: doiLookup"
+  },
+  "tt_doiNone": {
+    "message": "연결된 DOI 없음",
+    "description": "Hover text on the citation bar: doiNone"
+  },
+  "tt_help": {
+    "message": "클릭하면 자세한 도움말을 봅니다",
+    "description": "Hover text on the citation bar: help"
+  },
+  "tt_language": {
+    "message": "언어 / Language / Idioma / 语言 / 言語 / Langue / भाषा / اللغة / ভাষা",
+    "description": "Hover text on the citation bar: language"
+  },
+  "tt_searchEnglish": {
+    "message": "PubMed 검색은 영어로만 작동합니다. 영어 검색어를 사용하세요.",
+    "description": "One-time notice when the bar language is not English: PubMed search needs English terms"
+  },
+  "tt_icite12": {
+    "message": "월별 피인용 수, {from} – {to} (iCite). 클릭하면 차트가 열립니다.",
+    "description": "Hover text on the citation bar: 12-month chart icon (blue, data found). {from} and {to} are months"
+  },
+  "tt_icite12None": {
+    "message": "이 논문에는 월별 차트가 없습니다. 차트는 최근 36개월 안에 PubMed에 추가되었고, 최근 12개월 피인용 증가가 상위 40,000편에 드는 논문만 포함합니다.",
+    "description": "Hover text on the citation bar: 12-month chart icon (grey, article not in the data)"
+  },
+  "tt_icite12Loading": {
+    "message": "월별 피인용 데이터를 아직 불러오는 중입니다. 잠시 후 페이지를 새로 고치면 차트 아이콘이 표시됩니다.",
+    "description": "Hover text on the citation bar: 12-month chart icon (grey, data not loaded yet)"
+  },
+  "tt_icite12Title": {
+    "message": "월별 피인용 수 (iCite)",
+    "description": "12-month chart panel: heading"
+  },
+  "tt_icite12Summary": {
+    "message": "12개월 피인용 증가 {rank}위 · +{gain} 증가 · {to} 기준 총 {total}",
+    "description": "12-month chart panel: summary line. Keep {rank}, {gain}, {total} and {to}"
+  },
+  "tt_icite12Rising": {
+    "message": "상승 추세: 최근 6개월의 일평균 피인용 수가 처음 6개월의 1.5배 이상입니다.",
+    "description": "12-month chart panel: High Trend = Yes"
+  },
+  "tt_icite12New": {
+    "message": "신규: 기간 시작 시점에 iCite에 없었으므로 0에서 시작합니다.",
+    "description": "12-month chart panel: High Trend = New"
+  },
+  "tt_icite12Prior": {
+    "message": "해당 월 이전 합계",
+    "description": "12-month chart panel: legend, lower (blue) part of a bar"
+  },
+  "tt_icite12Gain": {
+    "message": "해당 월 증가분",
+    "description": "12-month chart panel: legend, upper (orange) part of a bar"
+  },
+  "tt_icite12Drop": {
+    "message": "iCite 수정(수치 감소)",
+    "description": "12-month chart panel: legend, dashed red box for a month that went down"
+  },
+  "tt_icite12Report": {
+    "message": "전체 목록: PubMed iCite Citation Gains 보고서",
+    "description": "12-month chart panel: link to the website report"
+  },
+  "tt_authorRetractions": {
+    "message": "이 논문이 아니라 저자에 관한 표시입니다: 제1저자 또는 마지막 저자에게 철회된 다른 논문이 있습니다. 자세한 내용은 Author를 클릭한 다음 철회 수를 클릭하세요.",
+    "description": "Hover text on the citation bar: Author outlined in red because the first or last author has other retracted papers. Keep the word Author"
+  },
+  "tt_journal": {
+    "message": "저널: 정식 이름, ISSN, NLM ID, Journal Ranking 순위, 올해와 작년 논문 수, Medline·무료 전문·ORCID 비율, 철회 건수.",
+    "description": "Hover text on the citation bar: J (journal information panel)"
+  },
+  "pp_close": {
+    "message": "닫기",
+    "description": "Popup close button hover"
+  },
+  "pp_language": {
+    "message": "언어 / Language / Idioma / 语言 / 言語 / Langue / भाषा / اللغة / ভাষা",
+    "description": "Popup language button hover"
+  },
+  "pp_toggleOn": {
+    "message": "-인용 바: 켜짐-",
+    "description": "Popup toggle button, bar on"
+  },
+  "pp_toggleOff": {
+    "message": "-인용 바: 꺼짐-",
+    "description": "Popup toggle button, bar off"
+  },
+  "pp_toggleTitle": {
+    "message": "PubMed 페이지에서 인용 바를 켜거나 끕니다.",
+    "description": "Popup toggle button hover"
+  },
+  "pp_impactTitle": {
+    "message": "'고영향만 보기'와 '1,000건 스캔'에 쓰는 최소 점수입니다. Medline 등재, 피인용 수, RCR, 저널 SJR 등을 바탕으로 합니다.",
+    "description": "Popup Impact Score pull-down hover"
+  },
+  "pp_impactOption": {
+    "message": "영향력 점수 {n}점 이상",
+    "description": "Popup Impact Score option; {n} is the number"
+  },
+  "pp_impactDefault": {
+    "message": "(기본값)",
+    "description": "Popup Impact Score option: marks the default"
+  },
+  "pp_highImpact": {
+    "message": "고영향만 보기(녹색 필터)",
+    "description": "Popup button"
+  },
+  "pp_highImpactTitle": {
+    "message": "위에서 고른 영향력 점수 이상인 고영향 논문(배경이 녹색인 논문)만 보여 줍니다.",
+    "description": "Popup button hover"
+  },
+  "pp_return": {
+    "message": "돌아가기",
+    "description": "Popup Return buttons"
+  },
+  "pp_returnTitle": {
+    "message": "'고영향만 보기'가 이 페이지를 열기 전 페이지로 돌아갑니다.",
+    "description": "Popup Return button hover (High Impact)"
+  },
+  "pp_scan1000": {
+    "message": "1,000건 스캔(녹색 필터)",
+    "description": "Popup button"
+  },
+  "pp_scan1000Title": {
+    "message": "결과 1,000건에서 고영향 논문을 찾습니다",
+    "description": "Popup button hover"
+  },
+  "pp_returnScanTitle": {
+    "message": "'1,000건 스캔'을 시작한 검색으로 돌아갑니다.",
+    "description": "Popup Return button hover (Scan 1,000)"
+  },
+  "pp_termsPlaceholder": {
+    "message": "한 개념의 여러 표현을 한 줄에 하나씩 입력하세요(예: vitamin B1, thiamine, B-1). 최대 20개  ★ = 추천 용어(검색 수 많고 MeSH 확인됨)",
+    "description": "Popup search terms box placeholder"
+  },
+  "pp_yearTitle": {
+    "message": "'용어 분석'과 '확장 검색'에 적용하는 연도 범위입니다.",
+    "description": "Popup year pull-down hover"
+  },
+  "pp_yearAll": {
+    "message": "모든 연도",
+    "description": "Popup year option"
+  },
+  "pp_year5": {
+    "message": "최근 5년",
+    "description": "Popup year option"
+  },
+  "pp_year10": {
+    "message": "최근 10년",
+    "description": "Popup year option"
+  },
+  "pp_year20": {
+    "message": "최근 20년",
+    "description": "Popup year option"
+  },
+  "pp_analyze": {
+    "message": "용어 분석",
+    "description": "Popup button"
+  },
+  "pp_analyzeTitle": {
+    "message": "이 검색을 개별 용어로 나누고 각 용어의 결과 수를 보여 줍니다.",
+    "description": "Popup button hover"
+  },
+  "pp_expand": {
+    "message": "확장 검색...",
+    "description": "Popup button"
+  },
+  "pp_expandTitle": {
+    "message": "같은 용어를 PubMed 밖(OpenAlex, ClinicalTrials.gov, Google Scholar)에서 검색합니다.",
+    "description": "Popup button hover"
+  },
+  "pp_issues": {
+    "message": "문제가 있으면 페이지를 새로 고치거나 '확장 재설정' 버튼을 사용하세요.",
+    "description": "Popup line under the status message"
+  },
+  "pp_training": {
+    "message": "PubMed 공식 교육",
+    "description": "Popup link"
+  },
+  "pp_copySearchRefTitle": {
+    "message": "이 탭의 PubMed 검색 기록 복사: 데이터베이스, 검색 날짜, 검색식, 필터, 결과 수(PRISMA-S)",
+    "description": "Popup: hover text of the copy-search-reference button"
+  },
+  "pp_copySearchRefNone": {
+    "message": "먼저 이 탭에서 PubMed 검색을 연 다음 기록을 복사하세요.",
+    "description": "Popup: shown when the copy-search-reference button is clicked away from a PubMed search"
+  },
+  "pp_ncbiUpdates": {
+    "message": "NCBI 업데이트",
+    "description": "Popup link"
+  },
+  "pp_ncbiUpdatesTitle": {
+    "message": "NLM 기술 회보(PubMed 관련만)",
+    "description": "Popup link hover"
+  },
+  "pp_topJournals": {
+    "message": "주요 저널(개인적으로 선정, 순서 없음)",
+    "description": "Popup heading"
+  },
+  "pp_journalRanking": {
+    "message": "저널 순위",
+    "description": "Popup link"
+  },
+  "pp_data": {
+    "message": "데이터",
+    "description": "Popup button"
+  },
+  "pp_dataTitle": {
+    "message": "이 확장 프로그램이 이 페이지에 대해 보관하는 모든 것: 먼저 PMID, 그다음 모든 지표, 타임스탬프, 내부 필드. 완전히 공개하며 추적은 전혀 하지 않습니다.",
+    "description": "Popup button hover"
+  },
+  "pp_excel": {
+    "message": "Excel",
+    "description": "Popup button"
+  },
+  "pp_excelTitle": {
+    "message": "탭으로 구분된 표 - Excel이나 Google Sheets에 바로 붙여 넣을 수 있습니다",
+    "description": "Popup button hover"
+  },
+  "pp_tabList": {
+    "message": "탭 목록",
+    "description": "Popup button"
+  },
+  "pp_tabListTitle": {
+    "message": "지금 열려 있는 모든 탭을 제목과 링크와 함께 보여 주는 페이지를 엽니다.",
+    "description": "Popup button hover"
+  },
+  "pp_reset": {
+    "message": "확장 재설정",
+    "description": "Popup button"
+  },
+  "pp_resetTitle": {
+    "message": "이 확장 프로그램의 저장 데이터와 Chrome 캐시를 지운 뒤, 이 탭을 같은 페이지로 다시 엽니다. 방문 기록, 쿠키, 비밀번호는 건드리지 않습니다.",
+    "description": "Popup button hover"
+  },
+  "pp_devOff": {
+    "message": "개발: 끔",
+    "description": "Popup button, storage viewer hidden"
+  },
+  "pp_devOn": {
+    "message": "개발: 켬",
+    "description": "Popup button, storage viewer shown"
+  },
+  "pp_devTitle": {
+    "message": "문제 해결용 저장소 뷰어를 표시하거나 숨깁니다.",
+    "description": "Popup button hover"
+  },
+  "pp_supportAt": {
+    "message": "지원:",
+    "description": "Popup system info"
+  },
+  "pp_chromeVersion": {
+    "message": "Chrome 버전:",
+    "description": "Popup system info"
+  },
+  "pp_os": {
+    "message": "OS:",
+    "description": "Popup system info"
+  },
+  "pp_memory": {
+    "message": "메모리:",
+    "description": "Popup system info"
+  },
+  "pp_bookmarks": {
+    "message": "북마크:",
+    "description": "Popup system info"
+  },
+  "pp_extensions": {
+    "message": "확장 프로그램:",
+    "description": "Popup system info"
+  },
+  "pp_citationDefault": {
+    "message": "[날짜]에 PubMed(https://pubmed.ncbi.nlm.nih.gov/)에서 '[검색어]'로 검색한 결과 [개수]건.",
+    "description": "Popup citation line before a PubMed search is known"
+  },
+  "pp_citationRef": {
+    "message": "{date} PubMed에서 \"{term}\" 검색, 결과 {count}건.",
+    "description": "Popup citation line; {date} {term} {count} filled in"
+  },
+  "pp_searchTermsPlaceholder": {
+    "message": "[검색어]",
+    "description": "Popup citation line when the URL has no term"
+  },
+  "pp_countPlaceholder": {
+    "message": "[개수]",
+    "description": "Popup citation line when the count is unknown"
+  },
+  "pp_memoryLine": {
+    "message": "총 {total}, {used}% 사용 중, {free} 여유",
+    "description": "Popup memory line"
+  },
+  "pp_memoryLow": {
+    "message": "여유 메모리가 부족합니다. PubMed는 탐색하는 동안 이전 검색을 모두 메모리에 보관하므로, 검색을 많이 한 탭은 메모리를 많이 차지할 수 있습니다.\n\n메모리를 확보하려면 쓰지 않는 앱을 닫거나 아래의 '확장 재설정' 버튼을 사용하세요. 이 탭을 같은 페이지로 깨끗하게 다시 열며, 검색은 그대로 유지됩니다.",
+    "description": "Popup memory line hover when memory is low"
+  },
+  "pp_extensionsLine": {
+    "message": "{total}개(사용 중 {active}개)",
+    "description": "Popup extensions count"
+  },
+  "pp_notAvailable": {
+    "message": "해당 없음",
+    "description": "Popup system info when unavailable"
+  },
+  "pp_errorPrefix": {
+    "message": "오류:",
+    "description": "Prefix on popup messages under the buttons"
+  },
+  "pp_errHighImpactLoad": {
+    "message": "'고영향만 보기' 결과를 불러오지 못했습니다.",
+    "description": "Popup error"
+  },
+  "pp_errHighImpactSortedLoad": {
+    "message": "정렬된 고영향 결과를 불러오지 못했습니다.",
+    "description": "Popup error (sorted, hidden feature)"
+  },
+  "pp_errHighImpactNone": {
+    "message": "고영향 논문을 찾지 못했습니다. 영향력 점수를 조정한 뒤 다시 시도하세요.",
+    "description": "Popup error"
+  },
+  "pp_errHighImpactPage": {
+    "message": "'고영향만 보기' 필터는 PubMed 페이지에서만 작동합니다",
+    "description": "Popup error"
+  },
+  "pp_errReturnHighImpact": {
+    "message": "아직 돌아갈 곳이 없습니다. 먼저 '고영향만 보기(녹색 필터)'를 사용하세요.",
+    "description": "Popup error"
+  },
+  "pp_errReturnScan": {
+    "message": "아직 돌아갈 곳이 없습니다. 먼저 '1,000건 스캔'을 실행하세요.",
+    "description": "Popup error"
+  },
+  "pp_errScanPage": {
+    "message": "'1,000건 스캔'은 PubMed 검색, 인기, 컬렉션 페이지에서만 작동합니다",
+    "description": "Popup error"
+  },
+  "pp_scanWait": {
+    "message": "결과 1,000건을 스캔하는 중... 잠시 기다려 주세요.",
+    "description": "Popup progress message"
+  },
+  "pp_errScanFail": {
+    "message": "정렬된 결과 1,000건을 스캔하지 못했습니다:",
+    "description": "Popup error; the reason follows"
+  },
+  "pp_errUnknown": {
+    "message": "알 수 없는 오류",
+    "description": "Popup error reason"
+  },
+  "pp_errNoTerms": {
+    "message": "분석할 검색어나 DOI를 입력하세요",
+    "description": "Popup error"
+  },
+  "pp_errTermLimit": {
+    "message": "처음 20개 용어로 제한됩니다({n}개 입력). 처음 20개를 처리하는 중...",
+    "description": "Popup message; {n} is the number entered"
+  },
+  "pp_errTab": {
+    "message": "현재 탭을 읽지 못했습니다. 다시 시도하세요.",
+    "description": "Popup error"
+  },
+  "pp_errSpecialNeeds": {
+    "message": "Special 모드에는 2번째 줄에 기간과 하나 이상의 용어 그룹이 필요합니다",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialFirst": {
+    "message": "첫 줄은 \"special:\"이어야 합니다",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialPeriod": {
+    "message": "기간은 영어로 \"Last X days/months/years\" 형식이어야 합니다(예: Last 5 years)",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialRange": {
+    "message": "기간은 1~100 days/months/years 사이여야 합니다",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_errSpecialNoGroups": {
+    "message": "Special 모드에서 용어 그룹을 찾지 못했습니다",
+    "description": "Popup error (Special mode)"
+  },
+  "pp_copied": {
+    "message": "복사했습니다!",
+    "description": "Copy button after copying"
+  },
+  "pp_copyFailed": {
+    "message": "클립보드에 복사하지 못했습니다",
+    "description": "Copy error"
+  },
+  "pp_resetConfirm": {
+    "message": "확장 프로그램을 재설정하고 캐시 데이터를 지운 뒤, 이 탭을 같은 페이지로 다시 엽니다.\n\n방문 기록, 쿠키, 저장된 비밀번호에는 영향이 없습니다. 계속하시겠습니까?",
+    "description": "Reset Extension confirm box"
+  },
+  "pp_resetting": {
+    "message": "재설정 중...",
+    "description": "Reset Extension button while working"
+  },
+  "pp_resetError": {
+    "message": "오류: 브라우저 데이터를 지우지 못했습니다.",
+    "description": "Reset Extension error"
+  },
+  "pp_termsHelpTitle": {
+    "message": "검색어 도움말",
+    "description": "Search terms help heading"
+  },
+  "pp_termsHelpIntro": {
+    "message": "비슷한 용어를 한 줄에 하나씩 입력하세요(최대 20개). 이 도구는 한 개념의 여러 표현을 분석하도록 만들어졌습니다.",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpPrompt": {
+    "message": "<strong>용어 생성 프롬프트(복사해서 사용):</strong><br>과학 용어의 변형을 만들기 위한 전문 프롬프트로, 화학명, 약어, 대사산물, 흔한 변형을 포함합니다. 프롬프트는 영어입니다.",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_copyPrompt": {
+    "message": "프롬프트 복사",
+    "description": "Search terms help button"
+  },
+  "pp_termsHelpReplace": {
+    "message": "\"Vitamin D1\"을 검색어로 바꾸세요",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpSpecial": {
+    "message": "<strong>Special 모드:</strong><br>기간을 직접 정하거나 여러 용어 그룹을 쓰려면 다음과 같이 시작하세요(키워드는 영어):",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_termsHelpFormat": {
+    "message": "형식: \"Last X days/months/years\"",
+    "description": "Search terms help"
+  },
+  "pp_termsHelpTip": {
+    "message": "<strong>팁:</strong> Special 모드에서는 최대 10개의 용어 그룹을 분석할 수 있습니다. 그룹 사이를 빈 줄로 구분하기만 하면 됩니다.",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_termsHelpExample": {
+    "message": "<strong>예: 비타민 B군(최근 30일):</strong>",
+    "description": "Search terms help (HTML)"
+  },
+  "pp_copyExample": {
+    "message": "예시 복사",
+    "description": "Search terms help button"
+  },
+  "pp_expandHeadlineOne": {
+    "message": "새 탭 1개가 열립니다:",
+    "description": "Expand dialog"
+  },
+  "pp_expandHeadlineMany": {
+    "message": "새 탭 {n}개가 열립니다:",
+    "description": "Expand dialog; {n} is the number"
+  },
+  "pp_expandSub": {
+    "message": "필요 없는 항목은 선택을 해제하세요. 선택 내용은 기억됩니다.",
+    "description": "Expand dialog"
+  },
+  "pp_expandOpenAlexDesc": {
+    "message": "PubMed에 등재되지 않은 논문",
+    "description": "Expand dialog"
+  },
+  "pp_expandTrialsDesc": {
+    "message": "관련 임상시험",
+    "description": "Expand dialog"
+  },
+  "pp_expandScholarDesc": {
+    "message": "Scholar에서 같은 검색",
+    "description": "Expand dialog"
+  },
+  "pp_expandNoTerm": {
+    "message": "이 페이지에는 검색어가 없습니다",
+    "description": "Expand dialog note"
+  },
+  "pp_expandFetching": {
+    "message": "가져오는 중…",
+    "description": "Expand dialog note"
+  },
+  "pp_expandReady": {
+    "message": "준비됨",
+    "description": "Expand dialog note"
+  },
+  "pp_expandUnavailable": {
+    "message": "사용 불가",
+    "description": "Expand dialog note"
+  },
+  "pp_cancel": {
+    "message": "취소",
+    "description": "Dialog button"
+  },
+  "pp_continue": {
+    "message": "계속",
+    "description": "Dialog button"
+  },
+  "pp_loading": {
+    "message": "불러오는 중…",
+    "description": "Dialog button while waiting"
+  },
+  "pp_clockTitle": {
+    "message": "세계 시계 설정",
+    "description": "Clock settings heading"
+  },
+  "pp_clockName": {
+    "message": "이름",
+    "description": "Clock settings name box placeholder"
+  },
+  "pp_save": {
+    "message": "저장",
+    "description": "Clock settings button"
+  }
+}
