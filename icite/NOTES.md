@@ -9,7 +9,7 @@ also in `C:\_data\pubmed_local\Notes\pubmed_db_notes.md`, in the ICITE section
 | Path | What |
 |---|---|
 | `report_icite.py` (v1.6) | Fetches and extracts monthly iCite snapshots (`--fetch YYYY-MM,...`). Also writes `iCite_Top200_Citations.csv`, `iCite_Top200_Gains.csv` and `iCite_Rising_by_Band.csv` |
-| `report_icite_monthly.py` (v2.9) | The rolling 12-month report: `iCite_Last12M.csv` + `icite_version.json`, then syncs the Drive copy |
+| `report_icite_monthly.py` (v3.0) | The rolling 12-month report: `iCite_Last12M.csv` + `icite_version.json`, then syncs the Drive copy and pushes to GitHub |
 | `icite_extract.py`, `icite_gains_analysis.sql`, `icite_spike_check.sql` | Early exploration tools |
 | `downloads\` | `icite_<YYYY-MM>_pmid_counts.csv` (pmid, citation_count; ~500 MB each) and `icite_snapshots.csv` (manifest with publish dates) |
 | `archive\` | Dated copies of each report |
@@ -40,13 +40,49 @@ Wait for NIH to publish the next snapshot. The Figshare collection is
 
 ```
 py report_icite.py --fetch 2026-11        (download + extract, ~35-50 min)
-py report_icite_monthly.py                (~3 min; writes the CSV + version JSON, copies to Drive)
+py report_icite_monthly.py                (~3 min; writes the CSV + version JSON,
+                                           copies to Drive, pushes to GitHub)
 ```
 
-Then push `iCite_Last12M.csv` and `icite_version.json` to `icite/` in the
-`tomlaheyh/citation-bar` repo. The local clone is in
-`C:\_data\Journal_Ranking\GitHub Push\citation-bar`. There is no push script
-for iCite yet.
+That's all: the script does the GitHub push itself (v3.0, Tom 2026-11-14).
+`--no-drive` skips the Drive copy, `--no-push` skips GitHub.
+
+## GitHub push
+
+Each run pushes three files to the `icite/` folder of both repos in
+`PUSH_REPOS`:
+
+| Repo | Local clone |
+|---|---|
+| `tomlaheyh/citation-bar` | `C:\_data\Journal_Ranking\GitHub Push\citation-bar` |
+| `tomlaheyh/ref-lookup` | `C:\_data\Journal_Ranking\GitHub Push\ref-lookup` |
+
+Files: `iCite_Last12M.csv`, `icite_version.json`, `NOTES.md`.
+
+- **No clone yet:** the script makes one the first time, with only `icite/`
+  and `.gitattributes` checked out (sparse). ref-lookup also holds large PDFs,
+  which aren't downloaded.
+- **Nothing new:** if the repo already has this CSV and these notes, it
+  doesn't commit. A same-month rerun only changes `built_utc` in the JSON.
+- **`.gitattributes`:** the script adds `icite/*.csv -text` if it's missing,
+  so git stores the CSV byte for byte. The extension checks the CSV's SHA-256
+  against `icite_version.json`.
+- **Safety checks** (same as `push_journal_ranking.ps1`):
+  - the clone must be clean and must have no unpushed commits
+  - it fast-forwards to GitHub before copying
+  - only the `icite/` files and `.gitattributes` may change
+  - the stored bytes must match the source files
+- **Failures:** a refused push retries once on top of the latest. If it still
+  fails, the commit is undone and the clone is put back. One repo failing
+  doesn't stop the other, but the script exits with 1.
+- **Commit message:** `icite: <YYYY-MM> snapshot, <rows> rows`.
+- **Commit name:** there is no global git name on this PC; the citation-bar
+  clone keeps `user.name`/`user.email` in its own config. A clone without
+  them gets them copied from there.
+- **ref-lookup `icite/`:** the folder didn't exist; the first push
+  (2026-11-14) created it.
+- **citation-bar clone:** it's sparse too. `/icite/` and `/.gitattributes`
+  were added to its checkout list on 2026-11-14.
 
 Nothing needs editing at the change of year. If a month in the 13-month range
 is missing, the script stops and prints the `--fetch` line to run.
