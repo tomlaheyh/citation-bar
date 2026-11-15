@@ -70,20 +70,25 @@
     <thead><tr><th>Service</th><th>What is requested</th></tr></thead>
     <tbody>
       <tr><td>NIH iCite</td><td>Citation counts and RCR, by PMID</td></tr>
-      <tr><td>Europe PMC</td><td>Citation counts, by PMID, when iCite is unavailable</td></tr>
-      <tr><td>NCBI E-utilities</td><td>Article metadata, by PMID</td></tr>
+      <tr><td>This website</td><td>The monthly iCite citation file behind the chart icon, downloaded whole from this site's <code>icite/</code> folder; nothing about the articles you view is sent</td></tr>
+      <tr><td>Europe PMC</td><td>Citation counts, by PMID, when iCite is unavailable; open access full text, by PMID, for the abstract panel and the AI pack</td></tr>
+      <tr><td>NCBI E-utilities and PMC</td><td>Article metadata and full records, by PMID; PubMed Central full text, by PMCID</td></tr>
       <tr><td>Semantic Scholar</td><td>Influential citation counts</td></tr>
       <tr><td>Altmetric</td><td>Attention scores, by DOI</td></tr>
       <tr><td>Crossref</td><td>Full-text links and DOI registration details</td></tr>
-      <tr><td>OpenAlex</td><td>Author metrics, by ORCID</td></tr>
+      <tr><td>OpenAlex</td><td>Author metrics, works, citations, RORs and retraction counts, by ORCID; journal details, by ISSN; free legal copies and missing ORCIDs, by DOI</td></tr>
       <tr><td>ClinicalTrials.gov</td><td>Trial results, only when you use Expand</td></tr>
     </tbody>
   </table>
   </div>
 
   <p>
-    SCImago journal rankings and the curated top-journal list ship inside the
-    extension as local files, so those cost no network request at all.
+    SCImago journal rankings, the Journal Ranking data and the curated
+    top-journal list ship inside the extension as local files, so those cost no
+    network request at all. Translation (the language tag and the abstract's
+    Translate row) and the AI table use Chrome's built-in translator and AI on
+    your own computer; the text is not sent anywhere. PDFs you convert for the
+    AI pack are read in your browser and never uploaded.
   </p>
 
   <h2>Browser permissions</h2>
@@ -99,8 +104,9 @@
     <tbody>
       <tr><td class="sym">activeTab, scripting</td><td>To draw the citation bar onto the PubMed page you are looking at</td></tr>
       <tr><td class="sym">storage</td><td>To keep article data and your settings locally between pages</td></tr>
-      <tr><td class="sym">tabs</td><td>To detect which kind of PubMed page you are on, and to open reports in new tabs</td></tr>
-      <tr><td class="sym">bookmarks, management,<br>system.memory, browsingData</td><td>To display the diagnostic panel at the bottom of the popup — Chrome version, operating system, memory, and counts of bookmarks and installed extensions — which exists so you can paste useful details into a support request. These are read locally and shown to you only. They are never transmitted.</td></tr>
+      <tr><td class="sym">tabs</td><td>To detect which kind of PubMed page you are on, to open reports in new tabs, and to reopen a long-used tab on the same page to free memory</td></tr>
+      <tr><td class="sym">browsingData</td><td>Used only by the Reset Extension button: clears Chrome's cache and PubMed/NCBI site storage. Cookies, history and passwords are never cleared.</td></tr>
+      <tr><td class="sym">bookmarks, management,<br>system.memory</td><td>To display the diagnostic panel at the bottom of the popup — Chrome version, operating system, memory, and counts of bookmarks and installed extensions — which exists so you can paste useful details into a support request. These are read locally and shown to you only. They are never transmitted.</td></tr>
     </tbody>
   </table>
   </div>

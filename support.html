@@ -106,8 +106,12 @@
       <tr><td class="sym">IC -</td><td>Semantic Scholar has no record for this article, which is common for very recent papers.</td></tr>
       <tr><td class="sym">Alt greyed out</td><td>The article has no DOI, so there is nothing to look up at Altmetric. A greyed <code>Alt</code> is not the same as an Altmetric score of zero.</td></tr>
       <tr><td class="sym">doi greyed out</td><td>No DOI on the PubMed record. About 3% of articles.</td></tr>
-      <tr><td class="sym">Author metrics blank</td><td>No ORCID on the record. Author metrics come from OpenAlex keyed by ORCID; matching by name would return the wrong researcher, so nothing is shown.</td></tr>
-      <tr><td class="sym">MeSH empty</td><td>The article isn't MEDLINE-indexed, so it has no MeSH terms yet. It may get them later.</td></tr>
+      <tr><td class="sym">Author metrics blank</td><td>Neither PubMed nor OpenAlex links the author to an ORCID. Author metrics come from OpenAlex keyed by ORCID; matching by name would return the wrong researcher, so nothing is shown. A retraction count of <code>–</code> means "not checked", never zero.</td></tr>
+      <tr><td class="sym">ROR "not available"</td><td>Neither PubMed nor OpenAlex has an institution ID for the author. Institution names are never guessed into RORs.</td></tr>
+      <tr><td class="sym">"No MeSH data"</td><td>The article isn't MEDLINE-indexed, so it has no MeSH terms yet. It may get them later. Its keywords are still listed.</td></tr>
+      <tr><td class="sym">Chart icon grey</td><td>No monthly citation data. The chart covers only articles added to PubMed in the last 36 months that are among the 40,000 with the most citations gained in the past 12 months, so older or less-cited articles are grey. If the hover text says it is still loading, reload the page in a moment.</td></tr>
+      <tr><td class="sym">Full text not shown</td><td>Under the abstract, full text appears only when it is open access or released by PubMed Central for text mining. Otherwise the line links to where it can be read.</td></tr>
+      <tr><td class="sym">Author outlined in red</td><td>Not an error: the first or last author has other retracted papers in OpenAlex. It is about the author, not this paper — click Author for details.</td></tr>
       <tr><td class="sym">SJR -</td><td>The journal's ISSN isn't in the SCImago table.</td></tr>
     </tbody>
   </table>
@@ -136,6 +140,8 @@
       <tr><td>Special mode</td><td>Up to 10 term groups separated by blank lines. Line 1 must be <code>Special:</code>, line 2 a period in the form <code>Last X days/months/years</code>, with X between 1 and 100.</td></tr>
       <tr><td>DOI collection</td><td>Up to 15 DOIs can be gathered and viewed together in DOI Lookup.</td></tr>
       <tr><td>"Failed to search external databases"</td><td>OpenAlex or ClinicalTrials.gov didn't respond. Usually temporary.</td></tr>
+      <tr><td>The tab reopened by itself</td><td>After the bar has run six times in one tab, the extension reopens the tab on the same page to free the memory Chrome holds for Back. You stay on the same results; only that tab's Back history is lost. It never happens during a Scan 1,000.</td></tr>
+      <tr><td>Export list</td><td>"Open in new tab" shows the first 200 articles, PubMed's limit for one search. The .ris and .nbib downloads have no limit. The AI pack takes up to 40 articles.</td></tr>
     </tbody>
   </table>
   </div>
@@ -143,13 +149,14 @@
   <h2 id="reset">Before you click "Reset Extension"</h2>
 
   <div class="note note-warn">
-    <strong>Read this first — the button does more than its name suggests.</strong>
-    <em>Reset Extension</em> clears the extension's stored data <strong>and</strong>
-    your browser's cache, cookies, history, local storage, IndexedDB, cache
-    storage and service workers, for all time — not just for PubMed. Saved
-    passwords, form data and downloads are <strong>not</strong> affected. You
-    will be signed out of sites and your history will be gone. Chrome shows a
-    confirmation dialog before it runs.
+    <strong>What it clears.</strong>
+    <em>Reset Extension</em> clears the extension's stored data, Chrome's
+    browser cache (for all sites, so pages load a little slower once), and the
+    local storage, IndexedDB, cache storage and service workers of PubMed and
+    NCBI pages only. Your cookies, history, passwords, form data, downloads and
+    other sites' data are <strong>not</strong> touched, so you stay signed in
+    everywhere. Your language choice is kept, and the tab reopens on the same
+    page.
   </div>
 
   <p>
@@ -166,9 +173,9 @@
   </ol>
 
   <p>
-    Only reach for <em>Reset Extension</em> if the extension is genuinely stuck
-    after all of that, and you're willing to lose your browsing history and
-    active sign-ins.
+    If the extension is still stuck after all of that, <em>Reset Extension</em>
+    is safe to use. The <em>Memory</em> line at the bottom of the popup turns red
+    below 2 GB free; closing applications you are not using usually helps.
   </p>
 
   <h2 id="diagnostics">Gathering details for a bug report</h2>
