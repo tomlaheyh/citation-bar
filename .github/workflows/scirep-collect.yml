@@ -1,0 +1,52 @@
+name: Sci Rep daily collect
+
+# Daily at 16:00 UTC. Pulls Scientific Reports articles per day by [crdt] from
+# 2026-11-01 through yesterday (UTC) and rewrites the whole CSV, since recent
+# days keep rising for a while. Drift, summary and filters collectors use
+# 13:00, 14:00 and 15:00, so 16:00 avoids committing from the same base.
+on:
+  schedule:
+    - cron: "0 16 * * *"
+  workflow_dispatch:        # re-fire by hand if a run fails
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scirep-collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Pull Sci Rep daily counts
+        env:
+          NO_PAUSE: "1"                                   # no console to read
+          NCBI_EMAIL: ${{ secrets.NCBI_EMAIL }}
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+        run: python scripts/pull_sci_rep_daily.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "scirep-collector"
+          git config user.email "actions@users.noreply.github.com"
+          git add journal-ranking/sci-rep-daily.csv
+          if git diff --staged --quiet; then
+            echo "no change"
+          else
+            git commit -m "scirep: $(date -u +%Y-%m-%d) daily refresh"
+            # retry: another collector may have pushed meanwhile, or GitHub may
+            # reject the push with a transient server error
+            for attempt in 1 2 3; do
+              git pull --rebase && git push && exit 0
+              sleep 30
+            done
+            exit 1
+          fi

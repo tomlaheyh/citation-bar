@@ -351,6 +351,16 @@
     border-top: 1px solid var(--border);
     line-height: 1.6;
   }
+  /* Sci Rep daily [crdt] chart */
+  #sciRepPanel { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; }
+  #sciRepPanel.open { display: block; }
+  #sciRepPanel .sr-title { font-weight: 600; font-size: 0.9rem; }
+  #sciRepPanel .sr-sub { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; }
+  #sciRepChart svg { display: block; width: 100%; height: auto; }
+  #sciRepChart .bar { fill: var(--accent); }
+  #sciRepChart .bar:hover { fill: #3b5bdb; }
+  #sciRepChart text { font-size: 10px; fill: var(--text-muted); font-family: inherit; }
+  #sciRepChart .grid { stroke: var(--border); stroke-width: 1; }
 </style>
 </head>
 <body>
@@ -360,7 +370,13 @@
   <div style="display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:10px">
     <span style="font-size:0.82rem;color:var(--text-muted)" id="statusText">Loading...</span>
     <span style="font-size:0.82rem;color:var(--text-muted)" id="reportPeriod"></span>
+    <button class="btn" id="sciRepBtn" onclick="toggleSciRep()">Sci Rep daily</button>
     <button class="btn" id="exportBtn" onclick="exportCSV()" disabled>Export CSV</button>
+  </div>
+  <div id="sciRepPanel">
+    <div class="sr-title">Scientific Reports: articles per day by create date [crdt]</div>
+    <div class="sr-sub" id="sciRepSub">Loading...</div>
+    <div id="sciRepChart"></div>
   </div>
   <div id="flagNotes"></div>
   <div class="note-bar" style="margin-bottom:12px">Journals ranked by total articles YTD. SJR is the SCImago Journal Rank (annual prestige metric); click an SJR value to open the journal's SCImago profile. Medline %, Free Full Text %, and ORCID % are ratios for articles in that journal. Retractions counts retracted journal articles (by last-revised date) over the same period; a "W" value (e.g. W25) instead shows withdrawals, matched from PubMed's "WITHDRAWN:" title text. PubMed has no official withdrawal field, so the W count is an approximate, best-effort signal rather than an exact figure. Monthly columns show article counts by create date. ▲▼ beside Total compares it with the same months of the prior year; "new" means the journal had no articles then. For the top 1,000 journals, hover over Total to see Crossref's DOI count for the same period.</div>
@@ -957,6 +973,53 @@ function attachScrollListener() {
       appendNextPage();
     }
   });
+}
+
+// Sci Rep daily [crdt] chart. Data: sci-rep-daily.csv (date,articles), written
+// daily by scripts/pull_sci_rep_daily.py. Loaded on first open only.
+let SCIREP_LOADED = false;
+async function toggleSciRep() {
+  const panel = document.getElementById('sciRepPanel');
+  panel.classList.toggle('open');
+  if (!panel.classList.contains('open') || SCIREP_LOADED) return;
+  const sub = document.getElementById('sciRepSub');
+  try {
+    const resp = await fetch('sci-rep-daily.csv?_=' + Date.now());
+    if (!resp.ok) throw new Error('data file not found');
+    const rows = (await resp.text()).trim().split(/\r?\n/).slice(1)
+      .map(l => l.split(',')).filter(c => c.length >= 2 && c[1] !== '')
+      .map(c => ({ date: c[0], n: Number(c[1]) }));
+    if (!rows.length) throw new Error('no days in file yet');
+    SCIREP_LOADED = true;
+    const total = rows.reduce((a, r) => a + r.n, 0);
+    sub.textContent = `${rows[0].date} to ${rows[rows.length - 1].date}: ${total.toLocaleString()} articles over ${rows.length} days. ` +
+      'Recent days may still rise as PubMed records are added.';
+    drawSciRep(rows);
+  } catch (e) {
+    sub.textContent = 'Could not load daily counts: ' + e.message;
+  }
+}
+
+function drawSciRep(rows) {
+  const W = 900, H = 220, L = 44, R = 8, T = 10, B = 34;
+  const max = Math.max(1, ...rows.map(r => r.n));
+  const step = Math.pow(10, Math.floor(Math.log10(max)));
+  const tick = max / step > 5 ? step * 2 : (max / step > 2 ? step : step / 2);
+  const top = Math.ceil(max / tick) * tick;
+  const pw = W - L - R, ph = H - T - B, bw = pw / rows.length;
+  const y = v => T + ph - (v / top) * ph;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Scientific Reports articles per day">`;
+  for (let v = 0; v <= top; v += tick) {
+    svg += `<line class="grid" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/>`;
+    svg += `<text x="${L - 6}" y="${y(v) + 3}" text-anchor="end">${v.toLocaleString()}</text>`;
+  }
+  const every = Math.ceil(rows.length / 15);
+  rows.forEach((r, i) => {
+    const x = L + i * bw, h = (r.n / top) * ph;
+    svg += `<rect class="bar" x="${x + bw * 0.12}" y="${y(r.n)}" width="${bw * 0.76}" height="${h}"><title>${r.date}: ${r.n.toLocaleString()} articles</title></rect>`;
+    if (i % every === 0) svg += `<text x="${x + bw / 2}" y="${H - B + 14}" text-anchor="middle">${r.date.slice(5)}</text>`;
+  });
+  document.getElementById('sciRepChart').innerHTML = svg + '</svg>';
 }
 
 window.addEventListener('DOMContentLoaded', init);
