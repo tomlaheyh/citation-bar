@@ -424,7 +424,6 @@ let sortDir = 'asc'; // rank is ascending by default
 let REPORT_YEAR = new Date().getFullYear();
 let REPORT_PERIOD = '';  // e.g. "Jan-Sep", from the stamp; used in the Crossref hover
 let LINK_RANGE = '';
-let LAST_IDX = 11;       // last month index with data; picks the daily-chart fetch route
 let RAW_CSV = '';        // the data file exactly as fetched; Export hands this back
 
 // ISSN -> SCImago Sourceid, loaded client-side from SJR.csv (same file the
@@ -950,7 +949,6 @@ async function init() {
     GRAND = computeGrand(allRows, priorAll, meta && meta.priorYear);
     // Link range always reflects the data window (never the clock).
     LINK_RANGE = buildLinkRange(REPORT_YEAR, lastIdx);
-    LAST_IDX = lastIdx;
 
     document.title = `PubMed Journal Ranking ${REPORT_YEAR}`;
     document.getElementById('reportPeriod').textContent =
@@ -1059,29 +1057,22 @@ async function openDaily(issn) {
   const blank = () => ({ regular: 0, retraction: 0, correction: 0, other: 0 });
 
   try {
-    // Route from the report's last two months; a blank month is no data, not zero.
-    const m1 = row ? row.months[LAST_IDX] : null, m0 = row && LAST_IDX > 0 ? row.months[LAST_IDX - 1] : null;
-    const est = (m1 === null || m0 === null) ? null : m1 + m0;
-    let large = est !== null && est > DAILY_SMALL_MAX;
-
-    if (!large) {
-      sub.textContent = 'Searching PubMed…';
-      const s = await ncbi('esearch.fcgi', { db: 'pubmed', term: `${issn}[ta] AND ${range}`, usehistory: 'y', retmax: 0, retmode: 'json' });
-      if (run !== DAILY_RUN) return;
-      const n = parseInt(s.esearchresult.count) || 0;
-      if (n > DAILY_SMALL_MAX) large = true;
-      else {
-        if (n > 0) {
-          sub.textContent = `Fetching ${n.toLocaleString()} records…`;
-          const txt = await ncbi('efetch.fcgi', { db: 'pubmed', query_key: s.esearchresult.querykey, WebEnv: s.esearchresult.webenv, rettype: 'medline', retmode: 'text', retmax: 10000 });
-          if (run !== DAILY_RUN) return;
-          days.forEach(d => d.c = blank());
-          parseMedline(txt).forEach(r => { if (byDate[r.date]) byDate[r.date].c[r.kind]++; });
-        } else days.forEach(d => d.c = blank());
-        draw();
-        summarizeDaily(days);
-        return;
-      }
+    // One 60-day count picks the route. Small journals reuse this search to fetch their records.
+    sub.textContent = 'Searching PubMed…';
+    const s0 = await ncbi('esearch.fcgi', { db: 'pubmed', term: `${issn}[ta] AND ${range}`, usehistory: 'y', retmax: 0, retmode: 'json' });
+    if (run !== DAILY_RUN) return;
+    const n = parseInt(s0.esearchresult.count) || 0;
+    if (n <= DAILY_SMALL_MAX) {
+      if (n > 0) {
+        sub.textContent = `Fetching ${n.toLocaleString()} records…`;
+        const txt = await ncbi('efetch.fcgi', { db: 'pubmed', query_key: s0.esearchresult.querykey, WebEnv: s0.esearchresult.webenv, rettype: 'medline', retmode: 'text', retmax: 10000 });
+        if (run !== DAILY_RUN) return;
+        days.forEach(d => d.c = blank());
+        parseMedline(txt).forEach(r => { if (byDate[r.date]) byDate[r.date].c[r.kind]++; });
+      } else days.forEach(d => d.c = blank());
+      draw();
+      summarizeDaily(days);
+      return;
     }
 
     // Large journal: notices first (one search + fetch), then a count per day, newest first.
