@@ -195,10 +195,14 @@
     font-weight: 500;
   }
 
+  /* Daily-chart icon after the ISSN */
+  .daily-btn { background: none; border: 0; padding: 0 0 0 4px; color: var(--accent); vertical-align: middle; line-height: 0; }
+  .daily-btn svg { width: 10px; height: 10px; }
+
   /* Journal title: one line, cut off with an ellipsis; full name on hover */
   tbody td:nth-child(4) .jt {
     display: inline-block;
-    max-width: 150px;
+    max-width: 136px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -351,16 +355,16 @@
     border-top: 1px solid var(--border);
     line-height: 1.6;
   }
-  /* Sci Rep daily [crdt] chart */
-  #sciRepPanel { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; }
-  #sciRepPanel.open { display: block; }
-  #sciRepPanel .sr-title { font-weight: 600; font-size: 0.9rem; }
-  #sciRepPanel .sr-sub { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; }
-  #sciRepChart svg { display: block; width: 100%; height: auto; }
-  #sciRepChart .bar { fill: var(--accent); }
-  #sciRepChart .bar:hover { fill: #3b5bdb; }
-  #sciRepChart text { font-size: 10px; fill: var(--text-muted); font-family: inherit; }
-  #sciRepChart .grid { stroke: var(--border); stroke-width: 1; }
+  /* Per-journal daily [crdt] chart, opened from the icon after the ISSN */
+  #dailyPanel { display: none; position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; }
+  #dailyPanel .daily-close { position: absolute; top: 4px; right: 8px; background: none; border: 0; font-size: 1.3rem; line-height: 1; color: var(--text-muted); padding: 2px 4px; }
+  #dailyPanel .daily-close:hover { color: var(--text); }
+  #dailyPanel.open { display: block; }
+  #dailyPanel .sr-title { font-weight: 600; font-size: 0.9rem; padding-right: 24px; }
+  #dailyPanel .sr-sub { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; }
+  #dailyChart svg { display: block; width: 100%; height: auto; }
+  #dailyChart text { font-size: 10px; fill: var(--text-muted); font-family: inherit; }
+  #dailyChart .grid { stroke: var(--border); stroke-width: 1; }
 </style>
 </head>
 <body>
@@ -370,13 +374,13 @@
   <div style="display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:10px">
     <span style="font-size:0.82rem;color:var(--text-muted)" id="statusText">Loading...</span>
     <span style="font-size:0.82rem;color:var(--text-muted)" id="reportPeriod"></span>
-    <button class="btn" id="sciRepBtn" onclick="toggleSciRep()">Sci Rep daily</button>
     <button class="btn" id="exportBtn" onclick="exportCSV()" disabled>Export CSV</button>
   </div>
-  <div id="sciRepPanel">
-    <div class="sr-title">Scientific Reports: articles per day by create date [crdt]</div>
-    <div class="sr-sub" id="sciRepSub">Loading...</div>
-    <div id="sciRepChart"></div>
+  <div id="dailyPanel">
+    <button class="daily-close" onclick="closeDaily()" title="Close chart" aria-label="Close chart">&times;</button>
+    <div class="sr-title" id="dailyTitle"></div>
+    <div class="sr-sub" id="dailySub"></div>
+    <div id="dailyChart"></div>
   </div>
   <div id="flagNotes"></div>
   <div class="note-bar" style="margin-bottom:12px">Journals ranked by total articles YTD. SJR is the SCImago Journal Rank (annual prestige metric); click an SJR value to open the journal's SCImago profile. Medline %, Free Full Text %, and ORCID % are ratios for articles in that journal. Retractions counts retracted journal articles (by last-revised date) over the same period; a "W" value (e.g. W25) instead shows withdrawals, matched from PubMed's "WITHDRAWN:" title text. PubMed has no official withdrawal field, so the W count is an approximate, best-effort signal rather than an exact figure. Monthly columns show article counts by create date. ▲▼ beside Total compares it with the same months of the prior year; "new" means the journal had no articles then. For the top 1,000 journals, hover over Total to see Crossref's DOI count for the same period.</div>
@@ -420,6 +424,7 @@ let sortDir = 'asc'; // rank is ascending by default
 let REPORT_YEAR = new Date().getFullYear();
 let REPORT_PERIOD = '';  // e.g. "Jan-Sep", from the stamp; used in the Crossref hover
 let LINK_RANGE = '';
+let LAST_IDX = 11;       // last month index with data; picks the daily-chart fetch route
 let RAW_CSV = '';        // the data file exactly as fetched; Export hands this back
 
 // ISSN -> SCImago Sourceid, loaded client-side from SJR.csv (same file the
@@ -704,7 +709,10 @@ function buildRowHTML(r, dateRange) {
   titleCell = `<span class="jt" title="${attr(r.title)}">${titleCell}</span>`;
   let row = `<tr${rowCls}>`;
   row += `<td>${r.rank}</td>`;
-  row += `<td>${r.issn}</td>`;
+  const dailyBtn = isValidISSN
+    ? `<button class="daily-btn" onclick="openDaily('${r.issn}')" title="Daily: records added to PubMed per day over the last 60 days (fetched live from PubMed)"><svg viewBox="0 0 10 10" fill="currentColor"><rect x="0" y="5" width="2" height="5"/><rect x="4" y="2" width="2" height="8"/><rect x="8" y="0" width="2" height="10"/></svg></button>`
+    : '';
+  row += `<td>${r.issn}${dailyBtn}</td>`;
   // SJR cell: link to the journal's SCImago profile when we have a Sourceid.
   // URL format mirrors the extension's getSJRdata.js exactly (incl. text fragment).
   let sjrCell = '';
@@ -942,6 +950,7 @@ async function init() {
     GRAND = computeGrand(allRows, priorAll, meta && meta.priorYear);
     // Link range always reflects the data window (never the clock).
     LINK_RANGE = buildLinkRange(REPORT_YEAR, lastIdx);
+    LAST_IDX = lastIdx;
 
     document.title = `PubMed Journal Ranking ${REPORT_YEAR}`;
     document.getElementById('reportPeriod').textContent =
@@ -975,51 +984,184 @@ function attachScrollListener() {
   });
 }
 
-// Sci Rep daily [crdt] chart. Data: sci-rep-daily.csv (date,articles), written
-// daily by scripts/pull_sci_rep_daily.py. Loaded on first open only.
-let SCIREP_LOADED = false;
-async function toggleSciRep() {
-  const panel = document.getElementById('sciRepPanel');
-  panel.classList.toggle('open');
-  if (!panel.classList.contains('open') || SCIREP_LOADED) return;
-  const sub = document.getElementById('sciRepSub');
-  try {
-    const resp = await fetch('sci-rep-daily.csv?_=' + Date.now());
-    if (!resp.ok) throw new Error('data file not found');
-    const rows = (await resp.text()).trim().split(/\r?\n/).slice(1)
-      .map(l => l.split(',')).filter(c => c.length >= 2 && c[1] !== '')
-      .map(c => ({ date: c[0], n: Number(c[1]) }));
-    if (!rows.length) throw new Error('no days in file yet');
-    SCIREP_LOADED = true;
-    const total = rows.reduce((a, r) => a + r.n, 0);
-    sub.textContent = `${rows[0].date} to ${rows[rows.length - 1].date}: ${total.toLocaleString()} articles over ${rows.length} days. ` +
-      'Recent days may still rise as PubMed records are added.';
-    drawSciRep(rows);
-  } catch (e) {
-    sub.textContent = 'Could not load daily counts: ' + e.message;
+// ---- Per-journal daily chart, pulled live from PubMed in the visitor's browser ----
+// No API key: NCBI allows 3 requests/sec per IP, so calls are spaced 400 ms apart.
+const EUTILS = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
+const DAILY_DAYS = 60, DAILY_SMALL_MAX = 1000;
+// Notice types, in the order a record carrying more than one is counted.
+const DAILY_KINDS = [
+  { key: 'retraction', label: 'Retraction', pt: 'Retraction of Publication', color: '#dc2626' },
+  { key: 'correction', label: 'Correction', pt: 'Published Erratum', color: '#d97706' },
+  { key: 'other', label: 'Concern', pt: 'Expression of Concern', color: '#94a3b8' }
+];
+const DAILY_REGULAR_COLOR = 'var(--accent)';
+let DAILY_RUN = 0, DAILY_ISSN = '', ncbiLast = 0;
+
+async function ncbi(path, params) {
+  const url = EUTILS + path + '?' + new URLSearchParams(params);
+  // Over the limit, NCBI answers 429, often without CORS headers, so the
+  // browser reports it as a failed fetch. Treat both as "back off and retry".
+  for (let attempt = 0; ; attempt++) {
+    const wait = ncbiLast + 400 - Date.now();
+    if (wait > 0) await new Promise(r => setTimeout(r, wait));
+    ncbiLast = Date.now();
+    let resp = null;
+    try { resp = await fetch(url); } catch (e) { /* network/CORS failure */ }
+    if (resp && resp.ok) return params.retmode === 'json' ? resp.json() : resp.text();
+    if (attempt >= 3) throw new Error(resp ? 'PubMed returned ' + resp.status : 'PubMed could not be reached');
+    ncbiLast = Date.now() + 1500 * (attempt + 1);
   }
 }
 
-function drawSciRep(rows) {
-  const W = 900, H = 220, L = 44, R = 8, T = 10, B = 34;
-  const max = Math.max(1, ...rows.map(r => r.n));
+const ymd = d => `${d.getFullYear()}/${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`;
+
+// MEDLINE text -> [{ date: 'YYYY/MM/DD', kind }] using the CRDT and PT lines.
+function parseMedline(text) {
+  return text.split(/\r?\n\r?\n/).map(rec => {
+    const crdt = /^CRDT- (\d{4}\/\d{2}\/\d{2})/m.exec(rec);
+    if (!crdt) return null;
+    const pts = [...rec.matchAll(/^PT  - (.+)$/gm)].map(m => m[1].trim());
+    const k = DAILY_KINDS.find(k => pts.includes(k.pt));
+    return { date: crdt[1], kind: k ? k.key : 'regular' };
+  }).filter(Boolean);
+}
+
+// Close the panel and stop any fetch still running for it.
+function closeDaily() {
+  document.getElementById('dailyPanel').classList.remove('open'); DAILY_RUN++; DAILY_ISSN = '';
+}
+
+async function openDaily(issn) {
+  const panel = document.getElementById('dailyPanel');
+  if (panel.classList.contains('open') && DAILY_ISSN === issn) {   // same icon again closes it
+    closeDaily(); return;
+  }
+  const run = ++DAILY_RUN;
+  DAILY_ISSN = issn;
+  const row = allRows.find(r => r.issn === issn);
+  const sub = document.getElementById('dailySub');
+  document.getElementById('dailyTitle').textContent =
+    `${row ? row.title : issn} (${issn}): records per day by create date [crdt], last ${DAILY_DAYS} days`;
+  document.getElementById('dailyChart').innerHTML = '';
+  panel.classList.add('open');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  // Days oldest -> newest; each holds counts per kind, null until fetched.
+  const today = new Date();
+  const days = [];
+  for (let i = DAILY_DAYS - 1; i >= 0; i--) {
+    const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+    days.push({ date: ymd(d), c: null });
+  }
+  const range = `${days[0].date}:${days[days.length - 1].date}[crdt]`;
+  const byDate = Object.fromEntries(days.map(d => [d.date, d]));
+  const draw = () => { if (run === DAILY_RUN) drawDaily(days); };
+  const blank = () => ({ regular: 0, retraction: 0, correction: 0, other: 0 });
+
+  try {
+    // Route from the report's last two months; a blank month is no data, not zero.
+    const m1 = row ? row.months[LAST_IDX] : null, m0 = row && LAST_IDX > 0 ? row.months[LAST_IDX - 1] : null;
+    const est = (m1 === null || m0 === null) ? null : m1 + m0;
+    let large = est !== null && est > DAILY_SMALL_MAX;
+
+    if (!large) {
+      sub.textContent = 'Searching PubMed…';
+      const s = await ncbi('esearch.fcgi', { db: 'pubmed', term: `${issn}[ta] AND ${range}`, usehistory: 'y', retmax: 0, retmode: 'json' });
+      if (run !== DAILY_RUN) return;
+      const n = parseInt(s.esearchresult.count) || 0;
+      if (n > DAILY_SMALL_MAX) large = true;
+      else {
+        if (n > 0) {
+          sub.textContent = `Fetching ${n.toLocaleString()} records…`;
+          const txt = await ncbi('efetch.fcgi', { db: 'pubmed', query_key: s.esearchresult.querykey, WebEnv: s.esearchresult.webenv, rettype: 'medline', retmode: 'text', retmax: 10000 });
+          if (run !== DAILY_RUN) return;
+          days.forEach(d => d.c = blank());
+          parseMedline(txt).forEach(r => { if (byDate[r.date]) byDate[r.date].c[r.kind]++; });
+        } else days.forEach(d => d.c = blank());
+        draw();
+        summarizeDaily(days);
+        return;
+      }
+    }
+
+    // Large journal: notices first (one search + fetch), then a count per day, newest first.
+    sub.textContent = 'Searching PubMed for corrections, retractions and other notices…';
+    const ptTerm = DAILY_KINDS.map(k => `"${k.pt}"[pt]`).join(' OR ');
+    const s = await ncbi('esearch.fcgi', { db: 'pubmed', term: `${issn}[ta] AND (${ptTerm}) AND ${range}`, usehistory: 'y', retmax: 0, retmode: 'json' });
+    if (run !== DAILY_RUN) return;
+    const notices = {};
+    if ((parseInt(s.esearchresult.count) || 0) > 0) {
+      const txt = await ncbi('efetch.fcgi', { db: 'pubmed', query_key: s.esearchresult.querykey, WebEnv: s.esearchresult.webenv, rettype: 'medline', retmode: 'text', retmax: 10000 });
+      if (run !== DAILY_RUN) return;
+      parseMedline(txt).forEach(r => {
+        if (r.kind === 'regular') return;
+        (notices[r.date] = notices[r.date] || blank())[r.kind]++;
+      });
+    }
+    for (let i = days.length - 1; i >= 0; i--) {
+      sub.textContent = `Fetching day ${days.length - i} of ${days.length} (newest first)…`;
+      const r = await ncbi('esearch.fcgi', { db: 'pubmed', term: `${issn}[ta] AND ${days[i].date}[crdt]`, rettype: 'count', retmode: 'json' });
+      if (run !== DAILY_RUN) return;
+      const total = parseInt(r.esearchresult.count) || 0;
+      const c = notices[days[i].date] || blank();
+      c.regular = Math.max(0, total - c.retraction - c.correction - c.other);
+      days[i].c = c;
+      draw();
+    }
+    summarizeDaily(days);
+  } catch (e) {
+    if (run === DAILY_RUN) sub.textContent = 'Could not load daily counts from PubMed: ' + e.message;
+  }
+}
+
+function summarizeDaily(days) {
+  const t = blank => days.reduce((s, d) => s + (d.c ? d.c[blank] : 0), 0);
+  const parts = [`regular ${t('regular').toLocaleString()}`].concat(DAILY_KINDS.map(k => `${k.label.toLowerCase()} ${t(k.key).toLocaleString()}`));
+  const all = ['regular', ...DAILY_KINDS.map(k => k.key)].reduce((s, k) => s + t(k), 0);
+  document.getElementById('dailySub').textContent =
+    `${days[0].date} to ${days[days.length - 1].date}: ${all.toLocaleString()} records (${parts.join(', ')}). Recent days may still rise as PubMed records are added.`;
+}
+
+function drawDaily(days) {
+  const W = 900, H = 236, L = 44, R = 8, T = 22, B = 34;
+  const series = [{ key: 'regular', label: 'Regular', color: DAILY_REGULAR_COLOR }, ...DAILY_KINDS];
+  const sum = d => d.c ? series.reduce((s, k) => s + d.c[k.key], 0) : 0;
+  const max = Math.max(1, ...days.map(sum));
   const step = Math.pow(10, Math.floor(Math.log10(max)));
   const tick = max / step > 5 ? step * 2 : (max / step > 2 ? step : step / 2);
   const top = Math.ceil(max / tick) * tick;
-  const pw = W - L - R, ph = H - T - B, bw = pw / rows.length;
+  const pw = W - L - R, ph = H - T - B, bw = pw / days.length;
   const y = v => T + ph - (v / top) * ph;
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Scientific Reports articles per day">`;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Records per day">`;
+  // Legend
+  let lx = L;
+  series.forEach(k => {
+    svg += `<rect x="${lx}" y="4" width="10" height="10" style="fill:${k.color}"/><text x="${lx + 14}" y="13">${k.label}</text>`;
+    lx += 14 + k.label.length * 6 + 16;
+  });
   for (let v = 0; v <= top; v += tick) {
     svg += `<line class="grid" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/>`;
     svg += `<text x="${L - 6}" y="${y(v) + 3}" text-anchor="end">${v.toLocaleString()}</text>`;
   }
-  const every = Math.ceil(rows.length / 15);
-  rows.forEach((r, i) => {
-    const x = L + i * bw, h = (r.n / top) * ph;
-    svg += `<rect class="bar" x="${x + bw * 0.12}" y="${y(r.n)}" width="${bw * 0.76}" height="${h}"><title>${r.date}: ${r.n.toLocaleString()} articles</title></rect>`;
-    if (i % every === 0) svg += `<text x="${x + bw / 2}" y="${H - B + 14}" text-anchor="middle">${r.date.slice(5)}</text>`;
+  const every = Math.ceil(days.length / 15);
+  days.forEach((d, i) => {
+    const x = L + i * bw;
+    if (d.c) {
+      const tip = `${d.date}: ${sum(d).toLocaleString()} records (` + series.map(k => `${k.label.toLowerCase()} ${d.c[k.key]}`).join(', ') + '). Click to open in PubMed';
+      const href = 'https://pubmed.ncbi.nlm.nih.gov/?term=' + encodeURIComponent(`${DAILY_ISSN}[ta] AND ${d.date}[crdt]`);
+      let acc = 0;
+      svg += `<a href="${href}" target="_blank"><g><title>${tip}</title>`;
+      series.forEach(k => {
+        const v = d.c[k.key];
+        if (!v) return;
+        svg += `<rect x="${x + bw * 0.12}" y="${y(acc + v)}" width="${bw * 0.76}" height="${(v / top) * ph}" style="fill:${k.color}"/>`;
+        acc += v;
+      });
+      svg += '</g></a>';
+    }
+    if (i % every === 0) svg += `<text x="${x + bw / 2}" y="${H - B + 14}" text-anchor="middle">${d.date.slice(5)}</text>`;
   });
-  document.getElementById('sciRepChart').innerHTML = svg + '</svg>';
+  document.getElementById('dailyChart').innerHTML = svg + '</svg>';
 }
 
 window.addEventListener('DOMContentLoaded', init);
